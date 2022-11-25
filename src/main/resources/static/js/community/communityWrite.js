@@ -9,6 +9,17 @@ const $exchangeFilter = $(".exchange_filter_1h");
 //교환 필터안 리스트들의 모임
 const $exchangeFilterLi = $(".exchange_filter_1h li");
 
+let text ="";
+
+// editor js에 작성된 글들 저장하는 끔찍한 방법
+$(".Button-bqxlp0-0.fFBpBV").click(function(){
+    for(let i = 0; i<$(".cdx-block").length;i++){
+        text += "<p>" + $(".cdx-block").eq(i).html()+"</p>";
+    }
+    console.log(text);
+    $(".cdx-block").html(text);
+})
+
 
 $postFilterLi.click(function () {
     var text = $(this).text();

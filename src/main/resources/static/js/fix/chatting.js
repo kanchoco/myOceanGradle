@@ -16,7 +16,6 @@ function checkChatMedia(){
         //채팅 내역에서 날짜 옆 선 길이 조정
         $chatDateLine.attr("class", "dayInfo media");
 
-
     } else{
         //채팅창 썸네일 이미지 살리기
         $(".chatThumb").css("display", "block");
