@@ -1,5 +1,6 @@
 package com.example.myoceanproject.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -33,13 +34,21 @@ public class Diary extends Period{
     }
 
 
-    public void changeUser(User user){
-        this.user = user;
-        user.getDiaries().add(this);
-    }
-    public void changeReceiverUser(User receiverUser){
+//    public void changeUser(User user){
+//        this.user = user;
+//        user.getDiaries().add(this);
+//    }
+//    public void changeReceiverUser(User receiverUser){
+//
+//        this.receiverUser = receiverUser;
+//        receiverUser.getDiaries().add(this);
+//    }
 
+    @Builder
+    public Diary(User user, String diaryTitle, String diaryContent, User receiverUser) {
+        this.user = user;
+        this.diaryTitle = diaryTitle;
+        this.diaryContent = diaryContent;
         this.receiverUser = receiverUser;
-        receiverUser.getDiaries().add(this);
     }
 }

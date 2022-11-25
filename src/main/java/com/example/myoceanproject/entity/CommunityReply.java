@@ -1,5 +1,6 @@
 package com.example.myoceanproject.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -22,16 +23,22 @@ public class CommunityReply extends Period{
     private User user; //FK
     private String communityReplyContent;
 
-    public CommunityReply(Long communityReplyId, CommunityPost communityPost, User user, String communityReplyContent) {
-        this.communityReplyId = communityReplyId;
+//    public CommunityReply(Long communityReplyId, CommunityPost communityPost, User user, String communityReplyContent) {
+//        this.communityReplyId = communityReplyId;
+//        this.communityPost = communityPost;
+//        this.user = user;
+//        this.communityReplyContent = communityReplyContent;
+//    }
+//
+//    public void changeCommunityPost(CommunityPost communityPost){
+//        this.communityPost = communityPost;
+//    }
+
+
+    @Builder
+    public CommunityReply(CommunityPost communityPost, User user, String communityReplyContent) {
         this.communityPost = communityPost;
         this.user = user;
         this.communityReplyContent = communityReplyContent;
     }
-
-    public void changeCommunityPost(CommunityPost communityPost){
-        this.communityPost = communityPost;
-    }
-
-
 }

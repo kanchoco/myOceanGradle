@@ -1,5 +1,6 @@
 package com.example.myoceanproject.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -12,7 +13,7 @@ import javax.persistence.*;
 public class CommunityLike extends Period{
     @Id
     @GeneratedValue
-    private Long communityLikeNumber;
+    private Long communityLikeId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COMMUNITY_POST_ID")
@@ -21,17 +22,24 @@ public class CommunityLike extends Period{
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    public void create(Long communityLikeNumber, CommunityPost communityPost, User user) {
-        this.communityLikeNumber = communityLikeNumber;
-        this.communityPost = communityPost;
-        this.user = user;
-    }
+//    public void create(Long communityLikeNumber, CommunityPost communityPost, User user) {
+//        this.communityLikeNumber = communityLikeNumber;
+//        this.communityPost = communityPost;
+//        this.user = user;
+//    }
 
-    public void changeCommunityPost(CommunityPost communityPost){
-        this.communityPost = communityPost;
-    }
+//    public void changeCommunityPost(CommunityPost communityPost){
+//        this.communityPost = communityPost;
+//    }
+//
+//    public void changeUser(User user){
+//        this.user = user;
+//    }
 
-    public void changeUser(User user){
+
+    @Builder
+    public CommunityLike(CommunityPost communityPost, User user) {
+        this.communityPost = communityPost;
         this.user = user;
     }
 }

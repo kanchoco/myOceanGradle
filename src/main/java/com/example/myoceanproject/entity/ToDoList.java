@@ -1,5 +1,6 @@
 package com.example.myoceanproject.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -22,15 +23,23 @@ public class ToDoList extends Period{
     private String toDoListContent;
     private LocalDateTime toDoListSelectDate;
 
-    public void create(Long toDoListId, User user, String toDoListContent, LocalDateTime toDoListSelectDate) {
-        this.toDoListId = toDoListId;
+//    public void create(Long toDoListId, User user, String toDoListContent, LocalDateTime toDoListSelectDate) {
+//        this.toDoListId = toDoListId;
+//        this.user = user;
+//        this.toDoListContent = toDoListContent;
+//        this.toDoListSelectDate = toDoListSelectDate;
+//    }
+//
+//    public void changeUser(User user){
+//        this.user = user;
+//        user.getToDoLists().add(this);
+//    }
+
+
+    @Builder
+    public ToDoList(User user, String toDoListContent, LocalDateTime toDoListSelectDate) {
         this.user = user;
         this.toDoListContent = toDoListContent;
         this.toDoListSelectDate = toDoListSelectDate;
-    }
-
-    public void changeUser(User user){
-        this.user = user;
-        user.getToDoLists().add(this);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.myoceanproject.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -18,13 +19,19 @@ public class Point extends Period{
     private User user; //FK
     private String pointAmountHistory;
 
-    public void create(Long pointId, User user, String pointAmountHistory) {
-        this.pointId = pointId;
+//    public void create(Long pointId, User user, String pointAmountHistory) {
+//        this.pointId = pointId;
+//        this.user = user;
+//        this.pointAmountHistory = pointAmountHistory;
+//    }
+//
+//    public void changeUser(User user){
+//        this.user = user;
+//    }
+
+    @Builder
+    public Point(User user, String pointAmountHistory) {
         this.user = user;
         this.pointAmountHistory = pointAmountHistory;
-    }
-
-    public void changeUser(User user){
-        this.user = user;
     }
 }

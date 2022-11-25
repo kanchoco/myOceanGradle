@@ -3,6 +3,7 @@ package com.example.myoceanproject.entity;
 import com.example.myoceanproject.embeddable.File;
 import com.example.myoceanproject.type.GroupLocationType;
 import com.example.myoceanproject.type.GroupStatus;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -32,8 +33,25 @@ public class Group extends Period{
 
 
 
-    public void create(Long groupId, User user, String groupName, String groupCategory, String groupContent, int groupPoint, String groupLocation, GroupLocationType groupLocationType, GroupStatus groupStatus, File file) {
-        this.groupId = groupId;
+//    public void create(Long groupId, User user, String groupName, String groupCategory, String groupContent, int groupPoint, String groupLocation, GroupLocationType groupLocationType, GroupStatus groupStatus, File file) {
+//        this.groupId = groupId;
+//        this.user = user;
+//        this.groupName = groupName;
+//        this.groupCategory = groupCategory;
+//        this.groupContent = groupContent;
+//        this.groupPoint = groupPoint;
+//        this.groupLocation = groupLocation;
+//        this.groupLocationType = groupLocationType;
+//        this.groupStatus = groupStatus;
+//        this.file = file;
+//    }
+//    public void changeUser(User user){
+//        this.user = user;
+//        user.getGroups().add(this);
+//    }
+
+    @Builder
+    public Group(User user, String groupName, String groupCategory, String groupContent, int groupPoint, String groupLocation, GroupLocationType groupLocationType, GroupStatus groupStatus, File file) {
         this.user = user;
         this.groupName = groupName;
         this.groupCategory = groupCategory;
@@ -43,9 +61,5 @@ public class Group extends Period{
         this.groupLocationType = groupLocationType;
         this.groupStatus = groupStatus;
         this.file = file;
-    }
-    public void changeUser(User user){
-        this.user = user;
-        user.getGroups().add(this);
     }
 }

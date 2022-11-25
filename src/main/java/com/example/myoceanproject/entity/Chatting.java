@@ -1,6 +1,7 @@
 package com.example.myoceanproject.entity;
 
 import com.example.myoceanproject.type.ReadStatus;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -23,14 +24,21 @@ public class Chatting extends Period{
 
     private ReadStatus readStatus;
 
-    public void create(Long chattingId, Group group, String chattingContent, ReadStatus readStatus) {
-        this.chattingId = chattingId;
+//    public void create(Long chattingId, Group group, String chattingContent, ReadStatus readStatus) {
+//        this.chattingId = chattingId;
+//        this.group = group;
+//        this.chattingContent = chattingContent;
+//        this.readStatus = readStatus;
+//    }
+//
+//    public void changeGroup(Group group){
+//        this.group = group;
+//    }
+
+    @Builder
+    public Chatting(Group group, String chattingContent, ReadStatus readStatus) {
         this.group = group;
         this.chattingContent = chattingContent;
         this.readStatus = readStatus;
-    }
-
-    public void changeGroup(Group group){
-        this.group = group;
     }
 }

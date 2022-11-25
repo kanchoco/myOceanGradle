@@ -1,5 +1,6 @@
 package com.example.myoceanproject.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -26,19 +27,28 @@ public class CommunityPost extends Period{
 @OneToMany(fetch = FetchType.LAZY, mappedBy = "communityPost")
 private List<CommunityFile> communityFiles;
 
-    public void create(Long communityPostId, User user, String communityCategory, String communityTitle, String communityContent, String communityViewNumber) {
-        this.communityPostId = communityPostId;
+//    public void create(Long communityPostId, User user, String communityCategory, String communityTitle, String communityContent, String communityViewNumber) {
+//        this.communityPostId = communityPostId;
+//        this.user = user;
+//        this.communityCategory = communityCategory;
+//        this.communityTitle = communityTitle;
+//        this.communityContent = communityContent;
+//        this.communityViewNumber = communityViewNumber;
+//    }
+//
+//    public void changeUser(User user){
+//
+//        this.user = user;
+//        user.getCommunityPosts().add(this);
+//    }
+
+    @Builder
+    public CommunityPost(User user, String communityCategory, String communityTitle, String communityContent, String communityViewNumber, List<CommunityFile> communityFiles) {
         this.user = user;
         this.communityCategory = communityCategory;
         this.communityTitle = communityTitle;
         this.communityContent = communityContent;
         this.communityViewNumber = communityViewNumber;
+        this.communityFiles = communityFiles;
     }
-
-    public void changeUser(User user){
-
-        this.user = user;
-        user.getCommunityPosts().add(this);
-    }
-
 }
