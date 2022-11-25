@@ -1,9 +1,8 @@
 package com.example.myoceanproject.entity;
 
 import com.example.myoceanproject.embeddable.File;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import com.sun.istack.NotNull;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,14 +10,17 @@ import javax.persistence.*;
 @Table(name = "TBL_COMMUNITY_FILE")
 @Getter
 @ToString(exclude = "communityPost")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CommunityFile extends Period{
     @Id
     @GeneratedValue
     private Long communityFileId; //PK
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COMMUNITY_POST_ID")
+    @NotNull
     private CommunityPost communityPost; //FK
     @Embedded
+    @NotNull
     private File file;
 
 //    public void create(Long communityFileId, CommunityPost communityPost, File file) {
@@ -26,14 +28,22 @@ public class CommunityFile extends Period{
 //        this.communityPost = communityPost;
 //        this.file = file;
 //    }
-//    public void changeCommunityPost(CommunityPost communityPost){
-//        this.communityPost = communityPost;
-//        communityPost.getCommunityFiles().add(this);
-//    }
+    public void changeCommunityPost(CommunityPost communityPost){
+        this.communityPost = communityPost;
+        communityPost.getCommunityFiles().add(this);
+    }
 
     @Builder
     public CommunityFile(CommunityPost communityPost, File file) {
+
         this.communityPost = communityPost;
         this.file = file;
+
+
+
+    }
+
+    public void update(CommunityPost communityPost){
+        this.communityPost = communityPost;
     }
 }

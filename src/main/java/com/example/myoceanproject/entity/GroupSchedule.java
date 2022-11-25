@@ -1,8 +1,7 @@
 package com.example.myoceanproject.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import com.sun.istack.NotNull;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,15 +10,20 @@ import java.time.LocalDateTime;
 @Table(name = "TBL_GROUP_SCHEDULE")
 @Getter
 @ToString(exclude = "group")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class GroupSchedule extends Period{
     @Id
     @GeneratedValue
     private Long groupScheduleId; //PK
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "GROUP_ID")
+    @NotNull
     private Group group; //FK
+    @NotNull
     private LocalDateTime groupScheduleDate;
+    @NotNull
     private LocalDateTime groupScheduleStartTime;
+    @NotNull
     private LocalDateTime groupScheduleEndTime;
 
 //    public void create(Long groupScheduleId, Group group, LocalDateTime groupScheduleDate, LocalDateTime groupScheduleStartTime, LocalDateTime groupScheduleEndTime) {
@@ -30,13 +34,18 @@ public class GroupSchedule extends Period{
 //        this.groupScheduleEndTime = groupScheduleEndTime;
 //    }
 //
-//    public void changeGroup(Group group){
-//        this.group = group;
-//    }
+    public void changeGroup(Group group){
+        this.group = group;
+    }
 
     @Builder
-    public GroupSchedule(Group group, LocalDateTime groupScheduleDate, LocalDateTime groupScheduleStartTime, LocalDateTime groupScheduleEndTime) {
-        this.group = group;
+    public GroupSchedule(LocalDateTime groupScheduleDate, LocalDateTime groupScheduleStartTime, LocalDateTime groupScheduleEndTime) {
+        this.groupScheduleDate = groupScheduleDate;
+        this.groupScheduleStartTime = groupScheduleStartTime;
+        this.groupScheduleEndTime = groupScheduleEndTime;
+    }
+
+    public void update(LocalDateTime groupScheduleDate, LocalDateTime groupScheduleStartTime, LocalDateTime groupScheduleEndTime){
         this.groupScheduleDate = groupScheduleDate;
         this.groupScheduleStartTime = groupScheduleStartTime;
         this.groupScheduleEndTime = groupScheduleEndTime;
