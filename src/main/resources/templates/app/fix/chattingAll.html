@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>채팅창</title>
+    <link rel="stylesheet" href="/css/fix/chatting.css">
+</head>
+<body>
+<div th:fragment="chattingAll">
+    <div class="chattingWrap2">
+        <div class="chattingToggle active callChatNormal"></div>
+    </div>
+
+    <div class="chattingWrap listOff" id="chattingList">
+        <div class="chattingContentWrap ">
+            <div class="chattingHeader">
+                <div class="left leftHead">
+                    <p>채팅 목록</p>
+                </div>
+                <div class="right active rightHead">
+                    <a class="backBtn"></a>
+                    <div class="thumbWrap">
+                        <div class="thumb">
+                            <img loading="lazy" src="/imgin/chat/logo.png" alt="chat_image">
+                        </div>
+                    </div>
+                    <div class="userIdAndTimeInfo">
+                        <p class="userId chattingRoomName">홍**</p>
+                        <div class="morAndFoldBtnWrap">
+<!--                            <div class="moreBtn"></div>-->
+                            <div class="foldChatBtn"></div>
+                        </div>
+                    </div>
+                </div>
+<!--                <div class="foldChatBtn"></div>-->
+            </div>
+            <div class="chattingSection">
+                <div class="list left leftBody">
+                    <ul>
+                        <li class="active leftChattingList">
+                            <div class="thumb chatThumb">
+                                <img src="/imgin/chat/logo.png" alt="chat_image">
+                            </div>
+                            <div class="chatInfo">
+                                <div class="userIdAndBeforeTime">
+                                    <div class="right">
+                                        <span class="userId">노래모임 - 배워서 바로 써먹는 노래</span>
+                                    </div>
+                                </div>
+                                <p class="chatInfoTxt">
+                                    노래 잘 부르는 비법
+                                </p>
+                                <p class="endTime">채팅 기한: 22-11-23 21:00:00</p>
+                            </div>
+                        </li>
+                        <li class="active leftChattingList">
+                            <div class="thumb chatThumb">
+                                <img loading="lazy" src="/imgin/chat/logo.png" alt="chat_image">
+                            </div>
+                            <div class="chatInfo">
+                                <div class="userIdAndBeforeTime">
+                                    <div class="right">
+                                        <span class="userId">운동모임 - 한달간 따라하면 김**처럼 몸짱 가능</span>
+                                    </div>
+                                </div>
+                                <p class="chatInfoTxt">
+                                    운동 할때 스트레칭 필수, 이후는 가입하면 비법 전수
+                                </p>
+                                <p class="endTime">채팅 기한: 22-11-23 21:00:00</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="chattingRoom right active rightBody">
+                    <div class="chattingRoomWrap" style="height: 490px;">
+                        <div class="dayInfo">
+                            <p>22.11.23 월요일</p>
+                        </div>
+
+                        <div class="opponent">
+                            <div class="thumb">
+                                <a href="/people/엔잡쏘" target="_blank">
+                                    <img src="/imgin/chat/logo.png" alt="chat_image">
+                                </a>
+                            </div>
+                            <div class="userIdChatTxt">
+                                <span class="userId">홍**</span>
+                                <div class="chatTxt">
+                                    <span class="chatTxtContents">
+                                        <a style="color: rgb(51, 51, 51);">노래? 누워서 떡먹기지</a>
+                                    </span>
+                                    <div class="timeWrap">
+                                        <span class="time">오후 5:03</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="opponent">
+                            <div class="thumb">
+                                <a href="/people/dddog" target="_blank">
+                                    <img src="/imgin/chat/logo.png" alt="chat_image">
+                                </a>
+                            </div>
+                            <div class="userIdChatTxt">
+                                <span class="userId">배**</span>
+                                <div class="chatTxt">
+                                    <span class="chatTxtContents">
+                                        <a style="color: rgb(51, 51, 51);">우오오오오~~</a>
+                                    </span>
+                                    <div class="timeWrap">
+                                        <span class="time">오후 5:04</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="opponent">
+                            <div class="thumb">
+                                <a href="/people/렛플운영자" target="_blank">
+                                    <img src="/imgin/chat/logo.png" alt="chat_image">
+                                </a>
+                            </div>
+                            <div class="userIdChatTxt">
+                                <span class="userId">김**</span>
+                                <div class="chatTxt">
+                                    <span class="chatTxtContents">
+                                        <a style="color: rgb(51, 51, 51);">&nbsp;</a>
+                                        <a style="color: rgb(51, 51, 51);">역시 준성님~~</a>
+                                    </span>
+                                    <div class="timeWrap">
+                                        <span class="time">오후 5:05</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dayInfo">
+                            <p>22.11.04 화요일</p>
+                        </div>
+                        <div class="opponent">
+                            <div class="thumb">
+                                <a href="/people/ROSA" target="_blank">
+                                    <img src="/imgin/chat/logo.png" alt="chat_image"></a>
+                            </div>
+                            <div class="userIdChatTxt">
+                                <span class="userId">손**</span>
+                                <div class="chatTxt">
+                                    <span class="chatTxtContents">
+                                        <a style="color: rgb(51, 51, 51);">짝짝짝, 역시 준성님!</a>
+                                    </span>
+                                    <div class="timeWrap">
+                                        <span class="time">오후 5:06</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="opponent">
+                            <div class="thumb">
+                                <a href="/people/ROSA" target="_blank">
+                                    <img src="/imgin/chat/logo.png" alt="chat_image">
+                                </a>
+                            </div>
+                            <div class="userIdChatTxt">
+                                <span class="userId">이**</span>
+                                <div class="chatTxt">
+                                    <span class="chatTxtContents">
+                                        <a style="color: rgb(51, 51, 51);">노래 한곡 해주시면 좋을것 같습니다.</a>
+                                    </span>
+                                    <div class="timeWrap">
+                                        <span class="time">오후 5:07</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="opponent">
+                            <div class="thumb">
+                                <a href="/people/렛플운영자" target="_blank">
+                                    <img src="/imgin/chat/logo.png" alt="chat_image">
+                                </a>
+                            </div>
+                            <div class="userIdChatTxt">
+                                <span class="userId">홍**</span>
+                                <div class="chatTxt">
+                                    <span class="chatTxtContents">
+                                        <a style="color: rgb(51, 51, 51);">프로젝트 끝나고 한 번 부른다. 듣고 눈물 흘리지마.</a>
+                                    </span>
+                                    <div class="timeWrap">
+                                        <span class="time">오후 5:08</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="chat_ref_0"></div>
+                    </div>
+                    <div class="chatInputArea">
+                        <div class="mentions mentions--multiLine"
+                             style="position: relative; overflow-y: visible; height: 24px;">
+                            <div class="mentions__control">
+                                <div class="mentions__highlighter"
+                                     style="position: relative; box-sizing: border-box; width: 100%; color: transparent; overflow: hidden; white-space: pre-wrap; overflow-wrap: break-word; border: 1px solid transparent; text-align: start;"></div>
+                                <textarea rows="5" cols="40" class="mentions__input" style="display: block; width: 100%; position: absolute; margin: 0px; top: 0px; left: 0px; box-sizing: border-box; background-color: transparent; font-family: inherit; font-size: inherit; letter-spacing: inherit; height: 100%; bottom: 0px; overflow: hidden; resize: none; padding-top: 6px; outline: none;"></textarea>
+                            </div>
+                        </div>
+                        <button class="buttonComponents_button__1hvQa buttonComponents_circle__2iQ3w buttonComponents_blueBlack__2HIFu  buttonComponents_lgImg__2-hZO " style="width:55px;box-shadow: 0px 3px 16px -1px darkgrey;">
+                            전송
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="chatExitModal">
+        <div class="commonModal chatExit">
+            <div class="inputChattingName">
+
+            </div>
+            <button class="closeBtn"><img loading="lazy" src="https://www.freeiconspng.com/thumbs/sms-icon/sms-icon-16.png" alt="close">
+            </button>
+            <!--            <div class="commonModalContent"><p>원하실때 다시 들어올 수 있습니다</p>-->
+            <!--                <p>기다리고 있을게요</p></div>-->
+            <div class="btnWrap doubleBtnWrap">
+                <button class="btn whiteBtn">아니오</button>
+                <button class="btn redBtn">예</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="request_chat">
+        <div class="commonModal">
+            <p class="modalTit">1 네오력</p>
+            <p class="modalTit">사용하시겠습니까?</p>
+            <button class="closeBtn"><img loading="lazy" src="https://letspl.me/assets/icon/ic-close.svg" alt="close">
+            </button>
+            <div class="commonModalContent"></div>
+            <div class="btnWrap doubleBtnWrap">
+                <button class="btn whiteBtn">아니오</button>
+                <button class="btn redBtn chatStart">예</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="already_chat">
+        <div class="commonModal">
+            <div class="tit">
+
+            </div>
+            <button class="closeBtn"><img loading="lazy" src="https://letspl.me/assets/icon/ic-close.svg" alt="close"></button>
+            <div class="commonModalContent"><p>예를 누르시면 대화창을 엽니다.</p></div>
+            <div class="btnWrap doubleBtnWrap">
+                <button class="btn whiteBtn">아니오</button>
+                <button class="btn redBtn chatStart">예</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/fix/chatting.js"></script>
+</html>

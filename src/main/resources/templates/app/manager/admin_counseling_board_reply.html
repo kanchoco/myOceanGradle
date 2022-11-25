@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/css/manager/admin_counseling_board_reply.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/7f85a56ba4.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,500,700">
+</head>
+
+<body style="overflow-x: hidden">
+<div id="page_wrapper">
+    <div class="totalWrap">
+        <div class="left">
+            <div id="menu-service-name"><img src="/imgin/admin_logo.png" style="width: 220px; height: 50px"></div>
+            <div class="menu">
+                <ul id="side_menubar">
+                    <li><a href="/manager/index" class="item">
+                        <div>대시보드</div>
+                    </a>
+                    </li>
+                    <li><a href="#" class="item">
+                        <div>회원 관리</div>
+                    </a>
+                        <ul class="middle_item">
+                            <li><a href="/manager/userList" class="middle-items">
+                                <div>회원 목록</div>
+                            </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="item">
+                            <div>콘텐츠 관리</div>
+                        </a>
+                        <ul class="middle_item">
+                            <li><a href="/manager/freeBoard" class="middle-items">
+                                <div>자유게시판 관리</div>
+                            </a>
+                            </li>
+                            <li><a href="/manager/counselingBoard" class="middle-items">
+                                <div>고민상담 게시판 관리</div>
+                            </a>
+                            </li>
+                            <li><a href="/manager/groupOpenRequest" class="middle-items">
+                                <div>모임 게시판 관리</div>
+                            </a>
+                            </li>
+                            <li><a href="/manager/questList" class="middle-items">
+                                <div>퀘스트 관리</div>
+                            </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li><a href="/manager/questions" class="item">
+                        <div>문의사항</div>
+                    </a></li>
+                    <li><a href="/main/index" class="item">
+                        <div>사이트 바로가기</div>
+                    </a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="right">
+            <div id="header">
+                <div id="header-wrapper">
+                    <div id="menu-title">고민상담 게시판 관리</div>
+
+                </div>
+                <div id="clock"></div>
+            </div>
+            <div id="content">
+                <div id="content-top-wrapper">
+                    <div id="content-top-right">
+                        <div class="filter">
+                            <span><a href="/manager/counselingBoard">게시글 관리</a></span>
+                            <span class = "active-filter"><a href="#">댓글 관리</a></span>
+                        </div>
+                    </div>
+                    <div id="search_box_wrapper">
+                        <div id="search_box">
+                            <button id="search_button">
+                                <img id="serch_icon"
+                                     src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' viewBox='0 0 24 24'%3E %3Cpath stroke='%23AAA' stroke-width='2' d='M11 17c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6zM15 15l4.95 4.95'/%3E %3C/svg%3E"
+                                     alt="" class="MagnifierImg__MagnfierImg-vdfqqy-0 kKRRUP">
+                            </button>
+                            <input id="search_input" type="text" placeholder="댓글 검색">
+                        </div>
+                    </div>
+                </div>
+                <div id="table-wrapper">
+                    <table id="info_table">
+                        <thead>
+                        <tr>
+                            <th class="thead"></th>
+                            <th class="thead">게시글 제목</th>
+                            <th class="thead">댓글 내용</th>
+                            <th class="thead">작성자 닉네임</th>
+                            <th class="thead">작성 일시</th>
+                            <th class="thead">수정 일시</th>
+                            <th class="thead">삭제</th>
+                        </tr>
+                        </thead>
+                        <tr>
+                            <td class="info_td">1</td>
+                            <td class="info_td">안녕하세요</td>
+                            <td class="info_td">안녕하세요 반가워요~~~~~!!! 잘 부탁드려요</td>
+                            <td class="info_td">김인영</td>
+                            <td class="info_td">2022-10-12</td>
+                            <td class="info_td">2022-11-14</td>
+                            <td class="info_td">
+                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="info_td">1</td>
+                            <td class="info_td">안녕하세요</td>
+                            <td class="info_td">안녕하세요 반가워요~~~~~!!! 잘 부탁드려요</td>
+                            <td class="info_td">김인영</td>
+                            <td class="info_td">2022-10-12</td>
+                            <td class="info_td">2022-11-14</td>
+                            <td class="info_td">
+                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="info_td">1</td>
+                            <td class="info_td">안녕하세요</td>
+                            <td class="info_td">안녕하세요 반가워요~~~~~!!! 잘 부탁드려요</td>
+                            <td class="info_td">김인영</td>
+                            <td class="info_td">2022-10-12</td>
+                            <td class="info_td">2022-11-14</td>
+                            <td class="info_td">
+                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="info_td">1</td>
+                            <td class="info_td">안녕하세요</td>
+                            <td class="info_td">안녕하세요 반가워요~~~~~!!! 잘 부탁드려요</td>
+                            <td class="info_td">김인영</td>
+                            <td class="info_td">2022-10-12</td>
+                            <td class="info_td">2022-11-14</td>
+                            <td class="info_td">
+                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="info_td">1</td>
+                            <td class="info_td">안녕하세요</td>
+                            <td class="info_td">안녕하세요 반가워요~~~~~!!! 잘 부탁드려요</td>
+                            <td class="info_td">김인영</td>
+                            <td class="info_td">2022-10-12</td>
+                            <td class="info_td">2022-11-14</td>
+                            <td class="info_td">
+                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="info_td">1</td>
+                            <td class="info_td">안녕하세요</td>
+                            <td class="info_td">안녕하세요 반가워요~~~~~!!! 잘 부탁드려요</td>
+                            <td class="info_td">김인영</td>
+                            <td class="info_td">2022-10-12</td>
+                            <td class="info_td">2022-11-14</td>
+                            <td class="info_td">
+                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="info_td">1</td>
+                            <td class="info_td">안녕하세요</td>
+                            <td class="info_td">안녕하세요 반가워요~~~~~!!! 잘 부탁드려요</td>
+                            <td class="info_td">김인영</td>
+                            <td class="info_td">2022-10-12</td>
+                            <td class="info_td">2022-11-14</td>
+                            <td class="info_td">
+                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="info_td">1</td>
+                            <td class="info_td">안녕하세요</td>
+                            <td class="info_td">안녕하세요 반가워요~~~~~!!! 잘 부탁드려요</td>
+                            <td class="info_td">김인영</td>
+                            <td class="info_td">2022-10-12</td>
+                            <td class="info_td">2022-11-14</td>
+                            <td class="info_td">
+                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="info_td">1</td>
+                            <td class="info_td">안녕하세요</td>
+                            <td class="info_td">안녕하세요 반가워요~~~~~!!! 잘 부탁드려요</td>
+                            <td class="info_td">김인영</td>
+                            <td class="info_td">2022-10-12</td>
+                            <td class="info_td">2022-11-14</td>
+                            <td class="info_td">
+                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="info_td">1</td>
+                            <td class="info_td">안녕하세요</td>
+                            <td class="info_td">안녕하세요 반가워요~~~~~!!! 잘 부탁드려요</td>
+                            <td class="info_td">김인영</td>
+                            <td class="info_td">2022-10-12</td>
+                            <td class="info_td">2022-11-14</td>
+                            <td class="info_td">
+                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
+                            </td>
+                        </tr>
+
+
+
+
+                    </table>
+                </div>
+                <div id="page_changer_wrapper">
+                    <div id="previous_button_wrapper">
+                        <button class="previous_buttons">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
+                                 class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
+                        </button>
+                        <button class="previous_buttons">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
+                                 class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
+                        </button>
+                    </div>
+                    <button class="page">1</button>
+                    <button class="page">2</button>
+                    <button class="page">3</button>
+                    <button class="page">4</button>
+                    <button class="page">5</button>
+                    <button class="page">6</button>
+                    <button class="page">7</button>
+                    <button class="page">8</button>
+                    <button class="page">9</button>
+                    <div id="next_button_wrapper">
+                        <button class="next_buttons">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
+                                 class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
+                        </button>
+                        <button class="next_buttons">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
+                                 class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+    // html dom 이 다 로딩된 후 실행된다.
+    $(document).ready(function () {
+        // menu 클래스 바로 하위에 있는 a 태그를 클릭했을때
+        $("#side_menubar>li").click(function () {
+            var submenu = $(this).children("ul");
+
+
+            // submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
+            if (submenu.is(":visible")) {
+                submenu.slideUp();
+            } else if (!submenu) {
+            } else {
+                submenu.slideDown();
+
+            }
+        });
+    });
+
+
+    var Target = document.getElementById("clock");
+
+    function clock() {
+        var time = new Date();
+
+        var month = time.getMonth();
+        var date = time.getDate();
+        var day = time.getDay();
+        var week = ['일', '월', '화', '수', '목', '금', '토'];
+
+        var hours = time.getHours();
+        var minutes = time.getMinutes();
+        var seconds = time.getSeconds();
+
+        Target.innerText =
+            `${month + 1}월 ${date}일 ${week[day]}요일 ` +
+            `${hours < 10 ? `0${hours}` : hours}:${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+
+    }
+
+    clock();
+    setInterval(clock, 1000); // 1초마다
+
+
+    // let $accountModalBtn =$(".account-modal");
+    let temp = 0;
+    let $tr = $("#info_table").find('tr');
+    let accountCondition = null;
+
+    $tr.find('.more').click(function () {
+        if (temp == 1) {
+            temp--;
+            $(this).parent().children('.account-modal').remove();
+        } else {
+            temp++;
+            $(this).parent().append("<div class=\"account-modal\">\n" +
+                "    <button class=\"account-modal-button\">삭제</button>\n" +
+                "</div>")
+            $(this).next().find('.account-modal-button').click(function () {
+                $(this).closest('.account-modal').remove()
+                $(this).remove()
+                temp--;
+            })
+        }
+    })
+
+
+
+    // 상단 필터 클릭시 색 변화
+    // 하나 클릭하면 나머지는 색 없어짐
+    $('.filter').children('span').click(function(){
+        $(this).siblings().removeClass('active-filter')
+        $(this).addClass('active-filter');
+    })
+
+
+
+
+</script>
+
+</html>

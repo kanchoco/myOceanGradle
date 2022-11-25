@@ -1,0 +1,380 @@
+::before, ::after {
+	text-decoration: inherit;
+	vertical-align: inherit;
+}
+
+::selection {
+	background-color: #b3d4fc;
+	color: #000000;
+	text-shadow: none;
+}
+
+html, body {
+	width: 100%;
+	font-size: 14px;
+	color: black;
+	word-break: normal;
+	overflow-wrap: break-word;
+}
+
+html {
+	box-sizing: border-box;
+	cursor: default;
+	font-family: sans-serif;
+	line-height: 1.5;
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+}
+
+* {
+	outline: none;
+	font-family: inherit;
+}
+
+*, ::before, ::after {
+	background-repeat: no-repeat;
+	box-sizing: inherit;
+}
+
+body.fontLoaded {
+	font-family: "SUIT", "UI Frip", "Noto Sans KR", Helvetica, Arial, sans-serif;
+}
+
+body {
+	font-family: "SUIT", "UI Frip", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#app {
+	background-color: white;
+	min-height: 100%;
+	min-width: 100%;
+}
+
+.idXWQn {
+	position: relative;
+	display: flex;
+	flex-flow: column nowrap;
+	min-height: 100vh;
+}
+
+.hKZUBk {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 88px;
+	padding: 48px 0px 16px;
+	background-color: rgb(2, 74, 149);
+	color: white;
+	font-size: 16px;
+	line-height: 24px;
+	text-align: center;
+	z-index: 4000;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	transition: top 100ms linear 0s;
+}
+
+.boEfOZ {
+	position: fixed;
+	left: 0px;
+	width: 100%;
+	z-index: 4000;
+	bottom: 34px;
+}
+
+.eskQgv {
+	display: flex;
+	flex-flow: column nowrap;
+	align-content: flex-start;
+	margin: 0px auto;
+	max-width: 808px;
+	width: 100%;
+	padding: 0px 20px;
+	min-height: 1px;
+}
+
+.cDxxJv {
+	display: flex;
+	flex-flow: column nowrap;
+	align-content: flex-start;
+	margin: 0px auto;
+	max-width: 808px;
+	width: 100%;
+	padding: 0px;
+	min-height: 653px;
+}
+
+.itbwCK {
+	width: 100%;
+	max-width: 360px;
+	margin: 70px auto;
+	padding: 30px 50px;
+	text-align: center;
+}
+
+.bQDUOZ {
+	font-size: 24px;
+	font-weight: bold;
+	line-height: 36px;
+	letter-spacing: -0.72px;
+	color: rgb(51, 51, 51);
+}
+
+h2 {
+	margin: 0px;
+	padding: 0px;
+}
+
+.fCOzti {
+	margin-top: 5px;
+	font-size: 14px;
+	line-height: 20px;
+	letter-spacing: -0.42px;
+	color: rgb(153, 153, 153);
+}
+
+p, label {
+	margin: 0px;
+}
+
+::-moz-focus-inner {
+	border-style: none;
+	padding: 0;
+}
+
+.fgMqqR {
+	width: 100%;
+	height: 48px;
+	line-height: 24px;
+	padding: 0px 13px;
+	background-color: rgb(251, 232, 80);
+	text-align: center;
+	cursor: pointer;
+	border-radius: 10px;
+	color: rgb(51, 51, 51);
+	font-size: 16px;
+	font-weight: 500;
+	margin: 20px 0px;
+}
+
+.fgMqqR:hover, .fgMqqR:active {
+	background-color: rgb(236, 213, 29);
+}
+
+button {
+	cursor: pointer;
+}
+
+a, area, button, input, label, select, textarea, [tabindex] {
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+}
+
+button, html [type="button"], [type="reset"], [type="submit"] {
+	-webkit-appearance: button;
+}
+
+button, select {
+	text-transform: none;
+}
+
+button, input {
+	overflow: visible;
+}
+
+button, input, select, textarea {
+	background-color: transparent;
+	border-style: none;
+	color: inherit;
+	font-size: 1em;
+	margin: 0;
+}
+
+.fyOiRy {
+	display: flex;
+	-moz-box-pack: justify;
+	justify-content: space-between;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+a {
+	background-color: transparent;
+	-webkit-text-decoration-skip: objects;
+}
+
+.bMLRoT {
+	width: 48px;
+	height: 48px;
+	line-height: normal;
+	padding: 0px 13px;
+	background-color: rgb(255, 255, 255);
+	text-align: center;
+	cursor: pointer;
+	border: 1px solid rgb(238, 238, 238);
+	border-radius: 10px;
+	font-size: 14px;
+}
+
+.bMLRoT:hover, .bMLRoT:active {
+	background-color: #F6FAFE;
+}
+
+img {
+	border-style: none;
+}
+
+audio, canvas, iframe, img, svg, video {
+	vertical-align: middle;
+}
+
+.hWMKcf {
+	width: 48px;
+	height: 48px;
+	line-height: normal;
+	padding: 0px 13px;
+	background-color: rgb(255, 255, 255);
+	text-align: center;
+	cursor: pointer;
+	border: 1px solid rgb(238, 238, 238);
+	border-radius: 10px;
+	font-size: 14px;
+}
+
+.hWMKcf:hover, .hWMKcf:active {
+	background-color: #F6FAFE;
+}
+
+.hvCDRQ {
+	width: 88px;
+	height: 48px;
+	line-height: 20px;
+	padding: 0px 13px;
+	background-color: rgb(255, 255, 255);
+	text-align: center;
+	cursor: pointer;
+	border: 1px solid rgb(238, 238, 238);
+	border-radius: 10px;
+	color: rgb(51, 51, 51);
+	font-size: 14px;
+}
+
+.hvCDRQ:hover, .hvCDRQ:active {
+	background-color: #F6FAFE;
+}
+
+.lduEbR {
+	margin-top: 12px;
+	font-size: 12px;
+	line-height: 16px;
+	letter-spacing: -0.36px;
+	color: rgb(170, 170, 170);
+}
+
+.fb_reset {
+	background: none;
+	border: 0;
+	border-spacing: 0;
+	color: #000;
+	cursor: auto;
+	direction: ltr;
+	font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
+	font-size: 11px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	letter-spacing: normal;
+	line-height: 1;
+	margin: 0;
+	overflow: visible;
+	padding: 0;
+	text-align: left;
+	text-decoration: none;
+	text-indent: 0;
+	text-shadow: none;
+	text-transform: none;
+	visibility: visible;
+	white-space: normal;
+	word-spacing: normal;
+}
+
+.fb_reset > div {
+	overflow: hidden;
+}
+
+/* 미디어 쿼리 적용 스타일 */
+
+.egtVMY {
+	height: 278px;
+	overflow: hidden;
+	position: relative;
+	display: flex;
+	-moz-box-pack: center;
+	justify-content: center;
+	-moz-box-align: center;
+	align-items: center;
+	text-align: center;
+}
+
+.hsSkXH {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	-moz-box-pack: center;
+	justify-content: center;
+	-moz-box-align: center;
+	align-items: center;
+}
+
+.hoYWgp {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.fMxjfF {
+	position: absolute;
+	width: 100%;
+	transform: scale(1.05);
+	opacity: 0;
+	transition: transform 2.8s ease-in-out 0s, opacity 0.8s ease-in-out 0s;
+}
+
+.hpebkH {
+	position: absolute;
+	width: 100%;
+	transform: scale(1);
+	opacity: 1;
+	transition: transform 2.8s ease-in-out 0s, opacity 0.8s ease-in-out 0s;
+}
+
+.geOdYS {
+	position: absolute;
+	width: 100%;
+	z-index: 2;
+}
+
+.geOdYS img {
+	width: 118px;
+	margin-bottom: 5px;
+}
+
+.geOdYS p {
+	color: rgb(255, 255, 255);
+	font-size: 16px;
+	line-height: 24px;
+	letter-spacing: -0.48px;
+}
+
+/* 미디어 쿼리 적용 스타일 */

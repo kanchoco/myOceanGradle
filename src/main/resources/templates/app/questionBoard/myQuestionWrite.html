@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>자주 묻는 질문</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/questionBoard/managerAnswer.css">
+  <link rel="stylesheet" href="/css/questionBoard/myQuestionWrite.css">
+  <link rel="stylesheet" href="/css/myPage/myPage.css">
+  <link rel="stylesheet" href="/css/fix/header.css">
+  <link rel="stylesheet" href="/css/fix/footer.css">
+</head>
+<body>
+<header th:replace="/app/fix/header.html :: header"></header>
+<div class="HelpPage__Wrapper-sc-1624coo-0 bjZuQZ">
+  <section>
+    <div class="PageWrapper-sc-1w87j10-0 bScXKt">
+      <h1 font-size="24px" class="Left__LeftPageTitle-sc-12djr3w-0 cZvMcY">문의하기</h1>
+      <ul class="HelpPage__FAQListWrapper-sc-1624coo-1 jaTQXA" style="margin-bottom:20px;">
+        <li>
+          <div class="titleWrap">
+            <input type="text" class="questionTitle" placeholder="제목을 입력해주세요">
+            <span class="registryWrap">
+              <input type="button" value="등록" class="registry">
+            </span>
+          </div>
+
+      <!--유저 답변 페이지-->
+      <div class="managerWrap">
+        <div class="editor" name="editor" id="tinymceEditor"></div>
+        <br>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<footer th:replace="/app/fix/footer.html :: footer"></footer>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="https://cdn.tiny.cloud/1/7g9q3f9jluo7zuzu3l7othnpiuw6r6krxchn5gn33j1c8mp1/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="/js/fix/header.js"></script>
+<script src="/js/questionBoard/myQuestionWrite.js"></script>
+
+</html>

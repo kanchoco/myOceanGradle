@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="/css/Main/swiper.css">
+    <link rel="stylesheet" href="/css/fix/chatting.css">
+
+    <style>
+        html,
+        body {
+            position: relative;
+            height: 100%;
+        }
+
+        body {
+            background: #eee;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color: #000;
+            margin: 0;
+            padding: 0;
+        }
+
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+
+        .swiper-slide  {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .swiper {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .swiper-wrapper-media {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            display: flex;
+            transition-property: transform;
+            box-sizing: content-box;
+        }
+
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/fix/header.css">
+    <link rel="stylesheet" href="/css/Main/main.css">
+    <link rel="stylesheet" href="/css/fix/footer.css">
+    <!--    <link rel="stylesheet" href="/static/css/slide.css">-->
+</head>
+<body>
+<header th:replace="/app/fix/header.html :: header"></header>
+<div th:replace="/app/fix/chattingAll.html:: chattingAll"></div>
+<div id="app">
+    <div class="App__AppWrapper-nc5ti6-0 idXWQn">
+        <div class="Top__TopToastMessage-boaj4f-0 ToastContainer__ExtendedTopToastMessage-sqfjqn-2 hKZUBk" style="top: -88px;"></div>
+        <div id="test" class="ToastContainer__BottomToastWrapper-sqfjqn-0 boEfOZ">
+            <div class="PageWrapper-sc-1w87j10-0 ToastContainer__ToastPageWrapper-sqfjqn-1 eskQgv">
+                <div></div>
+            </div>
+        </div>
+
+        <div class="HomePage__Wrapper-jao9qf-0 hErPle">
+            <div class="PageWrapper-sc-1w87j10-0 bScXKt">
+
+
+                <!--슬라이드 배너-->
+                <div class="BannerWrapper__HomeBannerWrapper-sc-17qp9bv-0 ljXeaB" style="">
+                    <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1;display: block;">
+                        <div class="MainBanner__Wrapper-sc-11xszl-0 bxEWSj" style="height: 100%;">
+                            <div class="MainBanner__ImageSliderWrapper-sc-11xszl-1 hprCGA">
+                                <div class="ImageSlider__SliderWrapper-sc-1obm2ug-0 dueCVJ">
+                                    <div class="slick-slider ImageSlider__StyledSlider-sc-1obm2ug-1 cuinM slick-initialized" dir="ltr">
+                                        <div class="slick-list">
+                                            <!--첫번쨰 슬라이드 시작점-->
+                                            <!-- Swiper -->
+                                            <div class="swiper mySwiper swiper-initialized swiper-horizontal swiper-pointer-events">
+                                                <div class="swiper-wrapper" id="swiper-wrapper-f10ba2ab650a99373" aria-live="off" style="transition-duration: 0ms; transform: translate3d(-4788px, 0px, 0px);">
+                                                    <div class="swiper-slide" data-swiper-slide-index="0" role="group" aria-label="1 / 5" style="width: 100%; margin-right: 30px;">
+                                                        <img src="/imgin/main/mainbanner/mainbanner_001.png" style="width:100%;" class="slidePic">
+                                                    </div>
+                                                    <div class="swiper-slide" data-swiper-slide-index="1" role="group" aria-label="2 / 5" style="width: 100%; margin-right: 30px;">
+                                                        <img src="/imgin/main/mainbanner/mainbanner_002.png" style="width:100%;" class="slidePic">
+                                                    </div>
+                                                    <div class="swiper-slide" data-swiper-slide-index="2" role="group" aria-label="3 / 5" style="width: 100%; margin-right: 30px;">
+                                                        <img src="/imgin/main/mainbanner/mainbanner_003.png" style="width:100%;" class="slidePic">
+                                                    </div>
+                                                    <div class="swiper-slide" data-swiper-slide-index="3" role="group" aria-label="4 / 5" style="width: 100%; margin-right: 30px;">
+                                                        <img src="/imgin/main/mainbanner/mainbanner_004.png" style="width:100%;" class="slidePic">
+                                                    </div>
+                                                    <div class="swiper-slide swiper-slide-prev" data-swiper-slide-index="4" role="group" aria-label="5 / 5" style="width: 100%; margin-right: 30px;">
+                                                        <img src="/imgin/main/mainbanner/mainbanner_005.png" style="width:100%;" class="slidePic">
+                                                    </div>
+                                                    <div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="0" role="group" aria-label="5 / 5" style="width: 100%; margin-right: 30px;">
+                                                        <img src="/imgin/main/mainbanner/mainbanner_005.png" style="width:100%;" class="slidePic">
+                                                    </div>
+                                                </div>
+                                                <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-f10ba2ab650a99373" style="color: white;"></div>
+                                                <div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-f10ba2ab650a99373" style="
+    /* width: 30px; */
+
+    color: white;
+"></div>
+                                                <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal"><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 3"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 4"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 5"></span><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 6" aria-current="true"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 7"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 8"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 9"></span></div>
+                                                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+
+
+                                            <!--첫번쨰 슬라이드 끝점-->
+                                            <div class="slick-track" style="opacity: 1; transform: translate3d(-2304px, 0px, 0px); width: 17664px;">
+
+                                                <div data-index="20" tabindex="-1" class="slick-slide slick-cloned" aria-hidden="true" style="width: 768px;">
+                                                    <div><a class="withLink__StyledLink-zuberk-0 lQqkn" href="/collections/995">
+                                                        <div class="Image__Wrapper-v97gyx-0 gDuKGF">
+                                                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                                            </div>
+                                                        </div>
+                                                    </a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--슬라이드배너 미디어-->
+                <div class="BannerWrapper__HomeBannerWrapper-sc-17qp9bv-0 ljXeaB slideMedia" style="display:none;">
+                    <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1;display: block;">
+                        <div class="MainBanner__Wrapper-sc-11xszl-0 bxEWSj" style="height: 100%;">
+                            <div class="MainBanner__ImageSliderWrapper-sc-11xszl-1 hprCGA">
+                                <div class="ImageSlider__SliderWrapper-sc-1obm2ug-0 dueCVJ">
+                                    <div class="slick-slider ImageSlider__StyledSlider-sc-1obm2ug-1 cuinM slick-initialized" dir="ltr">
+                                        <div class="slick-list">
+                                            <!--첫번쨰 슬라이드 시작점-->
+                                            <!-- Swiper -->
+                                            <div class="swiper mySwiper swiper-initialized swiper-horizontal swiper-pointer-events">
+                                                <div class="swiper-wrapper" id="swiper-wrapper-f10ba2ab650a993733" aria-live="off" style="transition-duration: 0ms; transform: translate3d(-4788px, 0px, 0px);">
+                                                    <div class="swiper-slide" data-swiper-slide-index="0" role="group" aria-label="1 / 5" style="width: 100%; margin-right: 30px;">
+                                                        <img src="/imgin/main/mainbanner/mainbanner_media_001.png" style="width:100%;" class="slidePic">
+                                                    </div>
+                                                    <div class="swiper-slide" data-swiper-slide-index="1" role="group" aria-label="2 / 5" style="width: 100%; margin-right: 30px;">
+                                                        <img src="/imgin/main/mainbanner/mainbanner_media_002.png" style="width:100%;" class="slidePic">
+                                                    </div>
+                                                    <div class="swiper-slide" data-swiper-slide-index="2" role="group" aria-label="3 / 5" style="width: 100%; margin-right: 30px;">
+                                                        <img src="/imgin/main/mainbanner/mainbanner_media_003.png" style="width:100%;" class="slidePic">
+                                                    </div>
+                                                    <div class="swiper-slide" data-swiper-slide-index="3" role="group" aria-label="4 / 5" style="width: 100%; margin-right: 30px;">
+                                                        <img src="/imgin/main/mainbanner/mainbanner_media_004.png" style="width:100%;" class="slidePic">
+                                                    </div>
+                                                    <div class="swiper-slide swiper-slide-prev" data-swiper-slide-index="4" role="group" aria-label="5 / 5" style="width: 100%; margin-right: 30px;">
+                                                        <img src="/imgin/main/mainbanner/mainbanner_media_005.png" style="width:100%;" class="slidePic">
+                                                    </div>
+                                                    <div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="0" role="group" aria-label="5 / 5" style="width: 100%; margin-right: 30px;">
+                                                        <img src="/imgin/main/mainbanner/mainbanner_media_005.png" style="width:100%;" class="slidePic">
+                                                    </div>
+                                                </div>
+                                                <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-f10ba2ab650a99373" style="color: white;"></div>
+                                                <div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-f10ba2ab650a99373" style="
+    /* width: 30px; */
+
+    color: white;
+"></div>
+                                                <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal"><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 3"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 4"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 5"></span><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 6" aria-current="true"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 7"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 8"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 9"></span></div>
+                                                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+
+
+                                            <!--첫번쨰 슬라이드 끝점-->
+                                            <div class="slick-track" style="opacity: 1; transform: translate3d(-2304px, 0px, 0px); width: 17664px;">
+                                                <div data-index="20" tabindex="-1" class="slick-slide slick-cloned" aria-hidden="true" style="width: 768px;">
+                                                    <div>
+                                                        <a class="withLink__StyledLink-zuberk-0 lQqkn" href="/collections/995">
+                                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF">
+                                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;"></div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ShortcutList__Wrapper-p3h6sa-0 hnZqhV">
+                    <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                        <div class="ShortcutList__NodeListWrapper-p3h6sa-1 hnuhJm">
+                            <a href="http://localhost:15000/community/index">
+                                <div class="ShortcutItem__Wrapper-sc-1mxi63e-0 fFzchN">
+                                    <div class="Image__Wrapper-v97gyx-0 gDuKGF">
+                                        <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="60" height="60" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,h_86,q_auto,w_86/%E1%84%89%E1%85%AD%E1%86%BA%E1%84%8F%E1%85%A5%E1%86%BA_%E1%84%80%E1%85%AA%E1%84%86%E1%85%A9%E1%86%AF%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%85%E1%85%A9%E1%84%80%E1%85%A9_0400f54dcd0f871b4259d85044b499c06cac78144977f8b85374cddb446997a9">
+                                        <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                            <div class="Ratio " style="display: block;">
+                                                <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                    <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                        <img class="Image__StyledImage-v97gyx-1 VUNpu mainCategory" width="60" height="60" src="/imgin/main/diary.png">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span>일기</span>
+                                </div>
+                            </a>
+                            <a href="http://localhost:15000/community/index">
+                                <div class="ShortcutItem__Wrapper-sc-1mxi63e-0 fFzchN">
+                                    <div class="Image__Wrapper-v97gyx-0 gDuKGF">
+                                        <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="60" height="60" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,h_86,q_auto,w_86/%E1%84%89%E1%85%AD%E1%86%BA%E1%84%8F%E1%85%A5%E1%86%BA_%E1%84%87%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%8F%E1%85%B5%E1%86%BC_75b4f6007e454b8732785f1b51b7bbf33005401b84fa303287373b7f7ff33fe8">
+                                        <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                            <div class="Ratio " style="display: block;">
+                                                <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                    <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                        <img class="Image__StyledImage-v97gyx-1 VUNpu mainCategory" width="60" height="60" src="/imgin/main/cook.png">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span>요리</span>
+                                </div>
+                            </a>
+                            <a href="http://localhost:15000/community/index">
+                                <div class="ShortcutItem__Wrapper-sc-1mxi63e-0 fFzchN">
+                                    <div class="Image__Wrapper-v97gyx-0 gDuKGF">
+                                        <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="60" height="60" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,h_86,q_auto,w_86/%ED%94%84%EB%A6%BD%EB%B2%84%EC%8A%A4%20(1)_3f603cf214e7faac38defe3f8dbb782147d905f1a87c2da03238c49179c58d43">
+                                        <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                            <div class="Ratio " style="display: block;">
+                                                <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                    <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                        <img class="Image__StyledImage-v97gyx-1 VUNpu mainCategory" width="60" height="60" src="/imgin/main/movie.png">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span>영화</span>
+                                </div>
+                            </a>
+                            <a href="http://localhost:15000/community/index">
+                                <div class="ShortcutItem__Wrapper-sc-1mxi63e-0 fFzchN">
+                                    <div class="Image__Wrapper-v97gyx-0 gDuKGF">
+                                        <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="60" height="60" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,h_86,q_auto,w_86/%EC%88%8F%EC%BB%B7_%EA%B4%91%EC%A3%BC_d04d83d7eb2dde14c8a9c95abeb2981ce812026236c7758ddea5193949ce9d05">
+                                        <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                            <div class="Ratio " style="display: block;">
+                                                <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                    <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                        <img class="Image__StyledImage-v97gyx-1 VUNpu mainCategory" width="60" height="60" src="/imgin/main/sports.png">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><span>운동</span>
+                                </div>
+                            </a>
+                            <a href="http://localhost:15000/community/index">
+                                <div class="ShortcutItem__Wrapper-sc-1mxi63e-0 fFzchN">
+                                    <div class="Image__Wrapper-v97gyx-0 gDuKGF">
+                                        <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="60" height="60" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,h_86,q_auto,w_86/%EC%88%8F%EC%BB%B7_%EC%8B%A0%EC%83%81%ED%95%A0%EC%9D%B8_4e2cb10d1196d19f5c201c990fb65dbf205c76e0ce9d2f9d19896c237109baf5">
+                                        <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                            <div class="Ratio " style="display: block;">
+                                                <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                    <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                        <img class="Image__StyledImage-v97gyx-1 VUNpu mainCategory" width="60" height="60" src="/imgin/main/book.png">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span>책</span>
+                                </div>
+                            </a>
+                            <a href="http://localhost:15000/community/index">
+                                <div class="ShortcutItem__Wrapper-sc-1mxi63e-0 fFzchN">
+                                    <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="60" height="60" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,h_86,q_auto,w_86/10_ecdd04ba47c853f0597b5f5b694d48b6389a06a63ec963e2108e31cae0f202e0">
+                                        <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                            <div class="Ratio " style="display: block;">
+                                                <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                    <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                        <img class="Image__StyledImage-v97gyx-1 VUNpu mainCategory" width="60" height="60" src="/imgin/main/freeboard.png">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span>자유게시판</span>
+                                </div>
+                            </a>
+                            <a href="http://localhost:15000/anonymous/index">
+                                <div class="ShortcutItem__Wrapper-sc-1mxi63e-0 fFzchN">
+                                    <div class="Image__Wrapper-v97gyx-0 gDuKGF">
+                                        <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="60" height="60" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,h_86,q_auto,w_86/%EC%88%8F%EC%BB%B7_%EC%84%9C%EC%9C%A8%EC%97%AC%EC%84%B1%EA%B3%B5%EC%98%88%EC%84%BC%ED%84%B0_d23cffc8fa73675d1e4e001d5814badbad6652d845f1a61f1cdc4ea2494e21e7">
+                                        <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                            <div class="Ratio " style="display: block;">
+                                                <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                    <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                        <img class="Image__StyledImage-v97gyx-1 VUNpu mainCategory" width="60" height="60" src="/imgin/main/consulting.png">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><span>고민상담</span>
+                                </div>
+                            </a>
+                            <a href="http://localhost:15000/bulletinBoard/index">
+                                <div class="ShortcutItem__Wrapper-sc-1mxi63e-0 fFzchN">
+                                    <div class="Image__Wrapper-v97gyx-0 gDuKGF">
+                                        <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="60" height="60" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,h_86,q_auto,w_86/%E1%84%89%E1%85%AD%E1%86%BA%E1%84%8F%E1%85%A5%E1%86%BA_%E1%84%83%E1%85%B3%E1%86%BC%E1%84%89%E1%85%A1%E1%86%AB_e371195349cd66b56c77b80615c24d6d4e01ed4b34797f61314681be6b78cf0c">
+                                        <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                            <div class="Ratio " style="display: block;">
+                                                <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                    <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                        <img class="Image__StyledImage-v97gyx-1 VUNpu mainCategory" width="60" height="60" src="/imgin/main/group.png">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span>모임</span>
+                                </div>
+                            </a><a href="http://localhost:15000/myQuest/todayQuest">
+                            <div class="ShortcutItem__Wrapper-sc-1mxi63e-0 fFzchN">
+                                <div class="Image__Wrapper-v97gyx-0 gDuKGF">
+                                    <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="60" height="60" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,h_86,q_auto,w_86/09_6f5ee6b6b23383ae6555e23106334e5c4f396804f8cb10f81bc1488a0b825e9d">
+                                    <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                        <div class="Ratio " style="display: block;">
+                                            <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                    <img class="Image__StyledImage-v97gyx-1 VUNpu mainCategory" width="60" height="60" src="/imgin/main/quest.png">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span>퀘스트</span>
+                            </div>
+                        </a>
+                            <a href="http://localhost:15000/myspace/index">
+                                <div class="ShortcutItem__Wrapper-sc-1mxi63e-0 fFzchN">
+                                    <div class="Image__Wrapper-v97gyx-0 gDuKGF">
+                                        <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="60" height="60" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,h_86,q_auto,w_86/06_a2fce562c9c853fbd6b4330cf3b2bea16e4ae594e8fabb5fff4bdd697cbeaefe">
+                                        <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                            <div class="Ratio " style="display: block;">
+                                                <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                    <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                        <img class="Image__StyledImage-v97gyx-1 VUNpu mainCategory" width="60" height="60" src="/imgin/main/todolist.png">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span>TodoList</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="ProductList__Wrapper-sc-1pj7ods-0 kqydUo">
+                    <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                        <section class="CardGroupProduct__Wrapper-sc-1uq4zjb-0 jUxAIa">
+                            <div font-size="14px" class="ProductSectionHeader__Wrapper-sc-1lmfow6-0 dqWjUS">
+                                <div font-size="18" class="ProductSectionHeader__Header-sc-1lmfow6-1 eQGBlA">
+                                    <h2 class="ProductSectionHeader__Title-sc-1lmfow6-2 jskoxd">우리만의 모임을 소개합니다👇</h2>
+                                </div>
+                                <div class="ProductSectionHeader__LinkWrapper-sc-1lmfow6-4 iQnPKA">
+                                    <a class="ProductSectionHeader__StyledLink-sc-1lmfow6-5 haoyHh" href="http://localhost:15000/bulletinBoard/index">전체보기</a>
+                                </div>
+                            </div>
+                            <div class="CardGroupProduct__Content-sc-1uq4zjb-1 gbEqzo">
+                                <div class="CardProduct__Wrapper-a817d1-0 ijdqTp">
+                                    <a class="withLink__StyledLink-zuberk-0 lQqkn" href="/products/164270">
+                                        <div class="CardProduct__InfoWrapper-a817d1-1 hPIfDi">
+                                            <div class="CardProduct__ImageContainer-a817d1-2 eEpNrE">
+                                                <div class="Image__Wrapper-v97gyx-0 gDuKGF CardProduct__StyledImage-a817d1-4 fRUJUy">
+                                                    <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/%EC%8D%B8%EB%84%A4%EC%9D%BC_1_9a525f7f236a75f96775958b8cf5a3f527c23535650404351e95eeadb56fc84a">
+                                                    <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                                        <div class="Ratio " style="display: block;">
+                                                            <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                                <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                                    <img alt="[11/12(토) 출발확정] 프립 등산 MD들과 떠나는 설악산 오색코스 썸네일" class="Image__StyledImage-v97gyx-1 VUNpu" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/%EC%8D%B8%EB%84%A4%EC%9D%BC_1_9a525f7f236a75f96775958b8cf5a3f527c23535650404351e95eeadb56fc84a">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="CardProduct__DetailContainer-a817d1-6 iDZoyW">
+                                                <span class="CardProduct__Location-a817d1-7 hgalyK">강원 전체</span>
+                                                <div class="CardProduct__Title-a817d1-8 kxyGXE">[11/12(토) 출발확정] 프립 등산 MD들과 떠나는 설악산 오색코스</div>
+                                                <hr type="Line" size="16" class="Border-sc-1bzcz1p-0 eXQzbT">
+                                                <div class="CardProduct__PriceContainer-a817d1-11 gyjVwY">
+                                                    <div class="CardProduct__DiscountRateContainer-a817d1-13 figzTw">
+                                                        <div class="CardProduct__SalePrice-a817d1-12 fEyOLH">45,000원</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                <div class="CardProduct__Wrapper-a817d1-0 ijdqTp"><a class="withLink__StyledLink-zuberk-0 lQqkn" href="/products/111214">
+                                    <div class="CardProduct__InfoWrapper-a817d1-1 hPIfDi">
+                                        <div class="CardProduct__ImageContainer-a817d1-2 eEpNrE">
+                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF CardProduct__StyledImage-a817d1-4 fRUJUy">
+                                                <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/%EB%A7%88%EB%B8%94%EC%B9%9C%EA%B5%AC%EB%93%A4_560673ece31d1c5769016b034c8249384a9b1b53109ca120b8a860ada324c9e5">
+                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                                    <div class="Ratio " style="display: block;">
+                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                                <img alt="[원데이/성수동] 조물조물 칼라 클레이 플레이트 만들기 _도자기 공예 (예약 가능) 썸네일" class="Image__StyledImage-v97gyx-1 VUNpu" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/%EB%A7%88%EB%B8%94%EC%B9%9C%EA%B5%AC%EB%93%A4_560673ece31d1c5769016b034c8249384a9b1b53109ca120b8a860ada324c9e5">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="CardProduct__DetailContainer-a817d1-6 iDZoyW">
+                                            <span class="CardProduct__Location-a817d1-7 hgalyK">성동/광진</span>
+                                            <div class="CardProduct__Title-a817d1-8 kxyGXE">[원데이/성수동] 조물조물 칼라 클레이 플레이트 만들기 _도자기 공예 (예약 가능)</div>
+                                            <div class="CardProduct__ReviewContainer-a817d1-9 ftUvAC">
+                                                <span class="CardProduct__Review-a817d1-10 gsopHh">댓글 57</span>
+                                            </div>
+                                            <hr type="Line" size="16" class="Border-sc-1bzcz1p-0 eXQzbT">
+                                            <div class="CardProduct__PriceContainer-a817d1-11 gyjVwY">
+                                                <div class="CardProduct__DiscountRateContainer-a817d1-13 figzTw">
+                                                    <div class="CardProduct__SalePrice-a817d1-12 fEyOLH">30,000원</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a></div>
+                                <div class="CardProduct__Wrapper-a817d1-0 ijdqTp">
+                                    <a class="withLink__StyledLink-zuberk-0 lQqkn" href="/products/115497">
+                                        <div class="CardProduct__InfoWrapper-a817d1-1 hPIfDi">
+                                            <div class="CardProduct__ImageContainer-a817d1-2 eEpNrE">
+                                                <div class="Image__Wrapper-v97gyx-0 gDuKGF CardProduct__StyledImage-a817d1-4 fRUJUy">
+                                                    <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/KakaoTalk_20211005_113617194_04_vd48r1">
+                                                    <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                                        <div class="Ratio " style="display: block;">
+                                                            <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                                <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                                    <img alt="[망원] 스콘2종 (플레인/커피초코칩) 16~20개 만들기 (예약 가능) 썸네일" class="Image__StyledImage-v97gyx-1 VUNpu" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/KakaoTalk_20211005_113617194_04_vd48r1">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="CardProduct__DetailContainer-a817d1-6 iDZoyW"><span class="CardProduct__Location-a817d1-7 hgalyK">마포/서대문/은평</span>
+                                                <div class="CardProduct__Title-a817d1-8 kxyGXE">[망원] 스콘2종(플레인/커피초코칩) 16~20개 만들기 (예약 가능)</div>
+                                                <div class="CardProduct__ReviewContainer-a817d1-9 ftUvAC">
+                                                    <span class="CardProduct__Review-a817d1-10 gsopHh">댓글 488</span>
+                                                </div>
+                                                <hr type="Line" size="16" class="Border-sc-1bzcz1p-0 eXQzbT">
+                                                <div class="CardProduct__PriceContainer-a817d1-11 gyjVwY">
+                                                    <div class="CardProduct__DiscountRateContainer-a817d1-13 figzTw">
+                                                        <div class="CardProduct__SalePrice-a817d1-12 fEyOLH">30,000원</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                <div class="CardProduct__Wrapper-a817d1-0 ijdqTp"><a class="withLink__StyledLink-zuberk-0 lQqkn" href="/products/161995">
+                                    <div class="CardProduct__InfoWrapper-a817d1-1 hPIfDi">
+                                        <div class="CardProduct__ImageContainer-a817d1-2 eEpNrE">
+                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF CardProduct__StyledImage-a817d1-4 fRUJUy">
+                                                <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/AF545E96-3975-4502-B0DE-D5AECD0005D8_1_201_a_a7ff7c75a7b692ca6c166a9fd0ee24cd201b5db7003ea25f41b1ee62efd8912c">
+                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                                    <div class="Ratio " style="display: block;">
+                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                                <img alt="[프립단독 | 티마카세] 예술적인 공간, 예술같은 티 코스 썸네일" class="Image__StyledImage-v97gyx-1 VUNpu" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/AF545E96-3975-4502-B0DE-D5AECD0005D8_1_201_a_a7ff7c75a7b692ca6c166a9fd0ee24cd201b5db7003ea25f41b1ee62efd8912c">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="CardProduct__DetailContainer-a817d1-6 iDZoyW">
+                                            <span class="CardProduct__Location-a817d1-7 hgalyK">성동/광진</span>
+                                            <div class="CardProduct__Title-a817d1-8 kxyGXE">[프립단독 | 티마카세] 예술적인 공간, 예술같은 티 코스</div>
+                                            <div class="CardProduct__ReviewContainer-a817d1-9 ftUvAC">
+                                                <span class="CardProduct__Review-a817d1-10 gsopHh">댓글 55</span>
+                                            </div>
+                                            <hr type="Line" size="16" class="Border-sc-1bzcz1p-0 eXQzbT">
+                                            <div class="CardProduct__PriceContainer-a817d1-11 gyjVwY">
+                                                <div class="CardProduct__DiscountRateContainer-a817d1-13 figzTw">
+                                                    <div class="CardProduct__SalePrice-a817d1-12 fEyOLH">34,000원</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a></div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <a href="/myQuest/todayQuest" target="_blank" class="HostBanner__Wrapper-sc-15wm6s2-0 ikopRC">
+                    <img src="/imgin/main/brandbanner/brandbanner_quest.png" class="HostBanner__BannerImage-sc-15wm6s2-1 eaJzkp">
+                    <img src="/imgin/main/brandbanner/brandbanner_quest.png" class="HostBanner__BannerImage-sc-15wm6s2-1 eaJzkp" style="display:none;">
+                </a>
+                <div class="ProductList__Wrapper-sc-1pj7ods-0 kqydUo">
+                    <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                        <section class="CardGroupProduct__Wrapper-sc-1uq4zjb-0 jUxAIa">
+                            <div font-size="14px" class="ProductSectionHeader__Wrapper-sc-1lmfow6-0 dqWjUS">
+                                <div font-size="18" class="ProductSectionHeader__Header-sc-1lmfow6-1 eQGBlA">
+                                    <h2 class="ProductSectionHeader__Title-sc-1lmfow6-2 jskoxd">자유로운 이야기들</h2>
+                                </div>
+                                <div class="ProductSectionHeader__LinkWrapper-sc-1lmfow6-4 iQnPKA"><a class="ProductSectionHeader__StyledLink-sc-1lmfow6-5 haoyHh" href="http://localhost:15000/myList/myListFree">전체보기</a></div>
+                            </div>
+                            <div class="CardGroupProduct__Content-sc-1uq4zjb-1 gbEqzo">
+                                <div class="CardProduct__Wrapper-a817d1-0 ijdqTp"><a class="withLink__StyledLink-zuberk-0 lQqkn" href="/products/159625">
+                                    <div class="CardProduct__InfoWrapper-a817d1-1 hPIfDi">
+                                        <div class="CardProduct__ImageContainer-a817d1-2 eEpNrE">
+                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF CardProduct__StyledImage-a817d1-4 fRUJUy">
+                                                <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/%EC%8D%B8%EB%84%A4%EC%9D%BC_1%20(2)_f8d146f7804c3e5a867e19bbf6f7f0c7aca2eff88686edaa9e8c335516f77101">
+                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                                    <div class="Ratio " style="display: block;">
+                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                                <img alt="[11/13(일) 출발확정] 나는솔로 촬영지💕 니지모리스튜디오+산사원 썸네일" class="Image__StyledImage-v97gyx-1 VUNpu" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/%EC%8D%B8%EB%84%A4%EC%9D%BC_1%20(2)_f8d146f7804c3e5a867e19bbf6f7f0c7aca2eff88686edaa9e8c335516f77101">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="CardProduct__DetailContainer-a817d1-6 iDZoyW"><span class="CardProduct__Location-a817d1-7 hgalyK">경기 전체</span>
+                                            <div class="CardProduct__Title-a817d1-8 kxyGXE">[11/13(일) 출발확정] 나는솔로 촬영지💕 니지모리스튜디오+산사원</div>
+                                            <div class="CardProduct__ReviewContainer-a817d1-9 ftUvAC">
+                                                <span class="CardProduct__Review-a817d1-10 gsopHh">댓글 59</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a></div>
+                                <div class="CardProduct__Wrapper-a817d1-0 ijdqTp"><a class="withLink__StyledLink-zuberk-0 lQqkn" href="/products/144198">
+                                    <div class="CardProduct__InfoWrapper-a817d1-1 hPIfDi">
+                                        <div class="CardProduct__ImageContainer-a817d1-2 eEpNrE">
+                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF CardProduct__StyledImage-a817d1-4 fRUJUy">
+                                                <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/1620291467928-15_dxhbuc">
+                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                                    <div class="Ratio " style="display: block;">
+                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                                <img alt="[제주] 쿨대니의 Barn Party! 말목장에서 자연인이 되어보자 (예약 가능) 썸네일" class="Image__StyledImage-v97gyx-1 VUNpu" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/1620291467928-15_dxhbuc">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="CardProduct__DetailContainer-a817d1-6 iDZoyW"><span class="CardProduct__Location-a817d1-7 hgalyK">제주시</span>
+                                            <div class="CardProduct__Title-a817d1-8 kxyGXE">[제주] 쿨대니의 Barn Party! 말목장에서 자연인이 되어보자 (예약 가능)</div>
+                                            <div class="CardProduct__ReviewContainer-a817d1-9 ftUvAC">
+                                                <span class="CardProduct__Review-a817d1-10 gsopHh">댓글 24</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a></div>
+                                <div class="CardProduct__Wrapper-a817d1-0 ijdqTp"><a class="withLink__StyledLink-zuberk-0 lQqkn" href="/products/149877">
+                                    <div class="CardProduct__InfoWrapper-a817d1-1 hPIfDi">
+                                        <div class="CardProduct__ImageContainer-a817d1-2 eEpNrE">
+                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF CardProduct__StyledImage-a817d1-4 fRUJUy">
+                                                <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/1656216017-01-01_f501b5fa9178efa98420414c27c16ca9e1b8110f66e6f2aba2acf0d767375d8f">
+                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                                    <div class="Ratio " style="display: block;">
+                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                                <img alt="고궁 및 서울 사진명소에서 함께 출사를 통해 뷰포인트와 구도를 배워봅니다 (예약 가능) 썸네일" class="Image__StyledImage-v97gyx-1 VUNpu" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/1656216017-01-01_f501b5fa9178efa98420414c27c16ca9e1b8110f66e6f2aba2acf0d767375d8f">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="CardProduct__DetailContainer-a817d1-6 iDZoyW"><span class="CardProduct__Location-a817d1-7 hgalyK">종로/중구</span>
+                                            <div class="CardProduct__Title-a817d1-8 kxyGXE">고궁 및 서울 사진명소에서 함께 출사를 통해 뷰포인트와 구도를 배워봅니다 (예약 가능)</div>
+                                            <div class="CardProduct__ReviewContainer-a817d1-9 ftUvAC">
+                                                <span class="CardProduct__Review-a817d1-10 gsopHh">댓글 235</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a></div>
+                                <div class="CardProduct__Wrapper-a817d1-0 ijdqTp"><a class="withLink__StyledLink-zuberk-0 lQqkn" href="/products/143586">
+                                    <div class="CardProduct__InfoWrapper-a817d1-1 hPIfDi">
+                                        <div class="CardProduct__ImageContainer-a817d1-2 eEpNrE">
+                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF CardProduct__StyledImage-a817d1-4 fRUJUy">
+                                                <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/%EC%A0%9C%EC%A3%BC%EC%82%B4%EA%B8%B0in%ED%83%91%EB%8F%99_8a4d3d6b9443f098444094bae4b9a1676984d3e52098a6030f120c0ebb4629dd">
+                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                                    <div class="Ratio " style="display: block;">
+                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                                <img alt="[제주살기] 구도심 속 힙한 호스텔 in 탑동 #베드라디오 (예약 가능) 썸네일" class="Image__StyledImage-v97gyx-1 VUNpu" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/%EC%A0%9C%EC%A3%BC%EC%82%B4%EA%B8%B0in%ED%83%91%EB%8F%99_8a4d3d6b9443f098444094bae4b9a1676984d3e52098a6030f120c0ebb4629dd">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="CardProduct__DetailContainer-a817d1-6 iDZoyW"><span class="CardProduct__Location-a817d1-7 hgalyK">제주시</span>
+                                            <div class="CardProduct__Title-a817d1-8 kxyGXE">[제주살기] 구도심 속 힙한 호스텔 in 탑동 #베드라디오 (예약 가능)</div>
+                                            <div class="CardProduct__ReviewContainer-a817d1-9 ftUvAC">
+                                                <span class="CardProduct__Review-a817d1-10 gsopHh">댓글 10</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a></div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="CollectionBannerList__Wrapper-sc-1vost5m-0 GwLTy">
+                    <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                        <div font-size="14px" class="ProductSectionHeader__Wrapper-sc-1lmfow6-0 dqWjUS">
+                            <div font-size="18" class="ProductSectionHeader__Header-sc-1lmfow6-1 eQGBlA">
+                                <h2 class="ProductSectionHeader__Title-sc-1lmfow6-2 jskoxd">모아보기</h2>
+                            </div>
+                            <div class="ProductSectionHeader__LinkWrapper-sc-1lmfow6-4 iQnPKA"></div>
+                        </div>
+                        <div class="Banner__Wrapper-dlocnb-0 dIznkQ">
+                            <div class="Banner__ImageSliderWrapper-dlocnb-2 hWqRHN">
+                                <div class="ImageSlider__SliderWrapper-sc-1obm2ug-0 hHiTXT">
+                                    <div class="slick-slider ImageSlider__StyledSlider-sc-1obm2ug-1 cOsMnB slick-initialized" dir="ltr">
+                                        <div class="slick-list">
+                                            <!-- 여기가 두번째 시작점-->
+                                            <!-- Swiper -->
+                                            <div class="swiper mySwiper swiper-initialized swiper-horizontal swiper-pointer-events" style="height: 180;">
+                                                <div class="swiper-wrapper" id="swiper-wrapper-f10ba2ab650a993723" aria-live="off" style="transition-duration: 0ms; transform: translate3d(-4788px, 0px, 0px);">
+                                                    <div class="swiper-slide" data-swiper-slide-index="0" role="group" aria-label="1 / 9" style="width: 768px; margin-right: 30px;">
+                                                        <a href="/community/index">
+                                                            <img src="/imgin/main/sidebanner/sidebanner_freeboard.png" style="width:100%;">
+                                                        </a>
+                                                    </div>
+                                                    <div class="swiper-slide" data-swiper-slide-index="1" role="group" aria-label="2 / 9" style="width: 768px; margin-right: 30px;">
+                                                        <a href="/community/index">
+                                                            <img src="/imgin/main/sidebanner/sidebanner_exercise.png" style="width:100%;">
+                                                        </a>
+                                                    </div>
+                                                    <div class="swiper-slide" data-swiper-slide-index="2" role="group" aria-label="3 / 9" style="width: 768px; margin-right: 30px;">
+                                                        <a href="/community/index">
+                                                            <img src="/imgin/main/sidebanner/sidebanner_cook.png" style="width:100%;">
+                                                        </a>
+                                                    </div>
+                                                    <div class="swiper-slide" data-swiper-slide-index="3" role="group" aria-label="4 / 9" style="width: 768px; margin-right: 30px;">
+                                                        <a href="/community/index">
+                                                            <img src="/imgin/main/sidebanner/sidebanner_diary.png" style="width:100%;">
+                                                        </a>
+                                                    </div>
+                                                    <div class="swiper-slide" data-swiper-slide-index="4" role="group" aria-label="5 / 9" style="width: 768px; margin-right: 30px;">
+                                                        <a href="/community/index">
+                                                            <img src="/imgin/main/sidebanner/sidebanner_movie.png" style="width:100%;">
+                                                        </a>
+                                                    </div>
+                                                    <div class="swiper-slide" data-swiper-slide-index="5" role="group" aria-label="6 / 9" style="width: 768px; margin-right: 30px;">
+                                                        <a href="/community/index">
+                                                            <img src="/imgin/main/sidebanner/sidebanner_book.png" style="width:100%;">
+                                                        </a>
+                                                    </div>
+                                                    <div class="swiper-slide" data-swiper-slide-index="6" role="group" aria-label="7 / 9" style="width: 768px; margin-right: 30px;">
+                                                        <a href="/community/anonymous">
+                                                            <img src="/imgin/main/sidebanner/sidebanner_consulting.png" style="width:100%;">
+                                                        </a>
+                                                    </div>
+                                                    <div class="swiper-slide" data-swiper-slide-index="7" role="group" aria-label="8 / 9" style="width: 768px; margin-right: 30px;">
+                                                        <a href="/myspace/index">
+                                                            <img src="/imgin/main/sidebanner/sidebanner_todolist.png" style="width:100%;">
+                                                        </a>
+                                                    </div>
+                                                    <div class="swiper-slide" data-swiper-slide-index="8" role="group" aria-label="9 / 9" style="width: 768px; margin-right: 30px;">
+                                                        <a href="/bulletineBoard/index">
+                                                            <img src="/imgin/main/sidebanner/sidebanner_gettogether.png" style="width:100%;">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-f10ba2ab650a99373" style="
+    color: white;
+"></div>
+                                                <div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-f10ba2ab650a99373" style="
+    color: white;
+"></div>
+                                                <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal">
+                                                    <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 1"></span>
+                                                    <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span>
+                                                    <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 3"></span>
+                                                    <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 4"></span>
+                                                    <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 5"></span>
+                                                    <span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 6" aria-current="true"></span>
+                                                    <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 7"></span>
+                                                    <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 8"></span>
+                                                    <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 9"></span>
+                                                </div>
+                                                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                                                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                                                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                                                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                                            </div>
+                                            <!--여기가 두번쨰 끝점-->
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ProductList__Wrapper-sc-1pj7ods-0 kqydUo">
+                    <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                        <section class="CardGroupProduct__Wrapper-sc-1uq4zjb-0 jUxAIa">
+                            <div font-size="14px" class="ProductSectionHeader__Wrapper-sc-1lmfow6-0 dqWjUS">
+                                <div font-size="18" class="ProductSectionHeader__Header-sc-1lmfow6-1 eQGBlA">
+                                    <h2 class="ProductSectionHeader__Title-sc-1lmfow6-2 jskoxd">다양한 운동 이야기👍🏻</h2>
+                                </div>
+                                <div class="ProductSectionHeader__LinkWrapper-sc-1lmfow6-4 iQnPKA"><a class="ProductSectionHeader__StyledLink-sc-1lmfow6-5 haoyHh" href="http://localhost:15000/myList/myListExercise">전체보기</a></div>
+                            </div>
+                            <div class="CardGroupProduct__Content-sc-1uq4zjb-1 gbEqzo">
+                                <div class="CardProduct__Wrapper-a817d1-0 ijdqTp"><a class="withLink__StyledLink-zuberk-0 lQqkn" href="/products/164399">
+                                    <div class="CardProduct__InfoWrapper-a817d1-1 hPIfDi">
+                                        <div class="CardProduct__ImageContainer-a817d1-2 eEpNrE">
+                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF CardProduct__StyledImage-a817d1-4 fRUJUy">
+                                                <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/KakaoTalk_20220614_143752132_dd9da72cccdd36767d6895ae3c9448f2708190709e68fe091e62e0b1bc3d9a16">
+                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                                    <div class="Ratio " style="display: block;">
+                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                                <img alt="잘 살기 위한 생산적인 수다 썸네일" class="Image__StyledImage-v97gyx-1 VUNpu" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/KakaoTalk_20220614_143752132_dd9da72cccdd36767d6895ae3c9448f2708190709e68fe091e62e0b1bc3d9a16">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="CardProduct__DetailContainer-a817d1-6 iDZoyW"><span class="CardProduct__Location-a817d1-7 hgalyK">송파/강동</span>
+                                            <div class="CardProduct__Title-a817d1-8 kxyGXE">잘 살기 위한 생산적인 수다</div>
+                                        </div>
+                                    </div>
+                                </a></div>
+                                <div class="CardProduct__Wrapper-a817d1-0 ijdqTp"><a class="withLink__StyledLink-zuberk-0 lQqkn" href="/products/164569">
+                                    <div class="CardProduct__InfoWrapper-a817d1-1 hPIfDi">
+                                        <div class="CardProduct__ImageContainer-a817d1-2 eEpNrE">
+                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF CardProduct__StyledImage-a817d1-4 fRUJUy">
+                                                <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/221031_%E1%84%80%E1%85%AD%E1%84%87%E1%85%A9%E1%84%90%E1%85%A6%E1%86%B7%E1%84%91%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5%E1%86%BA_%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%B2%E1%86%AB%E1%84%8C%E1%85%AE_%E1%84%8A%E1%85%A5%E1%86%B7%E1%84%82%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%AF2_0679d1c63de8723ddf21747ff7fae00e53cc0f4a758dea7451c05ae99d4f1f39">
+                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                                    <div class="Ratio " style="display: block;">
+                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                                <img alt="함께 읽는 공간 이야기 <순례주택> - 책 안읽는 책 모임 썸네일" class="Image__StyledImage-v97gyx-1 VUNpu" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/221031_%E1%84%80%E1%85%AD%E1%84%87%E1%85%A9%E1%84%90%E1%85%A6%E1%86%B7%E1%84%91%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5%E1%86%BA_%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%B2%E1%86%AB%E1%84%8C%E1%85%AE_%E1%84%8A%E1%85%A5%E1%86%B7%E1%84%82%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%AF2_0679d1c63de8723ddf21747ff7fae00e53cc0f4a758dea7451c05ae99d4f1f39">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="CardProduct__DetailContainer-a817d1-6 iDZoyW"><span class="CardProduct__Location-a817d1-7 hgalyK">성동/광진</span>
+                                            <div class="CardProduct__Title-a817d1-8 kxyGXE">함께 읽는 공간 이야기 &lt;순례주택&gt; - 책 안읽는 책 모임</div>
+                                        </div>
+                                    </div>
+                                </a></div>
+                                <div class="CardProduct__Wrapper-a817d1-0 ijdqTp"><a class="withLink__StyledLink-zuberk-0 lQqkn" href="/products/164113">
+                                    <div class="CardProduct__InfoWrapper-a817d1-1 hPIfDi">
+                                        <div class="CardProduct__ImageContainer-a817d1-2 eEpNrE">
+                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF CardProduct__StyledImage-a817d1-4 fRUJUy">
+                                                <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/%E1%84%8B%E1%85%A7%E1%86%BC%E1%84%89%E1%85%B5%E1%86%AF1_5466ebfa17a772e767296ac27ae6dfba2d12bfebdb8b16a2fc44f82ffcfaea93">
+                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                                    <div class="Ratio " style="display: block;">
+                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                                <img alt="[제주MD추천]한라산 영실코스 트레킹! 함께 걸어요  썸네일" class="Image__StyledImage-v97gyx-1 VUNpu" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/%E1%84%8B%E1%85%A7%E1%86%BC%E1%84%89%E1%85%B5%E1%86%AF1_5466ebfa17a772e767296ac27ae6dfba2d12bfebdb8b16a2fc44f82ffcfaea93">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="CardProduct__DetailContainer-a817d1-6 iDZoyW"><span class="CardProduct__Location-a817d1-7 hgalyK">서귀포시</span>
+                                            <div class="CardProduct__Title-a817d1-8 kxyGXE">[제주MD추천]한라산 영실코스 트레킹! 함께 걸어요 </div>
+                                        </div>
+                                    </div>
+                                </a></div>
+                                <div class="CardProduct__Wrapper-a817d1-0 ijdqTp"><a class="withLink__StyledLink-zuberk-0 lQqkn" href="/products/164362">
+                                    <div class="CardProduct__InfoWrapper-a817d1-1 hPIfDi">
+                                        <div class="CardProduct__ImageContainer-a817d1-2 eEpNrE">
+                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF CardProduct__StyledImage-a817d1-4 fRUJUy">
+                                                <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/Group%20128_7213c5e844b9869cad860c4b573938ac5a0cabaaefce943031a40735306c08a3">
+                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                                    <div class="Ratio " style="display: block;">
+                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                                <img alt="금요일밤 제주맥주가 콸콸콸! 보드게임파티 썸네일" class="Image__StyledImage-v97gyx-1 VUNpu" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/Group%20128_7213c5e844b9869cad860c4b573938ac5a0cabaaefce943031a40735306c08a3">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="CardProduct__DetailContainer-a817d1-6 iDZoyW"><span class="CardProduct__Location-a817d1-7 hgalyK">성동/광진</span>
+                                            <div class="CardProduct__Title-a817d1-8 kxyGXE">금요일밤 제주맥주가 콸콸콸! 보드게임파티</div>
+                                        </div>
+                                    </div>
+                                </a></div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="ProductList__Wrapper-sc-1pj7ods-0 kqydUo">
+                    <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                        <section class="CardGroupProduct__Wrapper-sc-1uq4zjb-0 jUxAIa">
+                            <div font-size="14px" class="ProductSectionHeader__Wrapper-sc-1lmfow6-0 dqWjUS">
+                                <div font-size="18" class="ProductSectionHeader__Header-sc-1lmfow6-1 eQGBlA">
+                                    <h2 class="ProductSectionHeader__Title-sc-1lmfow6-2 jskoxd">나의 요리를 자랑해요🌾</h2>
+                                </div>
+                                <div class="ProductSectionHeader__LinkWrapper-sc-1lmfow6-4 iQnPKA"><a class="ProductSectionHeader__StyledLink-sc-1lmfow6-5 haoyHh" href="http://localhost:15000/myList/myListCook">전체보기</a></div>
+                            </div>
+                            <div class="CardGroupProduct__Content-sc-1uq4zjb-1 gbEqzo">
+                                <div class="CardProduct__Wrapper-a817d1-0 ijdqTp"><a class="withLink__StyledLink-zuberk-0 lQqkn" href="/products/113249">
+                                    <div class="CardProduct__InfoWrapper-a817d1-1 hPIfDi">
+                                        <div class="CardProduct__ImageContainer-a817d1-2 eEpNrE">
+                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF CardProduct__StyledImage-a817d1-4 fRUJUy">
+                                                <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/product_banner_1552012277158_23067">
+                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                                    <div class="Ratio " style="display: block;">
+                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                                <img alt="[동반할인] 쫀득쫀득한 찹쌀 브라우니 (예약 가능) 썸네일" class="Image__StyledImage-v97gyx-1 VUNpu" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/product_banner_1552012277158_23067">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="CardProduct__DetailContainer-a817d1-6 iDZoyW"><span class="CardProduct__Location-a817d1-7 hgalyK">강서/금천/양천</span>
+                                            <div class="CardProduct__Title-a817d1-8 kxyGXE">[동반할인] 쫀득쫀득한 찹쌀 브라우니(예약 가능)</div>
+                                            <div class="CardProduct__ReviewContainer-a817d1-9 ftUvAC">
+                                                <span class="CardProduct__Review-a817d1-10 gsopHh">댓글 24</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a></div>
+                                <div class="CardProduct__Wrapper-a817d1-0 ijdqTp"><a class="withLink__StyledLink-zuberk-0 lQqkn" href="/products/159977">
+                                    <div class="CardProduct__InfoWrapper-a817d1-1 hPIfDi">
+                                        <div class="CardProduct__ImageContainer-a817d1-2 eEpNrE">
+                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF CardProduct__StyledImage-a817d1-4 fRUJUy">
+                                                <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/KakaoTalk_20220921_200400442_02_8077a83f50ee2df46068eee0c86290990d2ebacabaa805ffe81245f0dbae530e">
+                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                                    <div class="Ratio " style="display: block;">
+                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                                <img alt="[서울/쌍문/노원]퓨전떡케이크 쌀베이킹 클래스 썸네일" class="Image__StyledImage-v97gyx-1 VUNpu" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/KakaoTalk_20220921_200400442_02_8077a83f50ee2df46068eee0c86290990d2ebacabaa805ffe81245f0dbae530e">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="CardProduct__DetailContainer-a817d1-6 iDZoyW"><span class="CardProduct__Location-a817d1-7 hgalyK">노원/강북/도봉/중랑</span>
+                                            <div class="CardProduct__Title-a817d1-8 kxyGXE">[서울/쌍문/노원]퓨전떡케이크 쌀베이킹 클래스</div>
+                                            <div class="CardProduct__ReviewContainer-a817d1-9 ftUvAC">
+                                                <span class="CardProduct__Review-a817d1-10 gsopHh">댓글 17</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a></div>
+                                <div class="CardProduct__Wrapper-a817d1-0 ijdqTp"><a class="withLink__StyledLink-zuberk-0 lQqkn" href="/products/161302">
+                                    <div class="CardProduct__InfoWrapper-a817d1-1 hPIfDi">
+                                        <div class="CardProduct__ImageContainer-a817d1-2 eEpNrE">
+                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF CardProduct__StyledImage-a817d1-4 fRUJUy">
+                                                <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/SE-aa008074-27c9-4189-9f54-1c6e3fed3200_d4ea3be086a5276e69d0f0788b154e9b9b0794d2893ae151791f86403494e06c">
+                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                                    <div class="Ratio " style="display: block;">
+                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                                <img alt="전통주&amp;안주 만들고 나누는 모임  썸네일" class="Image__StyledImage-v97gyx-1 VUNpu" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/SE-aa008074-27c9-4189-9f54-1c6e3fed3200_d4ea3be086a5276e69d0f0788b154e9b9b0794d2893ae151791f86403494e06c">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="CardProduct__DetailContainer-a817d1-6 iDZoyW"><span class="CardProduct__Location-a817d1-7 hgalyK">영등포/구로</span>
+                                            <div class="CardProduct__Title-a817d1-8 kxyGXE">전통주&amp;안주 만들고 나누는 모임 </div>
+                                            <div class="CardProduct__ReviewContainer-a817d1-9 ftUvAC">
+                                                <span class="CardProduct__Review-a817d1-10 gsopHh">댓글 2</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a></div>
+                                <div class="CardProduct__Wrapper-a817d1-0 ijdqTp"><a class="withLink__StyledLink-zuberk-0 lQqkn" href="/products/109171">
+                                    <div class="CardProduct__InfoWrapper-a817d1-1 hPIfDi">
+                                        <div class="CardProduct__ImageContainer-a817d1-2 eEpNrE">
+                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF CardProduct__StyledImage-a817d1-4 fRUJUy">
+                                                <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/98826_banner_1545368828088">
+                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                                    <div class="Ratio " style="display: block;">
+                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                                <img alt="오페라 떡케이크 만들기 (예약 가능) 썸네일" class="Image__StyledImage-v97gyx-1 VUNpu" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/98826_banner_1545368828088">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="CardProduct__DetailContainer-a817d1-6 iDZoyW"><span class="CardProduct__Location-a817d1-7 hgalyK">성동/광진</span>
+                                            <div class="CardProduct__Title-a817d1-8 kxyGXE">오페라 떡케이크 만들기 (예약 가능)</div>
+                                            <div class="CardProduct__ReviewContainer-a817d1-9 ftUvAC">
+                                                <span class="CardProduct__Review-a817d1-10 gsopHh">댓글 4</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a></div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="MagazineSection__Wrapper-sc-1shb4bc-0 cpFNDj">
+                    <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                        <div class="ProductSectionHeader__Wrapper-sc-1lmfow6-0 dqWjUS">
+                            <div class="MagazineSection__Title-sc-1shb4bc-2 hFErVq">감상평</div><a href="http://localhost:15000/community/index">전체보기</a>
+                        </div>
+                        <section class="CardGroup__Wrapper-l79tlh-0 jMpxaV">
+                            <div class="CardGroup__Content-l79tlh-1 lmxZja">
+                                <div class="CardGroup__CardWrapper-l79tlh-2 jCmvf"><a class="withLink__StyledLink-zuberk-0 lQqkn" href="/magazines/10157178">
+                                    <div class="CardMagazine__Wrapper-sc-1v8lgcg-0 iptsHz">
+                                        <div>
+                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="256" src="https://res.cloudinary.com/frientrip/image/upload/ar_101:80,c_fill,dpr_2,f_auto,q_auto,w_310/product_banner_1667986379869_138381">
+                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                                    <div class="Ratio " style="display: block;">
+                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 79.2079%;">
+                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                                <img alt="서울 베이킹 프립 빵지순례 지도 썸네일" class="Image__StyledImage-v97gyx-1 VUNpz" width=100% src="https://res.cloudinary.com/frientrip/image/upload/ar_101:80,c_fill,dpr_2,f_auto,q_auto,w_310/product_banner_1667986379869_138381">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="CardMagazine__InfoWrapper-sc-1v8lgcg-1 fghRNM">
+                                            <div class="CardMagazine__Title-sc-1v8lgcg-2 iyvDaS">서울 베이킹 프립 빵지순례 지도</div>
+                                            <div>맛있으면 0칼로리!</div>
+                                        </div>
+                                    </div>
+                                </a></div>
+                                <div class="CardGroup__CardWrapper-l79tlh-2 jCmvf"><a class="withLink__StyledLink-zuberk-0 lQqkn" href="/magazines/10157177">
+                                    <div class="CardMagazine__Wrapper-sc-1v8lgcg-0 iptsHz">
+                                        <div>
+                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="256" src="https://res.cloudinary.com/frientrip/image/upload/ar_101:80,c_fill,dpr_2,f_auto,q_auto,w_310/product_banner_1667811253897_52776">
+                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                                    <div class="Ratio " style="display: block;">
+                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 79.2079%;">
+                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                                <img alt="이달의 우수댓글 [음악] 썸네일" class="Image__StyledImage-v97gyx-1 VUNpz" width="256" src="https://res.cloudinary.com/frientrip/image/upload/ar_101:80,c_fill,dpr_2,f_auto,q_auto,w_310/product_banner_1667811253897_52776">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="CardMagazine__InfoWrapper-sc-1v8lgcg-1 fghRNM">
+                                            <div class="CardMagazine__Title-sc-1v8lgcg-2 iyvDaS">이달의 우수댓글 [음악]
+                                            </div>
+                                            <div>(10월) 다섯 크루의 우수댓글를 소개합니다!</div>
+                                        </div>
+                                    </div>
+                                </a></div>
+                                <div class="CardGroup__CardWrapper-l79tlh-2 jCmvf"><a class="withLink__StyledLink-zuberk-0 lQqkn" href="/magazines/154883">
+                                    <div class="CardMagazine__Wrapper-sc-1v8lgcg-0 iptsHz">
+                                        <div>
+                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="256" src="https://res.cloudinary.com/frientrip/image/upload/ar_101:80,c_fill,dpr_2,f_auto,q_auto,w_310/product_banner_1635929598012_212503">
+                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                                    <div class="Ratio " style="display: block;">
+                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 79.2079%;">
+                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                                <img alt="넌 요즘 뭐가 제일 재미있어? 썸네일" class="Image__StyledImage-v97gyx-1 VUNpz" width="256" src="https://res.cloudinary.com/frientrip/image/upload/ar_101:80,c_fill,dpr_2,f_auto,q_auto,w_310/product_banner_1635929598012_212503">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="CardMagazine__InfoWrapper-sc-1v8lgcg-1 fghRNM">
+                                            <div class="CardMagazine__Title-sc-1v8lgcg-2 iyvDaS">넌 요즘 뭐가 제일 재미있어?</div>
+                                            <div>프립이 경험의 가치를 말하다.</div>
+                                        </div>
+                                    </div>
+                                </a></div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="ProductList__Wrapper-sc-1pj7ods-0 kqydUo">
+                    <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                        <section class="CardGroupProduct__Wrapper-sc-1uq4zjb-0 jUxAIa">
+                            <div font-size="14px" class="ProductSectionHeader__Wrapper-sc-1lmfow6-0 dqWjUS">
+                                <div font-size="18" class="ProductSectionHeader__Header-sc-1lmfow6-1 eQGBlA">
+                                    <h2 class="ProductSectionHeader__Title-sc-1lmfow6-2 jskoxd">우리들의 고민 상담 ~</h2>
+                                </div>
+                                <div class="ProductSectionHeader__LinkWrapper-sc-1lmfow6-4 iQnPKA"><a class="ProductSectionHeader__StyledLink-sc-1lmfow6-5 haoyHh" href="http://localhost:15000/myList/myListCounseling">전체보기</a></div>
+                            </div>
+                            <div class="CardGroupProduct__Content-sc-1uq4zjb-1 gbEqzo">
+                                <div class="CardProduct__Wrapper-a817d1-0 ijdqTp"><a class="withLink__StyledLink-zuberk-0 lQqkn" href="/products/164752">
+                                    <div class="CardProduct__InfoWrapper-a817d1-1 hPIfDi">
+                                        <div class="CardProduct__ImageContainer-a817d1-2 eEpNrE">
+                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF CardProduct__StyledImage-a817d1-4 fRUJUy">
+                                                <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/2022-11-09%2023%2003%2013_acf3f3587c6fc49e28e59de82f9f86d04f1f9f5cf01d8679b27f6394eebff967">
+                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                                    <div class="Ratio " style="display: block;">
+                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                                <img alt="맛기행 3탄! 울진홍게(무한리필), 죽변해안스카이레일, 폭풍속으로 촬영지 썸네일" class="Image__StyledImage-v97gyx-1 VUNpu" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/2022-11-09%2023%2003%2013_acf3f3587c6fc49e28e59de82f9f86d04f1f9f5cf01d8679b27f6394eebff967">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="CardProduct__DetailContainer-a817d1-6 iDZoyW"><span class="CardProduct__Location-a817d1-7 hgalyK">마포/서대문/은평</span>
+                                            <div class="CardProduct__Title-a817d1-8 kxyGXE">맛기행 3탄! 울진홍게(무한리필), 죽변해안스카이레일, 폭풍속으로 촬영지</div>
+                                        </div>
+                                    </div>
+                                </a></div>
+                                <div class="CardProduct__Wrapper-a817d1-0 ijdqTp"><a class="withLink__StyledLink-zuberk-0 lQqkn" href="/products/164748">
+                                    <div class="CardProduct__InfoWrapper-a817d1-1 hPIfDi">
+                                        <div class="CardProduct__ImageContainer-a817d1-2 eEpNrE">
+                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF CardProduct__StyledImage-a817d1-4 fRUJUy">
+                                                <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/2022-11-09%2021%2054%2024_b9ad5889312d4105a2b8ed8d9bee5f935484c0baf968d27403b4598c97ff070e">
+                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                                    <div class="Ratio " style="display: block;">
+                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                                <img alt="겨울이 좋다! 부여 탐방/궁남지/서동요테마파크/부여 가림성 썸네일" class="Image__StyledImage-v97gyx-1 VUNpu" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/2022-11-09%2021%2054%2024_b9ad5889312d4105a2b8ed8d9bee5f935484c0baf968d27403b4598c97ff070e">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="CardProduct__DetailContainer-a817d1-6 iDZoyW"><span class="CardProduct__Location-a817d1-7 hgalyK">마포/서대문/은평</span>
+                                            <div class="CardProduct__Title-a817d1-8 kxyGXE">겨울이 좋다! 부여 탐방/궁남지/서동요테마파크/부여 가림성</div>
+                                        </div>
+                                    </div>
+                                </a></div>
+                                <div class="CardProduct__Wrapper-a817d1-0 ijdqTp"><a class="withLink__StyledLink-zuberk-0 lQqkn" href="/products/164682">
+                                    <div class="CardProduct__InfoWrapper-a817d1-1 hPIfDi">
+                                        <div class="CardProduct__ImageContainer-a817d1-2 eEpNrE">
+                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF CardProduct__StyledImage-a817d1-4 fRUJUy">
+                                                <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/2022-11-08%2000%2010%2055_fe6bc31233da74c48860ba0da1c178a866ebec700bfa78be32921fa42895c16d">
+                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                                    <div class="Ratio " style="display: block;">
+                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                                <img alt="맛기행 1탄! 한우불고기무한리필-임진각케이블카/감악산출렁다리 썸네일" class="Image__StyledImage-v97gyx-1 VUNpu" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/2022-11-08%2000%2010%2055_fe6bc31233da74c48860ba0da1c178a866ebec700bfa78be32921fa42895c16d">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="CardProduct__DetailContainer-a817d1-6 iDZoyW"><span class="CardProduct__Location-a817d1-7 hgalyK">종로/중구</span>
+                                            <div class="CardProduct__Title-a817d1-8 kxyGXE">맛기행 1탄! 한우불고기무한리필-임진각케이블카/감악산출렁다리</div>
+                                        </div>
+                                    </div>
+                                </a></div>
+                                <div class="CardProduct__Wrapper-a817d1-0 ijdqTp"><a class="withLink__StyledLink-zuberk-0 lQqkn" href="/products/164673">
+                                    <div class="CardProduct__InfoWrapper-a817d1-1 hPIfDi">
+                                        <div class="CardProduct__ImageContainer-a817d1-2 eEpNrE">
+                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF CardProduct__StyledImage-a817d1-4 fRUJUy">
+                                                <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/%ED%9A%8C%EB%A3%A1%ED%8F%AC_13a81ece3f05cbb061b7616bb57f4199dc8dd753357d6a585d661c9b9ac55846">
+                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                                    <div class="Ratio " style="display: block;">
+                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                                <img alt="예천 회룡포여행 썸네일" class="Image__StyledImage-v97gyx-1 VUNpu" width="192" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/%ED%9A%8C%EB%A3%A1%ED%8F%AC_13a81ece3f05cbb061b7616bb57f4199dc8dd753357d6a585d661c9b9ac55846">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="CardProduct__DetailContainer-a817d1-6 iDZoyW"><span class="CardProduct__Location-a817d1-7 hgalyK">마포/서대문/은평</span>
+                                            <div class="CardProduct__Title-a817d1-8 kxyGXE">예천 회룡포여행</div>
+                                        </div>
+                                    </div>
+                                </a></div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <a href="" target="_blank" class="HostBanner__Wrapper-sc-15wm6s2-0 ikopRC">
+                    <img src="/imgin/main/brandbanner/brandbanner_002.png" class="HostBanner__BannerImage-sc-15wm6s2-1 eaJzkp">
+                    <img src="/imgin/main/brandbanner/brandbanner_001.png" class="HostBanner__BannerImage-sc-15wm6s2-1 eaJzkp" style="display:none;">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div id="footer"></div>
+<footer th:replace="/app/fix/footer.html :: footer"></footer>
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<!--<script src="/js/fix/fix.js"></script>-->
+<script src="/js/main/main.js"></script>
+<script src="/js/fix/header.js"></script>
+<script src="/js/fix/chatting.js"></script>
+<script type="text/javascript">
+    /* 카테고리 숨김 / 보이기 버튼  */
+
+    function toggleBtn1() {
+
+        // 토글 할 버튼 선택 (serachshowone)
+        const btn1 = document.getElementById('serachshowone');
+
+        // serachshowone 숨기기 (display: none)
+        if(serachshowone.style.display !== 'none') {
+            serachshowone.style.display = 'none';
+        }
+        // serachshowone 보이기 (display: block)
+        else {
+            serachshowone.style.display = 'block';
+        }
+
+    }
+</script>
+
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev"
+        }
+    });
+</script>
+
+</body></html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>h.hyeoniya 커뮤니티 글작성</title>
+    <link rel="stylesheet" href="/css/community/community_write.css">
+
+<!--    <link rel="stylesheet" href="https://codex.so/public/build/codex.bundle.css?v=1647866282">-->
+    <link rel="stylesheet" href="/css/community/bundle.css">
+    <link rel="stylesheet" href="/css/fix/header.css">
+    <link rel="stylesheet" href="/css/fix/footer.css">
+    <!--    <script>-->
+    <!--        /**-->
+    <!--         * Tiny wrapper for Hawk service initializing-->
+    <!--         */-->
+    <!--        function initializeHawk() {-->
+
+    <!--            /**-->
+    <!--             * Define global catcher for errors-->
+    <!--             */-->
+    <!--            new HawkCatcher({-->
+    <!--                token: 'eyJpbnRlZ3JhdGlvbklkIjoiMGFlZjVmOTAtN2E4ZC00YmNkLTgxZWYtYThkZWQ4ZTA5MTg1Iiwic2VjcmV0IjoiZGY3ZjdkNjAtZTMwYy00MDcyLWE1Y2UtYTZmNDY2ZTVlMDEzIn0=',-->
+    <!--                release: '223d8eb43073a38b4278'-->
+    <!--            });-->
+
+    <!--            /**-->
+    <!--             * Send a hit for a page open-->
+    <!--             */-->
+    <!--            (new HawkCatcher({-->
+    <!--           WFlMTEtZTViZjNjMjJhYWQ2Iiwic2VjcmV0IjoiNjBlNzBhMjEtZGI2MS00YzQ2LWI3YmQtNjMzMzY0YzBmMmI4In0=',-->
+    <!--                disableGlobalErrorsHandling: true-->
+    <!--            }))-->
+    <!--                .send(new Error(window.location.pathname));-->
+    <!--        }-->
+    <!--    </script>-->
+    <!--    <script src="https://codex.so/public/build/HawkCatcher.bundle.js?v=1630917502" onload="initializeHawk()"></script>-->
+    <script charset="utf-8" src="https://codex.so/public/build/editor.bundle.js?h=223d8eb43073a38b4278"></script>
+
+</head>
+<body>
+<header th:replace="/app/fix/header.html :: header"></header>
+<form onsubmit="return false;">
+    <div class="SocialFeedPage__Wrapper-ky5ymg-0 fzBbGO">
+        <div class="SocialFeedPage__Header-ky5ymg-1 jIjcTX">
+            <div style="padding-left: 20px; padding-right: 20px;">
+                <input type="text" class="SocialFeedPage__Title-ky5ymg-2 gVPyuz" placeholder="제목을 작성해 주세요" style="border: none">
+                <!--<span class="SocialFeedPage__Title-ky5ymg-2 gVPyuz">마음껏 작성해 주세요</span>-->
+            </div>
+        </div>
+        <!-- 카테고리 필터 -->
+        <div class="filter_wrapper">
+            <div class="selectBox2 post_filter ">
+                <button class="label">요리</button>
+                <ul class="optionList">
+                    <input type="hidden" class="post_filter_input" value="요리">
+                    <li class="optionItem">요리</li>
+                    <li class="optionItem">운동</li>
+                    <li class="optionItem">영화</li>
+                    <li class="optionItem">책</li>
+                    <li class="optionItem">일기</li>
+                </ul>
+            </div>
+
+            <div class="selectBox2 diary_filter_1h ">
+                <button class="label">공개</button>
+                <ul class="optionList">
+                    <input type="hidden" class="diary_filter_input" value="공개">
+                    <li class="optionItem">공개</li>
+                    <li class="optionItem">비공개</li>
+                </ul>
+            </div>
+
+            <div class="selectBox2 exchange_filter_1h ">
+                <button class="label">교환 일기</button>
+                <ul class="optionList">
+                    <input type="hidden" class="exchange_filter_input" value="교환 일기">
+                    <li class="optionItem">교환 일기</li>
+                    <li class="optionItem">나의 일기</li>
+                </ul>
+            </div>
+            <div class="FilterAll__Wrapper-tqa6fq-0 jJIWoq">
+                <div class="FilterOpenButton__Wrapper-sc-91gci-0 NVKNq">
+                    <button height="auto" color="initial" font-size="14px" font-weight="500" class="Button-bqxlp0-0 fFBpBV">등록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="padding: 30px 0">
+
+        <div class="editor-landing__demo" data-module="editorLanding">
+                <textarea name="module-settings" hidden="">            {
+                        "output_id" : "output",
+                        "blocks" : []
+                    }
+                </textarea>
+
+            <div class="editor-landing__demo-inner">
+                <div id="editorjs">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+<footer th:replace="/app/fix/footer.html :: footer"></footer>
+
+</body>
+<!--<script data-cfasync="false" src="https://codex.so/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32652805 = new Ya.Metrika({ id:32652805, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="https://mc.yandex.ru/watch/32652805" style="position:absolute; left:-9999px;" alt="" /></div></noscript>-->
+<!--<script type="text/javascript">(window.Image ? (new Image()) : document.createElement('img')).src = location.protocol + '//vk.com/rtrg?r=r/h9TMw6W*8InHxVrFZ4tmb*x6Z5C3xX8BdMxOLhjmn9fIv51wjPMiGmbHGJJd7sOl87xLCs94644RwgS0o2PeBS*/xssAPVS1zN/LOx/HWw2kLUkcg0ELryq4QZF0IJtKIs0pJyo6/*z0qgpPsNl0u8pQPEQ12R4jrwKFQZK4k-';</script>-->
+<!--<script onload="codex.init();" src="https://codex.so/public/build/codex.bundle.js?v=1654014248" defer></script>-->
+<!--<script onload="Emoji.parse();" src="https://codex.so/public/extensions/emoji-parser/specc-emoji.js?v=1630788928" defer></script>-->
+<!--<script onload="codex.init();" src="https://codex.so/public/build/codex.bundle.js?v=1654014248" defer></script>-->
+<script onload = "codex.init();" src="/js/community/communityEdit.js" th:defer></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/js/fix/header.js"></script>
+<script>
+    const $labelBtn = $(".label");
+    $labelBtn.click(function () {
+        if( $(this).parent().hasClass('active')){
+            $(this).parent().removeClass('active');
+        }else{
+            $(this).parent().addClass('active');
+        }
+    })
+</script>
+<script src="/js/community/communityWrite.js"></script>
+</html>

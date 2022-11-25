@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나의 뱃지</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/myQuest/todayQuest.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/myPage/myPage.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/myQuest/myBadge.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/fix/header.css">
+    <link rel="stylesheet" href="/css/fix/footer.css">
+</head>
+<body>
+<header th:replace="/app/fix/header.html :: header"></header>
+<div class="PageWrapper-sc-1w87j10-0 dqLSTf">
+    <!--퀘스트 카테고리-->
+    <div class="NavigationWrapper-z696u8-0 ijXgoc">
+        <a href="/myQuest/todayQuest">
+            <button width="auto" height="60px" font-size="14px" font-weight="300" class="Button-bqxlp0-0 NavigationButton__StyledButton-sc-121z7og-0 NbmIN">
+                <div>오늘의 퀘스트</div>
+            </button>
+        </a>
+        <a href="/myQuest/completeQuest">
+            <button width="auto" height="60px" font-size="14px" font-weight="bold" class="Button-bqxlp0-0 NavigationButton__StyledButton-sc-121z7og-0 NbmIN">
+                <div>완료한 퀘스트</div>
+            </button>
+        </a>
+        <a href="/myQuest/myBadge">
+            <button width="auto" height="60px" font-size="14px" font-weight="300" class="Button-bqxlp0-0 NavigationButton__StyledButton-sc-121z7og-0 Ppvwe">
+                <div>획득한 뱃지</div>
+            </button>
+        </a>
+    </div>
+
+    <!--그동안 딴 뱃지-->
+    <div class="addBadgeList">
+        <div class="badgeList">
+            <img src="https://res.cloudinary.com/frientrip/image/upload/c_fill,dpr_2,f_auto,h_117,q_auto,w_80/%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%87%E1%85%A1%E1%86%AB%E1%84%87%E1%85%A2%E1%84%8C%E1%85%B5%20%E1%84%92%E1%85%B3%E1%86%A8%E1%84%87%E1%85%A2%E1%86%A8_75330a38cfa6de5e44845aed5bc9be0cd832a2cd4e078aef0583559074af562e"
+                 width="100%" height="100%" alt="badge">
+        </div>
+        <div class="badgeList">
+            <img src="https://res.cloudinary.com/frientrip/image/upload/c_fill,dpr_2,f_auto,h_117,q_auto,w_80/%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%87%E1%85%A1%E1%86%AB%E1%84%87%E1%85%A2%E1%84%8C%E1%85%B5%20%E1%84%92%E1%85%B3%E1%86%A8%E1%84%87%E1%85%A2%E1%86%A8_75330a38cfa6de5e44845aed5bc9be0cd832a2cd4e078aef0583559074af562e"
+                 width="100%" height="100%" alt="badge">
+        </div>
+        <div class="badgeList">
+            <img src="https://res.cloudinary.com/frientrip/image/upload/c_fill,dpr_2,f_auto,h_117,q_auto,w_80/%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%87%E1%85%A1%E1%86%AB%E1%84%87%E1%85%A2%E1%84%8C%E1%85%B5%20%E1%84%92%E1%85%B3%E1%86%A8%E1%84%87%E1%85%A2%E1%86%A8_75330a38cfa6de5e44845aed5bc9be0cd832a2cd4e078aef0583559074af562e"
+                 width="100%" height="100%" alt="badge">
+        </div>
+        <div class="badgeList">
+            <img src="https://res.cloudinary.com/frientrip/image/upload/c_fill,dpr_2,f_auto,h_117,q_auto,w_80/%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%87%E1%85%A1%E1%86%AB%E1%84%87%E1%85%A2%E1%84%8C%E1%85%B5%20%E1%84%92%E1%85%B3%E1%86%A8%E1%84%87%E1%85%A2%E1%86%A8_75330a38cfa6de5e44845aed5bc9be0cd832a2cd4e078aef0583559074af562e"
+                 width="100%" height="100%" alt="badge">
+        </div>
+        <div class="badgeList">
+            <img src="https://res.cloudinary.com/frientrip/image/upload/c_fill,dpr_2,f_auto,h_117,q_auto,w_80/%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%87%E1%85%A1%E1%86%AB%E1%84%87%E1%85%A2%E1%84%8C%E1%85%B5%20%E1%84%92%E1%85%B3%E1%86%A8%E1%84%87%E1%85%A2%E1%86%A8_75330a38cfa6de5e44845aed5bc9be0cd832a2cd4e078aef0583559074af562e"
+                 width="100%" height="100%" alt="badge">
+        </div>
+    </div>
+    <div class="addBadgeList Second">
+        <div class="badgeList">
+            <img src="https://res.cloudinary.com/frientrip/image/upload/c_fill,dpr_2,f_auto,h_117,q_auto,w_80/%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%87%E1%85%A1%E1%86%AB%E1%84%87%E1%85%A2%E1%84%8C%E1%85%B5%20%E1%84%92%E1%85%B3%E1%86%A8%E1%84%87%E1%85%A2%E1%86%A8_75330a38cfa6de5e44845aed5bc9be0cd832a2cd4e078aef0583559074af562e"
+                 width="100%" height="100%" alt="badge">
+        </div>
+        <div class="badgeList">
+            <img src="https://res.cloudinary.com/frientrip/image/upload/c_fill,dpr_2,f_auto,h_117,q_auto,w_80/%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%87%E1%85%A1%E1%86%AB%E1%84%87%E1%85%A2%E1%84%8C%E1%85%B5%20%E1%84%92%E1%85%B3%E1%86%A8%E1%84%87%E1%85%A2%E1%86%A8_75330a38cfa6de5e44845aed5bc9be0cd832a2cd4e078aef0583559074af562e"
+                 width="100%" height="100%" alt="badge">
+        </div>
+        <div class="badgeList">
+            <img src="https://res.cloudinary.com/frientrip/image/upload/c_fill,dpr_2,f_auto,h_117,q_auto,w_80/%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%87%E1%85%A1%E1%86%AB%E1%84%87%E1%85%A2%E1%84%8C%E1%85%B5%20%E1%84%92%E1%85%B3%E1%86%A8%E1%84%87%E1%85%A2%E1%86%A8_75330a38cfa6de5e44845aed5bc9be0cd832a2cd4e078aef0583559074af562e"
+                 width="100%" height="100%" alt="badge">
+        </div>
+        <div class="badgeList">
+            <img src="https://res.cloudinary.com/frientrip/image/upload/c_fill,dpr_2,f_auto,h_117,q_auto,w_80/%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%87%E1%85%A1%E1%86%AB%E1%84%87%E1%85%A2%E1%84%8C%E1%85%B5%20%E1%84%92%E1%85%B3%E1%86%A8%E1%84%87%E1%85%A2%E1%86%A8_75330a38cfa6de5e44845aed5bc9be0cd832a2cd4e078aef0583559074af562e"
+                 width="100%" height="100%" alt="badge">
+        </div>
+        <div class="badgeList">
+            <img src="https://res.cloudinary.com/frientrip/image/upload/c_fill,dpr_2,f_auto,h_117,q_auto,w_80/%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%87%E1%85%A1%E1%86%AB%E1%84%87%E1%85%A2%E1%84%8C%E1%85%B5%20%E1%84%92%E1%85%B3%E1%86%A8%E1%84%87%E1%85%A2%E1%86%A8_75330a38cfa6de5e44845aed5bc9be0cd832a2cd4e078aef0583559074af562e"
+                 width="100%" height="100%" alt="badge">
+        </div>
+    </div>
+
+    <!--페이징-->
+    <footer class="Wrapper__PaginationWrapper-fk4uv4-0 hBVRcD">
+        <div class="PaginationButtonGroup__PrevButtonWrapper-x0iffd-0 gIsDDT">
+            <button width="40px" height="40px" font-size="18px" disabled="" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns"></button>
+            <button width="40px" height="40px" font-size="18px" disabled="" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns"></button>
+        </div>
+        <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 RPlDq">1 </button>
+        <div class="PaginationButtonGroup__NextButtonWrapper-x0iffd-1 eNIHag">
+            <button width="40px" height="40px" font-size="18px" disabled="" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu"></button>
+            <button width="40px" height="40px" font-size="18px" disabled="" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu"></button>
+        </div>
+    </footer>
+
+    <!--월간 뱃지-->
+    <div class="PageWrapper-sc-1w87j10-0 bScXKt" style="margin-top:20px;">
+        <div class="Profile__TopContainer-sc-1rgtq5h-1 cKeGEu">
+            <button class="Button__ButtonContainer-sc-1vo4nc0-0 lhKOdR goTodayQuestBtn">
+                <a href="/myQuest/todayQuest">오늘의 퀘스트</a>
+            </button>
+        </div>
+        <div class="Profile__Container-sc-1rgtq5h-0 ecJFAa">
+            <div class="Profile__DetailContainer-sc-1rgtq5h-2 efsGfN">
+                <div class="Profile__MonthlyTitleContainer-sc-1rgtq5h-3 jlZyVs">
+                    <strong class="Profile__MonthlyTitle-sc-1rgtq5h-4 eYeQw">홍준성</strong>님의
+                </div>
+                <h3 class="Profile__FripBadgeTitle-sc-1rgtq5h-5 dsbtQA">참여도는?</h3>
+                <span class="Profile__Description-sc-1rgtq5h-6 gToUoh">매일 찾아오는 색다른 퀘스트!<br>퀘스트 참여하고 뱃지를 모아보세요!</span>
+                <a href="/myPage/index">
+                    <div class="Profile__ThumbnailContainer-sc-1rgtq5h-7 dOjjp">
+                        <div class="Progressbar__ProgressContainer-yvuku8-0 bByObR">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="40.5 -18 120 110" width="120" height="110">
+                                <path d="M70,85 A55,55 0 1,1 130,85" class="Progressbar__Path-yvuku8-1 Progressbar__Greybar-yvuku8-2 eAawup"></path>
+                                <path d="M70,85 A55,55 0 1,1 130,85" class="Progressbar__Path-yvuku8-1 Progressbar__Blackbar-yvuku8-3 eXPdAe"></path>
+                            </svg>
+                            <img src="https://res.cloudinary.com/frientrip/image/fetch/ar_1:1,dpr_2,f_auto,h_64,q_auto,w_64/https://k.kakaocdn.net/dn/baDd8J/btrtExchyXb/WKBr9yQrctFXI0OWXTyrL0/img_110x110.jpg" alt="user thumbnail" class="Profile__Thumbnail-sc-1rgtq5h-8 eBTIQt">
+                        </div>
+                    </div>
+                </a>
+                <strong class="Profile__ProfileUsername-sc-1rgtq5h-15 zPlvc">
+                    <a href="/myPage/index">홍준성</a>
+                </strong>
+            </div>
+            <div class="Profile__CountWrapper-sc-1rgtq5h-11 ictrNd">
+                <div class="Profile__CountContainer-sc-1rgtq5h-12 fnyfze">
+                    <strong class="Profile__Count-sc-1rgtq5h-13 ktGTEM">0</strong>
+                    <span class="Profile__CountDescription-sc-1rgtq5h-14 gTgJJd">획득한 배지</span>
+                </div>
+                <div class="Profile__CountContainer-sc-1rgtq5h-12 fnyfze">
+                    <strong class="Profile__Count-sc-1rgtq5h-13 ktGTEM">0</strong>
+                    <span class="Profile__CountDescription-sc-1rgtq5h-14 gTgJJd">획득 포인트</span>
+                </div>
+            </div>
+        </div>
+        <div class="MyBadges__MonthlyBadgeContainer-sc-1luvtmz-0 dXLcNp">
+            <div class="Month__Container-sc-10z0ekt-0 jRRktc">
+                <div>
+                    <div class="Month__SuccessContainer-sc-10z0ekt-1 jPdICC">
+                        <strong class="Month__MonthText-sc-10z0ekt-3 cLFwqh">
+                            <span>1월</span>
+                        </strong>
+                    </div>
+                </div>
+                <div class="Month__BadgeContainer-sc-10z0ekt-5 bjLkAM">
+                    <div class="Month__ImageContainer-sc-10z0ekt-6 iialDB">
+                        <img src="/imgin/myQuest/calendar/january.png" width="100%" height="100%" alt="badge" class="monthlyBadge uncheckedBadge">
+                    </div>
+                </div>
+            </div>
+            <div class="Month__Container-sc-10z0ekt-0 jRRktc">
+                <div>
+                    <div class="Month__SuccessContainer-sc-10z0ekt-1 jPdICC">
+                        <strong class="Month__MonthText-sc-10z0ekt-3 cLFwqh">
+                            <span>2월</span>
+                        </strong>
+                    </div>
+                </div>
+                <div class="Month__BadgeContainer-sc-10z0ekt-5 bjLkAM">
+                    <div class="Month__ImageContainer-sc-10z0ekt-6 iialDB">
+                        <img src="/imgin/myQuest/calendar/february.png" width="100%" height="100%" alt="badge" class="monthlyBadge uncheckedBadge">
+                    </div>
+                </div>
+            </div>
+            <div class="Month__Container-sc-10z0ekt-0 jRRktc">
+                <div>
+                    <div class="Month__SuccessContainer-sc-10z0ekt-1 jPdICC">
+                        <strong class="Month__MonthText-sc-10z0ekt-3 cLFwqh">
+                            <span>3월</span>
+                        </strong>
+                    </div>
+                </div>
+                <div class="Month__BadgeContainer-sc-10z0ekt-5 bjLkAM">
+                    <div class="Month__ImageContainer-sc-10z0ekt-6 iialDB">
+                        <img src="/imgin/myQuest/calendar/march.png" width="100%" height="100%" alt="badge" class="monthlyBadge uncheckedBadge">
+                    </div>
+                </div>
+            </div>
+            <div class="Month__Container-sc-10z0ekt-0 jRRktc">
+                <div>
+                    <div class="Month__SuccessContainer-sc-10z0ekt-1 jPdICC">
+                        <strong class="Month__MonthText-sc-10z0ekt-3 cLFwqh"><span>4월</span></strong>
+                    </div>
+                </div>
+                <div class="Month__BadgeContainer-sc-10z0ekt-5 bjLkAM">
+                    <div class="Month__ImageContainer-sc-10z0ekt-6 iialDB">
+                        <img src="/imgin/myQuest/calendar/april.png" width="100%" height="100%" alt="badge" class="monthlyBadge uncheckedBadge">
+                    </div>
+                </div>
+            </div>
+            <div class="Month__Container-sc-10z0ekt-0 jRRktc">
+                <div>
+                    <div class="Month__SuccessContainer-sc-10z0ekt-1 jPdICC">
+                        <strong class="Month__MonthText-sc-10z0ekt-3 cLFwqh">
+                            <span>5월</span>
+                        </strong>
+                    </div>
+                </div>
+                <div class="Month__BadgeContainer-sc-10z0ekt-5 bjLkAM">
+                    <div class="Month__ImageContainer-sc-10z0ekt-6 iialDB">
+                        <img src="/imgin/myQuest/calendar/may.png" width="100%" height="100%" alt="badge" class="monthlyBadge uncheckedBadge">
+                    </div>
+                </div>
+            </div>
+            <div class="Month__Container-sc-10z0ekt-0 jRRktc">
+                <div>
+                    <div class="Month__SuccessContainer-sc-10z0ekt-1 jPdICC">
+                        <strong class="Month__MonthText-sc-10z0ekt-3 cLFwqh">
+                            <span>6월</span>
+                        </strong>
+                    </div>
+                </div>
+                <div class="Month__BadgeContainer-sc-10z0ekt-5 bjLkAM">
+                    <div class="Month__ImageContainer-sc-10z0ekt-6 iialDB">
+                        <img src="/imgin/myQuest/calendar/june.png" width="100%" height="100%" alt="badge" class="monthlyBadge uncheckedBadge">
+                    </div>
+                </div>
+            </div>
+            <div class="Month__Container-sc-10z0ekt-0 jRRktc">
+                <div>
+                    <div class="Month__SuccessContainer-sc-10z0ekt-1 jPdICC">
+                        <strong class="Month__MonthText-sc-10z0ekt-3 cLFwqh">
+                            <span>7월</span>
+                        </strong>
+                    </div>
+                </div>
+                <div class="Month__BadgeContainer-sc-10z0ekt-5 bjLkAM">
+                    <div class="Month__ImageContainer-sc-10z0ekt-6 iialDB">
+                        <img src="/imgin/myQuest/calendar/july.png" width="100%" height="100%" alt="badge" class="monthlyBadge uncheckedBadge">
+                    </div>
+                </div>
+            </div>
+            <div class="Month__Container-sc-10z0ekt-0 jRRktc">
+                <div>
+                    <div class="Month__SuccessContainer-sc-10z0ekt-1 jPdICC">
+                        <strong class="Month__MonthText-sc-10z0ekt-3 cLFwqh">
+                            <span>8월</span>
+                        </strong>
+                    </div>
+                </div>
+                <div class="Month__BadgeContainer-sc-10z0ekt-5 bjLkAM">
+                    <div class="Month__ImageContainer-sc-10z0ekt-6 iialDB">
+                        <img src="/imgin/myQuest/calendar/august.png" width="100%" height="100%" alt="badge" class="monthlyBadge uncheckedBadge">
+                    </div>
+                </div>
+            </div>
+            <div class="Month__Container-sc-10z0ekt-0 jRRktc">
+                <div>
+                    <div class="Month__SuccessContainer-sc-10z0ekt-1 jPdICC">
+                        <strong class="Month__MonthText-sc-10z0ekt-3 cLFwqh">
+                            <span>9월</span>
+                        </strong>
+                    </div>
+                </div>
+                <div class="Month__BadgeContainer-sc-10z0ekt-5 bjLkAM">
+                    <div class="Month__ImageContainer-sc-10z0ekt-6 iialDB">
+                        <img src="/imgin/myQuest/calendar/september.png" width="100%" height="100%" alt="badge" class="monthlyBadge uncheckedBadge">
+                    </div>
+                </div>
+            </div>
+            <div class="Month__Container-sc-10z0ekt-0 jRRktc">
+                <div>
+                    <div class="Month__SuccessContainer-sc-10z0ekt-1 jPdICC">
+                        <strong class="Month__MonthText-sc-10z0ekt-3 cLFwqh">
+                            <span>10월</span>
+                        </strong>
+                    </div>
+                </div>
+                <div class="Month__BadgeContainer-sc-10z0ekt-5 bjLkAM">
+                    <div class="Month__ImageContainer-sc-10z0ekt-6 iialDB">
+                        <img src="/imgin/myQuest/calendar/october.png" width="100%" height="100%" alt="badge" class="monthlyBadge uncheckedBadge">
+                    </div>
+                </div>
+            </div>
+            <div class="Month__Container-sc-10z0ekt-0 jRRktc">
+                <div>
+                    <div class="Month__SuccessContainer-sc-10z0ekt-1 jPdICC">
+                        <strong class="Month__MonthText-sc-10z0ekt-3 cLFwqh">
+                            <span>11월</span>
+                        </strong>
+                    </div>
+                </div>
+                <div class="Month__BadgeContainer-sc-10z0ekt-5 bjLkAM">
+                    <div class="Month__ImageContainer-sc-10z0ekt-6 iialDB">
+                        <img src="/imgin/myQuest/calendar/november.png" width="100%" height="100%" alt="badge" class="monthlyBadge uncheckedBadge">
+                    </div>
+                </div>
+            </div>
+            <div class="Month__Container-sc-10z0ekt-0 jRRktc">
+                <div>
+                    <div class="Month__SuccessContainer-sc-10z0ekt-1 jPdICC">
+                        <strong class="Month__MonthText-sc-10z0ekt-3 cLFwqh">
+                            <span>12월</span>
+                        </strong>
+                    </div>
+                </div>
+                <div class="Month__BadgeContainer-sc-10z0ekt-5 bjLkAM">
+                    <div class="Month__ImageContainer-sc-10z0ekt-6 iialDB">
+                        <img src="/imgin/myQuest/calendar/december.png" width="100%" height="100%" alt="badge" class="monthlyBadge uncheckedBadge">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<!--페이징-->
+<footer class="Wrapper__PaginationWrapper-fk4uv4-0 hBVRcD">
+    <div class="PaginationButtonGroup__PrevButtonWrapper-x0iffd-0 gIsDDT">
+        <button width="40px" height="40px" font-size="18px" disabled="" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns"></button>
+        <button width="40px" height="40px" font-size="18px" disabled="" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns"></button>
+    </div>
+    <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 RPlDq">1</button>
+    <div class="PaginationButtonGroup__NextButtonWrapper-x0iffd-1 eNIHag">
+        <button width="40px" height="40px" font-size="18px" disabled="" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu"></button>
+        <button width="40px" height="40px" font-size="18px" disabled="" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu"></button>
+    </div>
+</footer>
+
+<!--모달화면-->
+<div class="BottomSheet__Container-e2nchk-0 cMKqKB" style="display:none;">
+    <div class="BodyScrollLockContainer__Container-sc-19uqzq5-0 idpZym">
+        <div class="BottomSheet__Content-e2nchk-2 lfbJGw">
+            <div class="BottomSheet__HeaderContainer-e2nchk-3 bXCiMF">
+                <div class="BottomSheet__TitleContainer-e2nchk-4 haGJUN">
+                    <strong class="BottomSheet__Title-e2nchk-5 oFqnL">회원가입 축하 뱃지</strong>
+                </div>
+                <button type="button" class="BottomSheet__CloseButton-e2nchk-6 fTfJGA">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' viewBox='0 0 24 24'%3E %3Cpath fill='%23333' fill-rule='evenodd' d='M18.104 6.707c.39-.39.39-1.024 0-1.414-.39-.39-1.023-.39-1.414 0L11.7 10.284 6.707 5.293c-.39-.39-1.024-.39-1.414 0-.39.39-.39 1.023 0 1.414l4.991 4.992-4.991 4.991c-.39.39-.39 1.024 0 1.414.39.39 1.023.39 1.414 0l4.992-4.991 4.991 4.991c.39.39 1.024.39 1.414 0 .39-.39.39-1.023 0-1.414L13.113 11.7l4.991-4.992z' clip-rule='evenodd'/%3E %3C/svg%3E" alt="close-button"></button>
+            </div>
+            <div class="MonthlyChallenge__ContentContainer-sc-10xmpdd-0 cYNgOe">
+                <div class="MonthlyChallenge__BadgeImageContainer-sc-10xmpdd-1 hkNEqU">
+                    <img src="https://res.cloudinary.com/frientrip/image/upload/c_fill,dpr_2,f_auto,h_117,q_auto,w_80/11%E1%84%8B%E1%85%AF%E1%86%AF%20%E1%84%87%E1%85%A2%E1%84%8C%E1%85%B5_%E1%84%92%E1%85%B3%E1%86%A8%E1%84%87%E1%85%A2%E1%86%A8_42e6afd5ce1bc133fe3be64da971ce514ff84ff104829898157b9a7aa13f5026" width="100%" height="100%" alt="monthly challenge badge"></div>
+                <strong class="MonthlyChallenge__BadgeTitle-sc-10xmpdd-2 jZwSMv">회원가입 축하 뱃지</strong>
+                <p class="MonthlyChallenge__BadgeDescription-sc-10xmpdd-3 bOPHSQ">회원가입 시 제공되는 뱃지입니다.</p>
+                <div class="MonthlyChallenge__ButtonContainer-sc-10xmpdd-4 iEGbSF">
+                    <button width="279" height="56" class="Button__ButtonContainer-sc-1vo4nc0-0 fJydEv">
+                        <span class="MonthlyChallenge__ButtonText-sc-10xmpdd-5 gTmuEm"><a href="/myQuest/todayQuest">오늘의 퀘스트 도전!</a></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="BottomSheet__Overlay-e2nchk-1 kJOGKh"></div>
+    </div>
+</div>
+
+<footer th:replace="/app/fix/footer.html :: footer"></footer>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/js/fix/header.js"></script>
+<script src="/js/myPoint/myPoint.js"></script>
+<script src="/js/myQuest/myBadge.js"></script>
+</html>

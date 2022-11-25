@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>h.hyeoniya_커뮤니티게시판</title>
+    <link rel="stylesheet" href="/css/community/community_comment.css">
+    <link rel="stylesheet" href="/css/fix/header.css">
+    <link rel="stylesheet" href="/css/fix/footer.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<style>
+    *{
+        font-family: "Noto Sans KR" !important;
+    }
+</style>
+<body>
+
+<header th:replace="/app/fix/header.html :: header"></header>
+<div id="modal-root">
+    <div>
+        <div class="Dialog__Container-sc-16kwpqb-0 htiyxZ">
+            <div class="BodyScrollLockContainer__Container-sc-19uqzq5-0 idpZym Dialog__StyledBodyScrollLockContainer-sc-16kwpqb-1 dCXZYJ">
+                <div class="Dialog__Content-sc-16kwpqb-5 ibqqJA">
+                    <div class="DialogDelete__Content-p8gubf-0 jZuxbV"><p>댓글을</p>
+                        <p>삭제 하시겠습니까?</p></div>
+                </div>
+                <div class="Dialog__ButtonGroup-sc-16kwpqb-6 bZEORB">
+                    <button width="100%" height="auto" color="black"
+                            class="Button-bqxlp0-0 Dialog__StyledButton-sc-16kwpqb-7 kXWQPc">취소
+                    </button>
+                    <button width="100%" height="auto" color="#ff6666" font-weight="bold"
+                            class="Button-bqxlp0-0 Dialog__StyledButton-sc-16kwpqb-7 bQKwTd">삭제
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="PageWrapper-sc-1w87j10-0 SocialFeedReplyPage__Wrapper-sc-71bads-0 bQxaVM">
+        <div class="Center__Wrapper-sc-19p29je-0 hcLOFI">
+            <h3>댓글</h3>
+        </div>
+        <div class="SocialFeedReplyList__Wrapper-sc-1vuk2zv-0 eKpsNP">
+            <div>
+                <div class="FeedReplyCard__Wrapper-sc-1wg24nj-0 kDLQhH">
+                    <div class="FeedReplyCard__Profile-sc-1wg24nj-1 fcEtFP">
+                        <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img
+                                class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36"
+                                src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">
+                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                <div class="Ratio " style="display: block;">
+                                    <div class="Ratio-ratio "
+                                         style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                        <div class="Ratio-content "
+                                             style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                            <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36"
+                                                 src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="FeedReplyCard__Container-sc-1wg24nj-2 hjlSSA">
+                        <div class="FeedReplyCard__Name-sc-1wg24nj-3 bUesVF">h.hyeoniya</div>
+                        <p class="FeedReplyCard__Contents-sc-1wg24nj-4 gDMyOG">CSS 너무 재미있네요..</p>
+                        <section class="ActionMenu__Section-s8lvsh-0 gzpaSl">
+                            <p class="ActionMenu__Time-s8lvsh-1 gwAsrs">방금전</p><button
+                                class="ActionMenu__TextButton-s8lvsh-2 kosXvh">삭제</button><button
+                                class="ActionMenu__Like-s8lvsh-3 cOmkks"><img
+                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='9' viewBox='0 0 10 9'%3E %3Cpath fill='none' stroke='%23C6CAD0' d='M7.456.5c-.543 0-1.052.228-1.436.637L5 2.224 3.98 1.136C3.597.728 3.087.5 2.544.5c-.543 0-1.052.228-1.435.637C.701 1.57.5 2.143.5 2.713c0 .565.198 1.132.599 1.565l4.144 3.898 3.648-3.887c.408-.435.609-1.006.609-1.576 0-.57-.201-1.142-.609-1.576C8.508.728 8 .5 7.456.5z'/%3E %3C/svg%3E"
+                                class="ActionMenu__HeartImage-s8lvsh-4 deXuYZ">
+                            <p class="ActionMenu__LikeText-s8lvsh-5 fgqaUZ">좋아요</p>
+                        </button>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="FeedReplyCard__Wrapper-sc-1wg24nj-0 kDLQhH">
+                    <div class="FeedReplyCard__Profile-sc-1wg24nj-1 fcEtFP">
+                        <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img
+                                class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36"
+                                src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">
+                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                <div class="Ratio " style="display: block;">
+                                    <div class="Ratio-ratio "
+                                         style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                        <div class="Ratio-content "
+                                             style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                            <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36"
+                                                 src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="FeedReplyCard__Container-sc-1wg24nj-2 hjlSSA">
+                        <div class="FeedReplyCard__Name-sc-1wg24nj-3 bUesVF">h.hyeoniya</div>
+                        <p class="FeedReplyCard__Contents-sc-1wg24nj-4 gDMyOG">JPA 정말 기대되네요!</p>
+                        <section class="ActionMenu__Section-s8lvsh-0 gzpaSl">
+                            <p class="ActionMenu__Time-s8lvsh-1 gwAsrs">방금전</p><button
+                                class="ActionMenu__TextButton-s8lvsh-2 kosXvh">삭제</button><button
+                                class="ActionMenu__Like-s8lvsh-3 cOmkks"><img
+                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='9' viewBox='0 0 10 9'%3E %3Cpath fill='%23F32D2D' d='M9.256.795C8.776.282 8.136 0 7.456 0c-.68 0-1.32.282-1.8.795L5 1.493 4.345.794C3.864.282 3.225 0 2.545 0c-.68 0-1.32.282-1.8.795-.993 1.057-.993 2.778 0 3.836l3.99 4.252C4.805 8.958 4.9 9 5 9s.195-.042.265-.117l3.99-4.252c.993-1.058.993-2.779 0-3.836z'/%3E %3C/svg%3E"
+                                class="ActionMenu__HeartImage-s8lvsh-4 deXuYZ">
+                            <p class="ActionMenu__LikeText-s8lvsh-5 jaQgRb">좋아요</p>
+                        </button>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="FeedReplyCard__Wrapper-sc-1wg24nj-0 kDLQhH">
+                    <div class="FeedReplyCard__Profile-sc-1wg24nj-1 fcEtFP">
+                        <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img
+                                class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36"
+                                src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">
+                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                <div class="Ratio " style="display: block;">
+                                    <div class="Ratio-ratio "
+                                         style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                        <div class="Ratio-content "
+                                             style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                            <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36"
+                                                 src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="FeedReplyCard__Container-sc-1wg24nj-2 hjlSSA">
+                        <div class="FeedReplyCard__Name-sc-1wg24nj-3 bUesVF">h.hyeoniya</div>
+                        <p class="FeedReplyCard__Contents-sc-1wg24nj-4 gDMyOG">CSS 너무 재미있네요..</p>
+                        <section class="ActionMenu__Section-s8lvsh-0 gzpaSl">
+                            <p class="ActionMenu__Time-s8lvsh-1 gwAsrs">방금전</p><button
+                                class="ActionMenu__TextButton-s8lvsh-2 kosXvh">삭제</button><button
+                                class="ActionMenu__Like-s8lvsh-3 cOmkks"><img
+                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='9' viewBox='0 0 10 9'%3E %3Cpath fill='none' stroke='%23C6CAD0' d='M7.456.5c-.543 0-1.052.228-1.436.637L5 2.224 3.98 1.136C3.597.728 3.087.5 2.544.5c-.543 0-1.052.228-1.435.637C.701 1.57.5 2.143.5 2.713c0 .565.198 1.132.599 1.565l4.144 3.898 3.648-3.887c.408-.435.609-1.006.609-1.576 0-.57-.201-1.142-.609-1.576C8.508.728 8 .5 7.456.5z'/%3E %3C/svg%3E"
+                                class="ActionMenu__HeartImage-s8lvsh-4 deXuYZ">
+                            <p class="ActionMenu__LikeText-s8lvsh-5 fgqaUZ">좋아요</p>
+                        </button>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="FeedReplyCard__Wrapper-sc-1wg24nj-0 kDLQhH">
+                    <div class="FeedReplyCard__Profile-sc-1wg24nj-1 fcEtFP">
+                        <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img
+                                class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36"
+                                src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">
+                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                <div class="Ratio " style="display: block;">
+                                    <div class="Ratio-ratio "
+                                         style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                        <div class="Ratio-content "
+                                             style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                            <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36"
+                                                 src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="FeedReplyCard__Container-sc-1wg24nj-2 hjlSSA">
+                        <div class="FeedReplyCard__Name-sc-1wg24nj-3 bUesVF">h.hyeoniya</div>
+                        <p class="FeedReplyCard__Contents-sc-1wg24nj-4 gDMyOG">JPA 정말 기대되네요!</p>
+                        <section class="ActionMenu__Section-s8lvsh-0 gzpaSl">
+                            <p class="ActionMenu__Time-s8lvsh-1 gwAsrs">방금전</p><button
+                                class="ActionMenu__TextButton-s8lvsh-2 kosXvh">삭제</button><button
+                                class="ActionMenu__Like-s8lvsh-3 cOmkks"><img
+                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='9' viewBox='0 0 10 9'%3E %3Cpath fill='%23F32D2D' d='M9.256.795C8.776.282 8.136 0 7.456 0c-.68 0-1.32.282-1.8.795L5 1.493 4.345.794C3.864.282 3.225 0 2.545 0c-.68 0-1.32.282-1.8.795-.993 1.057-.993 2.778 0 3.836l3.99 4.252C4.805 8.958 4.9 9 5 9s.195-.042.265-.117l3.99-4.252c.993-1.058.993-2.779 0-3.836z'/%3E %3C/svg%3E"
+                                class="ActionMenu__HeartImage-s8lvsh-4 deXuYZ">
+                            <p class="ActionMenu__LikeText-s8lvsh-5 jaQgRb">좋아요</p>
+                        </button>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="FeedReplyCard__Wrapper-sc-1wg24nj-0 kDLQhH">
+                    <div class="FeedReplyCard__Profile-sc-1wg24nj-1 fcEtFP">
+                        <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img
+                                class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36"
+                                src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">
+                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                <div class="Ratio " style="display: block;">
+                                    <div class="Ratio-ratio "
+                                         style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                        <div class="Ratio-content "
+                                             style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                            <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36"
+                                                 src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="FeedReplyCard__Container-sc-1wg24nj-2 hjlSSA">
+                        <div class="FeedReplyCard__Name-sc-1wg24nj-3 bUesVF">h.hyeoniya</div>
+                        <p class="FeedReplyCard__Contents-sc-1wg24nj-4 gDMyOG">CSS 너무 재미있네요..</p>
+                        <section class="ActionMenu__Section-s8lvsh-0 gzpaSl">
+                            <p class="ActionMenu__Time-s8lvsh-1 gwAsrs">방금전</p><button
+                                class="ActionMenu__TextButton-s8lvsh-2 kosXvh">삭제</button><button
+                                class="ActionMenu__Like-s8lvsh-3 cOmkks"><img
+                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='9' viewBox='0 0 10 9'%3E %3Cpath fill='none' stroke='%23C6CAD0' d='M7.456.5c-.543 0-1.052.228-1.436.637L5 2.224 3.98 1.136C3.597.728 3.087.5 2.544.5c-.543 0-1.052.228-1.435.637C.701 1.57.5 2.143.5 2.713c0 .565.198 1.132.599 1.565l4.144 3.898 3.648-3.887c.408-.435.609-1.006.609-1.576 0-.57-.201-1.142-.609-1.576C8.508.728 8 .5 7.456.5z'/%3E %3C/svg%3E"
+                                class="ActionMenu__HeartImage-s8lvsh-4 deXuYZ">
+                            <p class="ActionMenu__LikeText-s8lvsh-5 fgqaUZ">좋아요</p>
+                        </button>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="FeedReplyCard__Wrapper-sc-1wg24nj-0 kDLQhH">
+                    <div class="FeedReplyCard__Profile-sc-1wg24nj-1 fcEtFP">
+                        <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img
+                                class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36"
+                                src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">
+                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                <div class="Ratio " style="display: block;">
+                                    <div class="Ratio-ratio "
+                                         style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                        <div class="Ratio-content "
+                                             style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                            <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36"
+                                                 src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="FeedReplyCard__Container-sc-1wg24nj-2 hjlSSA">
+                        <div class="FeedReplyCard__Name-sc-1wg24nj-3 bUesVF">h.hyeoniya</div>
+                        <p class="FeedReplyCard__Contents-sc-1wg24nj-4 gDMyOG">JPA 정말 기대되네요!</p>
+                        <section class="ActionMenu__Section-s8lvsh-0 gzpaSl">
+                            <p class="ActionMenu__Time-s8lvsh-1 gwAsrs">방금전</p><button
+                                class="ActionMenu__TextButton-s8lvsh-2 kosXvh">삭제</button><button
+                                class="ActionMenu__Like-s8lvsh-3 cOmkks"><img
+                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='9' viewBox='0 0 10 9'%3E %3Cpath fill='%23F32D2D' d='M9.256.795C8.776.282 8.136 0 7.456 0c-.68 0-1.32.282-1.8.795L5 1.493 4.345.794C3.864.282 3.225 0 2.545 0c-.68 0-1.32.282-1.8.795-.993 1.057-.993 2.778 0 3.836l3.99 4.252C4.805 8.958 4.9 9 5 9s.195-.042.265-.117l3.99-4.252c.993-1.058.993-2.779 0-3.836z'/%3E %3C/svg%3E"
+                                class="ActionMenu__HeartImage-s8lvsh-4 deXuYZ">
+                            <p class="ActionMenu__LikeText-s8lvsh-5 jaQgRb">좋아요</p>
+                        </button>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="FeedReplyCard__Wrapper-sc-1wg24nj-0 kDLQhH">
+                    <div class="FeedReplyCard__Profile-sc-1wg24nj-1 fcEtFP">
+                        <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img
+                                class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36"
+                                src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">
+                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                <div class="Ratio " style="display: block;">
+                                    <div class="Ratio-ratio "
+                                         style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                        <div class="Ratio-content "
+                                             style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                            <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36"
+                                                 src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="FeedReplyCard__Container-sc-1wg24nj-2 hjlSSA">
+                        <div class="FeedReplyCard__Name-sc-1wg24nj-3 bUesVF">h.hyeoniya</div>
+                        <p class="FeedReplyCard__Contents-sc-1wg24nj-4 gDMyOG">CSS 너무 재미있네요..</p>
+                        <section class="ActionMenu__Section-s8lvsh-0 gzpaSl">
+                            <p class="ActionMenu__Time-s8lvsh-1 gwAsrs">방금전</p><button
+                                class="ActionMenu__TextButton-s8lvsh-2 kosXvh">삭제</button><button
+                                class="ActionMenu__Like-s8lvsh-3 cOmkks"><img
+                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='9' viewBox='0 0 10 9'%3E %3Cpath fill='none' stroke='%23C6CAD0' d='M7.456.5c-.543 0-1.052.228-1.436.637L5 2.224 3.98 1.136C3.597.728 3.087.5 2.544.5c-.543 0-1.052.228-1.435.637C.701 1.57.5 2.143.5 2.713c0 .565.198 1.132.599 1.565l4.144 3.898 3.648-3.887c.408-.435.609-1.006.609-1.576 0-.57-.201-1.142-.609-1.576C8.508.728 8 .5 7.456.5z'/%3E %3C/svg%3E"
+                                class="ActionMenu__HeartImage-s8lvsh-4 deXuYZ">
+                            <p class="ActionMenu__LikeText-s8lvsh-5 fgqaUZ">좋아요</p>
+                        </button>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="FeedReplyCard__Wrapper-sc-1wg24nj-0 kDLQhH">
+                    <div class="FeedReplyCard__Profile-sc-1wg24nj-1 fcEtFP">
+                        <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img
+                                class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36"
+                                src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">
+                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                <div class="Ratio " style="display: block;">
+                                    <div class="Ratio-ratio "
+                                         style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                        <div class="Ratio-content "
+                                             style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                            <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36"
+                                                 src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="FeedReplyCard__Container-sc-1wg24nj-2 hjlSSA">
+                        <div class="FeedReplyCard__Name-sc-1wg24nj-3 bUesVF">h.hyeoniya</div>
+                        <p class="FeedReplyCard__Contents-sc-1wg24nj-4 gDMyOG">JPA 정말 기대되네요!</p>
+                        <section class="ActionMenu__Section-s8lvsh-0 gzpaSl">
+                            <p class="ActionMenu__Time-s8lvsh-1 gwAsrs">방금전</p><button
+                                class="ActionMenu__TextButton-s8lvsh-2 kosXvh">삭제</button><button
+                                class="ActionMenu__Like-s8lvsh-3 cOmkks"><img
+                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='9' viewBox='0 0 10 9'%3E %3Cpath fill='%23F32D2D' d='M9.256.795C8.776.282 8.136 0 7.456 0c-.68 0-1.32.282-1.8.795L5 1.493 4.345.794C3.864.282 3.225 0 2.545 0c-.68 0-1.32.282-1.8.795-.993 1.057-.993 2.778 0 3.836l3.99 4.252C4.805 8.958 4.9 9 5 9s.195-.042.265-.117l3.99-4.252c.993-1.058.993-2.779 0-3.836z'/%3E %3C/svg%3E"
+                                class="ActionMenu__HeartImage-s8lvsh-4 deXuYZ">
+                            <p class="ActionMenu__LikeText-s8lvsh-5 jaQgRb">좋아요</p>
+                        </button>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="FeedReplyCard__Wrapper-sc-1wg24nj-0 kDLQhH">
+                    <div class="FeedReplyCard__Profile-sc-1wg24nj-1 fcEtFP">
+                        <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img
+                                class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36"
+                                src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">
+                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                <div class="Ratio " style="display: block;">
+                                    <div class="Ratio-ratio "
+                                         style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                        <div class="Ratio-content "
+                                             style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                            <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36"
+                                                 src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="FeedReplyCard__Container-sc-1wg24nj-2 hjlSSA">
+                        <div class="FeedReplyCard__Name-sc-1wg24nj-3 bUesVF">h.hyeoniya</div>
+                        <p class="FeedReplyCard__Contents-sc-1wg24nj-4 gDMyOG">CSS 너무 재미있네요..</p>
+                        <section class="ActionMenu__Section-s8lvsh-0 gzpaSl">
+                            <p class="ActionMenu__Time-s8lvsh-1 gwAsrs">방금전</p><button
+                                class="ActionMenu__TextButton-s8lvsh-2 kosXvh">삭제</button><button
+                                class="ActionMenu__Like-s8lvsh-3 cOmkks"><img
+                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='9' viewBox='0 0 10 9'%3E %3Cpath fill='none' stroke='%23C6CAD0' d='M7.456.5c-.543 0-1.052.228-1.436.637L5 2.224 3.98 1.136C3.597.728 3.087.5 2.544.5c-.543 0-1.052.228-1.435.637C.701 1.57.5 2.143.5 2.713c0 .565.198 1.132.599 1.565l4.144 3.898 3.648-3.887c.408-.435.609-1.006.609-1.576 0-.57-.201-1.142-.609-1.576C8.508.728 8 .5 7.456.5z'/%3E %3C/svg%3E"
+                                class="ActionMenu__HeartImage-s8lvsh-4 deXuYZ">
+                            <p class="ActionMenu__LikeText-s8lvsh-5 fgqaUZ">좋아요</p>
+                        </button>
+                        </section>
+                    </div>
+                </div>
+            </div>
+<!--            <div>-->
+<!--                <div class="FeedReplyCard__Wrapper-sc-1wg24nj-0 kDLQhH">-->
+<!--                    <div class="FeedReplyCard__Profile-sc-1wg24nj-1 fcEtFP">-->
+<!--                        <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img-->
+<!--                                class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36"-->
+<!--                                src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">-->
+<!--                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">-->
+<!--                                <div class="Ratio " style="display: block;">-->
+<!--                                    <div class="Ratio-ratio "-->
+<!--                                         style="height: 0px; position: relative; width: 100%; padding-top: 100%;">-->
+<!--                                        <div class="Ratio-content "-->
+<!--                                             style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">-->
+<!--                                            <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36"-->
+<!--                                                 src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="FeedReplyCard__Container-sc-1wg24nj-2 hjlSSA">-->
+<!--                        <div class="FeedReplyCard__Name-sc-1wg24nj-3 bUesVF">h.hyeoniya</div>-->
+<!--                        <p class="FeedReplyCard__Contents-sc-1wg24nj-4 gDMyOG">JPA 정말 기대되네요!</p>-->
+<!--                        <section class="ActionMenu__Section-s8lvsh-0 gzpaSl">-->
+<!--                            <p class="ActionMenu__Time-s8lvsh-1 gwAsrs">방금전</p><button-->
+<!--                                class="ActionMenu__TextButton-s8lvsh-2 kosXvh">삭제</button><button-->
+<!--                                class="ActionMenu__Like-s8lvsh-3 cOmkks"><img-->
+<!--                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='9' viewBox='0 0 10 9'%3E %3Cpath fill='%23F32D2D' d='M9.256.795C8.776.282 8.136 0 7.456 0c-.68 0-1.32.282-1.8.795L5 1.493 4.345.794C3.864.282 3.225 0 2.545 0c-.68 0-1.32.282-1.8.795-.993 1.057-.993 2.778 0 3.836l3.99 4.252C4.805 8.958 4.9 9 5 9s.195-.042.265-.117l3.99-4.252c.993-1.058.993-2.779 0-3.836z'/%3E %3C/svg%3E"-->
+<!--                                class="ActionMenu__HeartImage-s8lvsh-4 deXuYZ">-->
+<!--                            <p class="ActionMenu__LikeText-s8lvsh-5 jaQgRb">좋아요</p>-->
+<!--                        </button>-->
+<!--                        </section>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <div class="FeedReplyCard__Wrapper-sc-1wg24nj-0 kDLQhH">-->
+<!--                    <div class="FeedReplyCard__Profile-sc-1wg24nj-1 fcEtFP">-->
+<!--                        <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img-->
+<!--                                class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36"-->
+<!--                                src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">-->
+<!--                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">-->
+<!--                                <div class="Ratio " style="display: block;">-->
+<!--                                    <div class="Ratio-ratio "-->
+<!--                                         style="height: 0px; position: relative; width: 100%; padding-top: 100%;">-->
+<!--                                        <div class="Ratio-content "-->
+<!--                                             style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">-->
+<!--                                            <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36"-->
+<!--                                                 src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="FeedReplyCard__Container-sc-1wg24nj-2 hjlSSA">-->
+<!--                        <div class="FeedReplyCard__Name-sc-1wg24nj-3 bUesVF">h.hyeoniya</div>-->
+<!--                        <p class="FeedReplyCard__Contents-sc-1wg24nj-4 gDMyOG">CSS 너무 재미있네요..</p>-->
+<!--                        <section class="ActionMenu__Section-s8lvsh-0 gzpaSl">-->
+<!--                            <p class="ActionMenu__Time-s8lvsh-1 gwAsrs">방금전</p><button-->
+<!--                                class="ActionMenu__TextButton-s8lvsh-2 kosXvh">삭제</button><button-->
+<!--                                class="ActionMenu__Like-s8lvsh-3 cOmkks"><img-->
+<!--                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='9' viewBox='0 0 10 9'%3E %3Cpath fill='none' stroke='%23C6CAD0' d='M7.456.5c-.543 0-1.052.228-1.436.637L5 2.224 3.98 1.136C3.597.728 3.087.5 2.544.5c-.543 0-1.052.228-1.435.637C.701 1.57.5 2.143.5 2.713c0 .565.198 1.132.599 1.565l4.144 3.898 3.648-3.887c.408-.435.609-1.006.609-1.576 0-.57-.201-1.142-.609-1.576C8.508.728 8 .5 7.456.5z'/%3E %3C/svg%3E"-->
+<!--                                class="ActionMenu__HeartImage-s8lvsh-4 deXuYZ">-->
+<!--                            <p class="ActionMenu__LikeText-s8lvsh-5 fgqaUZ">좋아요</p>-->
+<!--                        </button>-->
+<!--                        </section>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <div class="FeedReplyCard__Wrapper-sc-1wg24nj-0 kDLQhH">-->
+<!--                    <div class="FeedReplyCard__Profile-sc-1wg24nj-1 fcEtFP">-->
+<!--                        <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img-->
+<!--                                class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36"-->
+<!--                                src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">-->
+<!--                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">-->
+<!--                                <div class="Ratio " style="display: block;">-->
+<!--                                    <div class="Ratio-ratio "-->
+<!--                                         style="height: 0px; position: relative; width: 100%; padding-top: 100%;">-->
+<!--                                        <div class="Ratio-content "-->
+<!--                                             style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">-->
+<!--                                            <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36"-->
+<!--                                                 src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="FeedReplyCard__Container-sc-1wg24nj-2 hjlSSA">-->
+<!--                        <div class="FeedReplyCard__Name-sc-1wg24nj-3 bUesVF">h.hyeoniya</div>-->
+<!--                        <p class="FeedReplyCard__Contents-sc-1wg24nj-4 gDMyOG">JPA 정말 기대되네요!</p>-->
+<!--                        <section class="ActionMenu__Section-s8lvsh-0 gzpaSl">-->
+<!--                            <p class="ActionMenu__Time-s8lvsh-1 gwAsrs">방금전</p><button-->
+<!--                                class="ActionMenu__TextButton-s8lvsh-2 kosXvh">삭제</button><button-->
+<!--                                class="ActionMenu__Like-s8lvsh-3 cOmkks"><img-->
+<!--                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='9' viewBox='0 0 10 9'%3E %3Cpath fill='%23F32D2D' d='M9.256.795C8.776.282 8.136 0 7.456 0c-.68 0-1.32.282-1.8.795L5 1.493 4.345.794C3.864.282 3.225 0 2.545 0c-.68 0-1.32.282-1.8.795-.993 1.057-.993 2.778 0 3.836l3.99 4.252C4.805 8.958 4.9 9 5 9s.195-.042.265-.117l3.99-4.252c.993-1.058.993-2.779 0-3.836z'/%3E %3C/svg%3E"-->
+<!--                                class="ActionMenu__HeartImage-s8lvsh-4 deXuYZ">-->
+<!--                            <p class="ActionMenu__LikeText-s8lvsh-5 jaQgRb">좋아요</p>-->
+<!--                        </button>-->
+<!--                        </section>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <div class="FeedReplyCard__Wrapper-sc-1wg24nj-0 kDLQhH">-->
+<!--                    <div class="FeedReplyCard__Profile-sc-1wg24nj-1 fcEtFP">-->
+<!--                        <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img-->
+<!--                                class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36"-->
+<!--                                src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">-->
+<!--                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">-->
+<!--                                <div class="Ratio " style="display: block;">-->
+<!--                                    <div class="Ratio-ratio "-->
+<!--                                         style="height: 0px; position: relative; width: 100%; padding-top: 100%;">-->
+<!--                                        <div class="Ratio-content "-->
+<!--                                             style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">-->
+<!--                                            <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36"-->
+<!--                                                 src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="FeedReplyCard__Container-sc-1wg24nj-2 hjlSSA">-->
+<!--                        <div class="FeedReplyCard__Name-sc-1wg24nj-3 bUesVF">h.hyeoniya</div>-->
+<!--                        <p class="FeedReplyCard__Contents-sc-1wg24nj-4 gDMyOG">CSS 너무 재미있네요..</p>-->
+<!--                        <section class="ActionMenu__Section-s8lvsh-0 gzpaSl">-->
+<!--                            <p class="ActionMenu__Time-s8lvsh-1 gwAsrs">방금전</p><button-->
+<!--                                class="ActionMenu__TextButton-s8lvsh-2 kosXvh">삭제</button><button-->
+<!--                                class="ActionMenu__Like-s8lvsh-3 cOmkks"><img-->
+<!--                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='9' viewBox='0 0 10 9'%3E %3Cpath fill='none' stroke='%23C6CAD0' d='M7.456.5c-.543 0-1.052.228-1.436.637L5 2.224 3.98 1.136C3.597.728 3.087.5 2.544.5c-.543 0-1.052.228-1.435.637C.701 1.57.5 2.143.5 2.713c0 .565.198 1.132.599 1.565l4.144 3.898 3.648-3.887c.408-.435.609-1.006.609-1.576 0-.57-.201-1.142-.609-1.576C8.508.728 8 .5 7.456.5z'/%3E %3C/svg%3E"-->
+<!--                                class="ActionMenu__HeartImage-s8lvsh-4 deXuYZ">-->
+<!--                            <p class="ActionMenu__LikeText-s8lvsh-5 fgqaUZ">좋아요</p>-->
+<!--                        </button>-->
+<!--                        </section>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <div class="FeedReplyCard__Wrapper-sc-1wg24nj-0 kDLQhH">-->
+<!--                    <div class="FeedReplyCard__Profile-sc-1wg24nj-1 fcEtFP">-->
+<!--                        <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img-->
+<!--                                class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36"-->
+<!--                                src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">-->
+<!--                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">-->
+<!--                                <div class="Ratio " style="display: block;">-->
+<!--                                    <div class="Ratio-ratio "-->
+<!--                                         style="height: 0px; position: relative; width: 100%; padding-top: 100%;">-->
+<!--                                        <div class="Ratio-content "-->
+<!--                                             style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">-->
+<!--                                            <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36"-->
+<!--                                                 src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="FeedReplyCard__Container-sc-1wg24nj-2 hjlSSA">-->
+<!--                        <div class="FeedReplyCard__Name-sc-1wg24nj-3 bUesVF">h.hyeoniya</div>-->
+<!--                        <p class="FeedReplyCard__Contents-sc-1wg24nj-4 gDMyOG">JPA 정말 기대되네요!</p>-->
+<!--                        <section class="ActionMenu__Section-s8lvsh-0 gzpaSl">-->
+<!--                            <p class="ActionMenu__Time-s8lvsh-1 gwAsrs">방금전</p><button-->
+<!--                                class="ActionMenu__TextButton-s8lvsh-2 kosXvh">삭제</button><button-->
+<!--                                class="ActionMenu__Like-s8lvsh-3 cOmkks"><img-->
+<!--                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='9' viewBox='0 0 10 9'%3E %3Cpath fill='%23F32D2D' d='M9.256.795C8.776.282 8.136 0 7.456 0c-.68 0-1.32.282-1.8.795L5 1.493 4.345.794C3.864.282 3.225 0 2.545 0c-.68 0-1.32.282-1.8.795-.993 1.057-.993 2.778 0 3.836l3.99 4.252C4.805 8.958 4.9 9 5 9s.195-.042.265-.117l3.99-4.252c.993-1.058.993-2.779 0-3.836z'/%3E %3C/svg%3E"-->
+<!--                                class="ActionMenu__HeartImage-s8lvsh-4 deXuYZ">-->
+<!--                            <p class="ActionMenu__LikeText-s8lvsh-5 jaQgRb">좋아요</p>-->
+<!--                        </button>-->
+<!--                        </section>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <div class="FeedReplyCard__Wrapper-sc-1wg24nj-0 kDLQhH">-->
+<!--                    <div class="FeedReplyCard__Profile-sc-1wg24nj-1 fcEtFP">-->
+<!--                        <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img-->
+<!--                                class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36"-->
+<!--                                src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">-->
+<!--                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">-->
+<!--                                <div class="Ratio " style="display: block;">-->
+<!--                                    <div class="Ratio-ratio "-->
+<!--                                         style="height: 0px; position: relative; width: 100%; padding-top: 100%;">-->
+<!--                                        <div class="Ratio-content "-->
+<!--                                             style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">-->
+<!--                                            <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36"-->
+<!--                                                 src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="FeedReplyCard__Container-sc-1wg24nj-2 hjlSSA">-->
+<!--                        <div class="FeedReplyCard__Name-sc-1wg24nj-3 bUesVF">h.hyeoniya</div>-->
+<!--                        <p class="FeedReplyCard__Contents-sc-1wg24nj-4 gDMyOG">CSS 너무 재미있네요..</p>-->
+<!--                        <section class="ActionMenu__Section-s8lvsh-0 gzpaSl">-->
+<!--                            <p class="ActionMenu__Time-s8lvsh-1 gwAsrs">방금전</p><button-->
+<!--                                class="ActionMenu__TextButton-s8lvsh-2 kosXvh">삭제</button><button-->
+<!--                                class="ActionMenu__Like-s8lvsh-3 cOmkks"><img-->
+<!--                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='9' viewBox='0 0 10 9'%3E %3Cpath fill='none' stroke='%23C6CAD0' d='M7.456.5c-.543 0-1.052.228-1.436.637L5 2.224 3.98 1.136C3.597.728 3.087.5 2.544.5c-.543 0-1.052.228-1.435.637C.701 1.57.5 2.143.5 2.713c0 .565.198 1.132.599 1.565l4.144 3.898 3.648-3.887c.408-.435.609-1.006.609-1.576 0-.57-.201-1.142-.609-1.576C8.508.728 8 .5 7.456.5z'/%3E %3C/svg%3E"-->
+<!--                                class="ActionMenu__HeartImage-s8lvsh-4 deXuYZ">-->
+<!--                            <p class="ActionMenu__LikeText-s8lvsh-5 fgqaUZ">좋아요</p>-->
+<!--                        </button>-->
+<!--                        </section>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <div class="FeedReplyCard__Wrapper-sc-1wg24nj-0 kDLQhH">-->
+<!--                    <div class="FeedReplyCard__Profile-sc-1wg24nj-1 fcEtFP">-->
+<!--                        <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img-->
+<!--                                class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36"-->
+<!--                                src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">-->
+<!--                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">-->
+<!--                                <div class="Ratio " style="display: block;">-->
+<!--                                    <div class="Ratio-ratio "-->
+<!--                                         style="height: 0px; position: relative; width: 100%; padding-top: 100%;">-->
+<!--                                        <div class="Ratio-content "-->
+<!--                                             style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">-->
+<!--                                            <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36"-->
+<!--                                                 src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="FeedReplyCard__Container-sc-1wg24nj-2 hjlSSA">-->
+<!--                        <div class="FeedReplyCard__Name-sc-1wg24nj-3 bUesVF">h.hyeoniya</div>-->
+<!--                        <p class="FeedReplyCard__Contents-sc-1wg24nj-4 gDMyOG">JPA 정말 기대되네요!</p>-->
+<!--                        <section class="ActionMenu__Section-s8lvsh-0 gzpaSl">-->
+<!--                            <p class="ActionMenu__Time-s8lvsh-1 gwAsrs">방금전</p><button-->
+<!--                                class="ActionMenu__TextButton-s8lvsh-2 kosXvh">삭제</button><button-->
+<!--                                class="ActionMenu__Like-s8lvsh-3 cOmkks"><img-->
+<!--                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='9' viewBox='0 0 10 9'%3E %3Cpath fill='%23F32D2D' d='M9.256.795C8.776.282 8.136 0 7.456 0c-.68 0-1.32.282-1.8.795L5 1.493 4.345.794C3.864.282 3.225 0 2.545 0c-.68 0-1.32.282-1.8.795-.993 1.057-.993 2.778 0 3.836l3.99 4.252C4.805 8.958 4.9 9 5 9s.195-.042.265-.117l3.99-4.252c.993-1.058.993-2.779 0-3.836z'/%3E %3C/svg%3E"-->
+<!--                                class="ActionMenu__HeartImage-s8lvsh-4 deXuYZ">-->
+<!--                            <p class="ActionMenu__LikeText-s8lvsh-5 jaQgRb">좋아요</p>-->
+<!--                        </button>-->
+<!--                        </section>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <div class="FeedReplyCard__Wrapper-sc-1wg24nj-0 kDLQhH">-->
+<!--                    <div class="FeedReplyCard__Profile-sc-1wg24nj-1 fcEtFP">-->
+<!--                        <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img-->
+<!--                                class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36"-->
+<!--                                src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">-->
+<!--                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">-->
+<!--                                <div class="Ratio " style="display: block;">-->
+<!--                                    <div class="Ratio-ratio "-->
+<!--                                         style="height: 0px; position: relative; width: 100%; padding-top: 100%;">-->
+<!--                                        <div class="Ratio-content "-->
+<!--                                             style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">-->
+<!--                                            <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36"-->
+<!--                                                 src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="FeedReplyCard__Container-sc-1wg24nj-2 hjlSSA">-->
+<!--                        <div class="FeedReplyCard__Name-sc-1wg24nj-3 bUesVF">h.hyeoniya</div>-->
+<!--                        <p class="FeedReplyCard__Contents-sc-1wg24nj-4 gDMyOG">CSS 너무 재미있네요..</p>-->
+<!--                        <section class="ActionMenu__Section-s8lvsh-0 gzpaSl">-->
+<!--                            <p class="ActionMenu__Time-s8lvsh-1 gwAsrs">방금전</p><button-->
+<!--                                class="ActionMenu__TextButton-s8lvsh-2 kosXvh">삭제</button><button-->
+<!--                                class="ActionMenu__Like-s8lvsh-3 cOmkks"><img-->
+<!--                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='9' viewBox='0 0 10 9'%3E %3Cpath fill='none' stroke='%23C6CAD0' d='M7.456.5c-.543 0-1.052.228-1.436.637L5 2.224 3.98 1.136C3.597.728 3.087.5 2.544.5c-.543 0-1.052.228-1.435.637C.701 1.57.5 2.143.5 2.713c0 .565.198 1.132.599 1.565l4.144 3.898 3.648-3.887c.408-.435.609-1.006.609-1.576 0-.57-.201-1.142-.609-1.576C8.508.728 8 .5 7.456.5z'/%3E %3C/svg%3E"-->
+<!--                                class="ActionMenu__HeartImage-s8lvsh-4 deXuYZ">-->
+<!--                            <p class="ActionMenu__LikeText-s8lvsh-5 fgqaUZ">좋아요</p>-->
+<!--                        </button>-->
+<!--                        </section>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <div class="FeedReplyCard__Wrapper-sc-1wg24nj-0 kDLQhH">-->
+<!--                    <div class="FeedReplyCard__Profile-sc-1wg24nj-1 fcEtFP">-->
+<!--                        <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img-->
+<!--                                class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36"-->
+<!--                                src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">-->
+<!--                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">-->
+<!--                                <div class="Ratio " style="display: block;">-->
+<!--                                    <div class="Ratio-ratio "-->
+<!--                                         style="height: 0px; position: relative; width: 100%; padding-top: 100%;">-->
+<!--                                        <div class="Ratio-content "-->
+<!--                                             style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">-->
+<!--                                            <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36"-->
+<!--                                                 src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="FeedReplyCard__Container-sc-1wg24nj-2 hjlSSA">-->
+<!--                        <div class="FeedReplyCard__Name-sc-1wg24nj-3 bUesVF">h.hyeoniya</div>-->
+<!--                        <p class="FeedReplyCard__Contents-sc-1wg24nj-4 gDMyOG">JPA 정말 기대되네요!</p>-->
+<!--                        <section class="ActionMenu__Section-s8lvsh-0 gzpaSl">-->
+<!--                            <p class="ActionMenu__Time-s8lvsh-1 gwAsrs">방금전</p><button-->
+<!--                                class="ActionMenu__TextButton-s8lvsh-2 kosXvh">삭제</button><button-->
+<!--                                class="ActionMenu__Like-s8lvsh-3 cOmkks"><img-->
+<!--                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='9' viewBox='0 0 10 9'%3E %3Cpath fill='%23F32D2D' d='M9.256.795C8.776.282 8.136 0 7.456 0c-.68 0-1.32.282-1.8.795L5 1.493 4.345.794C3.864.282 3.225 0 2.545 0c-.68 0-1.32.282-1.8.795-.993 1.057-.993 2.778 0 3.836l3.99 4.252C4.805 8.958 4.9 9 5 9s.195-.042.265-.117l3.99-4.252c.993-1.058.993-2.779 0-3.836z'/%3E %3C/svg%3E"-->
+<!--                                class="ActionMenu__HeartImage-s8lvsh-4 deXuYZ">-->
+<!--                            <p class="ActionMenu__LikeText-s8lvsh-5 jaQgRb">좋아요</p>-->
+<!--                        </button>-->
+<!--                        </section>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <div class="FeedReplyCard__Wrapper-sc-1wg24nj-0 kDLQhH">-->
+<!--                    <div class="FeedReplyCard__Profile-sc-1wg24nj-1 fcEtFP">-->
+<!--                        <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img-->
+<!--                                class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36"-->
+<!--                                src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">-->
+<!--                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">-->
+<!--                                <div class="Ratio " style="display: block;">-->
+<!--                                    <div class="Ratio-ratio "-->
+<!--                                         style="height: 0px; position: relative; width: 100%; padding-top: 100%;">-->
+<!--                                        <div class="Ratio-content "-->
+<!--                                             style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">-->
+<!--                                            <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36"-->
+<!--                                                 src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="FeedReplyCard__Container-sc-1wg24nj-2 hjlSSA">-->
+<!--                        <div class="FeedReplyCard__Name-sc-1wg24nj-3 bUesVF">h.hyeoniya</div>-->
+<!--                        <p class="FeedReplyCard__Contents-sc-1wg24nj-4 gDMyOG">CSS 너무 재미있네요..</p>-->
+<!--                        <section class="ActionMenu__Section-s8lvsh-0 gzpaSl">-->
+<!--                            <p class="ActionMenu__Time-s8lvsh-1 gwAsrs">방금전</p><button-->
+<!--                                class="ActionMenu__TextButton-s8lvsh-2 kosXvh">삭제</button><button-->
+<!--                                class="ActionMenu__Like-s8lvsh-3 cOmkks"><img-->
+<!--                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='9' viewBox='0 0 10 9'%3E %3Cpath fill='none' stroke='%23C6CAD0' d='M7.456.5c-.543 0-1.052.228-1.436.637L5 2.224 3.98 1.136C3.597.728 3.087.5 2.544.5c-.543 0-1.052.228-1.435.637C.701 1.57.5 2.143.5 2.713c0 .565.198 1.132.599 1.565l4.144 3.898 3.648-3.887c.408-.435.609-1.006.609-1.576 0-.57-.201-1.142-.609-1.576C8.508.728 8 .5 7.456.5z'/%3E %3C/svg%3E"-->
+<!--                                class="ActionMenu__HeartImage-s8lvsh-4 deXuYZ">-->
+<!--                            <p class="ActionMenu__LikeText-s8lvsh-5 fgqaUZ">좋아요</p>-->
+<!--                        </button>-->
+<!--                        </section>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <div class="FeedReplyCard__Wrapper-sc-1wg24nj-0 kDLQhH">-->
+<!--                    <div class="FeedReplyCard__Profile-sc-1wg24nj-1 fcEtFP">-->
+<!--                        <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img-->
+<!--                                class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36"-->
+<!--                                src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">-->
+<!--                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">-->
+<!--                                <div class="Ratio " style="display: block;">-->
+<!--                                    <div class="Ratio-ratio "-->
+<!--                                         style="height: 0px; position: relative; width: 100%; padding-top: 100%;">-->
+<!--                                        <div class="Ratio-content "-->
+<!--                                             style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">-->
+<!--                                            <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36"-->
+<!--                                                 src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="FeedReplyCard__Container-sc-1wg24nj-2 hjlSSA">-->
+<!--                        <div class="FeedReplyCard__Name-sc-1wg24nj-3 bUesVF">h.hyeoniya</div>-->
+<!--                        <p class="FeedReplyCard__Contents-sc-1wg24nj-4 gDMyOG">JPA 정말 기대되네요!</p>-->
+<!--                        <section class="ActionMenu__Section-s8lvsh-0 gzpaSl">-->
+<!--                            <p class="ActionMenu__Time-s8lvsh-1 gwAsrs">방금전</p><button-->
+<!--                                class="ActionMenu__TextButton-s8lvsh-2 kosXvh">삭제</button><button-->
+<!--                                class="ActionMenu__Like-s8lvsh-3 cOmkks"><img-->
+<!--                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='9' viewBox='0 0 10 9'%3E %3Cpath fill='%23F32D2D' d='M9.256.795C8.776.282 8.136 0 7.456 0c-.68 0-1.32.282-1.8.795L5 1.493 4.345.794C3.864.282 3.225 0 2.545 0c-.68 0-1.32.282-1.8.795-.993 1.057-.993 2.778 0 3.836l3.99 4.252C4.805 8.958 4.9 9 5 9s.195-.042.265-.117l3.99-4.252c.993-1.058.993-2.779 0-3.836z'/%3E %3C/svg%3E"-->
+<!--                                class="ActionMenu__HeartImage-s8lvsh-4 deXuYZ">-->
+<!--                            <p class="ActionMenu__LikeText-s8lvsh-5 jaQgRb">좋아요</p>-->
+<!--                        </button>-->
+<!--                        </section>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+        <div class="TextAreaSection__Wrapper-h0o51s-0 gjVRLr">
+            <div class="TextAreaSection__Container-h0o51s-1 eKKYQO">
+                <div class="TextAreaSection__Profile-h0o51s-2 dDMiXl">
+                    <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img class="Image__StyledImageLoader-v97gyx-2 bUFcfh"
+                                                                     width="45" height="45"
+                                                                     src="https://res.cloudinary.com/frientrip/image/fetch/ar_1:1,dpr_2,f_auto,q_auto,w_64/https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">
+                        <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                            <div class="Ratio " style="display: block;">
+                                <div class="Ratio-ratio "
+                                     style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                    <div class="Ratio-content "
+                                         style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;"><img
+                                            alt="profile-image" class="Image__StyledImage-v97gyx-1 VUNpu" width="45"
+                                            height="45"
+                                            src="https://res.cloudinary.com/frientrip/image/fetch/ar_1:1,dpr_2,f_auto,q_auto,w_64/https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="TextAreaSection__TextareaWrapper-h0o51s-3 iYnxZG"><textarea placeholder="댓글 달기..."
+                                                                                        maxlength="500" class="TextAreaSection__Textarea-h0o51s-4 iHQYSd"
+                                                                                        style="height: 46px;"></textarea><button disabled=""
+                                                                                                                                 class="TextAreaSection__SubmitButton-h0o51s-5 fWXEgN">등록</button></div>
+        </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/js/fix/header.js"></script>
+<script src="/js/community/comment.js"></script>
+</html>

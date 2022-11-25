@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나의 알람</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/fix/header.css">
+  <link rel="stylesheet" href="/css/fix/footer.css">
+  <link rel="stylesheet" href="/css/myPage/myPage.css" type="text/css"/>
+  <link rel="stylesheet" href="/css/myPoint/myPoint.css">
+  <link rel="stylesheet" href="/css/myAlarm/myAlarm.css">
+  <link rel="stylesheet" href="/css/myQuest/todayQuest.css" type="text/css"/>
+</head>
+<body>
+<header th:replace="/app/fix/header.html :: header"></header>
+<div>
+    <div class="PcTop__Content-sc-1mni0hl-1 iKjpvd">
+      <div class="PcTop__Title-sc-1mni0hl-2 epAnZX">내가 받은 알람</div>
+    </div>
+  <div class="PageWrapper-sc-1w87j10-0 bScXKt">
+    <div class="Padded-sc-1mbfr4n-0 KOZDF">
+      <label class="MyEnergy__EnergyLogLabel-sc-3e7d9b-1 cdbJvn">알람 내역은 14일간 저장되며, 이후 삭제됩니다.</label>
+      <hr size="40" type="Line" class="Border-sc-1bzcz1p-0 cOSlxV">
+      <div>
+        <a href="/myList/myExchangeDiary">
+          <div class="EnergyLog__Wrapper-sc-19yls83-0 hrLllS">
+            <div class="EnergyLog__CreateDate-sc-19yls83-1 ckxegI">10월 16일</div>
+            <div class="EnergyLog__ContentWrapper-sc-19yls83-2 fmfynV messageLine">
+              <div class="EnergyLog__Title-sc-19yls83-3 fGTHSO">오늘의 교환일기가 도착했습니다.</div>
+              <div class="EnergyLog__Value-sc-19yls83-6 fwsFdo">
+                <button class="goAlarm"></button>
+              </div>
+            </div>
+          </div>
+        </a>
+        <a href="/questionBoard/index">
+          <div class="EnergyLog__Wrapper-sc-19yls83-0 hrLllS">
+            <div class="EnergyLog__CreateDate-sc-19yls83-1 ckxegI">10월 16일</div>
+            <div class="EnergyLog__ContentWrapper-sc-19yls83-2 fmfynV messageLine">
+              <div class="EnergyLog__Title-sc-19yls83-3 fGTHSO">관리자 문의에 대한 답변이 도착했습니다.</div>
+              <div class="EnergyLog__Value-sc-19yls83-6 fwsFdo">
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--페이징처리-->
+<footer class="Wrapper__PaginationWrapper-fk4uv4-0 hBVRcD">
+  <div class="PaginationButtonGroup__PrevButtonWrapper-x0iffd-0 gIsDDT">
+    <button width="40px" height="40px" font-size="18px" disabled="" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns"></button>
+    <button width="40px" height="40px" font-size="18px" disabled="" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns"></button>
+  </div>
+  <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 RPlDq">1
+  </button>
+  <div class="PaginationButtonGroup__NextButtonWrapper-x0iffd-1 eNIHag">
+    <button width="40px" height="40px" font-size="18px" disabled="" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu"></button>
+    <button width="40px" height="40px" font-size="18px" disabled="" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu"></button>
+  </div>
+</footer>
+
+<footer th:replace="/app/fix/footer.html :: footer"></footer>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/js/fix/header.js"></script>
+</html>

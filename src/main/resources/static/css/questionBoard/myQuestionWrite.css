@@ -1,0 +1,36 @@
+.questionTitle::placeholder{
+    font-color: black;
+}
+
+.questionTitle{
+    border-bottom: solid 1px #afafc3;
+    padding-bottom: 5px;
+    width: 90%;
+    line-height: 2.5;
+}
+
+.titleWrap{
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom:20px;
+}
+
+.registryWrap{
+    text-align: right;
+    float: right;
+    border: solid 1px rgb(0, 117, 239);
+    border-radius: 5px;
+    line-height: 2.5;
+    cursor: pointer;
+    position: relative;
+    top: 5px;
+}
+
+.registry{
+    cursor: pointer;
+}
+
+.registryWrap:hover {
+    background: #F6FAFE;
+}
+
