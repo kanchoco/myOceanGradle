@@ -31,6 +31,8 @@ public class ToDoList extends Period{
 //        this.toDoListSelectDate = toDoListSelectDate;
 //    }
 //
+    
+//  양방향
     public void changeUser(User user){
         this.user = user;
         user.getToDoLists().add(this);
@@ -43,6 +45,7 @@ public class ToDoList extends Period{
         this.toDoListSelectDate = toDoListSelectDate;
     }
 
+//  투두리스트의 내용과 날짜는 변경이 가능
     public void update(String toDoListContent, LocalDateTime toDoListSelectDate) {
         this.toDoListContent = toDoListContent;
         this.toDoListSelectDate = toDoListSelectDate;

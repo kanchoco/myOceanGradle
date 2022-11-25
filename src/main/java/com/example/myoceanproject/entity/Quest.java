@@ -29,12 +29,13 @@ public class Quest extends Period{
     private File file;
 
     @Builder
-    public Quest(String questCategory, String questName, String questContent, LocalDateTime questDeadLine, File file) {
+    public Quest(String questCategory, String questName, String questContent, LocalDateTime questDeadLine, String filePath, String fileOriginName) {
         this.questCategory = questCategory;
         this.questName = questName;
         this.questContent = questContent;
         this.questDeadLine = questDeadLine;
-        this.file = file;
+        this.file.setFilePath(filePath);
+        this.file.setFileOriginName(fileOriginName);
     }
     public void update(String questCategory, String questName, String questContent, LocalDateTime questDeadLine) {
         this.questCategory = questCategory;
@@ -42,5 +43,4 @@ public class Quest extends Period{
         this.questContent = questContent;
         this.questDeadLine = questDeadLine;
     }
-
 }

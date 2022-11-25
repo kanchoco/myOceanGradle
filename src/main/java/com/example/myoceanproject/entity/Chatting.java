@@ -38,13 +38,14 @@ public class Chatting extends Period{
         this.group = group;
     }
 
+//  group이 생성되고 chatting이 생성되기 때문에 Builder에는 group을 넣지 않는다.
     @Builder
     public Chatting(String chattingContent, ReadStatus readStatus) {
-
         this.chattingContent = chattingContent;
         this.readStatus = readStatus;
     }
 
+//  채팅을 읽는 순간 READ로 값이 변경되므로 update
     public void update(ReadStatus readStatus){
         this.readStatus = readStatus;
     }

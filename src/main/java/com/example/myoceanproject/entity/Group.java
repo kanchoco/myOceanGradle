@@ -61,6 +61,8 @@ public class Group extends Period{
 //        this.groupStatus = groupStatus;
 //        this.file = file;
 //    }
+    
+//  양방향
     public void changeUser(User user){
         this.user = user;
         user.getGroups().add(this);
@@ -79,6 +81,8 @@ public class Group extends Period{
         this.groupTime = groupTime;
     }
 
+//  모임의 경우 모든 내용을 수정할 수 있기 때문에 Builder와 동일하게 update가 들어간다.
+//  파일의 경우, 삭제 후 추가기 때문에 update에 포함되지 않는다.
     public void update(String groupName, String groupCategory, String groupContent, int groupPoint, String groupLocation, GroupLocationType groupLocationType, GroupStatus groupStatus, GroupMemberLimit groupMemberLimit, GroupTime groupTime) {
         this.groupName = groupName;
         this.groupCategory = groupCategory;

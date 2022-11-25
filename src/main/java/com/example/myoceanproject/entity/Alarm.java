@@ -36,10 +36,13 @@ public class Alarm extends Period{
 //        this.readStatus = readStatus;
 //    }
 //
+//  양방향
     public void changeUser(User user){
         this.user = user;
         user.getAlarms().add(this);
     }
+
+
 
     @Builder
     public Alarm(User user, String alarmContent, LocalDateTime alarmDate, ReadStatus readStatus) {
@@ -49,6 +52,7 @@ public class Alarm extends Period{
         this.readStatus = readStatus;
     }
 
+//  ReadStatus는 유저가 알람을 보는 순간 READ로 업데이트가 되어야 한다.
     public void update(ReadStatus readStatus){
         this.readStatus = readStatus;
     }

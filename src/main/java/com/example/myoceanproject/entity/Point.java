@@ -31,6 +31,7 @@ public class Point extends Period{
         this.user = user;
     }
 
+//  포인트를 사용하거나 충전했을 때 포인트 히스토리가 하나씩 추가되므로 update가 아니라 insert로 봐야 한다.
     @Builder
     public Point(String pointAmountHistory) {
         this.pointAmountHistory = pointAmountHistory;

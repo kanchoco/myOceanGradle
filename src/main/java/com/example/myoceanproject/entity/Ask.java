@@ -31,8 +31,8 @@ public class Ask extends Period{
 //        this.askCategory = askCategory;
 //    }
 //
+//  양방향
     public void changeUser(User user){
-
         this.user = user;
         user.getAsks().add(this);
     }
@@ -46,6 +46,8 @@ public class Ask extends Period{
         this.askCategory = askCategory;
     }
 
+//  관리자 답변이 발송되면 askStatus의 값이 변하므로 update
+//  작성 후 질문 카테고리 변경이 가능하므로 update
     public void update(String askStatus, AskCategory askCategory){
         this.askStatus = askStatus;
         this.askCategory = askCategory;

@@ -66,6 +66,8 @@ public class User extends Period {
         this.userEmail = userEmail;
         this.userLoginMethod = userLoginMethod;
     }
+
+//  가입 후 유저 비밀번호와 닉네임만 변경이 가능하다.
     public void update(String userPassword, String userNickname) {
         this.userPassword = userPassword;
         this.userNickname = userNickname;

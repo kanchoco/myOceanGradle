@@ -17,7 +17,7 @@ public class DiaryDTO {
     private String diaryContent;
     private User receiverUser;
 
-
+//  일기 작성 후 일기 제목, 내용, 수신인이 새롭게 저장된다.
     public Diary toEntity() {
         return Diary.builder()
                 .diaryTitle(diaryTitle)

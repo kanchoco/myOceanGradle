@@ -28,6 +28,8 @@ public class CommunityFile extends Period{
 //        this.communityPost = communityPost;
 //        this.file = file;
 //    }
+    
+//  양방향
     public void changeCommunityPost(CommunityPost communityPost){
         this.communityPost = communityPost;
         communityPost.getCommunityFiles().add(this);
@@ -35,14 +37,12 @@ public class CommunityFile extends Period{
 
     @Builder
     public CommunityFile(CommunityPost communityPost, File file) {
-
         this.communityPost = communityPost;
         this.file = file;
-
-
-
     }
 
+//  게시글의 내용이 수정될 수 있으므로 update
+//  file의 경우 수정 시에도 삭제된 후 새롭게 insert를 하기 때문에 update에 포함되지 않는다.
     public void update(CommunityPost communityPost){
         this.communityPost = communityPost;
     }

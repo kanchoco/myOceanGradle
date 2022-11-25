@@ -19,7 +19,7 @@ public class AlarmDTO {
     private String alarmContent;
     private LocalDateTime alarmDate;
 
-
+//  ReadStatus는 UNREAD가 디폴트 값으로 저장되고, 이후 READ로 업데이트가 되기 때문에 DTO에서 값을 저장하지 않는다.
     public Alarm toEntity(){
         return Alarm.builder()
                 .user(user)
