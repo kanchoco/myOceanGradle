@@ -1,5 +1,6 @@
 package com.example.myoceanproject.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -21,17 +22,24 @@ public class QuestAchievement extends Period{
     @JoinColumn(name = "QUEST_ID")
     private Quest quest; //FK
 
-    public QuestAchievement(Long questAchievementId, User user, Quest quest) {
-        this.questAchievementId = questAchievementId;
-        this.user = user;
-        this.quest = quest;
-    }
+//    public QuestAchievement(Long questAchievementId, User user, Quest quest) {
+//        this.questAchievementId = questAchievementId;
+//        this.user = user;
+//        this.quest = quest;
+//    }
+//
+//    public void changeUser(User user){
+//        this.user = user;
+//        user.getQuestAchievements().add(this);
+//    }
+//    public void changeQuest(Quest quest){
+//        this.quest = quest;
+//    }
 
-    public void changeUser(User user){
+
+    @Builder
+    public QuestAchievement(User user, Quest quest) {
         this.user = user;
-        user.getQuestAchievements().add(this);
-    }
-    public void changeQuest(Quest quest){
         this.quest = quest;
     }
 }

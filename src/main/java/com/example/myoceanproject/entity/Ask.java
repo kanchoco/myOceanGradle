@@ -1,10 +1,7 @@
 package com.example.myoceanproject.entity;
 
 import com.example.myoceanproject.type.AskCategory;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -25,18 +22,27 @@ public class Ask extends Period{
     private String askContent;
     private AskCategory askCategory;
 
-    public void create(Long askId, User user, String askStatus, String askTitle, String askContent, AskCategory askCategory) {
-        this.askId = askId;
+//    public void create(Long askId, User user, String askStatus, String askTitle, String askContent, AskCategory askCategory) {
+//        this.askId = askId;
+//        this.user = user;
+//        this.askStatus = askStatus;
+//        this.askTitle = askTitle;
+//        this.askContent = askContent;
+//        this.askCategory = askCategory;
+//    }
+//
+//    public void changeUser(User user){
+//
+//        this.user = user;
+//        user.getAsks().add(this);
+//    }
+
+    @Builder
+    public Ask(User user, String askStatus, String askTitle, String askContent, AskCategory askCategory) {
         this.user = user;
         this.askStatus = askStatus;
         this.askTitle = askTitle;
         this.askContent = askContent;
         this.askCategory = askCategory;
-    }
-
-    public void changeUser(User user){
-
-        this.user = user;
-        user.getAsks().add(this);
     }
 }

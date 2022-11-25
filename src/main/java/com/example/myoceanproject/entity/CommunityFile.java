@@ -1,6 +1,7 @@
 package com.example.myoceanproject.entity;
 
 import com.example.myoceanproject.embeddable.File;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -20,13 +21,19 @@ public class CommunityFile extends Period{
     @Embedded
     private File file;
 
-    public void create(Long communityFileId, CommunityPost communityPost, File file) {
-        this.communityFileId = communityFileId;
+//    public void create(Long communityFileId, CommunityPost communityPost, File file) {
+//        this.communityFileId = communityFileId;
+//        this.communityPost = communityPost;
+//        this.file = file;
+//    }
+//    public void changeCommunityPost(CommunityPost communityPost){
+//        this.communityPost = communityPost;
+//        communityPost.getCommunityFiles().add(this);
+//    }
+
+    @Builder
+    public CommunityFile(CommunityPost communityPost, File file) {
         this.communityPost = communityPost;
         this.file = file;
-    }
-    public void changeCommunityPost(CommunityPost communityPost){
-        this.communityPost = communityPost;
-        communityPost.getCommunityFiles().add(this);
     }
 }

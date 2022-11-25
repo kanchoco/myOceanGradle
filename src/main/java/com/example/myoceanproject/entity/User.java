@@ -3,10 +3,7 @@ package com.example.myoceanproject.entity;
 import com.example.myoceanproject.embeddable.File;
 import com.example.myoceanproject.type.UserAccountStatus;
 import com.example.myoceanproject.type.UserLoginMethod;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -58,6 +55,7 @@ public class User extends Period {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Alarm> alarms;
 
+    @Builder
     public User(Long userId, String userEmail, String userPassword, String userNickname, String userName, UserAccountStatus userAccountStatus, UserLoginMethod userLoginMethod, File file) {
         this.userId = userId;
         this.userEmail = userEmail;
