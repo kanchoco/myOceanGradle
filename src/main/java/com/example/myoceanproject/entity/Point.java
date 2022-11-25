@@ -1,8 +1,7 @@
 package com.example.myoceanproject.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import com.sun.istack.NotNull;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -10,13 +9,16 @@ import javax.persistence.*;
 @Table(name = "TBL_POINT")
 @Getter
 @ToString(exclude = "user")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Point extends Period{
     @Id
     @GeneratedValue
     private Long pointId; //PK
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
+    @NotNull
     private User user; //FK
+    @NotNull
     private String pointAmountHistory;
 
 //    public void create(Long pointId, User user, String pointAmountHistory) {
@@ -25,13 +27,12 @@ public class Point extends Period{
 //        this.pointAmountHistory = pointAmountHistory;
 //    }
 //
-//    public void changeUser(User user){
-//        this.user = user;
-//    }
+    public void changeUser(User user){
+        this.user = user;
+    }
 
     @Builder
-    public Point(User user, String pointAmountHistory) {
-        this.user = user;
+    public Point(String pointAmountHistory) {
         this.pointAmountHistory = pointAmountHistory;
     }
 }

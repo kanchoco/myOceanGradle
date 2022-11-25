@@ -1,9 +1,7 @@
 package com.example.myoceanproject.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.sun.istack.NotNull;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,15 +10,18 @@ import java.time.LocalDateTime;
 @Table(name = "TBL_TODOLIST")
 @Getter
 @ToString(exclude = "user")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ToDoList extends Period{
     @Id
     @GeneratedValue
     private Long toDoListId; //PK
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
+    @NotNull
     private User user; //FK
+    @NotNull
     private String toDoListContent;
+    @NotNull
     private LocalDateTime toDoListSelectDate;
 
 //    public void create(Long toDoListId, User user, String toDoListContent, LocalDateTime toDoListSelectDate) {
@@ -30,15 +31,19 @@ public class ToDoList extends Period{
 //        this.toDoListSelectDate = toDoListSelectDate;
 //    }
 //
-//    public void changeUser(User user){
-//        this.user = user;
-//        user.getToDoLists().add(this);
-//    }
+    public void changeUser(User user){
+        this.user = user;
+        user.getToDoLists().add(this);
+    }
 
 
     @Builder
-    public ToDoList(User user, String toDoListContent, LocalDateTime toDoListSelectDate) {
-        this.user = user;
+    public ToDoList(String toDoListContent, LocalDateTime toDoListSelectDate) {
+        this.toDoListContent = toDoListContent;
+        this.toDoListSelectDate = toDoListSelectDate;
+    }
+
+    public void update(String toDoListContent, LocalDateTime toDoListSelectDate) {
         this.toDoListContent = toDoListContent;
         this.toDoListSelectDate = toDoListSelectDate;
     }

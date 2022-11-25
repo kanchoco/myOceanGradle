@@ -1,8 +1,6 @@
 package com.example.myoceanproject.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,6 +9,7 @@ import java.util.List;
 @Table(name = "TBL_COMMUNITY_POST")
 @Getter
 @ToString(exclude = "user")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CommunityPost extends Period{
     @Id
     @GeneratedValue
@@ -36,19 +35,25 @@ private List<CommunityFile> communityFiles;
 //        this.communityViewNumber = communityViewNumber;
 //    }
 //
-//    public void changeUser(User user){
-//
-//        this.user = user;
-//        user.getCommunityPosts().add(this);
-//    }
+    public void changeUser(User user){
+
+        this.user = user;
+        user.getCommunityPosts().add(this);
+    }
 
     @Builder
-    public CommunityPost(User user, String communityCategory, String communityTitle, String communityContent, String communityViewNumber, List<CommunityFile> communityFiles) {
-        this.user = user;
+    public CommunityPost(String communityCategory, String communityTitle, String communityContent, String communityViewNumber) {
         this.communityCategory = communityCategory;
         this.communityTitle = communityTitle;
         this.communityContent = communityContent;
         this.communityViewNumber = communityViewNumber;
-        this.communityFiles = communityFiles;
+    }
+
+    public void update(String communityCategory, String communityTitle, String communityContent, String communityViewNumber){
+        this.communityCategory = communityCategory;
+        this.communityTitle = communityTitle;
+        this.communityContent = communityContent;
+        this.communityViewNumber = communityViewNumber;
+
     }
 }

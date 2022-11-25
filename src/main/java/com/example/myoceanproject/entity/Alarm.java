@@ -1,9 +1,8 @@
 package com.example.myoceanproject.entity;
 
 import com.example.myoceanproject.type.ReadStatus;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import com.sun.istack.NotNull;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +11,7 @@ import java.time.LocalDateTime;
 @Table(name = "TBL_ALARM")
 @Getter
 @ToString(exclude = "user")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Alarm extends Period{
 
     @Id
@@ -19,9 +19,13 @@ public class Alarm extends Period{
     private Long alarmId; //PK
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
+    @NotNull
     private User user; //FK
+    @NotNull
     private String alarmContent;
+    @NotNull
     private LocalDateTime alarmDate;
+    @NotNull
     private ReadStatus readStatus; //Enum
 
 //    public void create(Long alarmId, User user, String alarmContent, LocalDateTime alarmDate, ReadStatus readStatus) {
@@ -32,10 +36,10 @@ public class Alarm extends Period{
 //        this.readStatus = readStatus;
 //    }
 //
-//    public void changeUser(User user){
-//        this.user = user;
-//        user.getAlarms().add(this);
-//    }
+    public void changeUser(User user){
+        this.user = user;
+        user.getAlarms().add(this);
+    }
 
     @Builder
     public Alarm(User user, String alarmContent, LocalDateTime alarmDate, ReadStatus readStatus) {
@@ -44,4 +48,9 @@ public class Alarm extends Period{
         this.alarmDate = alarmDate;
         this.readStatus = readStatus;
     }
+
+    public void update(ReadStatus readStatus){
+        this.readStatus = readStatus;
+    }
+
 }

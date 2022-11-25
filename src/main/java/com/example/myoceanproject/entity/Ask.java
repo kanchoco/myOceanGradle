@@ -31,18 +31,23 @@ public class Ask extends Period{
 //        this.askCategory = askCategory;
 //    }
 //
-//    public void changeUser(User user){
-//
-//        this.user = user;
-//        user.getAsks().add(this);
-//    }
+    public void changeUser(User user){
+
+        this.user = user;
+        user.getAsks().add(this);
+    }
 
     @Builder
-    public Ask(User user, String askStatus, String askTitle, String askContent, AskCategory askCategory) {
+    public Ask(User user, String askTitle, String askContent, String askStatus, AskCategory askCategory) {
         this.user = user;
-        this.askStatus = askStatus;
         this.askTitle = askTitle;
         this.askContent = askContent;
+        this.askStatus = askStatus;
+        this.askCategory = askCategory;
+    }
+
+    public void update(String askStatus, AskCategory askCategory){
+        this.askStatus = askStatus;
         this.askCategory = askCategory;
     }
 }

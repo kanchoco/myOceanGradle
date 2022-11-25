@@ -1,8 +1,7 @@
 package com.example.myoceanproject.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import com.sun.istack.NotNull;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -10,6 +9,7 @@ import javax.persistence.*;
 @Table(name = "TBL_GROUP_MEMBER")
 @Getter
 @ToString(exclude = {"user","group"})
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class GroupMember extends Period{
 
     @Id
@@ -17,9 +17,11 @@ public class GroupMember extends Period{
     private Long groupMemberId;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
+    @NotNull
     private User user;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "GROUP_ID")
+    @NotNull
     private Group group;
 
 //    public void create(Long groupMemberId, User user, Group group) {
@@ -28,19 +30,22 @@ public class GroupMember extends Period{
 //        this.group = group;
 //    }
 //
-//    public void changeUser(User user){
-//        this.user = user;
-//
-//    }
-//
-//    public void changeGroup(Group group){
-//        this.group = group;
-//    }
-
-
-    @Builder
-    public GroupMember(User user, Group group) {
+    public void changeUser(User user){
         this.user = user;
+
+    }
+
+    public void changeGroup(Group group){
         this.group = group;
     }
+
+
+//    @Builder
+//    public GroupMember(Group group) {
+//        this.group = group;
+//    }
+//
+//    public void update(){
+//
+//    }
 }

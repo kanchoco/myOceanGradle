@@ -1,9 +1,8 @@
 package com.example.myoceanproject.entity;
 
 import com.example.myoceanproject.type.ReadStatus;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import com.sun.istack.NotNull;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,6 +10,7 @@ import javax.persistence.*;
 @Table(name = "TBL_CHATTING")
 @Getter
 @ToString(exclude = "group")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Chatting extends Period{
     @Id
     @GeneratedValue
@@ -18,10 +18,13 @@ public class Chatting extends Period{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "GROUP_ID")
+    @NotNull
     private Group group;//FK
 
+    @NotNull
     private String chattingContent;
 
+    @NotNull
     private ReadStatus readStatus;
 
 //    public void create(Long chattingId, Group group, String chattingContent, ReadStatus readStatus) {
@@ -31,14 +34,19 @@ public class Chatting extends Period{
 //        this.readStatus = readStatus;
 //    }
 //
-//    public void changeGroup(Group group){
-//        this.group = group;
-//    }
+    public void changeGroup(Group group){
+        this.group = group;
+    }
 
     @Builder
-    public Chatting(Group group, String chattingContent, ReadStatus readStatus) {
-        this.group = group;
+    public Chatting(String chattingContent, ReadStatus readStatus) {
+
         this.chattingContent = chattingContent;
         this.readStatus = readStatus;
     }
+
+    public void update(ReadStatus readStatus){
+        this.readStatus = readStatus;
+    }
+
 }

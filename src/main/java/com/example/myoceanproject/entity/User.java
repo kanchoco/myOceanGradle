@@ -3,6 +3,7 @@ package com.example.myoceanproject.entity;
 import com.example.myoceanproject.embeddable.File;
 import com.example.myoceanproject.type.UserAccountStatus;
 import com.example.myoceanproject.type.UserLoginMethod;
+import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,11 +19,14 @@ public class User extends Period {
     @Id
     @GeneratedValue
     private Long userId; //PK
+    @NotNull
     private String userEmail;
     private String userPassword;
+    @NotNull
     private String userNickname;
-    private String userName;
+    @NotNull
     private UserAccountStatus userAccountStatus; //Enum으로 사용
+    @NotNull
     private UserLoginMethod userLoginMethod;
     @Embedded
     private File file;
@@ -56,16 +60,21 @@ public class User extends Period {
     private List<Alarm> alarms;
 
     @Builder
-    public User(Long userId, String userEmail, String userPassword, String userNickname, String userName, UserAccountStatus userAccountStatus, UserLoginMethod userLoginMethod, File file) {
-        this.userId = userId;
-        this.userEmail = userEmail;
+    public User(String userPassword, String userNickname, String userEmail, UserLoginMethod userLoginMethod) {
         this.userPassword = userPassword;
         this.userNickname = userNickname;
-        this.userName = userName;
-        this.userAccountStatus = userAccountStatus;
+        this.userEmail = userEmail;
         this.userLoginMethod = userLoginMethod;
-        this.file = file;
     }
+    public void update(String userPassword, String userNickname) {
+        this.userPassword = userPassword;
+        this.userNickname = userNickname;
+    }
+
+
+
+
+
 
 
 }
