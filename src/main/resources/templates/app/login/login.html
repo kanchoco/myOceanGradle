@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/css/fix/header.css">
     <link rel="stylesheet" href="/css/fix/footer.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
-        rel="stylesheet">
+          rel="stylesheet">
 </head>
 <body class="fontLoaded">
 <header th:replace="/app/fix/headerModify.html :: header"></header>
@@ -30,7 +30,7 @@
 
         <!-- 반응형 nav 태그 추가 -->
         <nav class="BottomMenuBar__Wrapper-sc-3nfr6g-0 ciqvqE">
-            <a class="withLink__StyledLink-zuberk-0 lQqkn" href="/static">
+            <a class="withLink__StyledLink-zuberk-0 lQqkn" href="/">
                     <span class="BottomMenuBar__MenuNode-sc-3nfr6g-1 dUVSwM">
                         <img src="data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M10 0L2 6.78571V17.5H7.54545V12.2174H12.4545V17.5H18V6.78571L10 0Z' fill='%23CCCCCC'/%3E %3C/svg%3E" alt="홈 메뉴">홈
                     </span>
@@ -79,10 +79,10 @@
             <div class="AnotherWayLogin__Wrapper-sc-1u8ecwv-0 MYdft">
                 다른방식으로 로그인
                 <div class="AnotherWayLogin__IconButtonWrapper-sc-1u8ecwv-1 gBvQUd">
-                    <button type="button" style="cursor:pointer;">
+                    <button type="button" style="cursor:pointer;" onclick="kakaoLogin();">
                         <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' fill='none' viewBox='0 0 48 48'%3E %3Crect width='48' height='48' fill='%23FBE850' rx='10'/%3E %3Cpath fill='%23000' d='M24 14c-6.628 0-12 4.236-12 9.462 0 3.378 2.246 6.342 5.625 8.016-.184.634-1.181 4.078-1.221 4.349 0 0-.024.203.108.28.131.078.286.018.286.018.378-.053 4.378-2.863 5.07-3.35.692.097 1.405.148 2.132.148 6.628 0 12-4.236 12-9.462C36 18.236 30.628 14 24 14z'/%3E %3C/svg%3E" alt="kakao-login-icon">
                     </button>
-                    <button type="button" style="cursor:pointer;">
+                    <button type="button" style="cursor:pointer;" onclick="kakaoLogout();">
                         <img src="http://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/5rH/image/aFrEyVpANu07FvoBZQbIB4aF_uc" style="width:48px;height:48px;" alt="google-login-icon">
                     </button>
                     <button type="button" style="cursor:pointer;">
@@ -102,6 +102,7 @@
 <footer th:replace="/app/fix/footer.html :: footer"></footer>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script src="/js/fix/header.js"></script>
 <script src="/js/fix/fix.js"></script>
 <script src="/js/login/login.js"></script>
