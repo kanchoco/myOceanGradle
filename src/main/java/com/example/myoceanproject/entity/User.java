@@ -83,10 +83,4 @@ public class User extends Period {
         this.userAccountStatus = userAccountStatus;
     }
 
-
-
-
-
-
-
 }
