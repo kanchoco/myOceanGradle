@@ -10,7 +10,8 @@ import java.time.LocalDateTime;
 @Table(name = "TBL_TODOLIST")
 @Getter
 @ToString(exclude = "user")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class ToDoList extends Period{
     @Id
     @GeneratedValue
