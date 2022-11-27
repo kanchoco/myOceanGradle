@@ -29,6 +29,7 @@ public class UserDTO {
                 .userNickname(userNickname)
                 .userEmail(userEmail)
                 .userLoginMethod(userLoginMethod)
+                .userAccountStatus(userAccountStatus)
                 .build();
     }
 

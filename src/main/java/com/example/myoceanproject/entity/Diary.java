@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "TBL_DIARY")
 @Getter
-@ToString(exclude = {"senderUser", "receiverUser"})
+@ToString(exclude = {"user", "receiverUser"})
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Diary extends Period{
     @Id

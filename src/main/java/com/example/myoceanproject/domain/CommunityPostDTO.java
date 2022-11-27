@@ -23,7 +23,7 @@ public class CommunityPostDTO {
                 .communityTitle(communityTitle)
                 .communityCategory(communityCategory)
                 .communityContent(communityContent)
-                .communityViewNumber(communityViewNumber)
+//                .communityViewNumber(communityViewNumber)
                 .build();
     }
 }
