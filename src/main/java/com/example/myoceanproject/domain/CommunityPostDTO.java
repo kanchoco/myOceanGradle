@@ -17,6 +17,7 @@ public class CommunityPostDTO {
     private String communityContent;
     private String communityViewNumber;
 
+//  게시글 작성 시 게시글 제목, 카테고리, 내용이 처음으로 저장된다.
     public CommunityPost toEntity(){
         return CommunityPost.builder()
                 .communityTitle(communityTitle)

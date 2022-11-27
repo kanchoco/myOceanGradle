@@ -45,6 +45,7 @@ public class GroupSchedule extends Period{
         this.groupScheduleEndTime = groupScheduleEndTime;
     }
 
+//  모임 날짜, 시작시간, 종료 시간은 변경이 가능하므로 update
     public void update(LocalDateTime groupScheduleDate, LocalDateTime groupScheduleStartTime, LocalDateTime groupScheduleEndTime){
         this.groupScheduleDate = groupScheduleDate;
         this.groupScheduleStartTime = groupScheduleStartTime;

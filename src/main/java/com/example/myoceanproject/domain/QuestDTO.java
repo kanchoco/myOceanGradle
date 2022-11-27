@@ -19,7 +19,8 @@ public class QuestDTO {
     private String questContent;
     private LocalDateTime questDeadLine;
 
-    private File file;
+    private String filePath;
+    private String fileOriginName;
 
 
     public Quest toEntity() {
@@ -28,7 +29,8 @@ public class QuestDTO {
                 .questName(questName)
                 .questDeadLine(questDeadLine)
                 .questContent(questContent)
-                .file(file)
+                .filePath(filePath)
+                .fileOriginName(fileOriginName)
                 .build();
     }
 }

@@ -20,6 +20,7 @@ public class GroupScheduleDTO {
     private LocalDateTime groupScheduleEndTime;
 
 
+//  모임 게시글 작성 시 모임 날짜, 시작 시간, 종료 시간이 처음으로 저장된다.
     public GroupSchedule toEntity(){
         return GroupSchedule.builder()
 //                .group(group)

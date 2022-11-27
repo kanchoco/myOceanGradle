@@ -30,6 +30,8 @@ public class QuestAchievement extends Period{
 //        this.quest = quest;
 //    }
 //
+    
+//  양방향
     public void changeUser(User user){
         this.user = user;
         user.getQuestAchievements().add(this);

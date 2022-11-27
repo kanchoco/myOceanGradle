@@ -19,8 +19,7 @@ public class CommunityFileDTO {
 
     private File file;
 
-
-
+//  게시글 작성 완료 시 처음으로 게시글 내용과 파일이 저장된다.
     public CommunityFile toEntity(){
         return CommunityFile.builder()
                 .communityPost(communityPost)

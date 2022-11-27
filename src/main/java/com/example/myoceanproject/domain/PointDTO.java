@@ -15,7 +15,7 @@ public class PointDTO {
     private User user;
     private String pointAmountHistory;
 
-
+//  포인트의 변화 추이가 계속 새롭게 저장이 된다.
     public Point toEntity(){
         return Point.builder()
                 .pointAmountHistory(pointAmountHistory)
