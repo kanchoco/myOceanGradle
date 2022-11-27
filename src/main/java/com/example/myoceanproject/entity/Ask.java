@@ -22,15 +22,7 @@ public class Ask extends Period{
     private String askContent;
     private AskCategory askCategory;
 
-//    public void create(Long askId, User user, String askStatus, String askTitle, String askContent, AskCategory askCategory) {
-//        this.askId = askId;
-//        this.user = user;
-//        this.askStatus = askStatus;
-//        this.askTitle = askTitle;
-//        this.askContent = askContent;
-//        this.askCategory = askCategory;
-//    }
-//
+
 //  양방향
     public void changeUser(User user){
         this.user = user;
@@ -38,8 +30,7 @@ public class Ask extends Period{
     }
 
     @Builder
-    public Ask(User user, String askTitle, String askContent, String askStatus, AskCategory askCategory) {
-        this.user = user;
+    public Ask(String askTitle, String askContent, String askStatus, AskCategory askCategory) {
         this.askTitle = askTitle;
         this.askContent = askContent;
         this.askStatus = askStatus;

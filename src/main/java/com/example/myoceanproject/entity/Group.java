@@ -47,20 +47,6 @@ public class Group extends Period{
     @Embedded
     private GroupTime groupTime;
 
-
-
-//    public void create(Long groupId, User user, String groupName, String groupCategory, String groupContent, int groupPoint, String groupLocation, GroupLocationType groupLocationType, GroupStatus groupStatus, File file) {
-//        this.groupId = groupId;
-//        this.user = user;
-//        this.groupName = groupName;
-//        this.groupCategory = groupCategory;
-//        this.groupContent = groupContent;
-//        this.groupPoint = groupPoint;
-//        this.groupLocation = groupLocation;
-//        this.groupLocationType = groupLocationType;
-//        this.groupStatus = groupStatus;
-//        this.file = file;
-//    }
     
 //  양방향
     public void changeUser(User user){

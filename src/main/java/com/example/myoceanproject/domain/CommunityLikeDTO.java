@@ -4,6 +4,7 @@ import com.example.myoceanproject.entity.CommunityLike;
 import com.example.myoceanproject.entity.CommunityPost;
 import com.example.myoceanproject.entity.Period;
 import com.example.myoceanproject.entity.User;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -20,12 +21,9 @@ public class CommunityLikeDTO {
     private CommunityPost communityPost;
 
     private User user;
-
-
-    public CommunityLike toEntity(){
-        return CommunityLike.builder()
-                .communityPost(communityPost)
-                .user(user)
-                .build();
+    @QueryProjection
+    public CommunityLikeDTO(CommunityPost communityPost, User user) {
+        this.communityPost = communityPost;
+        this.user = user;
     }
 }

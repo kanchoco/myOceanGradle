@@ -9,6 +9,8 @@ import com.example.myoceanproject.repository.UserRepository;
 import com.example.myoceanproject.type.ReadStatus;
 import com.example.myoceanproject.type.UserAccountStatus;
 import com.example.myoceanproject.type.UserLoginMethod;
+import com.querydsl.core.QueryFactory;
+import com.querydsl.core.annotations.QueryProjection;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 
@@ -64,20 +66,52 @@ public class AlarmTest {
         alarmRepository.save(alarm1);
     }
 
-//    @Test
-//    public void findAllTest(){
-//        List<Alarm> alarms = jpaQueryFactory.selectFrom(alarm)
-//                .join(alarm.user)
-//                .fetchJoin()
-//                .fetch();
-//        alarms.stream().map(Alarm::toString).forEach(log::info);
-//
-//
-//    }
+    @Test
+    public void findAllTest(){
+        List<Alarm> alarms = jpaQueryFactory.selectFrom(alarm)
+                .join(alarm.user)
+                .fetchJoin()
+                .fetch();
+    }
 
-//    @Test
-//    public void updateTest(){
-//
-//    }
+    @Test
+    public void findById(){
+        List<Alarm> alarms = jpaQueryFactory.selectFrom(alarm)
+                .join(alarm.user)
+                .where(alarm.user.userId.eq(1L))
+                .fetchJoin()
+                .fetch();
+
+        alarms.stream().map(Alarm::toString).forEach(log::info);
+
+    }
+
+    @Test
+    public void updateTest(){
+
+        Long count = jpaQueryFactory.update(alarm).set(alarm.alarmContent, "수정").where(alarm.user.userId.eq(1L)).execute();
+        log.info(count.toString());
+
+    }
+
+//    여러개의 컬럼을 update할땐 set을 여러번 사용한다
+    @Test
+    public void updateMultipleTest(){
+
+
+        Long count = jpaQueryFactory.update(alarm)
+                .set(alarm.alarmContent, "두번째수정")
+                .set(alarm.readStatus, ReadStatus.UNREAD)
+                .where(alarm.user.userId.eq(3L)).execute();
+    }
+
+    @Test
+    public void deleteTest(){
+        Long count = jpaQueryFactory
+                .delete(alarm)
+                .where(alarm.alarmContent.eq("두번째수정"))
+                .execute();
+    }
+
 
 }
