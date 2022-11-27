@@ -89,8 +89,14 @@ public class AlarmTest {
     @Test
     public void updateTest(){
 
-        Long count = jpaQueryFactory.update(alarm).set(alarm.alarmContent, "수정").where(alarm.user.userId.eq(1L)).execute();
-        log.info(count.toString());
+//        Long count = jpaQueryFactory.update(alarm).set(alarm.alarmContent, "수정").where(alarm.user.userId.eq(1L)).execute();
+//        log.info(count.toString());
+        Alarm alarm1 = jpaQueryFactory.selectFrom(alarm)
+                .where(alarm.alarmContent.eq("첫 알람입니다."))
+                .fetchOne();
+
+        alarm1.update(ReadStatus.UNREAD);
+
 
     }
 
@@ -99,10 +105,11 @@ public class AlarmTest {
     public void updateMultipleTest(){
 
 
-        Long count = jpaQueryFactory.update(alarm)
-                .set(alarm.alarmContent, "두번째수정")
-                .set(alarm.readStatus, ReadStatus.UNREAD)
-                .where(alarm.user.userId.eq(3L)).execute();
+        List<Alarm> alarms = jpaQueryFactory.selectFrom(alarm)
+                .where(alarm.readStatus.eq(ReadStatus.UNREAD))
+                .fetch();
+
+        alarms.stream().forEach(v->{v.update(ReadStatus.READ);});
     }
 
     @Test

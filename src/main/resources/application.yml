@@ -23,6 +23,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        create_empty_composites:
+          enabled: true
   output:
     ansi:
       enabled: always
+
