@@ -46,5 +46,4 @@ public class Alarm extends Period{
     public void update(ReadStatus readStatus){
         this.readStatus = readStatus;
     }
-
 }

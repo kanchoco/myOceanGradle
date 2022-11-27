@@ -75,7 +75,8 @@ public class User extends Period {
         this.userTotalPoint = userTotalPoint;
     }
 
-//  가입 후 유저 비밀번호와 닉네임만 변경이 가능하다.
+//  가입 후 유저 비밀번호와 닉네임, 유저 포인트 변경 및 업데이트가 가능하다.
+//  관리자가 회원을 정지시키거나 정지를 해제하여 AccountStatus를 업데이트할 수 있다.
     public void update(String userPassword, String userNickname, int userTotalPoint, UserAccountStatus userAccountStatus) {
         this.userPassword = userPassword;
         this.userNickname = userNickname;

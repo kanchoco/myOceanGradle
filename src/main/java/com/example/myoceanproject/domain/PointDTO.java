@@ -14,10 +14,10 @@ import org.springframework.stereotype.Component;
 public class PointDTO {
 
     private User user;
-    private String pointAmountHistory;
+    private int pointAmountHistory;
 
     @QueryProjection
-    public PointDTO(User user, String pointAmountHistory) {
+    public PointDTO(User user, int pointAmountHistory) {
         this.user = user;
         this.pointAmountHistory = pointAmountHistory;
     }
