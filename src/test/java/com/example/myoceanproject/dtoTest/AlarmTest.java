@@ -43,17 +43,25 @@ public class AlarmTest {
 
     @Test
     public void saveAlarmTest(){
-        Optional<UserDTO> userDTO = userRepository.findById(1L);
-        log.info(userDTO.get().toEntity().toString());
+
+//      1번 유저 불러오기
+        Optional<User> user = userRepository.findById(1L);
         AlarmDTO alarmDTO = new AlarmDTO();
-        alarmDTO.toEntity().changeUser(userDTO.get().toEntity());
+
+//      alarmDTO에 필요한 값 저장
         alarmDTO.setAlarmContent("두번째 알람입니다.");
         alarmDTO.setReadStatus(ReadStatus.UNREAD);
 
-//        alarmDTO.setUser(alarm1.changeUser());
-        alarmRepository.save(alarmDTO);
+//      alarmDTO에 저장한 값들을 entity로 변환
+        Alarm alarm1 = alarmDTO.toEntity();
 
+//      alarmDTO에 처음에 조회했던 유저 정보를 저장(optional이기 때문에 get 사용)
+//      changeUser 메소드로 alarmDTO에 저장된 User값을 alarm1로 전달
+        alarmDTO.setUser(user.get());
+        alarm1.changeUser(alarmDTO.getUser());
 
+//      alarm 엔티티에 해당 값들을 모두 저장
+        alarmRepository.save(alarm1);
     }
 
 //    @Test
