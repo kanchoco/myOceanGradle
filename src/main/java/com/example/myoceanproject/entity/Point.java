@@ -19,7 +19,7 @@ public class Point extends Period{
     @NotNull
     private User user; //FK
     @NotNull
-    private String pointAmountHistory;
+    private int pointAmountHistory;
 
 //    public void create(Long pointId, User user, String pointAmountHistory) {
 //        this.pointId = pointId;
@@ -33,7 +33,7 @@ public class Point extends Period{
 
 //  포인트를 사용하거나 충전했을 때 포인트 히스토리가 하나씩 추가되므로 update가 아니라 insert로 봐야 한다.
     @Builder
-    public Point(String pointAmountHistory) {
+    public Point(int pointAmountHistory) {
         this.pointAmountHistory = pointAmountHistory;
     }
 }

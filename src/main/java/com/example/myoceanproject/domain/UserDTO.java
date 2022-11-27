@@ -22,14 +22,16 @@ public class UserDTO {
     private UserAccountStatus userAccountStatus;
 
     private UserLoginMethod userLoginMethod;
+    private int userTotalPoint;
 
     @QueryProjection
-    public UserDTO(String userEmail, String userPassword, String userNickname, UserAccountStatus userAccountStatus, UserLoginMethod userLoginMethod) {
+    public UserDTO(String userEmail, String userPassword, String userNickname, UserAccountStatus userAccountStatus, UserLoginMethod userLoginMethod, int userTotalPoint) {
         this.userEmail = userEmail;
         this.userPassword = userPassword;
         this.userNickname = userNickname;
         this.userAccountStatus = userAccountStatus;
         this.userLoginMethod = userLoginMethod;
+        this.userTotalPoint = userTotalPoint;
     }
 
     public User toEntity(){
@@ -39,6 +41,7 @@ public class UserDTO {
                 .userEmail(userEmail)
                 .userLoginMethod(userLoginMethod)
                 .userAccountStatus(userAccountStatus)
+                .userTotalPoint(userTotalPoint)
                 .build();
     }
 
