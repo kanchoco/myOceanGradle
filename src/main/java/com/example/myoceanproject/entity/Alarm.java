@@ -30,16 +30,7 @@ public class Alarm extends Period{
     @Enumerated(EnumType.STRING)
     private ReadStatus readStatus; //Enum
 
-//    public void create(Long alarmId, User user, String alarmContent, LocalDateTime alarmDate, ReadStatus readStatus) {
-//        this.alarmId = alarmId;
-//        this.user = user;
-//        this.alarmContent = alarmContent;
-//        this.alarmDate = alarmDate;
-//        this.readStatus = readStatus;
-//    }
-//
 //  양방향
-//    user와 alarm은 바뀔 일이 없기 떄문에 편의 메소드가 사용될 필요가 없다고 판단함
     public void changeUser(User user){
         this.user = user;
         user.getAlarms().add(this);
@@ -47,9 +38,7 @@ public class Alarm extends Period{
 
     @Builder
     public Alarm(String alarmContent, ReadStatus readStatus) {
-        this.user = user;
         this.alarmContent = alarmContent;
-//        this.alarmDate = alarmDate;
         this.readStatus = readStatus;
     }
 

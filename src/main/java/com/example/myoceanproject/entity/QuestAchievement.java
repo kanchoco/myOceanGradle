@@ -24,12 +24,6 @@ public class QuestAchievement extends Period{
     @NotNull
     private Quest quest; //FK
 
-//    public QuestAchievement(Long questAchievementId, User user, Quest quest) {
-//        this.questAchievementId = questAchievementId;
-//        this.user = user;
-//        this.quest = quest;
-//    }
-//
     
 //  양방향
     public void changeUser(User user){
@@ -39,13 +33,6 @@ public class QuestAchievement extends Period{
     public void changeQuest(Quest quest){
         this.quest = quest;
     }
-
-
-//    @Builder
-//    public QuestAchievement(User user, Quest quest) {
-//        this.user = user;
-//        this.quest = quest;
-//    }
 
 
 }

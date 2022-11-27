@@ -24,12 +24,7 @@ public class GroupMember extends Period{
     @NotNull
     private Group group;
 
-//    public void create(Long groupMemberId, User user, Group group) {
-//        this.groupMemberId = groupMemberId;
-//        this.user = user;
-//        this.group = group;
-//    }
-//
+
     public void changeUser(User user){
         this.user = user;
 
@@ -39,13 +34,4 @@ public class GroupMember extends Period{
         this.group = group;
     }
 
-
-//    @Builder
-//    public GroupMember(Group group) {
-//        this.group = group;
-//    }
-//
-//    public void update(){
-//
-//    }
 }

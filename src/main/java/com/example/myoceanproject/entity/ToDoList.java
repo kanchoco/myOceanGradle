@@ -24,13 +24,6 @@ public class ToDoList extends Period{
     @NotNull
     private LocalDateTime toDoListSelectDate;
 
-//    public void create(Long toDoListId, User user, String toDoListContent, LocalDateTime toDoListSelectDate) {
-//        this.toDoListId = toDoListId;
-//        this.user = user;
-//        this.toDoListContent = toDoListContent;
-//        this.toDoListSelectDate = toDoListSelectDate;
-//    }
-//
     
 //  양방향
     public void changeUser(User user){

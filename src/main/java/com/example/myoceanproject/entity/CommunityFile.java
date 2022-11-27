@@ -23,11 +23,6 @@ public class CommunityFile extends Period{
     @NotNull
     private File file;
 
-//    public void create(Long communityFileId, CommunityPost communityPost, File file) {
-//        this.communityFileId = communityFileId;
-//        this.communityPost = communityPost;
-//        this.file = file;
-//    }
     
 //  양방향
     public void changeCommunityPost(CommunityPost communityPost){
@@ -36,8 +31,7 @@ public class CommunityFile extends Period{
     }
 
     @Builder
-    public CommunityFile(CommunityPost communityPost, File file) {
-        this.communityPost = communityPost;
+    public CommunityFile( File file) {
         this.file = file;
     }
 

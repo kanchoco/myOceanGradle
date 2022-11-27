@@ -26,15 +26,6 @@ public class CommunityPost extends Period{
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "communityPost")
     private List<CommunityFile> communityFiles;
 
-//    public void create(Long communityPostId, User user, String communityCategory, String communityTitle, String communityContent, String communityViewNumber) {
-//        this.communityPostId = communityPostId;
-//        this.user = user;
-//        this.communityCategory = communityCategory;
-//        this.communityTitle = communityTitle;
-//        this.communityContent = communityContent;
-//        this.communityViewNumber = communityViewNumber;
-//    }
-//
 //  일대다 양방향
     public void changeUser(User user){
         this.user = user;
@@ -42,12 +33,11 @@ public class CommunityPost extends Period{
     }
 
     @Builder
-    public CommunityPost(String communityCategory, String communityTitle, String communityContent, String communityViewNumber, User user) {
+    public CommunityPost(String communityCategory, String communityTitle, String communityContent, String communityViewNumber) {
         this.communityCategory = communityCategory;
         this.communityTitle = communityTitle;
         this.communityContent = communityContent;
         this.communityViewNumber = communityViewNumber;
-        this.user = user;
     }
 
 //  커뮤니티 게시글은 카테고리와 제목, 내용이 수정 가능하고

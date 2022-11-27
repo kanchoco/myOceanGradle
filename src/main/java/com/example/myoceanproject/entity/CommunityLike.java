@@ -24,11 +24,7 @@ public class CommunityLike extends Period{
     @NotNull
     private User user;
 
-//    public void create(Long communityLikeNumber, CommunityPost communityPost, User user) {
-//        this.communityLikeNumber = communityLikeNumber;
-//        this.communityPost = communityPost;
-//        this.user = user;
-//    }
+
 
     public void changeCommunityPost(CommunityPost communityPost){
         this.communityPost = communityPost;
@@ -39,11 +35,6 @@ public class CommunityLike extends Period{
     }
 
 
-    @Builder
-    public CommunityLike(CommunityPost communityPost, User user) {
-        this.communityPost = communityPost;
-        this.user = user;
-    }
 
 }
 
