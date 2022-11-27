@@ -25,13 +25,13 @@ public class Chatting extends Period{
     private String chattingContent;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     private ReadStatus readStatus;
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     @NotNull
     private User user;
-
 
     public void changeGroup(Group group){
         this.group = group;

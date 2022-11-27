@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.example.myoceanproject.entity.QAlarm.alarm;
 import static com.example.myoceanproject.entity.QUser.user;
 
 @SpringBootTest

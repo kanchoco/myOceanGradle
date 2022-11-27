@@ -11,4 +11,9 @@ import javax.persistence.Embeddable;
 public class GroupMemberLimit {
     private int maxMember;
     private int minMember;
+
+    public void create(int maxMember, int minMember){
+        this.maxMember=maxMember;
+        this.minMember=minMember;
+    }
 }

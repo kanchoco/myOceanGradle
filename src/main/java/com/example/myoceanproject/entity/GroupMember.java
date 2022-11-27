@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "TBL_GROUP_MEMBER")
 @Getter
 @ToString(exclude = {"user","group"})
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor/*(access = AccessLevel.PROTECTED)*/
 public class GroupMember extends Period{
 
     @Id
