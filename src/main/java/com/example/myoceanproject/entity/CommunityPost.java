@@ -42,11 +42,12 @@ public class CommunityPost extends Period{
     }
 
     @Builder
-    public CommunityPost(String communityCategory, String communityTitle, String communityContent, String communityViewNumber) {
+    public CommunityPost(String communityCategory, String communityTitle, String communityContent, String communityViewNumber, User user) {
         this.communityCategory = communityCategory;
         this.communityTitle = communityTitle;
         this.communityContent = communityContent;
         this.communityViewNumber = communityViewNumber;
+        this.user = user;
     }
 
 //  커뮤니티 게시글은 카테고리와 제목, 내용이 수정 가능하고

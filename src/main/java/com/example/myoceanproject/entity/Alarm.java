@@ -7,7 +7,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
+@Entity(name = "Alarm")
 @Table(name = "TBL_ALARM")
 @Getter
 @ToString(exclude = "user")
@@ -23,9 +23,10 @@ public class Alarm extends Period{
     private User user; //FK
     @NotNull
     private String alarmContent;
+//    @NotNull
+//    private LocalDateTime alarmDate;
     @NotNull
-    private LocalDateTime alarmDate;
-    @NotNull
+    @Enumerated(EnumType.STRING)
     private ReadStatus readStatus; //Enum
 
 //    public void create(Long alarmId, User user, String alarmContent, LocalDateTime alarmDate, ReadStatus readStatus) {
@@ -37,18 +38,19 @@ public class Alarm extends Period{
 //    }
 //
 //  양방향
-    public void changeUser(User user){
-        this.user = user;
-        user.getAlarms().add(this);
-    }
+//    user와 alarm은 바뀔 일이 없기 떄문에 편의 메소드가 사용될 필요가 없다고 판단함
+//    public void changeUser(User user){
+//        this.user = user;
+//        user.getAlarms().add(this);
+//    }
 
 
 
     @Builder
-    public Alarm(User user, String alarmContent, LocalDateTime alarmDate, ReadStatus readStatus) {
+    public Alarm(User user, String alarmContent, ReadStatus readStatus) {
         this.user = user;
         this.alarmContent = alarmContent;
-        this.alarmDate = alarmDate;
+//        this.alarmDate = alarmDate;
         this.readStatus = readStatus;
     }
 

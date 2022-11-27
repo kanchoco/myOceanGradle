@@ -24,12 +24,18 @@ public class User extends Period {
     private String userPassword;
     @NotNull
     private String userNickname;
+
     @NotNull
+    @Enumerated(EnumType.STRING)
     private UserAccountStatus userAccountStatus; //Enum으로 사용
     @NotNull
+    @Enumerated(EnumType.STRING)
     private UserLoginMethod userLoginMethod;
     @Embedded
     private File file;
+
+    @NotNull
+    private int userTotalPoint;
 
     //    그룹 테이블 양방향
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
@@ -60,17 +66,21 @@ public class User extends Period {
     private List<Alarm> alarms;
 
     @Builder
-    public User(String userPassword, String userNickname, String userEmail, UserLoginMethod userLoginMethod) {
+    public User(String userPassword, String userNickname, String userEmail,UserAccountStatus userAccountStatus,UserLoginMethod userLoginMethod, int userTotalPoint) {
         this.userPassword = userPassword;
         this.userNickname = userNickname;
         this.userEmail = userEmail;
+        this.userAccountStatus = userAccountStatus;
         this.userLoginMethod = userLoginMethod;
+        this.userTotalPoint = userTotalPoint;
     }
 
 //  가입 후 유저 비밀번호와 닉네임만 변경이 가능하다.
-    public void update(String userPassword, String userNickname) {
+    public void update(String userPassword, String userNickname, int userTotalPoint, UserAccountStatus userAccountStatus) {
         this.userPassword = userPassword;
         this.userNickname = userNickname;
+        this.userTotalPoint = userTotalPoint;
+        this.userAccountStatus = userAccountStatus;
     }
 
 

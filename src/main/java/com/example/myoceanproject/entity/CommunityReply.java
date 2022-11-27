@@ -39,7 +39,7 @@ public class CommunityReply extends Period{
 
 
     @Builder
-    public CommunityReply(String communityReplyContent) {
+    public CommunityReply(User user, String communityReplyContent) {
         this.communityReplyContent = communityReplyContent;
     }
 
