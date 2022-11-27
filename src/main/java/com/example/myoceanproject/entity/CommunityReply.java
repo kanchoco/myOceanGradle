@@ -29,6 +29,9 @@ public class CommunityReply extends Period{
     public void changeCommunityPost(CommunityPost communityPost){
         this.communityPost = communityPost;
     }
+    public void changeUser(User user){
+        this.user = user;
+    }
 
 
     @Builder

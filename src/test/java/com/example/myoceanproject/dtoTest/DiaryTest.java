@@ -46,70 +46,50 @@ public class DiaryTest {
 //      1번 유저 불러오기
         Optional<User> user = userRepository.findById(1L);
         DiaryDTO diaryDTO = new DiaryDTO();
-        Diary diary=new Diary();
 
 //      diaryDTO에 필요한 값 저장
         diaryDTO.setDiaryTitle("다이어리 첫번쨰");
         diaryDTO.setDiaryContent("다이어리 첫번째 내용");
-        diary.changeUser(user.get());
-        diary.changeReceiverUser(user.get());
+
+        Diary diary1 = diaryDTO.toEntity();
+
+        diaryDTO.setUser(user.get());
+        diaryDTO.setReceiverUser(user.get());
+
+        diary1.changeUser(diaryDTO.getUser());
+        diary1.changeReceiverUser(diaryDTO.getReceiverUser());
 
 //      diary 엔티티에 해당 값들을 모두 저장
-        diaryRepository.save(diary);
+        diaryRepository.save(diary1);
     }
 
     @Test
     public void findAllTest(){
-        List<Diary> diarys = jpaQueryFactory.selectFrom(diary)
+        List<Diary> diaries = jpaQueryFactory.selectFrom(diary)
                 .join(diary.user)
                 .fetchJoin()
                 .fetch();
-        diarys.stream().map(Diary::toString).forEach(log::info);
+        diaries.stream().map(Diary::toString).forEach(log::info);
     }
 
     @Test
     public void findById(){
-        List<Diary> diarys = jpaQueryFactory.selectFrom(diary)
+        List<Diary> diaries = jpaQueryFactory.selectFrom(diary)
                 .join(diary.user)
                 .where(diary.user.userId.eq(1L))
                 .fetchJoin()
                 .fetch();
 
-        diarys.stream().map(Diary::toString).forEach(log::info);
+        diaries.stream().map(Diary::toString).forEach(log::info);
 
     }
 
-    @Test
-//    public void updateTest(){
-//
-//        Long count = jpaQueryFactory.update(alarm).set(alarm.alarmContent, "수정").where(alarm.user.userId.eq(1L)).execute();
-//        log.info(count.toString());
-//        Diary diary1 = jpaQueryFactory.selectFrom(diary)
-//                .where(diary.diaryContent.eq("첫 알람입니다."))
-//                .fetchOne();
-//
-//        diary1.update(ReadStatus.UNREAD);
-//
-//
-//    }
 
-    //    여러개의 컬럼을 update할땐 set을 여러번 사용한다
-//    @Test
-//    public void updateMultipleTest(){
-//
-//
-//        List<Alarm> alarms = jpaQueryFactory.selectFrom(alarm)
-//                .where(alarm.readStatus.eq(ReadStatus.UNREAD))
-//                .fetch();
-//
-//        alarms.stream().forEach(v->{v.update(ReadStatus.READ);});
-//    }
-//
-//    @Test
+    @Test
     public void deleteTest(){
         Long count = jpaQueryFactory
                 .delete(diary)
-                .where(diary.diaryContent.eq("첫번째수정"))
+                .where(diary.diaryId.eq(5L))
                 .execute();
     }
 }

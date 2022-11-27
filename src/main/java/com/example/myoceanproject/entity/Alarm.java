@@ -11,8 +11,7 @@ import java.time.LocalDateTime;
 @Table(name = "TBL_ALARM")
 @Getter
 @ToString(exclude = "user")
-@NoArgsConstructor
-//        (access = AccessLevel.PROTECTED)
+@NoArgsConstructor/*(access = AccessLevel.PROTECTED)*/
 public class Alarm extends Period{
 
     @Id
@@ -24,8 +23,7 @@ public class Alarm extends Period{
     private User user; //FK
     @NotNull
     private String alarmContent;
-//    @NotNull
-//    private LocalDateTime alarmDate;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private ReadStatus readStatus; //Enum

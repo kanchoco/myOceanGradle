@@ -13,4 +13,9 @@ public class GroupTime {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
+    public void create(LocalDateTime startTime, LocalDateTime endTime){
+        this.startTime=startTime;
+        this.endTime=endTime;
+    }
+
 }

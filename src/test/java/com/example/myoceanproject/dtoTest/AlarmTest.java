@@ -1,22 +1,15 @@
 package com.example.myoceanproject.dtoTest;
 
 import com.example.myoceanproject.domain.AlarmDTO;
-import com.example.myoceanproject.domain.UserDTO;
 import com.example.myoceanproject.entity.Alarm;
 import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.repository.AlarmRepository;
 import com.example.myoceanproject.repository.UserRepository;
 import com.example.myoceanproject.type.ReadStatus;
-import com.example.myoceanproject.type.UserAccountStatus;
-import com.example.myoceanproject.type.UserLoginMethod;
-import com.querydsl.core.QueryFactory;
-import com.querydsl.core.annotations.QueryProjection;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 
 import static com.example.myoceanproject.entity.QAlarm.alarm;
-import static com.example.myoceanproject.entity.QUser.user;
-import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +65,7 @@ public class AlarmTest {
                 .join(alarm.user)
                 .fetchJoin()
                 .fetch();
+        alarms.stream().map(Alarm::toString).forEach(log::info);
     }
 
     @Test
@@ -89,14 +83,11 @@ public class AlarmTest {
     @Test
     public void updateTest(){
 
-//        Long count = jpaQueryFactory.update(alarm).set(alarm.alarmContent, "수정").where(alarm.user.userId.eq(1L)).execute();
-//        log.info(count.toString());
         Alarm alarm1 = jpaQueryFactory.selectFrom(alarm)
                 .where(alarm.alarmContent.eq("첫 알람입니다."))
                 .fetchOne();
 
         alarm1.update(ReadStatus.UNREAD);
-
 
     }
 

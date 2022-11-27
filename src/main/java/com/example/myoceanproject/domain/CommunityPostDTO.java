@@ -16,10 +16,10 @@ public class CommunityPostDTO {
     private String communityCategory;
     private String communityTitle;
     private String communityContent;
-    private String communityViewNumber;
+    private int communityViewNumber;
 
     @QueryProjection
-    public CommunityPostDTO(User user, String communityCategory, String communityTitle, String communityContent, String communityViewNumber) {
+    public CommunityPostDTO(User user, String communityCategory, String communityTitle, String communityContent, int communityViewNumber) {
         this.user = user;
         this.communityCategory = communityCategory;
         this.communityTitle = communityTitle;

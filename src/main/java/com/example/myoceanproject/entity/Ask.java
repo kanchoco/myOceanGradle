@@ -1,6 +1,9 @@
 package com.example.myoceanproject.entity;
 
 import com.example.myoceanproject.type.AskCategory;
+import com.example.myoceanproject.type.AskStatus;
+import com.example.myoceanproject.type.ReadStatus;
+import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,7 +12,7 @@ import javax.persistence.*;
 @Table(name = "TBL_ASK")
 @Getter
 @ToString(exclude = "user")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor/*(access = AccessLevel.PROTECTED)*/
 public class Ask extends Period{
     @Id
     @GeneratedValue
@@ -17,7 +20,9 @@ public class Ask extends Period{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
     private User user;//유저가 null일 경우 자주 묻는 질문
-    private String askStatus;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private AskStatus askStatus; //Enum
     private String askTitle;
     private String askContent;
     private AskCategory askCategory;
@@ -30,7 +35,7 @@ public class Ask extends Period{
     }
 
     @Builder
-    public Ask(String askTitle, String askContent, String askStatus, AskCategory askCategory) {
+    public Ask(String askTitle, String askContent, AskStatus askStatus, AskCategory askCategory) {
         this.askTitle = askTitle;
         this.askContent = askContent;
         this.askStatus = askStatus;
@@ -39,7 +44,7 @@ public class Ask extends Period{
 
 //  관리자 답변이 발송되면 askStatus의 값이 변하므로 update
 //  작성 후 질문 카테고리 변경이 가능하므로 update
-    public void update(String askStatus, AskCategory askCategory){
+    public void update(AskStatus askStatus, AskCategory askCategory){
         this.askStatus = askStatus;
         this.askCategory = askCategory;
     }

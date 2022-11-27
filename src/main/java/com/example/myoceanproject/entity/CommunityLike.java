@@ -9,7 +9,8 @@ import javax.persistence.*;
 @Table(name = "TBL_COMMUNITY_LIKE")
 @Getter
 @ToString(exclude = {"communityPost", "user"})
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
+//        (access = AccessLevel.PROTECTED)
 public class CommunityLike extends Period{
     @Id
     @GeneratedValue

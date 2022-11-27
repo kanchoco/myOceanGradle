@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Table(name = "TBL_GROUP")
 @Getter
 @ToString(exclude = "user")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor/*(access = AccessLevel.PROTECTED)*/
 public class Group extends Period{
 
     @Id
@@ -34,8 +34,10 @@ public class Group extends Period{
     private int groupPoint;
     private String groupLocation;
     @NotNull
+    @Enumerated(EnumType.STRING)
     private GroupLocationType groupLocationType; //Enum
     @NotNull
+    @Enumerated(EnumType.STRING)
     private GroupStatus groupStatus; // Enum
     @Embedded
     @NotNull

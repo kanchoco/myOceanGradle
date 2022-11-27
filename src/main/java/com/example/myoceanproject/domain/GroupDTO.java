@@ -2,6 +2,7 @@ package com.example.myoceanproject.domain;
 
 import com.example.myoceanproject.entity.Group;
 import com.example.myoceanproject.entity.Period;
+import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.type.GroupLocationType;
 import com.example.myoceanproject.type.GroupStatus;
 import com.querydsl.core.annotations.QueryProjection;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 public class GroupDTO {
 
+    private User user;
     private String groupName;
     private String groupCategory;
     private String groupContent;
@@ -26,7 +28,8 @@ public class GroupDTO {
     private String fileOriginName;
 
     @QueryProjection
-    public GroupDTO(String groupName, String groupCategory, String groupContent, int groupPoint, String groupLocation, GroupLocationType groupLocationType, GroupStatus groupStatus, String filePath, String fileOriginName) {
+    public GroupDTO(User user, String groupName, String groupCategory, String groupContent, int groupPoint, String groupLocation, GroupLocationType groupLocationType, GroupStatus groupStatus, String filePath, String fileOriginName) {
+        this.user = user;
         this.groupName = groupName;
         this.groupCategory = groupCategory;
         this.groupContent = groupContent;
