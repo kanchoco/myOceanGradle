@@ -1,6 +1,5 @@
 package com.example.myoceanproject.dtoTest;
 
-import antlr.collections.List;
 import com.example.myoceanproject.domain.AlarmDTO;
 import com.example.myoceanproject.domain.QuestDTO;
 import com.example.myoceanproject.embeddable.File;
@@ -20,7 +19,11 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Embedded;
+import java.util.List;
 import java.util.Optional;
+
+import static com.example.myoceanproject.entity.QAlarm.alarm;
+import static com.example.myoceanproject.entity.QQuest.quest;
 
 @SpringBootTest
 @Slf4j
@@ -58,5 +61,40 @@ public class QuestTest {
 ////      alarm 엔티티에 해당 값들을 모두 저장
 //        questRepository.save(quest1);
 //    }
+
+    @Test
+    public void findAllTest(){
+        List<Quest> quests = jpaQueryFactory.selectFrom(quest)
+                .fetch();
+        quests.stream().map(Quest::toString).forEach(log::info);
+    }
+
+    @Test
+    public void findByIdTest(){
+        Quest quest1 = jpaQueryFactory.selectFrom(quest)
+                .where(quest.questId.eq(213L))
+                .fetchOne();
+
+        log.info(quest1.toString());
+    }
+
+    @Test
+    public void updateTest(){
+        Long count = jpaQueryFactory.update(quest)
+                .where(quest.questCategory.eq("회원가입"))
+                .set(quest.questContent, "회원가입하면 줌")
+                .execute();
+
+        log.info(count.toString());
+
+    }
+
+    @Test
+    public void deleteTest(){
+        Long count = jpaQueryFactory
+                .delete(quest)
+                .where(quest.questId.eq(213L))
+                .execute();
+    }
 
 }

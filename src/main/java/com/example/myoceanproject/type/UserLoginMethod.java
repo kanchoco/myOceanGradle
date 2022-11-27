@@ -1,5 +1,5 @@
 package com.example.myoceanproject.type;
 
 public enum UserLoginMethod {
-    KAKAO, GOOGLE, NAVER
+    KAKAO, GOOGLE, NAVER, GENERAL
 }

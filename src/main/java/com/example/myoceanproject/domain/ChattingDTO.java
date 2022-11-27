@@ -16,16 +16,23 @@ public class ChattingDTO {
     private String chattingContent;
     private User user;
 
+    private ReadStatus readStatus;
+
     @QueryProjection
-    public ChattingDTO(String chattingContent, User user) {
+    public ChattingDTO(String chattingContent, User user, ReadStatus readStatus) {
         this.chattingContent = chattingContent;
         this.user = user;
+        this.readStatus = readStatus;
     }
+
+
+
 
     //  readStatus는 디폴트로 UNREAD 값이 들어가있으므로 화면에서 새롭게 값을 저장하지 않는다.
     public Chatting toEntity(){
         return Chatting.builder()
                 .chattingContent(chattingContent)
+                .readStatus(readStatus)
                 .build();
     }
 }
