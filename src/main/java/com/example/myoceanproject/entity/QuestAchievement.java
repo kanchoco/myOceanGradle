@@ -9,7 +9,8 @@ import javax.persistence.*;
 @Table(name = "TBL_QUEST_ACHIEVEMENT")
 @Getter
 @ToString(exclude = {"user", "quest"})
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
+//        (access = AccessLevel.PROTECTED)
 public class QuestAchievement extends Period{
 
     @Id

@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.Embedded;
 import java.time.LocalDateTime;
 
 @Component
@@ -20,8 +21,11 @@ public class QuestDTO {
     private String questContent;
     private LocalDateTime questDeadLine;
 
-    private String filePath;
-    private String fileOriginName;
+//    private String filePath;
+//    private String fileOriginName;
+
+    @Embedded
+    private File file;
 
     @QueryProjection
     public QuestDTO(String questCategory, String questName, String questContent, LocalDateTime questDeadLine, String filePath, String fileOriginName) {
@@ -29,8 +33,9 @@ public class QuestDTO {
         this.questName = questName;
         this.questContent = questContent;
         this.questDeadLine = questDeadLine;
-        this.filePath = filePath;
-        this.fileOriginName = fileOriginName;
+//        this.file.setFilePath(filePath);
+//        this.file.setFileOriginName(fileOriginName);
+        this.file = file;
     }
 
     public Quest toEntity() {
@@ -39,8 +44,12 @@ public class QuestDTO {
                 .questName(questName)
                 .questDeadLine(questDeadLine)
                 .questContent(questContent)
-                .filePath(filePath)
-                .fileOriginName(fileOriginName)
+//                .fileOriginName(file.getFileOriginName())
+//                .filePath(file.getFilePath())
+                .file(file)
                 .build();
     }
+
+
+
 }
