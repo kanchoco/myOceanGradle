@@ -38,7 +38,6 @@ public class CommunityPost extends Period{
 //  양방향
     public void changeUser(User user){
         this.user = user;
-        user.getCommunityPosts().add(this);
     }
 
     @Builder

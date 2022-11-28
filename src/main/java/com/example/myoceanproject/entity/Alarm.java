@@ -29,9 +29,8 @@ public class Alarm extends Period{
     private ReadStatus readStatus; //Enum
 
 //  양방향
-    public void changeUser(User user){
+    public void setUser(User user){
         this.user = user;
-        user.getAlarms().add(this);
     }
 
     @Builder
@@ -43,6 +42,14 @@ public class Alarm extends Period{
 
 //  ReadStatus는 유저가 알람을 보는 순간 READ로 업데이트가 되어야 한다.
     public void update(ReadStatus readStatus){
+        this.readStatus = readStatus;
+    }
+
+    public void setAlarmContent(String alarmContent){
+        this.alarmContent = alarmContent;
+    }
+
+    public void setReadStatus(ReadStatus readStatus){
         this.readStatus = readStatus;
     }
 }

@@ -13,20 +13,36 @@ import org.springframework.stereotype.Component;
 @Data
 @NoArgsConstructor
 public class CommunityPostDTO {
-    private User user; //FK
+    private Long userId;
+    private String userNickName;
+    private String userFileName;
+    private String userFilePath;
+    private Long userFileSize;
+    private Long userFileUuid;
+
+
     private CommunityCategory communityCategory;
     private String communityTitle;
     private String communityContent;
     private int communityViewNumber;
 
+
     @QueryProjection
-    public CommunityPostDTO(User user, CommunityCategory communityCategory, String communityTitle, String communityContent, int communityViewNumber) {
-        this.user = user;
+    public CommunityPostDTO(Long userId, String userNickName, String userFileName, String userFilePath, Long userFileSize, Long userFileUuid, CommunityCategory communityCategory, String communityTitle, String communityContent, int communityViewNumber) {
+        this.userId = userId;
+        this.userNickName = userNickName;
+        this.userFileName = userFileName;
+        this.userFilePath = userFilePath;
+        this.userFileSize = userFileSize;
+        this.userFileUuid = userFileUuid;
         this.communityCategory = communityCategory;
         this.communityTitle = communityTitle;
         this.communityContent = communityContent;
         this.communityViewNumber = communityViewNumber;
     }
+
+
+
 
     //  게시글 작성 시 게시글 제목, 카테고리, 내용이 처음으로 저장된다.
     public CommunityPost toEntity(){
