@@ -22,19 +22,15 @@ public class Quest extends Period{
     @NotNull
     private String questContent;
     private LocalDateTime questDeadLine;
-    @Embedded
-    @NotNull
-    private File file;
 
     @Builder
-    public Quest(String questCategory, String questName, String questContent, LocalDateTime questDeadLine,File file/*, String filePath, String fileOriginName*/) {
+    public Quest(String questCategory, String questName, String questContent, LocalDateTime questDeadLine/*, String filePath, String fileOriginName*/) {
         this.questCategory = questCategory;
         this.questName = questName;
         this.questContent = questContent;
         this.questDeadLine = questDeadLine;
 //        this.file.setFilePath(filePath);
 //        this.file.setFileOriginName(fileOriginName);
-        this.file = file;
     }
     public void update(String questCategory, String questName, String questContent, LocalDateTime questDeadLine) {
         this.questCategory = questCategory;

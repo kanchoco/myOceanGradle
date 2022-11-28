@@ -14,17 +14,14 @@ public class CommunityFileDTO {
 
     private CommunityPost communityPost; //FK
 
-    private File file;
     @QueryProjection
-    public CommunityFileDTO(CommunityPost communityPost, File file) {
+    public CommunityFileDTO(CommunityPost communityPost) {
         this.communityPost = communityPost;
-        this.file = file;
     }
 
 //  게시글 작성 완료 시 처음으로 게시글 내용과 파일이 저장된다.
     public CommunityFile toEntity(){
         return CommunityFile.builder()
-                .file(file)
                 .build();
     }
 }
