@@ -2,6 +2,7 @@ package com.example.myoceanproject.dtoTest;
 
 import com.example.myoceanproject.domain.AlarmDTO;
 import com.example.myoceanproject.entity.Alarm;
+import com.example.myoceanproject.entity.QAlarm;
 import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.repository.AlarmRepository;
 import com.example.myoceanproject.repository.UserRepository;
@@ -61,7 +62,7 @@ public class AlarmTest {
 
     @Test
     public void findAllTest(){
-        List<Alarm> alarms = jpaQueryFactory.selectFrom(alarm)
+        List<Alarm> alarms = jpaQueryFactory.selectFrom(new QAlarm(alarm))
                 .join(alarm.user)
                 .fetchJoin()
                 .fetch();

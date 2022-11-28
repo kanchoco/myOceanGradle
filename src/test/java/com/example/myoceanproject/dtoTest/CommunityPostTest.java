@@ -9,6 +9,7 @@ import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.repository.AlarmRepository;
 import com.example.myoceanproject.repository.CommunityPostRepository;
 import com.example.myoceanproject.repository.UserRepository;
+import com.example.myoceanproject.type.CommunityCategory;
 import com.example.myoceanproject.type.ReadStatus;
 import com.querydsl.core.types.EntityPath;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -49,7 +50,7 @@ public class CommunityPostTest {
 //      postDTO에 필요한 값 저장
         postDTO.setCommunityTitle("인기없는 게시글");
         postDTO.setCommunityContent("집에 가고싶다");
-        postDTO.setCommunityCategory("작성");
+        postDTO.setCommunityCategory(CommunityCategory.FREEBOARD);
         postDTO.setCommunityViewNumber(0);
 
 //      postDTO에 저장한 값들을 entity로 변환
@@ -89,7 +90,7 @@ public class CommunityPostTest {
                 .where(communityPost.communityPostId.eq(112L))
                 .fetchOne();
 
-        post1.update("수정","수정","수정",1);
+        post1.update(CommunityCategory.BOOK,"수정","수정",1);
 
 
     }

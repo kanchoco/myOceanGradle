@@ -1,6 +1,5 @@
 package com.example.myoceanproject.entity;
 
-import com.example.myoceanproject.embeddable.File;
 import com.example.myoceanproject.embeddable.GroupMemberLimit;
 import com.example.myoceanproject.embeddable.GroupTime;
 import com.example.myoceanproject.type.GroupLocationType;
@@ -39,9 +38,7 @@ public class Group extends Period{
     @NotNull
     @Enumerated(EnumType.STRING)
     private GroupStatus groupStatus; // Enum
-    @Embedded
-    @NotNull
-    private File file; //썸네일
+
 
     @Embedded
     private GroupMemberLimit groupMemberLimit;

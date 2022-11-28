@@ -1,17 +1,11 @@
 package com.example.myoceanproject.dtoTest;
 
-import com.example.myoceanproject.domain.CommunityFileDTO;
-import com.example.myoceanproject.domain.CommunityLikeDTO;
-import com.example.myoceanproject.entity.CommunityFile;
 import com.example.myoceanproject.entity.CommunityLike;
 import com.example.myoceanproject.entity.CommunityPost;
 import com.example.myoceanproject.entity.User;
-import com.example.myoceanproject.repository.CommunityFileRepository;
 import com.example.myoceanproject.repository.CommunityLikeRepository;
 import com.example.myoceanproject.repository.CommunityPostRepository;
 import com.example.myoceanproject.repository.UserRepository;
-import com.example.myoceanproject.type.AskCategory;
-import com.example.myoceanproject.type.AskStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -23,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.myoceanproject.entity.QCommunityFile.communityFile;
 import static com.example.myoceanproject.entity.QCommunityLike.communityLike;
 
 @SpringBootTest
@@ -49,9 +42,6 @@ public class CommunityLikeTest {
         Optional<User> user = userRepository.findById(1L);
         CommunityLike communityLike = new CommunityLike();
 
-//      communityLikeDTO에 필요한 값 저장
-        communityLike.changeCommunityPost(communityPost.get());
-        communityLike.changeUser(user.get());
 
         communityLikeRepository.save(communityLike);
 

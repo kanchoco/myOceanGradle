@@ -4,6 +4,7 @@ import com.example.myoceanproject.domain.GroupDTO;
 import com.example.myoceanproject.embeddable.GroupTime;
 import com.example.myoceanproject.entity.Ask;
 import com.example.myoceanproject.entity.Group;
+import com.example.myoceanproject.entity.QGroup;
 import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.repository.GroupRepository;
 import com.example.myoceanproject.repository.UserRepository;
@@ -55,6 +56,7 @@ public class GroupTest {
         groupDTO.setGroupPoint(200);
         groupDTO.setGroupStatus(GroupStatus.WAITING);
         groupDTO.setGroupLocationType(GroupLocationType.ONLINE);
+//        groupDTO.setGroupLimit
 
 
 //      entity 변환
@@ -73,7 +75,7 @@ public class GroupTest {
 
     @Test
     public void findAllTest(){
-        List<Group> groups = jpaQueryFactory.selectFrom(group)
+        List<Group> groups = jpaQueryFactory.selectFrom(new QGroup(group))
                 .join(group.user)
                 .fetchJoin()
                 .fetch();

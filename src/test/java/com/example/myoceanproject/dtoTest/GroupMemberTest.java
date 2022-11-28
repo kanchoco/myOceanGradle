@@ -42,6 +42,7 @@ public class GroupMemberTest {
         Optional<Group> group = groupRepository.findById(1L);
         GroupMember groupMember = new GroupMember();
 
+
         groupMember.changeUser(user.get());
         groupMember.changeGroup(group.get());
 

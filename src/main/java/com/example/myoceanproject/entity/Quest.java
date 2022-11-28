@@ -1,6 +1,5 @@
 package com.example.myoceanproject.entity;
 
-import com.example.myoceanproject.embeddable.File;
 import com.sun.istack.NotNull;
 import lombok.*;
 

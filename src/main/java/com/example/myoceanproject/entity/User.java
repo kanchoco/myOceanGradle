@@ -1,6 +1,5 @@
 package com.example.myoceanproject.entity;
 
-import com.example.myoceanproject.embeddable.File;
 import com.example.myoceanproject.type.UserAccountStatus;
 import com.example.myoceanproject.type.UserLoginMethod;
 import com.sun.istack.NotNull;
