@@ -16,7 +16,9 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 public class GroupDTO {
 
-    private User user;
+    private Long userId;
+    private String userNickName;
+
     private String groupName;
     private String groupCategory;
     private String groupContent;
@@ -24,12 +26,16 @@ public class GroupDTO {
     private String groupLocation;
     private GroupLocationType groupLocationType;
     private GroupStatus groupStatus;
-    private String filePath;
-    private String fileOriginName;
+    private String groupFilePath;
+    private String groupFileOriginName;
+
+    private String groupFileUuid;
+    private Long groupFileSize;
 
     @QueryProjection
-    public GroupDTO(User user, String groupName, String groupCategory, String groupContent, int groupPoint, String groupLocation, GroupLocationType groupLocationType, GroupStatus groupStatus, String filePath, String fileOriginName) {
-        this.user = user;
+    public GroupDTO(Long userId, String userNickName, String groupName, String groupCategory, String groupContent, int groupPoint, String groupLocation, GroupLocationType groupLocationType, GroupStatus groupStatus, String groupFilePath, String groupFileOriginName, String groupFileUuid, Long groupFileSize) {
+        this.userId = userId;
+        this.userNickName = userNickName;
         this.groupName = groupName;
         this.groupCategory = groupCategory;
         this.groupContent = groupContent;
@@ -37,9 +43,14 @@ public class GroupDTO {
         this.groupLocation = groupLocation;
         this.groupLocationType = groupLocationType;
         this.groupStatus = groupStatus;
-        this.filePath = filePath;
-        this.fileOriginName = fileOriginName;
+        this.groupFilePath = groupFilePath;
+        this.groupFileOriginName = groupFileOriginName;
+        this.groupFileUuid = groupFileUuid;
+        this.groupFileSize = groupFileSize;
     }
+
+
+
 
 
 

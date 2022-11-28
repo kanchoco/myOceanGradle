@@ -14,13 +14,13 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 public class ToDoListDTO {
-    private User user;
+    private Long userId;
     private String toDoListContent;
     private LocalDateTime toDoListSelectDate;
 
     @QueryProjection
-    public ToDoListDTO(User user, String toDoListContent, LocalDateTime toDoListSelectDate) {
-        this.user = user;
+    public ToDoListDTO( Long userId, String toDoListContent, LocalDateTime toDoListSelectDate) {
+        this.userId = userId;
         this.toDoListContent = toDoListContent;
         this.toDoListSelectDate = toDoListSelectDate;
     }

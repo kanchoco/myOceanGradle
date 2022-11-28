@@ -8,18 +8,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 @Data
 @NoArgsConstructor
 public class PointDTO {
 
-    private User user;
+    private Long userId;
+    private String groupName;
     private int pointAmountHistory;
 
+    private LocalDateTime createDate;
+
     @QueryProjection
-    public PointDTO(User user, int pointAmountHistory) {
-        this.user = user;
+    public PointDTO(Long userId, String groupName, int pointAmountHistory, LocalDateTime createDate) {
+        this.userId = userId;
+        this.groupName = groupName;
         this.pointAmountHistory = pointAmountHistory;
+        this.createDate = createDate;
     }
 
     //  포인트의 변화 추이가 계속 새롭게 저장이 된다.

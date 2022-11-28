@@ -53,8 +53,8 @@ public class AlarmTest {
 
 //      alarmDTO에 처음에 조회했던 유저 정보를 저장(optional이기 때문에 get 사용)
 //      changeUser 메소드로 alarmDTO에 저장된 User값을 alarm1로 전달
-        alarmDTO.setUser(user.get());
-        alarm1.changeUser(alarmDTO.getUser());
+        alarmDTO.setUserId(user.get().getUserId());
+        alarm1.changeUser(user.get());
 
 //      alarm 엔티티에 해당 값들을 모두 저장
         alarmRepository.save(alarm1);

@@ -19,21 +19,22 @@ public class QuestDTO {
     private String questContent;
     private LocalDateTime questDeadLine;
 
-//    private String filePath;
-//    private String fileOriginName;
+    private String questFilePath;
+    private String questFileOriginName;
 
-    @Embedded
-    private File file;
+    private String questFileUuid;
+    private Long questFileSize;
 
     @QueryProjection
-    public QuestDTO(String questCategory, String questName, String questContent, LocalDateTime questDeadLine, String filePath, String fileOriginName) {
+    public QuestDTO(String questCategory, String questName, String questContent, LocalDateTime questDeadLine, String questFilePath, String questFileOriginName, String questFileUuid, Long questFileSize) {
         this.questCategory = questCategory;
         this.questName = questName;
         this.questContent = questContent;
         this.questDeadLine = questDeadLine;
-//        this.file.setFilePath(filePath);
-//        this.file.setFileOriginName(fileOriginName);
-        this.file = file;
+        this.questFilePath = questFilePath;
+        this.questFileOriginName = questFileOriginName;
+        this.questFileUuid = questFileUuid;
+        this.questFileSize = questFileSize;
     }
 
     public Quest toEntity() {
@@ -42,9 +43,6 @@ public class QuestDTO {
                 .questName(questName)
                 .questDeadLine(questDeadLine)
                 .questContent(questContent)
-//                .fileOriginName(file.getFileOriginName())
-//                .filePath(file.getFilePath())
-                .file(file)
                 .build();
     }
 

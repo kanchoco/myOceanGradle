@@ -12,7 +12,8 @@ import java.util.List;
 @Table(name = "TBL_USER")
 @Getter
 @ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
+//        (access = AccessLevel.PROTECTED)
 public class User extends Period {
 
     @Id
@@ -33,6 +34,11 @@ public class User extends Period {
 
     @NotNull
     private int userTotalPoint;
+
+    private String userFileName;
+    private String userFilePath;
+    private Long userFileSize;
+    private Long userFileUuid;
 
     //    그룹 테이블 양방향
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
@@ -63,22 +69,37 @@ public class User extends Period {
     private List<Alarm> alarms;
 
     @Builder
-    public User(String userPassword, String userNickname, String userEmail,UserAccountStatus userAccountStatus,UserLoginMethod userLoginMethod, int userTotalPoint) {
+    public User(String userPassword, String userNickname, String userEmail,UserAccountStatus userAccountStatus,UserLoginMethod userLoginMethod, int userTotalPoint, String userFileName, String userFilePath, Long userFileSize, Long userFileUuid) {
         this.userPassword = userPassword;
         this.userNickname = userNickname;
         this.userEmail = userEmail;
         this.userAccountStatus = userAccountStatus;
         this.userLoginMethod = userLoginMethod;
         this.userTotalPoint = userTotalPoint;
+        this.userFileUuid = userFileUuid;
+        this.userFileName = userFileName;
+        this.userFilePath = userFilePath;
+        this.userFileSize = userFileSize;
     }
 
 //  가입 후 유저 비밀번호와 닉네임, 유저 포인트 변경 및 업데이트가 가능하다.
 //  관리자가 회원을 정지시키거나 정지를 해제하여 AccountStatus를 업데이트할 수 있다.
-    public void update(String userPassword, String userNickname, int userTotalPoint, UserAccountStatus userAccountStatus) {
+    public void update(String userPassword, String userNickname, int userTotalPoint, UserAccountStatus userAccountStatus, String userFileName, String userFilePath, Long userFileSize, Long userFileUuid) {
         this.userPassword = userPassword;
         this.userNickname = userNickname;
         this.userTotalPoint = userTotalPoint;
         this.userAccountStatus = userAccountStatus;
+        this.userFileUuid = userFileUuid;
+        this.userFileName = userFileName;
+        this.userFilePath = userFilePath;
+        this.userFileSize = userFileSize;
+    }
+
+    public void setUserId(Long userId){
+        this.userId = userId;
+    }
+    public void setUserNickname(String userNickname){
+        this.userNickname = userNickname;
     }
 
 }

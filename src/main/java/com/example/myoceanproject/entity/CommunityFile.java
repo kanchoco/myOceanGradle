@@ -19,14 +19,17 @@ public class CommunityFile extends Period{
     @JoinColumn(name = "COMMUNITY_POST_ID")
     @NotNull
     private CommunityPost communityPost; //FK
-    
+    @NotNull
     private String communityFileName;
-
+    @NotNull
     private String communityFilePath;
+    @NotNull
+    private Long communityFileSize;
+    @NotNull
+    private Long communityFileUuid;
 
-    public static CertPathBuilder builder() {
 
-    }
+
 
 
     //  양방향
@@ -34,6 +37,20 @@ public class CommunityFile extends Period{
         this.communityPost = communityPost;
         communityPost.getCommunityFiles().add(this);
     }
+
+    @Builder
+    public CommunityFile(Long communityFileId, CommunityPost communityPost, String communityFileName, String communityFilePath, Long communityFileSize, Long communityFileUuid) {
+        this.communityFileId = communityFileId;
+        this.communityPost = communityPost;
+        this.communityFileName = communityFileName;
+        this.communityFilePath = communityFilePath;
+        this.communityFileSize = communityFileSize;
+        this.communityFileUuid = communityFileUuid;
+    }
+
+
+
+
 
 
 //  게시글의 내용이 수정될 수 있으므로 update

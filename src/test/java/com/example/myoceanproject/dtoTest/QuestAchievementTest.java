@@ -1,15 +1,11 @@
 package com.example.myoceanproject.dtoTest;
 
-import com.example.myoceanproject.domain.AlarmDTO;
-import com.example.myoceanproject.domain.QuestAchievementDTO;
-import com.example.myoceanproject.entity.Alarm;
 import com.example.myoceanproject.entity.Quest;
 import com.example.myoceanproject.entity.QuestAchievement;
 import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.repository.QuestAchievementRepository;
 import com.example.myoceanproject.repository.QuestRepository;
 import com.example.myoceanproject.repository.UserRepository;
-import com.example.myoceanproject.type.ReadStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -21,9 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.myoceanproject.entity.QAlarm.alarm;
 import static com.example.myoceanproject.entity.QQuestAchievement.questAchievement;
-import static com.example.myoceanproject.entity.QUser.user;
 
 @SpringBootTest
 @Slf4j
