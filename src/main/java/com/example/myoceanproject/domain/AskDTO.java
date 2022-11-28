@@ -15,7 +15,8 @@ import org.springframework.stereotype.Component;
 @Data
 @NoArgsConstructor
 public class AskDTO {
-    private User user;//유저가 null일 경우 자주 묻는 질문
+    private Long userId;//유저가 null일 경우 자주 묻는 질문
+
 
     private AskStatus askStatus;
     private String askTitle;
@@ -23,8 +24,7 @@ public class AskDTO {
     private AskCategory askCategory;
 
     @QueryProjection
-    public AskDTO(User user, AskStatus askStatus, String askTitle, String askContent, AskCategory askCategory) {
-        this.user = user;
+    public AskDTO(AskStatus askStatus, String askTitle, String askContent, AskCategory askCategory) {
         this.askStatus = askStatus;
         this.askTitle = askTitle;
         this.askContent = askContent;

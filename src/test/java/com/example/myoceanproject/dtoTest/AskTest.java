@@ -52,8 +52,8 @@ public class AskTest {
 
 //      askDTO에 처음 조회했던 유저 정보 저장
 //      changeUser 메소드로 askDTO에 저장된 User값을 ask1로 전달
-        askDTO.setUser(user.get());
-        ask1.changeUser(askDTO.getUser());
+        askDTO.setUserId(user.get().getUserId());
+        ask1.changeUser(user.get());
 
 //      ask 엔티티에 해당 값 모두 저장
         askRepository.save(ask1);

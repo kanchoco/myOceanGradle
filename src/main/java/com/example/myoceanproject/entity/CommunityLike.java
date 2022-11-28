@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "TBL_COMMUNITY_LIKE")
 @Getter
-@ToString(exclude = {"communityPost", "user"})
+@ToString(exclude = {"communityPost"})
 @NoArgsConstructor
 //        (access = AccessLevel.PROTECTED)
 public class CommunityLike extends Period{
@@ -20,10 +20,9 @@ public class CommunityLike extends Period{
     @JoinColumn(name = "COMMUNITY_POST_ID")
     @NotNull
     private CommunityPost communityPost;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID")
+
     @NotNull
-    private User user;
+    private Long userId;
 
 }
 

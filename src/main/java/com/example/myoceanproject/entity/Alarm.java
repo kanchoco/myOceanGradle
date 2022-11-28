@@ -35,7 +35,8 @@ public class Alarm extends Period{
     }
 
     @Builder
-    public Alarm(String alarmContent, ReadStatus readStatus) {
+    public Alarm(User user, String alarmContent, ReadStatus readStatus) {
+        this.user = user;
         this.alarmContent = alarmContent;
         this.readStatus = readStatus;
     }

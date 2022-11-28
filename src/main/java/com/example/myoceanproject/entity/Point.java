@@ -21,6 +21,11 @@ public class Point extends Period{
     @NotNull
     private int pointAmountHistory;
 
+    @NotNull
+    private String groupName;
+
+
+
     public void changeUser(User user){
         this.user = user;
     }

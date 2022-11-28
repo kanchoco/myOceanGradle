@@ -26,6 +26,8 @@ public class CommunityReply extends Period{
     @NotNull
     private String communityReplyContent;
 
+
+
     public void changeCommunityPost(CommunityPost communityPost){
         this.communityPost = communityPost;
     }
@@ -35,7 +37,8 @@ public class CommunityReply extends Period{
 
 
     @Builder
-    public CommunityReply(String communityReplyContent) {
+    public CommunityReply(User user, String communityReplyContent) {
+        this.user = user;
         this.communityReplyContent = communityReplyContent;
     }
 

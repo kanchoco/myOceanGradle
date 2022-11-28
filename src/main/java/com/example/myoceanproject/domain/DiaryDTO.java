@@ -15,17 +15,18 @@ import org.springframework.stereotype.Component;
 @ToString
 public class DiaryDTO {
 
-    private User user;
+    private Long userId;
+
     private String diaryTitle;
     private String diaryContent;
-    private User receiverUser;
+    private Long receiverUserId;
 
     @QueryProjection
-    public DiaryDTO(User user, String diaryTitle, String diaryContent, User receiverUser) {
-        this.user = user;
+    public DiaryDTO(Long userId, String diaryTitle, String diaryContent, Long receiverUserId) {
+        this.userId = userId;
         this.diaryTitle = diaryTitle;
         this.diaryContent = diaryContent;
-        this.receiverUser = receiverUser;
+        this.receiverUserId = receiverUserId;
     }
 
     //  일기 작성 후 일기 제목, 내용, 수신인이 새롭게 저장된다.
@@ -33,7 +34,6 @@ public class DiaryDTO {
         return Diary.builder()
                 .diaryTitle(diaryTitle)
                 .diaryContent(diaryContent)
-                .receiverUser(receiverUser)
                 .build();
     }
 }

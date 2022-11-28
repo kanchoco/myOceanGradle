@@ -14,14 +14,15 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 public class GroupScheduleDTO {
+    private Long groupId;
 
-    private Group group;
     private LocalDateTime groupScheduleDate;
     private LocalDateTime groupScheduleStartTime;
     private LocalDateTime groupScheduleEndTime;
+
     @QueryProjection
-    public GroupScheduleDTO(Group group, LocalDateTime groupScheduleDate, LocalDateTime groupScheduleStartTime, LocalDateTime groupScheduleEndTime) {
-        this.group = group;
+    public GroupScheduleDTO(Long groupId, LocalDateTime groupScheduleDate, LocalDateTime groupScheduleStartTime, LocalDateTime groupScheduleEndTime) {
+        this.groupId = groupId;
         this.groupScheduleDate = groupScheduleDate;
         this.groupScheduleStartTime = groupScheduleStartTime;
         this.groupScheduleEndTime = groupScheduleEndTime;
