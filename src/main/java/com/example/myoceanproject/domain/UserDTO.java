@@ -22,7 +22,12 @@ public class UserDTO {
     private UserAccountStatus userAccountStatus;
 
     private UserLoginMethod userLoginMethod;
+    private int totalPoint;
     private int userTotalPoint;
+    private String userFileName;
+    private String userFilePath;
+    private Long userFileSize;
+    private Long userFileUuid;
 
     @QueryProjection
     public UserDTO(String userEmail, String userPassword, String userNickname, UserAccountStatus userAccountStatus, UserLoginMethod userLoginMethod, int userTotalPoint) {

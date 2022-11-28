@@ -12,19 +12,31 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 public class CommunityFileDTO {
 
-    private CommunityPost communityPost; //FK
+    private Long communityPostId;
+    private String communityFileName;
+    private String communityFilePath;
+    private Long communityFileSize;
+    private Long communityFileUuid;
 
-    private File file;
     @QueryProjection
-    public CommunityFileDTO(CommunityPost communityPost, File file) {
-        this.communityPost = communityPost;
-        this.file = file;
+    public CommunityFileDTO(Long communityPostId, String communityFileName, String communityFilePath, Long communityFileSize, Long communityFileUuid) {
+        this.communityPostId = communityPostId;
+        this.communityFileName = communityFileName;
+        this.communityFilePath = communityFilePath;
+        this.communityFileSize = communityFileSize;
+        this.communityFileUuid = communityFileUuid;
     }
+
+
+
 
 //  게시글 작성 완료 시 처음으로 게시글 내용과 파일이 저장된다.
     public CommunityFile toEntity(){
         return CommunityFile.builder()
-                .file(file)
+                .communityFileName(communityFileName)
+                .communityFileSize(communityFileSize)
+                .communityFilePath(communityFilePath)
+                .communityFileUuid(communityFileUuid)
                 .build();
     }
 }
