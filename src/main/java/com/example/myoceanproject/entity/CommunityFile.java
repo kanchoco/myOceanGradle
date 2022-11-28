@@ -4,6 +4,7 @@ import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import java.security.cert.CertPathBuilder;
 
 @Entity
 @Table(name = "TBL_COMMUNITY_FILE")
@@ -18,10 +19,17 @@ public class CommunityFile extends Period{
     @JoinColumn(name = "COMMUNITY_POST_ID")
     @NotNull
     private CommunityPost communityPost; //FK
-
-
     
-//  양방향
+    private String communityFileName;
+
+    private String communityFilePath;
+
+    public static CertPathBuilder builder() {
+
+    }
+
+
+    //  양방향
     public void changeCommunityPost(CommunityPost communityPost){
         this.communityPost = communityPost;
         communityPost.getCommunityFiles().add(this);

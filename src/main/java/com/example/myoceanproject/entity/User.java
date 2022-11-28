@@ -30,8 +30,6 @@ public class User extends Period {
     @NotNull
     @Enumerated(EnumType.STRING)
     private UserLoginMethod userLoginMethod;
-    @Embedded
-    private File file;
 
     @NotNull
     private int userTotalPoint;
