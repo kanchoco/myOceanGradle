@@ -1,15 +1,7 @@
 package com.example.myoceanproject.dtoTest;
 
-import com.example.myoceanproject.domain.AlarmDTO;
-import com.example.myoceanproject.domain.QuestDTO;
-import com.example.myoceanproject.embeddable.File;
-import com.example.myoceanproject.entity.Alarm;
 import com.example.myoceanproject.entity.Quest;
-import com.example.myoceanproject.entity.User;
-import com.example.myoceanproject.repository.QuestAchievementRepository;
 import com.example.myoceanproject.repository.QuestRepository;
-import com.example.myoceanproject.repository.UserRepository;
-import com.example.myoceanproject.type.ReadStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -18,11 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Embedded;
 import java.util.List;
-import java.util.Optional;
 
-import static com.example.myoceanproject.entity.QAlarm.alarm;
 import static com.example.myoceanproject.entity.QQuest.quest;
 
 @SpringBootTest

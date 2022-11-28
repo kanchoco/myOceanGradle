@@ -3,6 +3,7 @@ package com.example.myoceanproject.domain;
 import com.example.myoceanproject.entity.CommunityPost;
 import com.example.myoceanproject.entity.Period;
 import com.example.myoceanproject.entity.User;
+import com.example.myoceanproject.type.CommunityCategory;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,13 +14,13 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 public class CommunityPostDTO {
     private User user; //FK
-    private String communityCategory;
+    private CommunityCategory communityCategory;
     private String communityTitle;
     private String communityContent;
     private int communityViewNumber;
 
     @QueryProjection
-    public CommunityPostDTO(User user, String communityCategory, String communityTitle, String communityContent, int communityViewNumber) {
+    public CommunityPostDTO(User user, CommunityCategory communityCategory, String communityTitle, String communityContent, int communityViewNumber) {
         this.user = user;
         this.communityCategory = communityCategory;
         this.communityTitle = communityTitle;

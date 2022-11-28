@@ -1,7 +1,5 @@
 package com.example.myoceanproject.domain;
 
-import com.example.myoceanproject.embeddable.File;
-import com.example.myoceanproject.entity.Period;
 import com.example.myoceanproject.entity.Quest;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;

@@ -7,6 +7,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
 @Table(name = "TBL_COMMUNITY_POST")
 @Getter
@@ -16,7 +18,7 @@ public class CommunityPost extends Period{
     @Id
     @GeneratedValue
     private Long communityPostId; //PK
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "USER_ID")
     private User user; //FK
     @NotNull
@@ -27,8 +29,11 @@ public class CommunityPost extends Period{
     private int communityViewNumber;
 
 //  커뮤니티 파일 테이블 양방향
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "communityPost")
+    @OneToMany(fetch = LAZY, mappedBy = "communityPost")
     private List<CommunityFile> communityFiles;
+
+    @OneToMany(fetch = LAZY, mappedBy = "communityPost")
+    private List<CommunityLike> communityLikes;
 
 //  양방향
     public void changeUser(User user){

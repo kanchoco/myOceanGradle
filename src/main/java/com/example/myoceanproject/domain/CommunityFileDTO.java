@@ -1,15 +1,11 @@
 package com.example.myoceanproject.domain;
 
-import com.example.myoceanproject.embeddable.File;
 import com.example.myoceanproject.entity.CommunityFile;
 import com.example.myoceanproject.entity.CommunityPost;
-import com.example.myoceanproject.entity.Period;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import javax.persistence.Embedded;
 
 @Component
 @Data

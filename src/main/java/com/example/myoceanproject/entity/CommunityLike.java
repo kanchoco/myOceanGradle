@@ -25,17 +25,5 @@ public class CommunityLike extends Period{
     @NotNull
     private User user;
 
-
-
-    public void changeCommunityPost(CommunityPost communityPost){
-        this.communityPost = communityPost;
-    }
-
-    public void changeUser(User user){
-        this.user = user;
-    }
-
-
-
 }
 
