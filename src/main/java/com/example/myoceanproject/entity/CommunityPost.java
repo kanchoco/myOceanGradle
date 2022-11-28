@@ -1,5 +1,7 @@
 package com.example.myoceanproject.entity;
 
+import com.example.myoceanproject.type.CommunityCategory;
+import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,7 +19,9 @@ public class CommunityPost extends Period{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
     private User user; //FK
-    private String communityCategory;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private CommunityCategory communityCategory;
     private String communityTitle;
     private String communityContent;
     private int communityViewNumber;
@@ -33,7 +37,7 @@ public class CommunityPost extends Period{
     }
 
     @Builder
-    public CommunityPost(String communityCategory, String communityTitle, String communityContent, int communityViewNumber) {
+    public CommunityPost(CommunityCategory communityCategory, String communityTitle, String communityContent, int communityViewNumber) {
         this.communityCategory = communityCategory;
         this.communityTitle = communityTitle;
         this.communityContent = communityContent;
@@ -42,7 +46,7 @@ public class CommunityPost extends Period{
 
 //  커뮤니티 게시글은 카테고리와 제목, 내용이 수정 가능하고
 //  조회수는 유저가 조회할 경우 계속 업데이트가 된다.
-    public void update(String communityCategory, String communityTitle, String communityContent, int communityViewNumber){
+    public void update(CommunityCategory communityCategory, String communityTitle, String communityContent, int communityViewNumber){
         this.communityCategory = communityCategory;
         this.communityTitle = communityTitle;
         this.communityContent = communityContent;
