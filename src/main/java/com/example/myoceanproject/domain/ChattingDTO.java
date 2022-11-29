@@ -13,14 +13,42 @@ import org.springframework.stereotype.Component;
 @Data
 @NoArgsConstructor
 public class ChattingDTO {
+//    유저 관련
+    private Long userId;
+    private String userNickName;
+    private String userFileName;
+    private String userFilePath;
+    private Long userFileSize;
+    private Long userFileUuid;
+
+//    그룹 관련
+    private Long groupId;
+    private String groupName;
+    private String groupFilePath;
+    private String groupFileOriginName;
+
+    private Long groupFileUuid;
+    private Long groupFileSize;
+
+//    채팅 관련
     private String chattingContent;
-    private User user;
     private ReadStatus readStatus;
 
     @QueryProjection
-    public ChattingDTO(String chattingContent, User user, ReadStatus readStatus) {
+    public ChattingDTO(Long userId, String userNickName, String userFileName, String userFilePath, Long userFileSize, Long userFileUuid, Long groupId, String groupName, String groupFilePath, String groupFileOriginName, Long groupFileUuid, Long groupFileSize, String chattingContent, ReadStatus readStatus) {
+        this.userId = userId;
+        this.userNickName = userNickName;
+        this.userFileName = userFileName;
+        this.userFilePath = userFilePath;
+        this.userFileSize = userFileSize;
+        this.userFileUuid = userFileUuid;
+        this.groupId = groupId;
+        this.groupName = groupName;
+        this.groupFilePath = groupFilePath;
+        this.groupFileOriginName = groupFileOriginName;
+        this.groupFileUuid = groupFileUuid;
+        this.groupFileSize = groupFileSize;
         this.chattingContent = chattingContent;
-        this.user = user;
         this.readStatus = readStatus;
     }
 
