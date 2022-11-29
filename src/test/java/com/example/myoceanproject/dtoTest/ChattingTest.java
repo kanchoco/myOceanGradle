@@ -8,6 +8,7 @@ import com.example.myoceanproject.entity.Chatting;
 import com.example.myoceanproject.entity.Group;
 import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.repository.ChattingRepository;
+import com.example.myoceanproject.repository.GroupMemberRepository;
 import com.example.myoceanproject.repository.GroupRepository;
 import com.example.myoceanproject.repository.UserRepository;
 import com.example.myoceanproject.type.ReadStatus;
@@ -41,8 +42,12 @@ public class ChattingTest {
     @Autowired
     private ChattingRepository chattingRepository;
 
+    @Autowired
+    private GroupMemberRepository groupMemberRepository;
+
     @Test
     public void saveTest(){
+
 //      유저 정보 db에 저장
         UserDTO userDTO = new UserDTO();
         userDTO.setUserEmail("akjhdgaiafd");
@@ -62,6 +67,7 @@ public class ChattingTest {
 
 //      changeUser 메소드로 user를 엔티티에 set해줌
         chatting1.changeUser(userRepository.findById(1L).get());
+        chatting1.changeGroup(groupRepository.findById(3L).get());
 
 //      chatting 엔티티에 해당 값들을 모두 저장
         chattingRepository.save(chatting1);

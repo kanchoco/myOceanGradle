@@ -44,6 +44,7 @@ public class GroupScheduleTest {
     @Test
     public void saveGroupScheduleTest(){
 
+
         //      유저 db에 저장
         UserDTO userDTO = new UserDTO();
         userDTO.setUserEmail("akjhdgaiafd");
@@ -66,7 +67,7 @@ public class GroupScheduleTest {
         GroupSchedule groupSchedule1 = groupScheduleDTO.toEntity();
 
 //      모임 정보 저장
-        groupSchedule1.changeGroup(groupRepository.findById(10L).get());
+        groupSchedule1.changeGroup(groupRepository.findById(3L).get());
 
 //      엔티티에 값 저장
         groupScheduleRepository.save(groupSchedule1);
