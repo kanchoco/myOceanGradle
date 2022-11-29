@@ -44,6 +44,11 @@ public class GroupMemberTest {
 
     @Test
     public void saveTest(){
+//        시나리오 : 특정 유저가 모임에 참여했을 경우 findById를 이용해서 해당 유저 정보와 그룹 정보를 가져옴
+//        둘 다 fk기 때문에 change 메소를 사용해서 GroupMember 엔티티에 바로 set해줌
+        
+//        db에 저장해둔 유저정보가 없을 경우를 대비해 작성한 코드
+//        유저정보 저장(db에 유저정보 기존에 저장해놨던게 있으면 지우고 findById로 가져와도 됨)
         UserDTO userDTO = new UserDTO();
         userDTO.setUserEmail("akjhdgaiafd");
         userDTO.setUserNickname("dlsdud");
@@ -52,7 +57,8 @@ public class GroupMemberTest {
         userDTO.setUserAccountStatus(UserAccountStatus.ACTIVE);
         userRepository.save(userDTO.toEntity());
 
-//      모임 정보 저장
+//        db에 저장해둔 그룹 정보가 없을 경우를 대비해 작성한 코드
+//      모임 정보 저장(유저정보와 마찬가지로 db에 기존 저장해놓은 group이 있으면 지우고 findById로 가져와도됨)
         GroupDTO groupDTO = new GroupDTO();
         groupDTO.setGroupCategory("운동");
         groupDTO.setGroupContent("놀아요");
@@ -66,9 +72,6 @@ public class GroupMemberTest {
         groupRepository.save(group1);
         GroupMember groupMember = new GroupMember();
 
-
-        groupMember.changeUser(userRepository.findById(1L).get());
-        groupMember.changeGroup(groupRepository.findById(2L).get());
 
         groupMemberRepository.save(groupMember);
     }
