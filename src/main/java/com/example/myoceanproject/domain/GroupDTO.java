@@ -1,6 +1,9 @@
 package com.example.myoceanproject.domain;
 
+import com.example.myoceanproject.embeddable.GroupMemberLimit;
+import com.example.myoceanproject.embeddable.GroupTime;
 import com.example.myoceanproject.entity.Group;
+import com.example.myoceanproject.entity.GroupSchedule;
 import com.example.myoceanproject.entity.Period;
 import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.type.GroupLocationType;
@@ -10,6 +13,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
+
+import static com.example.myoceanproject.embeddable.QGroupTime.groupTime;
 
 @Component
 @Data
@@ -32,8 +39,15 @@ public class GroupDTO {
     private String groupFileUuid;
     private Long groupFileSize;
 
+//    임베드 타입 가져옴(이렇게 가져오는 것이 맞는지는 불확실함. 생성자와 toEntity에도 추가함)
+    private int maxMember;
+    private int minMember;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+
+
     @QueryProjection
-    public GroupDTO(Long userId, String userNickName, String groupName, String groupCategory, String groupContent, int groupPoint, String groupLocation, GroupLocationType groupLocationType, GroupStatus groupStatus, String groupFilePath, String groupFileOriginName, String groupFileUuid, Long groupFileSize) {
+    public GroupDTO(Long userId, String userNickName, String groupName, String groupCategory, String groupContent, int groupPoint, String groupLocation, GroupLocationType groupLocationType, GroupStatus groupStatus, String groupFilePath, String groupFileOriginName, String groupFileUuid, Long groupFileSize, int maxMember, int minMember, LocalDateTime startTime, LocalDateTime endTime) {
         this.userId = userId;
         this.userNickName = userNickName;
         this.groupName = groupName;
@@ -47,14 +61,22 @@ public class GroupDTO {
         this.groupFileOriginName = groupFileOriginName;
         this.groupFileUuid = groupFileUuid;
         this.groupFileSize = groupFileSize;
+        this.maxMember = maxMember;
+        this.minMember = minMember;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
-
-
-
-
-
     public Group toEntity(){
+        GroupMemberLimit groupMemberLimit = new GroupMemberLimit();
+        GroupTime groupTime = new GroupTime();
+
+        groupMemberLimit.setMaxMember(maxMember);
+        groupMemberLimit.setMinMember(minMember);
+
+        groupTime.setStartTime(startTime);
+        groupTime.setEndTime(endTime);
+
         return Group.builder()
                 .groupName(groupName)
                 .groupCategory(groupCategory)
@@ -62,6 +84,9 @@ public class GroupDTO {
                 .groupPoint(groupPoint)
                 .groupLocation(groupLocation)
                 .groupLocationType(groupLocationType)
+                .groupStatus(GroupStatus.WAITING)
+                .groupMemberLimit(groupMemberLimit)
+                .groupTime(groupTime)
                 .build();
     }
 }

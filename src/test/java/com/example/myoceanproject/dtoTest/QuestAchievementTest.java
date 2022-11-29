@@ -39,8 +39,8 @@ public class QuestAchievementTest {
 
     @Test
     public void saveTest(){
-        Optional<User> user = userRepository.findById(3L);
-        Optional<Quest> quest = questRepository.findById(1L);
+        Optional<User> user = userRepository.findById(1L);
+        Optional<Quest> quest = questRepository.findById(8L);
         QuestAchievement questAchievement = new QuestAchievement();
 
         questAchievement.changeQuest(quest.get());
@@ -50,31 +50,31 @@ public class QuestAchievementTest {
 
     }
 
-    @Test
-    public void findAllTest(){
-        List<QuestAchievement> questAchievements = jpaQueryFactory.selectFrom(questAchievement)
-                .join(questAchievement.user)
-                .fetchJoin()
-                .fetch();
-
-        questAchievements.stream().map(QuestAchievement::toString).forEach(log::info);
-    }
-
-    @Test
-    public void findByIdTest(){
-        List<QuestAchievement> questAchievements = jpaQueryFactory.selectFrom(questAchievement)
-                .join(questAchievement.user)
-                .where(questAchievement.user.userId.eq(3L))
-                .fetchJoin()
-                .fetch();
-        questAchievements.stream().map(QuestAchievement::toString).forEach(log::info);
-    }
-
-    @Test
-    public void deleteTest(){
-        Long count = jpaQueryFactory
-                .delete(questAchievement)
-                .where(questAchievement.questAchievementId.eq(215L))
-                .execute();
-    }
+//    @Test
+//    public void findAllTest(){
+//        List<QuestAchievement> questAchievements = jpaQueryFactory.selectFrom(questAchievement)
+//                .join(questAchievement.user)
+//                .fetchJoin()
+//                .fetch();
+//
+//        questAchievements.stream().map(QuestAchievement::toString).forEach(log::info);
+//    }
+//
+//    @Test
+//    public void findByIdTest(){
+//        List<QuestAchievement> questAchievements = jpaQueryFactory.selectFrom(questAchievement)
+//                .join(questAchievement.user)
+//                .where(questAchievement.user.userId.eq(3L))
+//                .fetchJoin()
+//                .fetch();
+//        questAchievements.stream().map(QuestAchievement::toString).forEach(log::info);
+//    }
+//
+//    @Test
+//    public void deleteTest(){
+//        Long count = jpaQueryFactory
+//                .delete(questAchievement)
+//                .where(questAchievement.questAchievementId.eq(215L))
+//                .execute();
+//    }
 }

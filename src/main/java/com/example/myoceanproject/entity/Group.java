@@ -2,6 +2,8 @@ package com.example.myoceanproject.entity;
 
 import com.example.myoceanproject.embeddable.GroupMemberLimit;
 import com.example.myoceanproject.embeddable.GroupTime;
+import com.example.myoceanproject.embeddable.QGroupMemberLimit;
+import com.example.myoceanproject.embeddable.QGroupTime;
 import com.example.myoceanproject.type.GroupLocationType;
 import com.example.myoceanproject.type.GroupStatus;
 import com.sun.istack.NotNull;
