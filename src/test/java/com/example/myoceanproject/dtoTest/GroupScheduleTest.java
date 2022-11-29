@@ -70,7 +70,7 @@ public class GroupScheduleTest {
         GroupSchedule groupSchedule1 = groupScheduleDTO.toEntity();
 
 //      모임 정보 저장
-        groupSchedule1.changeGroup(groupRepository.findById(2L).get());
+        groupSchedule1.setGroup(groupRepository.findById(2L).get());
 
 //      엔티티에 값 저장
         groupScheduleRepository.save(groupSchedule1);
@@ -102,21 +102,25 @@ public class GroupScheduleTest {
         groupSchedules.stream().map(GroupScheduleDTO::toString).forEach(log::info);
         log.info("------------------------------------------------------------");
     }
-//
-//    @Test
-//    public void updateTest(){
-//        GroupSchedule groupSchedule1 = jpaQueryFactory.selectFrom(groupSchedule)
-//                .where(groupSchedule.groupScheduleId.eq(2L))
-//                .fetchOne();
-//
-//        groupSchedule1.update(LocalDateTime.now(), LocalDateTime.now(), LocalDateTime.now());
-//    }
-//
-//    @Test
-//    public void deleteTest(){
-//        Long count = jpaQueryFactory
-//                .delete(groupSchedule)
-//                .where(groupSchedule.groupScheduleId.eq(2L))
-//                .execute();
-//    }
+
+    @Test
+    public void updateTest(){
+        GroupScheduleDTO groupScheduleDTO = new GroupScheduleDTO();
+        groupScheduleDTO.setGroupId(2L);
+        groupScheduleDTO.setGroupScheduleDate(LocalDateTime.now());
+        groupScheduleDTO.setGroupScheduleStartTime(LocalDateTime.now());
+        groupScheduleDTO.setGroupScheduleEndTime(LocalDateTime.now());
+
+        GroupSchedule groupSchedule1 = jpaQueryFactory.selectFrom(groupSchedule).where(groupSchedule.groupScheduleId.eq(5L)).fetchOne();
+        groupSchedule1.setGroup(groupRepository.findById(groupScheduleDTO.getGroupId()).get());
+
+        groupSchedule1.update(groupScheduleDTO);
+
+    }
+
+    @Test
+    public void deleteTest(){
+        GroupSchedule groupSchedule = groupScheduleRepository.findById(5L).get();
+        groupScheduleRepository.delete(groupSchedule);
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.myoceanproject.entity;
 
+import com.example.myoceanproject.domain.GroupScheduleDTO;
 import com.sun.istack.NotNull;
 import lombok.*;
 
@@ -26,7 +27,7 @@ public class GroupSchedule extends Period{
     @NotNull
     private LocalDateTime groupScheduleEndTime;
 
-    public void changeGroup(Group group){
+    public void setGroup(Group group){
         this.group = group;
     }
 
@@ -38,9 +39,9 @@ public class GroupSchedule extends Period{
     }
 
 //  모임 날짜, 시작시간, 종료 시간은 변경이 가능하므로 update
-    public void update(LocalDateTime groupScheduleDate, LocalDateTime groupScheduleStartTime, LocalDateTime groupScheduleEndTime){
-        this.groupScheduleDate = groupScheduleDate;
-        this.groupScheduleStartTime = groupScheduleStartTime;
-        this.groupScheduleEndTime = groupScheduleEndTime;
+    public void update(GroupScheduleDTO groupScheduleDTO){
+        this.groupScheduleDate = groupScheduleDTO.getGroupScheduleDate();
+        this.groupScheduleStartTime = groupScheduleDTO.getGroupScheduleStartTime();
+        this.groupScheduleEndTime = groupScheduleDTO.getGroupScheduleEndTime();
     }
 }

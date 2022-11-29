@@ -129,22 +129,51 @@ public class GroupTest {
         groups.stream().map(GroupDTO::toString).forEach(log::info);
         log.info("------------------------------------------------------------");
     }
-//
-//    @Test
-//    public void updateTest(){
-//
-//        Group group1 = jpaQueryFactory.selectFrom(group)
-//                .where(group.groupId.eq(2L))
-//                .fetchOne();
-//        group1.update("수정이름","카테고리수정", "내용수정",500,"장소수정", GroupLocationType.OFFLINE, GroupStatus.APPROVED, group1.getGroupMemberLimit(), group1.getGroupTime());
-//    }
-//
-//    @Test
-//    public void deleteTest(){
-//        Long count = jpaQueryFactory
-//                .delete(group)
-//                .where(group.groupId.eq(1L))
-//                .execute();
-//    }
 
+
+
+    @Test
+    public void updateTest(){
+//  모임을 오픈한 유저가 해당 모임의 상세보기 페이지로 들어가 수정을 클릭
+//  수정 페이지에서 모임 정보를 조정한 후 다시 저장
+
+//      주소 파라미터로 모임 게시글 번호가 전달됨
+        GroupDTO groupDTO = new GroupDTO();
+        groupDTO.setUserId(1L);
+        groupDTO.setUserNickName("수정된 닉네임");
+        groupDTO.setGroupName("수정된 모임 이름");
+        groupDTO.setGroupCategory("수정 카테고리");
+        groupDTO.setGroupContent("수정 내용");
+        groupDTO.setGroupPoint(155);
+        groupDTO.setGroupLocation("수정된 장소");
+        groupDTO.setGroupLocationType(GroupLocationType.ONLINE);
+        groupDTO.setGroupStatus(GroupStatus.WAITING);
+        groupDTO.setGroupFilePath("수정 파일");
+        groupDTO.setGroupFileName("수정 파일 이름");
+        groupDTO.setGroupFileUuid("수정 UUID");
+        groupDTO.setGroupFileSize(155L);
+        groupDTO.setMaxMember(15);
+        groupDTO.setMinMember(1);
+        groupDTO.setStartTime(LocalDateTime.now());
+        groupDTO.setEndTime(LocalDateTime.now());
+
+//      외부에서 넘겨온 모임 게시글 번호로 영속성 컨텍스트가 관리하는 개체를 가져온다.
+        Group group1 = jpaQueryFactory.selectFrom(group).where(group.groupId.eq(2L)).fetchOne();
+
+//      entity로 변환하며 수정이 불가한 내용들은 지워지고 update 메소드에 포함된 내용만 저장이 된다.
+        group1.setUser(userRepository.findById(groupDTO.getUserId()).get());
+
+        group1.update(groupDTO);
+    }
+
+    @Test
+    public void deleteTest() {
+//      모임 게시글 번호를 받아온다.
+
+//      13번 게시글을 찾아 객체 선언
+        Group group = groupRepository.findById(13L).get();
+        
+//      파일 테이블이 따로 없으니 바로 삭제 진행
+        groupRepository.delete(group);
+    }
 }

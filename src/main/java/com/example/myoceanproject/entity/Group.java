@@ -1,5 +1,6 @@
 package com.example.myoceanproject.entity;
 
+import com.example.myoceanproject.domain.GroupDTO;
 import com.example.myoceanproject.embeddable.GroupMemberLimit;
 import com.example.myoceanproject.embeddable.GroupTime;
 import com.example.myoceanproject.embeddable.QGroupMemberLimit;
@@ -10,6 +11,7 @@ import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "TBL_GROUP")
@@ -80,14 +82,20 @@ public class Group extends Period{
 
 //  모임의 경우 모든 내용을 수정할 수 있기 때문에 Builder와 동일하게 update가 들어간다.
 //  파일의 경우, 삭제 후 추가기 때문에 update에 포함되지 않는다.
-    public void update(String groupName, String groupCategory, String groupContent, int groupPoint, String groupLocation, GroupLocationType groupLocationType, GroupStatus groupStatus, GroupMemberLimit groupMemberLimit, GroupTime groupTime) {
-        this.groupName = groupName;
-        this.groupCategory = groupCategory;
-        this.groupContent = groupContent;
-        this.groupPoint = groupPoint;
-        this.groupLocation = groupLocation;
-        this.groupLocationType = groupLocationType;
-        this.groupStatus = groupStatus;
+    public void update(GroupDTO groupDTO) {
+        groupMemberLimit.setMaxMember(groupDTO.getMaxMember());
+        groupMemberLimit.setMinMember(groupDTO.getMinMember());
+
+        groupTime.setStartTime(LocalDateTime.now());
+        groupTime.setEndTime(LocalDateTime.now());
+
+        this.groupName = groupDTO.getGroupName();
+        this.groupCategory = groupDTO.getGroupCategory();
+        this.groupContent = groupDTO.getGroupContent();
+        this.groupPoint = groupDTO.getGroupPoint();
+        this.groupLocation = groupDTO.getGroupLocation();
+        this.groupLocationType = groupDTO.getGroupLocationType();
+        this.groupStatus = groupDTO.getGroupStatus();
         this.groupMemberLimit = groupMemberLimit;
         this.groupTime = groupTime;
     }

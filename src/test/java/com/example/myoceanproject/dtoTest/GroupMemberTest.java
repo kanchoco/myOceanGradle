@@ -98,11 +98,10 @@ public class GroupMemberTest {
         assertThat(groupMemberRepository.findById(17L).get().getGroup().getGroupId()).isEqualTo(2L);
     }
 
-//    @Test
-//    public void deleteTest(){
-//        Long count = jpaQueryFactory
-//                .delete(groupMember)
-//                .where(groupMember.groupMemberId.eq(4L))
-//                .execute();
-//    }
+    @Test
+    public void deleteTest(){
+        GroupMember groupMember = groupMemberRepository.findById(11L).get();
+
+        groupMemberRepository.delete(groupMember);
+    }
 }
