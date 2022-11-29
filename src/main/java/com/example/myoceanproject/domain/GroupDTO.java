@@ -34,21 +34,20 @@ public class GroupDTO {
     private GroupLocationType groupLocationType;
     private GroupStatus groupStatus;
     private String groupFilePath;
-    private String groupFileOriginName;
+    private String groupFileName;
 
     private String groupFileUuid;
     private Long groupFileSize;
 
 //    임베드 타입 가져옴(이렇게 가져오는 것이 맞는지는 불확실함. 생성자와 toEntity에도 추가함)
-    private int maxMember;
-    private int minMember;
+    private Integer maxMember;
+    private Integer minMember;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
 
     @QueryProjection
-    public GroupDTO(Long userId, String userNickName, String groupName, String groupCategory, String groupContent, int groupPoint, String groupLocation, GroupLocationType groupLocationType, GroupStatus groupStatus, String groupFilePath, String groupFileOriginName, String groupFileUuid, Long groupFileSize, int maxMember, int minMember, LocalDateTime startTime, LocalDateTime endTime) {
-        this.userId = userId;
+    public GroupDTO(Long userId, String userNickName, String groupName, String groupCategory, String groupContent, int groupPoint, String groupLocation, GroupLocationType groupLocationType, GroupStatus groupStatus, String groupFilePath, String groupFileName, String groupFileUuid, Long groupFileSize, Integer maxMember, Integer minMember, LocalDateTime startTime, LocalDateTime endTime) {        this.userId = userId;
         this.userNickName = userNickName;
         this.groupName = groupName;
         this.groupCategory = groupCategory;
@@ -58,7 +57,7 @@ public class GroupDTO {
         this.groupLocationType = groupLocationType;
         this.groupStatus = groupStatus;
         this.groupFilePath = groupFilePath;
-        this.groupFileOriginName = groupFileOriginName;
+        this.groupFileName = groupFileName;
         this.groupFileUuid = groupFileUuid;
         this.groupFileSize = groupFileSize;
         this.maxMember = maxMember;
@@ -87,6 +86,11 @@ public class GroupDTO {
                 .groupStatus(GroupStatus.WAITING)
                 .groupMemberLimit(groupMemberLimit)
                 .groupTime(groupTime)
+                .groupName(groupName)
+                .groupFileName(groupFileName)
+                .groupFilePath(groupFilePath)
+                .groupFileUuid(groupFileUuid)
+                .groupFileSize(groupFileSize)
                 .build();
     }
 }

@@ -68,7 +68,7 @@ public class GroupMemberTest {
         groupDTO.setGroupStatus(GroupStatus.WAITING);
         groupDTO.setGroupLocationType(GroupLocationType.ONLINE);
         Group group1 = groupDTO.toEntity();
-        group1.changeUser(userRepository.findById(1L).get());
+        group1.setUser(userRepository.findById(1L).get());
         groupRepository.save(group1);
         GroupMember groupMember = new GroupMember();
 

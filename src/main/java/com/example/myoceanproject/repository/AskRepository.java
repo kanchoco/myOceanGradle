@@ -11,5 +11,4 @@ public interface AskRepository extends JpaRepository<Ask, Long> {
 
     @Query("select a from Ask a where a.user.userId=:userId and a.askCategory=:quest")
     public Ask findcategoryByuserId(@Param("userId") Long userId,@Param("quest") AskCategory quest);
-
 }

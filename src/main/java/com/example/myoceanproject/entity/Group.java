@@ -35,6 +35,14 @@ public class Group extends Period{
     private int groupPoint;
     private String groupLocation;
     @NotNull
+    private String groupFilePath;
+    @NotNull
+    private String groupFileName;
+    @NotNull
+    private String groupFileUuid;
+    @NotNull
+    private Long groupFileSize;
+    @NotNull
     @Enumerated(EnumType.STRING)
     private GroupLocationType groupLocationType; //Enum
     @NotNull
@@ -50,14 +58,12 @@ public class Group extends Period{
 
     
 //  양방향
-    public void changeUser(User user){
+    public void setUser(User user){
         this.user = user;
-        user.getGroups().add(this);
     }
 
     @Builder
-    public Group(String groupName, String groupCategory, String groupContent, int groupPoint, String groupLocation, GroupLocationType groupLocationType, GroupStatus groupStatus, GroupMemberLimit groupMemberLimit, GroupTime groupTime) {
-        this.groupName = groupName;
+    public Group(String groupName, String groupCategory, String groupContent, int groupPoint, String groupLocation, GroupLocationType groupLocationType, GroupStatus groupStatus, GroupMemberLimit groupMemberLimit, GroupTime groupTime, String groupFileName, String groupFilePath, Long groupFileSize, String groupFileUuid) {        this.groupName = groupName;
         this.groupCategory = groupCategory;
         this.groupContent = groupContent;
         this.groupPoint = groupPoint;
@@ -66,6 +72,10 @@ public class Group extends Period{
         this.groupStatus = groupStatus;
         this.groupMemberLimit = groupMemberLimit;
         this.groupTime = groupTime;
+        this.groupFileName = groupFileName;
+        this.groupFilePath = groupFilePath;
+        this.groupFileUuid = groupFileUuid;
+        this.groupFileSize = groupFileSize;
     }
 
 //  모임의 경우 모든 내용을 수정할 수 있기 때문에 Builder와 동일하게 update가 들어간다.
