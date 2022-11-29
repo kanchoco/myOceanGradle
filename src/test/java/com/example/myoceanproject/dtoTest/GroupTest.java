@@ -106,6 +106,8 @@ public class GroupTest {
         log.info("------------------------------------------------------------");
     }
 
+
+//
 //    @Test
 //    public void findById(){
 //        List<Group> groups = jpaQueryFactory.selectFrom(group)

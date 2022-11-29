@@ -34,7 +34,6 @@ public class Group extends Period{
     @NotNull
     private int groupPoint;
     private String groupLocation;
-
     @NotNull
     private String groupFilePath;
     @NotNull
@@ -64,8 +63,7 @@ public class Group extends Period{
     }
 
     @Builder
-    public Group(String groupName, String groupCategory, String groupContent, int groupPoint, String groupLocation, GroupLocationType groupLocationType, GroupStatus groupStatus, GroupMemberLimit groupMemberLimit, GroupTime groupTime, String groupFileName, String groupFilePath, Long groupFileSize, String groupFileUuid) {
-        this.groupName = groupName;
+    public Group(String groupName, String groupCategory, String groupContent, int groupPoint, String groupLocation, GroupLocationType groupLocationType, GroupStatus groupStatus, GroupMemberLimit groupMemberLimit, GroupTime groupTime, String groupFileName, String groupFilePath, Long groupFileSize, String groupFileUuid) {        this.groupName = groupName;
         this.groupCategory = groupCategory;
         this.groupContent = groupContent;
         this.groupPoint = groupPoint;

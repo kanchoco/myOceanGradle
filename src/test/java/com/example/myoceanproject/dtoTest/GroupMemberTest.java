@@ -72,6 +72,8 @@ public class GroupMemberTest {
         groupRepository.save(group1);
         GroupMember groupMember = new GroupMember();
 
+        groupMember.changeUser(userRepository.findById(1L).get());
+        groupMember.changeGroup(groupRepository.findById(12L).get());
 
         groupMemberRepository.save(groupMember);
     }
