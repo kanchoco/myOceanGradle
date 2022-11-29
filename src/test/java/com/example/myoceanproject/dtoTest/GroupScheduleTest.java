@@ -120,6 +120,7 @@ public class GroupScheduleTest {
 
     @Test
     public void deleteTest(){
+//      5번 스케줄 삭제  
         GroupSchedule groupSchedule = groupScheduleRepository.findById(5L).get();
         groupScheduleRepository.delete(groupSchedule);
     }
