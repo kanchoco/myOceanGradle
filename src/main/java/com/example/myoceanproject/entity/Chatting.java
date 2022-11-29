@@ -33,11 +33,11 @@ public class Chatting extends Period{
     @NotNull
     private User user;
 
-    public void changeGroup(Group group){
+    public void setGroup(Group group){
         this.group = group;
     }
 //    양방향이 아니기 떄문에 add 없음
-    public void changeUser(User user){
+    public void setUser(User user){
         this.user = user;
     }
 

@@ -25,9 +25,9 @@ public class ChattingDTO {
     private Long groupId;
     private String groupName;
     private String groupFilePath;
-    private String groupFileOriginName;
+    private String groupFileName;
 
-    private Long groupFileUuid;
+    private String groupFileUuid;
     private Long groupFileSize;
 
 //    채팅 관련
@@ -35,7 +35,7 @@ public class ChattingDTO {
     private ReadStatus readStatus;
 
     @QueryProjection
-    public ChattingDTO(Long userId, String userNickName, String userFileName, String userFilePath, Long userFileSize, Long userFileUuid, Long groupId, String groupName, String groupFilePath, String groupFileOriginName, Long groupFileUuid, Long groupFileSize, String chattingContent, ReadStatus readStatus) {
+    public ChattingDTO(Long userId, String userNickName, String userFileName, String userFilePath, Long userFileSize, Long userFileUuid, Long groupId, String groupName, String groupFilePath, String groupFileName, String groupFileUuid, Long groupFileSize, String chattingContent, ReadStatus readStatus) {
         this.userId = userId;
         this.userNickName = userNickName;
         this.userFileName = userFileName;
@@ -45,12 +45,13 @@ public class ChattingDTO {
         this.groupId = groupId;
         this.groupName = groupName;
         this.groupFilePath = groupFilePath;
-        this.groupFileOriginName = groupFileOriginName;
+        this.groupFileName = groupFileName;
         this.groupFileUuid = groupFileUuid;
         this.groupFileSize = groupFileSize;
         this.chattingContent = chattingContent;
         this.readStatus = readStatus;
     }
+
 
     public Chatting toEntity(){
         return Chatting.builder()
