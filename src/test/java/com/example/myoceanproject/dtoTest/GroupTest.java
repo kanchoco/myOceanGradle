@@ -40,6 +40,9 @@ public class GroupTest {
 
     @Test
     public void saveGroupTest(){
+//        시나리오 : 모임 작성자의 아이디를 세션에서 받아온다.(=>맞는지 확인 필요), 그 후 사용자가 화면에 입력한 그룹에 대한 정보를 groupDTO에 set해준다.
+//        유저가 db에 없을 경우를 대비해서 유저 먼저 db에 저장해줬다. db에 유저가 있다면 findById를 사용하여 찾아오기만 하면 된다.
+
 //      유저 db에 저장
         UserDTO userDTO = new UserDTO();
         userDTO.setUserEmail("akjhdgaiafd");

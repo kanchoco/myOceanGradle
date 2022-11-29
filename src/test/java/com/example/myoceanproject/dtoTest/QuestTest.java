@@ -30,9 +30,8 @@ public class QuestTest {
 
     @Test
     public void saveTest(){
+//        시나리오 : 퀘스트는 fk 없이 독립적이기 때문에 별도의 시나리오는 필요없다고 판단. DTO에 값을 set해서 저장만 해주면됨
         QuestDTO questDTO = new QuestDTO();
-
-
 
         questDTO.setQuestCategory("활동");
         questDTO.setQuestContent("회원가입시 지급");
