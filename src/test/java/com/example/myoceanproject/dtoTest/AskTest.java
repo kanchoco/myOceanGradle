@@ -10,6 +10,8 @@ import com.example.myoceanproject.repository.UserRepository;
 import com.example.myoceanproject.type.AskCategory;
 import com.example.myoceanproject.type.AskStatus;
 import com.example.myoceanproject.type.ReadStatus;
+import com.mchange.lang.LongUtils;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -17,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
+import org.yaml.snakeyaml.util.EnumUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -83,25 +87,35 @@ public class AskTest {
                 .fetch();
 
         asks.stream().map(Ask::toString).forEach(log::info);
-
     }
-//
-//    @Test
-//    public void updateTest(){
-////        AskCategory askCategory=askRepository.findcategoryByuserId(2L,AskCategory.QUESTINFO);
-//        Ask asks = jpaQueryFactory.selectFrom(ask)
-//                .where(ask.user.userId.eq(2L))
-//                .where(ask.askCategory.eq(AskCategory.QUESTINFO))
-//                .fetchOne();
-//
-//        asks.update(AskStatus.COMPLETE,AskCategory.QUESTINFO);
-//    }
-//
-//    @Test
-//    public void deleteTest(){
-//        Long count = jpaQueryFactory
-//                .delete(ask)
-//                .where(ask.askId.eq(15L))
-//                .execute();
-//    }
+
+    @Test
+    public void updateTest(){
+//      시나리오 : 사용자(2L)에 의해 수정되어 화면에서 입력받은 값들(AskStatus.COMPLETE)을 변경
+//      동적 queryDSL 사용을 위해 builder 객체 생성
+        BooleanBuilder builder=new BooleanBuilder();
+
+//      askRepository 인터페이스 구현체 hibernate의 findcategoryByuserId메서드로 문의하기 1개의 결과 조회
+        Ask askone=askRepository.findcategoryByuserId(2L,AskCategory.QUESTINFO);
+
+//      where절에 추가될 필드명
+        builder.and(ask.user.userId.eq(2L));
+        builder.and(ask.askCategory.eq(AskCategory.QUESTINFO));
+
+//      동적 QueryDSL을 사용하여 문의하기 내용 업데이트
+        long asks = jpaQueryFactory.update(ask)
+                .set(ask.askStatus,AskStatus.COMPLETE)
+                .where(builder)
+                .execute();
+    }
+
+    @Test
+    public void deleteTest(){
+
+//      시나리오 :
+        Long count = jpaQueryFactory
+                .delete(ask)
+                .where(ask.askId.eq(15L))
+                .execute();
+    }
 }
