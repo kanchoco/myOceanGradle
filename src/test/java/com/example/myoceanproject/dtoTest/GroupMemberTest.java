@@ -2,10 +2,7 @@ package com.example.myoceanproject.dtoTest;
 
 import com.example.myoceanproject.domain.GroupDTO;
 import com.example.myoceanproject.domain.UserDTO;
-import com.example.myoceanproject.entity.Group;
-import com.example.myoceanproject.entity.GroupMember;
-import com.example.myoceanproject.entity.QuestAchievement;
-import com.example.myoceanproject.entity.User;
+import com.example.myoceanproject.entity.*;
 import com.example.myoceanproject.repository.GroupMemberRepository;
 import com.example.myoceanproject.repository.GroupRepository;
 import com.example.myoceanproject.repository.UserRepository;
@@ -15,17 +12,20 @@ import com.example.myoceanproject.type.UserAccountStatus;
 import com.example.myoceanproject.type.UserLoginMethod;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import static com.example.myoceanproject.entity.QGroupMember.groupMember;
 import static com.example.myoceanproject.entity.QQuestAchievement.questAchievement;
+import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 @Slf4j
@@ -67,39 +67,37 @@ public class GroupMemberTest {
         groupDTO.setGroupPoint(200);
         groupDTO.setGroupStatus(GroupStatus.WAITING);
         groupDTO.setGroupLocationType(GroupLocationType.ONLINE);
+        groupDTO.setMaxMember(10);
+        groupDTO.setMinMember(5);
+        groupDTO.setGroupFileName("FileName");
+        groupDTO.setGroupFilePath("FilePath");
+        groupDTO.setGroupFileUuid("FileUuid");
+        groupDTO.setGroupFileSize(100L);
+        groupDTO.setStartTime(LocalDateTime.now());
+        groupDTO.setEndTime(LocalDateTime.now());
+
         Group group1 = groupDTO.toEntity();
         group1.setUser(userRepository.findById(1L).get());
         groupRepository.save(group1);
         GroupMember groupMember = new GroupMember();
 
-        groupMember.changeUser(userRepository.findById(1L).get());
-        groupMember.changeGroup(groupRepository.findById(12L).get());
+        groupMember.setUser(userRepository.findById(1L).get());
+        groupMember.setGroup(groupRepository.findById(2L).get());
 
         groupMemberRepository.save(groupMember);
     }
 
-//    @Test
-//    public void findAllTest(){
-//        List<GroupMember> groupMembers = jpaQueryFactory.selectFrom(groupMember)
-//                .join(groupMember.user)
-//                .join(groupMember.group)
-//                .fetchJoin()
-//                .fetch();
-//
-//        groupMembers.stream().map(GroupMember::toString).forEach(log::info);
-//    }
-//
-//    @Test
-//    public void findByIdTest(){
-//        List<GroupMember> groupMembers = jpaQueryFactory.selectFrom(groupMember)
-//                .join(groupMember.user)
-//                .join(groupMember.group)
-//                .where(groupMember.user.userId.eq(1L))
-//                .fetchJoin()
-//                .fetch();
-//        groupMembers.stream().map(GroupMember::toString).forEach(log::info);
-//    }
-//
+    @Test
+    public void findAllTest(){
+        assertThat(groupMemberRepository.findAll().size()).isEqualTo(3);
+
+    }
+
+    @Test
+    public void findByIdTest(){
+        assertThat(groupMemberRepository.findById(17L).get().getGroup().getGroupId()).isEqualTo(2L);
+    }
+
 //    @Test
 //    public void deleteTest(){
 //        Long count = jpaQueryFactory

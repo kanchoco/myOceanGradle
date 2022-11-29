@@ -79,8 +79,6 @@ public class GroupTest {
 
     }
 
-
-
     @Test
     public void findAllTest(){
         List<GroupDTO> groups = jpaQueryFactory.select(new QGroupDTO(
@@ -106,19 +104,31 @@ public class GroupTest {
         log.info("------------------------------------------------------------");
     }
 
+    @Test
+    public void findById(){
+        List<GroupDTO> groups = jpaQueryFactory.select(new QGroupDTO(
+                group.user.userId,
+                group.user.userNickname,
+                group.groupName,
+                group.groupCategory,
+                group.groupContent,
+                group.groupPoint,
+                group.groupLocation,
+                group.groupLocationType,
+                group.groupStatus,
+                group.groupFilePath,
+                group.groupFileName,
+                group.groupFileUuid,
+                group.groupFileSize,
+                group.groupMemberLimit.maxMember,
+                group.groupMemberLimit.minMember,
+                group.groupTime.startTime,
+                group.groupTime.endTime)).from(group).where(group.user.userId.eq(1L)).fetch();
 
-//
-//    @Test
-//    public void findById(){
-//        List<Group> groups = jpaQueryFactory.selectFrom(group)
-//                .join(group.user)
-//                .where(group.user.userId.eq(1L))
-//                .fetchJoin()
-//                .fetch();
-//
-//        groups.stream().map(Group::toString).forEach(log::info);
-//
-//    }
+        log.info("------------------------------------------------------------");
+        groups.stream().map(GroupDTO::toString).forEach(log::info);
+        log.info("------------------------------------------------------------");
+    }
 //
 //    @Test
 //    public void updateTest(){
