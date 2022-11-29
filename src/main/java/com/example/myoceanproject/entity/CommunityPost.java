@@ -1,5 +1,6 @@
 package com.example.myoceanproject.entity;
 
+import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.type.CommunityCategory;
 import com.sun.istack.NotNull;
 import lombok.*;
@@ -37,9 +38,13 @@ public class CommunityPost extends Period{
     private List<CommunityLike> communityLikes;
 
 //  양방향
-    public void changeUser(User user){
+    public void setUser(User user){
         this.user = user;
     }
+    public void setCommunityPostId(Long communityPostId){
+        this.communityPostId = communityPostId;
+    }
+
 
     @Builder
     public CommunityPost(CommunityCategory communityCategory, String communityTitle, String communityContent, int communityViewNumber) {
@@ -51,10 +56,16 @@ public class CommunityPost extends Period{
 
 //  커뮤니티 게시글은 카테고리와 제목, 내용이 수정 가능하고
 //  조회수는 유저가 조회할 경우 계속 업데이트가 된다.
-    public void update(CommunityCategory communityCategory, String communityTitle, String communityContent, int communityViewNumber){
-        this.communityCategory = communityCategory;
-        this.communityTitle = communityTitle;
-        this.communityContent = communityContent;
-        this.communityViewNumber = communityViewNumber;
+    public void update(CommunityPostDTO communityPostDTO){
+        this.communityCategory = communityPostDTO.getCommunityCategory();
+        this.communityTitle = communityPostDTO.getCommunityTitle();
+        this.communityContent = communityPostDTO.getCommunityContent();
+        this.communityViewNumber = communityPostDTO.getCommunityViewNumber();
+    }
+
+//    변경을 자동감지해서 업데이트되므로,
+//    조회할 경우 updateView메소드를 실행하여 조회수를 증가한다.
+    public void updateView(){
+        this.communityViewNumber++;
     }
 }
