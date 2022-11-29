@@ -10,7 +10,8 @@ import java.security.cert.CertPathBuilder;
 @Table(name = "TBL_COMMUNITY_FILE")
 @Getter
 @ToString(exclude = "communityPost")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
+//        (access = AccessLevel.PROTECTED)
 public class CommunityFile extends Period{
     @Id
     @GeneratedValue
@@ -35,7 +36,7 @@ public class CommunityFile extends Period{
     //  양방향
     public void changeCommunityPost(CommunityPost communityPost){
         this.communityPost = communityPost;
-        communityPost.getCommunityFiles().add(this);
+//        communityPost.getCommunityFiles().add(this);
     }
 
     @Builder

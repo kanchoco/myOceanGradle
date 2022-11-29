@@ -13,7 +13,8 @@ import static javax.persistence.FetchType.LAZY;
 @Table(name = "TBL_COMMUNITY_POST")
 @Getter
 @ToString(exclude = "user")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
+//        (access = AccessLevel.PROTECTED)
 public class CommunityPost extends Period{
     @Id
     @GeneratedValue

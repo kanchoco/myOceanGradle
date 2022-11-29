@@ -3,6 +3,7 @@ package com.example.myoceanproject.dtoTest;
 import com.example.myoceanproject.domain.AskDTO;
 import com.example.myoceanproject.entity.Alarm;
 import com.example.myoceanproject.entity.Ask;
+import com.example.myoceanproject.entity.QAsk;
 import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.repository.AskRepository;
 import com.example.myoceanproject.repository.UserRepository;
@@ -36,31 +37,35 @@ public class AskTest {
 
     @Test
     public void saveAskTest(){
-        
-//      1번 유저 불러오기
-        Optional<User> user = userRepository.findById(1L);
+//      시나리오: 해당 유저(3L)가 문의하기 내용을 남긴다.
+
+
+//      userRepository 인터페이스 구현체 hibernate의 findById메서드를 이용해서
+//      다른 유저를 검색한다.
+        Optional<User> user = userRepository.findById(2L);
+
+//      화면에서 문의하기 작성내용을 입력받기 위해 AskDTO 객체 생성
         AskDTO askDTO = new AskDTO();
-        
-//      askDTO에 필요한 값 저장
-        askDTO.setAskCategory(AskCategory.ACCOUNTINFO);
-        askDTO.setAskStatus(AskStatus.COMPLETE);
-        askDTO.setAskTitle("제목");
-        askDTO.setAskContent("내용");
-        
-//      askDTO에 저장한 값을 entity로 변환
+
+//      화면에서 문의하기 작성 내용을 입력받는다.
+        askDTO.setAskCategory(AskCategory.QUESTINFO);
+        askDTO.setAskStatus(AskStatus.WAITING);
+        askDTO.setAskTitle("퀘스트 문의하기 제목");
+        askDTO.setAskContent("퀘스트 문의하기 내용");
+
+//      추가 저장을 위해 toentity메서드를 통해 Ask객체에 저장
         Ask ask1 = askDTO.toEntity();
 
-//      askDTO에 처음 조회했던 유저 정보 저장
-//      changeUser 메소드로 askDTO에 저장된 User값을 ask1로 전달
-        askDTO.setUserId(user.get().getUserId());
+//      userRepository 인터페이스 구현체 hibernate의 findbyid메서드로 유저를 검색후 추가
         ask1.changeUser(user.get());
 
-//      ask 엔티티에 해당 값 모두 저장
+//      문의하기 테이블에 해당 내용 저장
         askRepository.save(ask1);
     }
 
     @Test
     public void findAllTest(){
+//      모든 문의사항을 검색한다.
         List<Ask> asks = jpaQueryFactory.selectFrom(ask)
                 .join(ask.user)
                 .fetchJoin()
@@ -69,32 +74,34 @@ public class AskTest {
     }
 
     @Test
-    public void findById(){
+    public void findAllById(){
+//      사용자의 문의사항 전부를 가져온다.
         List<Ask> asks = jpaQueryFactory.selectFrom(ask)
                 .join(ask.user)
-                .where(ask.user.userId.eq(1L))
+                .where(ask.user.userId.eq(2L))
                 .fetchJoin()
                 .fetch();
 
         asks.stream().map(Ask::toString).forEach(log::info);
 
     }
-
-    @Test
-    public void updateTest(){
-
-        Ask ask1 = jpaQueryFactory.selectFrom(ask)
-                .where(ask.askId.eq(16L))
-                .fetchOne();
-
-        ask1.update(AskStatus.WAITING, AskCategory.QUESTINFO);
-    }
-
-    @Test
-    public void deleteTest(){
-        Long count = jpaQueryFactory
-                .delete(ask)
-                .where(ask.askId.eq(15L))
-                .execute();
-    }
+//
+//    @Test
+//    public void updateTest(){
+////        AskCategory askCategory=askRepository.findcategoryByuserId(2L,AskCategory.QUESTINFO);
+//        Ask asks = jpaQueryFactory.selectFrom(ask)
+//                .where(ask.user.userId.eq(2L))
+//                .where(ask.askCategory.eq(AskCategory.QUESTINFO))
+//                .fetchOne();
+//
+//        asks.update(AskStatus.COMPLETE,AskCategory.QUESTINFO);
+//    }
+//
+//    @Test
+//    public void deleteTest(){
+//        Long count = jpaQueryFactory
+//                .delete(ask)
+//                .where(ask.askId.eq(15L))
+//                .execute();
+//    }
 }
