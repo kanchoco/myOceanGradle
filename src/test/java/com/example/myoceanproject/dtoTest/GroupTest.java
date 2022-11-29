@@ -2,6 +2,7 @@ package com.example.myoceanproject.dtoTest;
 
 import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.domain.GroupDTO;
+import com.example.myoceanproject.domain.QGroupDTO;
 import com.example.myoceanproject.domain.UserDTO;
 import com.example.myoceanproject.embeddable.GroupTime;
 import com.example.myoceanproject.entity.*;
@@ -58,6 +59,11 @@ public class GroupTest {
         groupDTO.setGroupPoint(200);
         groupDTO.setGroupStatus(GroupStatus.WAITING);
         groupDTO.setGroupLocationType(GroupLocationType.ONLINE);
+        groupDTO.setGroupFileSize(10L);
+        groupDTO.setGroupFileUuid("Uuid");
+        groupDTO.setGroupFilePath("filePath");
+        groupDTO.setGroupFileName("groupName");
+
 //        임베드 타입 set해줌
         groupDTO.setEndTime(LocalDateTime.now());
         groupDTO.setStartTime(LocalDateTime.now());
@@ -65,22 +71,38 @@ public class GroupTest {
         groupDTO.setMinMember(2);
 //        DTO를 엔티티로 바꿔서 저장해줌
         Group group1 = groupDTO.toEntity();
-        group1.changeUser(userRepository.findById(1L).get());
+        group1.setUser(userRepository.findById(1L).get());
         groupRepository.save(group1);
 
     }
 
 
 
-//    @Test
-//    public void findAllTest(){
-//        List<Group> groups = jpaQueryFactory.selectFrom(new QGroup(group))
-//                .join(group.user)
-//                .fetchJoin()
-//                .fetch();
-//        groups.stream().map(Group::toString).forEach(log::info);
-//    }
-//
+    @Test
+    public void findAllTest(){
+        List<GroupDTO> groups = jpaQueryFactory.select(new QGroupDTO(
+                group.user.userId,
+                group.user.userNickname,
+                group.groupName,
+                group.groupCategory,
+                group.groupContent,
+                group.groupPoint,
+                group.groupLocation,
+                group.groupLocationType,
+                group.groupStatus,
+                group.groupFilePath,
+                group.groupFileName,
+                group.groupFileUuid,
+                group.groupFileSize,
+                group.groupMemberLimit.maxMember,
+                group.groupMemberLimit.minMember,
+                group.groupTime.startTime,
+                group.groupTime.endTime)).from(group).fetch();
+        log.info("------------------------------------------------------------");
+        groups.stream().map(GroupDTO::toString).forEach(log::info);
+        log.info("------------------------------------------------------------");
+    }
+
 //    @Test
 //    public void findById(){
 //        List<Group> groups = jpaQueryFactory.selectFrom(group)
