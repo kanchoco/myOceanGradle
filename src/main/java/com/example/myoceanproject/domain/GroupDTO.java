@@ -47,7 +47,8 @@ public class GroupDTO {
 
 
     @QueryProjection
-    public GroupDTO(Long userId, String userNickName, String groupName, String groupCategory, String groupContent, int groupPoint, String groupLocation, GroupLocationType groupLocationType, GroupStatus groupStatus, String groupFilePath, String groupFileName, String groupFileUuid, Long groupFileSize, Integer maxMember, Integer minMember, LocalDateTime startTime, LocalDateTime endTime) {        this.userId = userId;
+    public GroupDTO(Long userId, String userNickName, String groupName, String groupCategory, String groupContent, int groupPoint, String groupLocation, GroupLocationType groupLocationType, GroupStatus groupStatus, String groupFilePath, String groupFileName, String groupFileUuid, Long groupFileSize, Integer maxMember, Integer minMember, LocalDateTime startTime, LocalDateTime endTime) {
+        this.userId = userId;
         this.userNickName = userNickName;
         this.groupName = groupName;
         this.groupCategory = groupCategory;

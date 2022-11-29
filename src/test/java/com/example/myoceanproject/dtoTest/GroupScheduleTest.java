@@ -1,6 +1,8 @@
 package com.example.myoceanproject.dtoTest;
 
+import com.example.myoceanproject.domain.GroupDTO;
 import com.example.myoceanproject.domain.GroupScheduleDTO;
+import com.example.myoceanproject.domain.QGroupScheduleDTO;
 import com.example.myoceanproject.domain.UserDTO;
 import com.example.myoceanproject.entity.Ask;
 import com.example.myoceanproject.entity.Group;
@@ -25,6 +27,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.example.myoceanproject.entity.QAsk.ask;
+import static com.example.myoceanproject.entity.QGroup.group;
 import static com.example.myoceanproject.entity.QGroupSchedule.groupSchedule;
 
 @SpringBootTest
@@ -67,46 +70,57 @@ public class GroupScheduleTest {
         GroupSchedule groupSchedule1 = groupScheduleDTO.toEntity();
 
 //      모임 정보 저장
-        groupSchedule1.changeGroup(groupRepository.findById(3L).get());
+        groupSchedule1.setGroup(groupRepository.findById(2L).get());
 
 //      엔티티에 값 저장
         groupScheduleRepository.save(groupSchedule1);
     }
 
-//    @Test
-//    public void findAllTest(){
-//        List<GroupSchedule> groupSchedules = jpaQueryFactory.selectFrom(groupSchedule)
-//                .join(groupSchedule.group)
-//                .fetchJoin()
-//                .fetch();
-//        groupSchedules.stream().map(GroupSchedule::toString).forEach(log::info);
-//    }
-//
-//    @Test
-//    public void findById(){
-//        List<GroupSchedule> groupSchedules = jpaQueryFactory.selectFrom(groupSchedule)
-//                .join(groupSchedule.group)
-//                .where(groupSchedule.group.groupId.eq(1L))
-//                .fetchJoin()
-//                .fetch();
-//
-//        groupSchedules.stream().map(GroupSchedule::toString).forEach(log::info);
-//    }
-//
-//    @Test
-//    public void updateTest(){
-//        GroupSchedule groupSchedule1 = jpaQueryFactory.selectFrom(groupSchedule)
-//                .where(groupSchedule.groupScheduleId.eq(2L))
-//                .fetchOne();
-//
-//        groupSchedule1.update(LocalDateTime.now(), LocalDateTime.now(), LocalDateTime.now());
-//    }
-//
-//    @Test
-//    public void deleteTest(){
-//        Long count = jpaQueryFactory
-//                .delete(groupSchedule)
-//                .where(groupSchedule.groupScheduleId.eq(2L))
-//                .execute();
-//    }
+    @Test
+    public void findAllTest(){
+        List<GroupScheduleDTO> groupSchedules = jpaQueryFactory.select(new QGroupScheduleDTO(
+                groupSchedule.groupScheduleId,
+                groupSchedule.groupScheduleDate,
+                groupSchedule.groupScheduleStartTime,
+                groupSchedule.groupScheduleEndTime
+        )).from(groupSchedule).fetch();
+        log.info("------------------------------------------------------------");
+        groupSchedules.stream().map(GroupScheduleDTO::toString).forEach(log::info);
+        log.info("------------------------------------------------------------");
+    }
+
+    @Test
+    public void findById(){
+        List<GroupScheduleDTO> groupSchedules = jpaQueryFactory.select(new QGroupScheduleDTO(
+                groupSchedule.groupScheduleId,
+                groupSchedule.groupScheduleDate,
+                groupSchedule.groupScheduleStartTime,
+                groupSchedule.groupScheduleEndTime
+        )).from(groupSchedule).where(groupSchedule.group.groupId.eq(2L)).fetch();
+//      2번 모임의 모임 스케줄
+        log.info("------------------------------------------------------------");
+        groupSchedules.stream().map(GroupScheduleDTO::toString).forEach(log::info);
+        log.info("------------------------------------------------------------");
+    }
+
+    @Test
+    public void updateTest(){
+        GroupScheduleDTO groupScheduleDTO = new GroupScheduleDTO();
+        groupScheduleDTO.setGroupId(2L);
+        groupScheduleDTO.setGroupScheduleDate(LocalDateTime.now());
+        groupScheduleDTO.setGroupScheduleStartTime(LocalDateTime.now());
+        groupScheduleDTO.setGroupScheduleEndTime(LocalDateTime.now());
+
+        GroupSchedule groupSchedule1 = jpaQueryFactory.selectFrom(groupSchedule).where(groupSchedule.groupScheduleId.eq(5L)).fetchOne();
+        groupSchedule1.setGroup(groupRepository.findById(groupScheduleDTO.getGroupId()).get());
+
+        groupSchedule1.update(groupScheduleDTO);
+
+    }
+
+    @Test
+    public void deleteTest(){
+        GroupSchedule groupSchedule = groupScheduleRepository.findById(5L).get();
+        groupScheduleRepository.delete(groupSchedule);
+    }
 }

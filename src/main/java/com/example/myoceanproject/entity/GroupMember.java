@@ -25,12 +25,12 @@ public class GroupMember extends Period{
     private Group group;
 
 
-    public void changeUser(User user){
+    public void setUser(User user){
         this.user = user;
 
     }
 
-    public void changeGroup(Group group){
+    public void setGroup(Group group){
         this.group = group;
     }
 
