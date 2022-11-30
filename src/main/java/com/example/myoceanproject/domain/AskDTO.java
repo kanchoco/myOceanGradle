@@ -24,7 +24,8 @@ public class AskDTO {
     private AskCategory askCategory;
 
     @QueryProjection
-    public AskDTO(AskStatus askStatus, String askTitle, String askContent, AskCategory askCategory) {
+    public AskDTO(Long userId,AskStatus askStatus, String askTitle, String askContent, AskCategory askCategory) {
+        this.userId=userId;
         this.askStatus = askStatus;
         this.askTitle = askTitle;
         this.askContent = askContent;

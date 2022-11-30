@@ -22,7 +22,7 @@ public class UserDTO {
     private UserAccountStatus userAccountStatus;
 
     private UserLoginMethod userLoginMethod;
-    private int totalPoint;
+//    private int totalPoint;
     private int userTotalPoint;
     private String userFileName;
     private String userFilePath;
@@ -30,13 +30,17 @@ public class UserDTO {
     private Long userFileUuid;
 
     @QueryProjection
-    public UserDTO(String userEmail, String userPassword, String userNickname, UserAccountStatus userAccountStatus, UserLoginMethod userLoginMethod, int userTotalPoint) {
-        this.userEmail = userEmail;
+    public UserDTO(String userPassword, String userNickname, UserAccountStatus userAccountStatus, String userFileName, String userFilePath, Long userFileSize, Long userFileUuid, String userEmail, UserLoginMethod userLoginMethod, int userTotalPoint) {
         this.userPassword = userPassword;
         this.userNickname = userNickname;
         this.userAccountStatus = userAccountStatus;
-        this.userLoginMethod = userLoginMethod;
-        this.userTotalPoint = userTotalPoint;
+        this.userFileName=userFileName;
+        this.userFilePath=userFilePath;
+        this.userFileSize=userFileSize;
+        this.userFileUuid=userFileUuid;
+        this.userEmail=userEmail;
+        this.userLoginMethod=userLoginMethod;
+        this.userTotalPoint=userTotalPoint;
     }
 
     public User toEntity(){
