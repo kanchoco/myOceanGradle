@@ -19,12 +19,12 @@
             </div>
         </div>
         <!-- 등록 form -->
-        <form name="todoForm" action="" style="display: flex;">
+        <form method="post" name="todoForm" th:action="@{/myspace/index}" style="display: flex;">
             <div style="width:88%" class="inputWrap" >
                 <!-- 연도-월-일 input -->
-                <input style="display: block;margin-bottom: 8px;" name="toDate" class="toInput" type="date">
+                <input style="display: block;margin-bottom: 8px;" name="toDoListSelectDate" class="toInput" type="date">
                 <!-- 투두리스트 입력 input -->
-                <input style="height: 41px; width:100%; display: block; border: solid 2px #ceddec; padding: 20px;" name="toInput" class="toInput" type="text" placeholder="투두리스트 입력">
+                <input style="height: 41px; width:100%; display: block; border: solid 2px #ceddec; padding: 20px;" name="toDoListContent" class="toInput" type="text" placeholder="투두리스트 입력">
             </div>
             <!-- 등록 button -->
             <button type="submit" height="auto" color="initial" font-size="14px" font-weight="500" class="sendBtn" style="margin-right: 20px;display: inline;height: 41px;margin-top: 30px;">등록</button>
@@ -53,33 +53,50 @@
                         <ul class="noticeListTimeLine">
                             <!-- li 1-> noticeDayWrap -->
                             <li class="noticeDayWrap">
-                                <span class="day">22.11.15</span>
+                                <span class="day" th:text="${noticeDayWrap}"></span>
                                 <!-- ul>li 리스트목록-->
                                 <ul>
                                     <!-- li 리스트1 noticeContentWrap-->
-                                    <li class="noticeContentWrap">
-                                        <div class="left">
-                                            <p class="categoryAndDate">
-                                                <span>🍖맛있는거 먹기🍖</span>
-                                            </p>
-                                        </div>
-                                        <div class="btnWrap right">
-                                            <a href="javascript:;" onclick="modifying(this)">수정</a>
-                                            <a href="javascript:;" onclick="removing(this)">삭제</a>
-                                        </div>
-                                    </li>
-                                    <!-- li 리스트2 -->
-                                    <li class="noticeContentWrap">
-                                        <div class="left">
-                                            <p class="categoryAndDate">
-                                                <span>💗😚애기 만나기</span>
-                                            </p>
-                                        </div>
-                                        <div class="btnWrap right">
-                                            <a href="javascript:;" onclick="modifying(this)">수정</a>
-                                            <a href="javascript:;" onclick="removing(this)">삭제</a>
-                                        </div>
-                                    </li>
+                                   <th:block th:each="list : ${todayList}">
+                                       <li class="noticeContentWrap">
+
+                                           <input type="hidden" name = "toDoListSelectDate" th:value="${list.toDoListSelectDate}">
+                                           <input type="hidden" name = "userId" th:value="${list.userId}">
+                                           <div class="left">
+                                               <p class="categoryAndDate">
+                                                   <span th:text="${list.toDoListContent}"></span>
+                                               </p>
+                                           </div>
+                                           <div class="btnWrap right">
+                                               <a href="javascript:;" onclick="modifying(this)">수정</a>
+                                               <a href="javascript:;" onclick="removing(this)">삭제</a>
+                                           </div>
+                                       </li>
+
+                                   </th:block>
+<!--                                    <li class="noticeContentWrap">-->
+<!--                                        <div class="left">-->
+<!--                                            <p class="categoryAndDate">-->
+<!--                                                <span>🍖맛있는거 먹기🍖</span>-->
+<!--                                            </p>-->
+<!--                                        </div>-->
+<!--                                        <div class="btnWrap right">-->
+<!--                                            <a href="javascript:;" onclick="modifying(this)">수정</a>-->
+<!--                                            <a href="javascript:;" onclick="removing(this)">삭제</a>-->
+<!--                                        </div>-->
+<!--                                    </li>-->
+<!--                                    &lt;!&ndash; li 리스트2 &ndash;&gt;-->
+<!--                                    <li class="noticeContentWrap">-->
+<!--                                        <div class="left">-->
+<!--                                            <p class="categoryAndDate">-->
+<!--                                                <span>💗😚애기 만나기</span>-->
+<!--                                            </p>-->
+<!--                                        </div>-->
+<!--                                        <div class="btnWrap right">-->
+<!--                                            <a href="javascript:;" onclick="modifying(this)">수정</a>-->
+<!--                                            <a href="javascript:;" onclick="removing(this)">삭제</a>-->
+<!--                                        </div>-->
+<!--                                    </li>-->
                                 </ul>
                             </li>
                         </ul>

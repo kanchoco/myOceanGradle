@@ -38,7 +38,7 @@ let content = '';
 //
 // });
 function removing(butt) {
-    $(butt).closest('.noticeContentWrap').remove();
+    // $(butt).closest('.noticeContentWrap').remove();
 }
 
 function modifying(butt) {
