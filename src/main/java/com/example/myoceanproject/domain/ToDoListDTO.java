@@ -6,6 +6,7 @@ import com.example.myoceanproject.entity.User;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 public class ToDoListDTO {
     private Long userId;
     private String toDoListContent;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime toDoListSelectDate;
 
     @QueryProjection
