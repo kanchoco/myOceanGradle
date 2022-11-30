@@ -1,7 +1,6 @@
 package com.example.myoceanproject.dtoTest;
 
-import com.example.myoceanproject.domain.AlarmDTO;
-import com.example.myoceanproject.domain.DiaryDTO;
+import com.example.myoceanproject.domain.*;
 import com.example.myoceanproject.entity.Alarm;
 import com.example.myoceanproject.entity.Diary;
 import com.example.myoceanproject.entity.QuestAchievement;
@@ -29,9 +28,6 @@ import static com.example.myoceanproject.entity.QDiary.diary;
 @Rollback(false)
 public class DiaryTest {
     @Autowired
-    private DiaryDTO diaryDTO;
-
-    @Autowired
     private DiaryRepository diaryRepository;
 
     @Autowired
@@ -50,12 +46,12 @@ public class DiaryTest {
 
 //      diaryDTO에 필요한 값 저장
         DiaryDTO diaryDTO = new DiaryDTO();
-        diaryDTO.setDiaryTitle("다이어리 첫번쨰");
-        diaryDTO.setDiaryContent("다이어리 첫번째 내용");
+        diaryDTO.setDiaryTitle("다이어리 두번쨰");
+        diaryDTO.setDiaryContent("다이어리 두번째 내용");
 //        diaryDTO 엔티티화
         Diary diary1 = diaryDTO.toEntity();
-        diary1.changeUser(user.get());
-        diary1.changeReceiverUser(receiverUser.get());
+        diary1.setUser(user.get());
+        diary1.setReceiverUser(receiverUser.get());
 
 //      diary 엔티티에 해당 값들을 모두 저장
         diaryRepository.save(diary1);
@@ -63,31 +59,36 @@ public class DiaryTest {
 
     @Test
     public void findAllTest(){
-        List<Diary> diaries = jpaQueryFactory.selectFrom(diary)
-                .join(diary.user)
-                .fetchJoin()
-                .fetch();
-        diaries.stream().map(Diary::toString).forEach(log::info);
+        List<DiaryDTO> diaries = jpaQueryFactory.select(new QDiaryDTO(
+                diary.user.userId,
+                diary.diaryTitle,
+                diary.diaryContent,
+                diary.receiverUser.userId
+        )).from(diary).fetch();
+
+        log.info("------------------------------------------------------------");
+        diaries.stream().map(DiaryDTO::toString).forEach(log::info);
+        log.info("------------------------------------------------------------");
+
     }
 
     @Test
     public void findById(){
-        List<Diary> diaries = jpaQueryFactory.selectFrom(diary)
-                .join(diary.user)
-                .where(diary.user.userId.eq(1L))
-                .fetchJoin()
-                .fetch();
+        List<DiaryDTO> diaries = jpaQueryFactory.select(new QDiaryDTO(
+                diary.user.userId,
+                diary.diaryTitle,
+                diary.diaryContent,
+                diary.receiverUser.userId
+        )).from(diary).where(diary.receiverUser.userId.eq(2L)).fetch();
 
-        diaries.stream().map(Diary::toString).forEach(log::info);
-
+        log.info("------------------------------------------------------------");
+        diaries.stream().map(DiaryDTO::toString).forEach(log::info);
+        log.info("------------------------------------------------------------");
     }
-
 
     @Test
     public void deleteTest(){
-        Long count = jpaQueryFactory
-                .delete(diary)
-                .where(diary.diaryId.eq(5L))
-                .execute();
+        Diary diary = diaryRepository.findById(7L).get();
+        diaryRepository.delete(diary);
     }
 }
