@@ -1,5 +1,6 @@
 package com.example.myoceanproject.entity;
 
+import com.example.myoceanproject.domain.UserDTO;
 import com.example.myoceanproject.type.UserAccountStatus;
 import com.example.myoceanproject.type.UserLoginMethod;
 import com.sun.istack.NotNull;
@@ -84,15 +85,18 @@ public class User extends Period {
 
 //  가입 후 유저 비밀번호와 닉네임, 유저 포인트 변경 및 업데이트가 가능하다.
 //  관리자가 회원을 정지시키거나 정지를 해제하여 AccountStatus를 업데이트할 수 있다.
-    public void update(String userPassword, String userNickname, int userTotalPoint, UserAccountStatus userAccountStatus, String userFileName, String userFilePath, Long userFileSize, Long userFileUuid) {
-        this.userPassword = userPassword;
-        this.userNickname = userNickname;
-        this.userTotalPoint = userTotalPoint;
-        this.userAccountStatus = userAccountStatus;
-        this.userFileUuid = userFileUuid;
-        this.userFileName = userFileName;
-        this.userFilePath = userFilePath;
-        this.userFileSize = userFileSize;
+    public void updateNicknameFile(UserDTO userDTO) {
+        this.userNickname = userDTO.getUserNickname();
+        this.userFileUuid = userDTO.getUserFileUuid();
+        this.userFileName = userDTO.getUserFileName();
+        this.userFilePath = userDTO.getUserFilePath();
+        this.userFileSize = userDTO.getUserFileSize();
+    }
+    public void updatePassword(UserDTO userDTO) {
+        this.userPassword = userDTO.getUserPassword();
+    }
+    public void updateManager(UserDTO userDTO) {
+        this.userAccountStatus = userDTO.getUserAccountStatus();
     }
 
     public void setUserId(Long userId){
