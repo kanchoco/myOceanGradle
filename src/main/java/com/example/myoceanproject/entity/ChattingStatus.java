@@ -2,6 +2,7 @@ package com.example.myoceanproject.entity;
 
 import com.example.myoceanproject.type.ReadStatus;
 import com.sun.istack.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -32,6 +33,15 @@ public class ChattingStatus extends Period{
 
     //  채팅을 읽는 순간 READ로 값이 변경되므로 update
     public void update(ReadStatus readStatus){
+        this.readStatus = readStatus;
+    }
+
+    public void setReceiverGroupMember(GroupMember groupMember){
+        this.receiverGroupMember = groupMember;
+    }
+
+    @Builder
+    public ChattingStatus(ReadStatus readStatus) {
         this.readStatus = readStatus;
     }
 

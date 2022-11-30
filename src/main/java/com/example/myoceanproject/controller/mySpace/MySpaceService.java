@@ -43,7 +43,7 @@ public class MySpaceService {
 
 
         ToDoList toDoList = toDoListDTO.toEntity();
-        toDoList.changeUser(userRepository.findById(1l).get());
+        toDoList.setUser(userRepository.findById(1l).get());
 
         todoListRepository.save(toDoList);
 
