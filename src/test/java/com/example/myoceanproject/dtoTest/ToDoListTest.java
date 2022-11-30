@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.example.myoceanproject.entity.QGroup.group;
 import static com.example.myoceanproject.entity.QToDoList.toDoList;
 
 @SpringBootTest
