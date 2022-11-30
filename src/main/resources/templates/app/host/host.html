@@ -206,7 +206,7 @@
 														<h2>기본정보</h2>
 													</div>
 													<span data-v-217c2c81="" class="basic-info">
-															<form data-v-217c2c81="">
+															<form id="groupForm" name="groupForm" method="post" th:action="@{/host/index}" data-v-217c2c81="" th:object="${groupDTO}">
 																<div data-v-217c2c81="" class="px-3">
 																	<div class="row my-2">
 																		<div class="col-lg-2">
@@ -361,7 +361,7 @@
 																											<!---->
 																											<div data-v-307da538="" class="input-group">
 																												<!---->
-																												<input th:field="*{maxmember}" data-v-307da538=""  min="1" max="20" type="number" class="number2 form-control" valid="true">
+																												<input th:field="*{maxMember}" data-v-307da538=""  min="1" max="20" type="number" class="number2 form-control" valid="true">
 																												<div data-v-307da538="" class="input-group-append">
 																													<span data-v-307da538="" class="input-group-text">
 																														<small data-v-307da538="">명</small>

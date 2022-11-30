@@ -545,6 +545,9 @@ $('.saveRecruitment').on('click', function (){
 //임시 저장 확인
 $('.saveRequest').on('click', function (){
     $('#__BVID__287___BV_modal_outer_').hide();
+
+    $('#groupForm').submit();
+
 });
 
 //에디터

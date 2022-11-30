@@ -25,8 +25,12 @@ public class HostController {
 
     @PostMapping("/index")
     public RedirectView host(GroupDTO groupDTO, RedirectAttributes redirectAttributes){
-        log.info("ddddd");
-        log.info(groupDTO.getGroupName());
+        log.info("==============================");
+        log.info("그룹명: " + groupDTO.getGroupName());
+        log.info("그룹카테고리: " + groupDTO.getGroupCategory());
+        log.info("그룹 최소인원: " + groupDTO.getMinMember());
+        log.info("그룹 최대인원: " + groupDTO.getMaxMember());
+        log.info("그룹 포인트: " + groupDTO.getGroupPoint());
         return new RedirectView("index");
     }
 }
