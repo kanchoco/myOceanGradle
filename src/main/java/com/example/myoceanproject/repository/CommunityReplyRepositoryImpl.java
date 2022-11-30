@@ -28,4 +28,12 @@ public class CommunityReplyRepositoryImpl implements CommunityReplyCustomReposit
                 .execute();
     }
 
+    @Override
+    public Integer CountReplyByCommunityPost(Long communityPostId){
+        return Math.toIntExact(queryFactory.select(communityReply.communityReplyId.count())
+                .from(communityReply)
+                .where(communityReply.communityPost.communityPostId.eq(communityPostId))
+                .fetchFirst());
+    }
+
 }

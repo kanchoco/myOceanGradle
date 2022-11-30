@@ -72,9 +72,9 @@ public class CommunityPostTest {
         CommunityFile communityFile=new CommunityFile();
 
 //      커뮤니티 게시판 내용을 화면에서 입력받는다.
-        communityPostDTO.setCommunityTitle("second post");
-        communityPostDTO.setCommunityContent("second post content");
-        communityPostDTO.setCommunityCategory(CommunityCategory.BOOK);
+        communityPostDTO.setCommunityTitle("게시글 제목");
+        communityPostDTO.setCommunityContent("게시글 내용");
+        communityPostDTO.setCommunityCategory(CommunityCategory.FREEBOARD);
         communityPostDTO.setUserNickName(user.get().getUserNickname());
         
 //      추가 저장을 위해 toentity메서드를 통해 communityPost객체에 저장
@@ -108,6 +108,7 @@ public class CommunityPostTest {
 //      전체 조회
 //       게시글의 정보를 출력, 따라서 DTO로 반환한다
         List<CommunityPostDTO> posts = jpaQueryFactory.select(new QCommunityPostDTO(
+                communityPost.communityPostId,
                 communityPost.user.userId,
                 communityPost.user.userNickname,
                 communityPost.user.userFileName,
@@ -117,7 +118,10 @@ public class CommunityPostTest {
                 communityPost.communityCategory,
                 communityPost.communityTitle,
                 communityPost.communityContent,
-                communityPost.communityViewNumber)).from(communityPost).fetch();
+                communityPost.communityViewNumber,
+                communityPost.createDate,
+                communityPost.updatedDate
+        )).from(communityPost).fetch();
 //        확인
         log.info("------------------------------------------------------------");
         posts.stream().map(CommunityPostDTO::toString).forEach(log::info);
@@ -128,6 +132,7 @@ public class CommunityPostTest {
 //      게시글 14번 회원의 글만 조회
 //        14번의 내 게시글 조회, DTO로 출력
         List<CommunityPostDTO> posts = jpaQueryFactory.select(new QCommunityPostDTO(
+                communityPost.communityPostId,
                 communityPost.user.userId,
                 communityPost.user.userNickname,
                 communityPost.user.userFileName,
@@ -137,7 +142,10 @@ public class CommunityPostTest {
                 communityPost.communityCategory,
                 communityPost.communityTitle,
                 communityPost.communityContent,
-                communityPost.communityViewNumber)).from(communityPost).where(communityPost.user.userId.eq(14L)).fetch();
+                communityPost.communityViewNumber,
+                communityPost.createDate,
+                communityPost.updatedDate
+        )).from(communityPost).where(communityPost.user.userId.eq(14L)).fetch();
 
         log.info("------------------------------------------------------------");
         posts.stream().map(CommunityPostDTO::toString).forEach(log::info);
@@ -154,14 +162,14 @@ public class CommunityPostTest {
 
 //        외부에서 포스트 번호가 전달됨 15L   -> 변수로
 //        가져온 DTO, 수정된 내용
-        CommunityPostDTO postDTO = new CommunityPostDTO(1L,"칸초코", null, null, null, null, CommunityCategory.FREEBOARD, "수정할래요", "자유게시판으로 수정합니다", 0);
-//        외부에서 넘겨온 포스트번호로 개체를 가져온다(영속성 컨텍스트가 관리하는 개체)
-        CommunityPost post = jpaQueryFactory.selectFrom(communityPost).where(communityPost.communityPostId.eq(4L)).fetchOne();
-//        entity로 변환하면서, 수정이 불가한 내용들은 모두 지워진다. (유저정보, 게시글 번호) ~ set으로 값 할당
-        post.setUser(userRepository.findById(postDTO.getUserId()).get());
-        post.setCommunityPostId(4L);
-
-        post.update(postDTO);
+//        CommunityPostDTO postDTO = new CommunityPostDTO(1L,"칸초코", null, null, null, null, CommunityCategory.FREEBOARD, "수정할래요", "자유게시판으로 수정합니다", 0, );
+////        외부에서 넘겨온 포스트번호로 개체를 가져온다(영속성 컨텍스트가 관리하는 개체)
+//        CommunityPost post = jpaQueryFactory.selectFrom(communityPost).where(communityPost.communityPostId.eq(4L)).fetchOne();
+////        entity로 변환하면서, 수정이 불가한 내용들은 모두 지워진다. (유저정보, 게시글 번호) ~ set으로 값 할당
+//        post.setUser(userRepository.findById(postDTO.getUserId()).get());
+//        post.setCommunityPostId(4L);
+//
+//        post.update(postDTO);
 
     }
     

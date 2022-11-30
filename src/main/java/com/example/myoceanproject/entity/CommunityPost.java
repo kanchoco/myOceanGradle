@@ -46,7 +46,8 @@ public class CommunityPost extends Period{
 
 
     @Builder
-    public CommunityPost(CommunityCategory communityCategory, String communityTitle, String communityContent, int communityViewNumber) {
+    public CommunityPost(Long communityPostId, CommunityCategory communityCategory, String communityTitle, String communityContent, int communityViewNumber) {
+        this.communityPostId = communityPostId;
         this.communityCategory = communityCategory;
         this.communityTitle = communityTitle;
         this.communityContent = communityContent;
