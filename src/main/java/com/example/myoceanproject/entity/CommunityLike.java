@@ -24,10 +24,10 @@ public class CommunityLike extends Period{
     @NotNull
     private Long userId;
 
-    public void changeUser(User user){
+    public void setUser(User user){
         this.userId=user.getUserId();
     }
-    public void changeCommunityPost(CommunityPost communityPost){
+    public void setCommunityPost(CommunityPost communityPost){
         this.communityPost=communityPost;
     }
 

@@ -23,6 +23,7 @@ import java.util.Optional;
 import static com.example.myoceanproject.entity.QAlarm.alarm;
 import static com.example.myoceanproject.entity.QCommunityFile.communityFile;
 import static com.example.myoceanproject.entity.QCommunityPost.communityPost;
+import static com.example.myoceanproject.entity.QCommunityReply.communityReply;
 
 @SpringBootTest
 @Slf4j
@@ -39,7 +40,16 @@ public class CommunityPostTest {
     private CommunityFileRepository communityFileRepository;
 
     @Autowired
+    private  CommunityReplyRepository replyRepository;
+
+    @Autowired
     private CommunityFileRepositoryImpl fileRepositoryImpl;
+
+    @Autowired
+    private CommunityLikeRepositoryImpl likeRepositoryImpl ;
+
+    @Autowired
+    private CommunityReplyRepositoryImpl replyRepositoryImpl ;
 
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
@@ -51,7 +61,7 @@ public class CommunityPostTest {
 
 //      userRepository 인터페이스 구현체 hibernate의 findById메서드를 이용해서
 //      커뮤니티 게시글의 작성자를 추가하기위해 검색
-        Optional<User> user=userRepository.findById(14L);
+        Optional<User> user=userRepository.findById(1L);
         
 //      화면에서 입력받는 값들을 위해 게시판,파일 DTO 객체 선언
         CommunityPostDTO communityPostDTO=new CommunityPostDTO();
@@ -86,7 +96,7 @@ public class CommunityPostTest {
         communityFile=communityFileDTO.toEntity();
 
 //      postRepository 인터페이스 구현체 hibernate의 findTop1ByOrderByCommunityPostIdDesc메서드로 최신 등록된 커뮤니티 게시판 1개를 가져와서 추가
-        communityFile.changeCommunityPost(postRepository.findTop1ByOrderByCommunityPostIdDesc());
+        communityFile.setCommunityPost(postRepository.findTop1ByOrderByCommunityPostIdDesc());
 
 //      커뮤니티 파일 테이블에 해당 내용을 저장
         communityFileRepository.save(communityFile);
@@ -144,12 +154,12 @@ public class CommunityPostTest {
 
 //        외부에서 포스트 번호가 전달됨 15L   -> 변수로
 //        가져온 DTO, 수정된 내용
-        CommunityPostDTO postDTO = new CommunityPostDTO(14L,"칸초코", null, null, null, null, CommunityCategory.FREEBOARD, "수정할래요", "자유게시판으로 수정합니다", 0);
+        CommunityPostDTO postDTO = new CommunityPostDTO(1L,"칸초코", null, null, null, null, CommunityCategory.FREEBOARD, "수정할래요", "자유게시판으로 수정합니다", 0);
 //        외부에서 넘겨온 포스트번호로 개체를 가져온다(영속성 컨텍스트가 관리하는 개체)
-        CommunityPost post = jpaQueryFactory.selectFrom(communityPost).where(communityPost.communityPostId.eq(15L)).fetchOne();
+        CommunityPost post = jpaQueryFactory.selectFrom(communityPost).where(communityPost.communityPostId.eq(4L)).fetchOne();
 //        entity로 변환하면서, 수정이 불가한 내용들은 모두 지워진다. (유저정보, 게시글 번호) ~ set으로 값 할당
         post.setUser(userRepository.findById(postDTO.getUserId()).get());
-        post.setCommunityPostId(15L);
+        post.setCommunityPostId(4L);
 
         post.update(postDTO);
 
@@ -165,7 +175,7 @@ public class CommunityPostTest {
                 .where(communityPost.communityPostId.eq(15L))
                 .fetchOne();
 //영속성 컨텍스트가 관리하는 개체이므로 업데이트 메서드를 Entity에서 선언해서 사용한다.
-        post.updateView();
+        post.updateReadCount();
     }
 
 
@@ -174,18 +184,41 @@ public class CommunityPostTest {
 //        받아온 포스트번호가 17
 //        우선 파일있는지 확인하고, 파일이 존재할 경우ㅡ 파일을 전체 삭제 후 게시글 삭제를 진행한다.
 
-//      17번 포스트를 찾아서 객체 선언
-        CommunityPost post = postRepository.findById(17L).get();
-//      17번 포스트 객체로 파일 전체를 불러옴
+//      4번 포스트를 찾아서 객체 선언
+        CommunityPost post = postRepository.findById(4L).get();
+//      4번 포스트 객체로 파일 전체를 불러옴
         List<CommunityFileDTO> postFiles = fileRepositoryImpl.findByCommunityPost(post);
+//      4번 포스트 객체로 좋아요 전체를 불러옴
+        List<CommunityFileDTO> llikes = fileRepositoryImpl.findByCommunityPost(post);
+//      4번 포스트 번호로 댓글 전체를 불러옴
+        List<CommunityReplyDTO> communityReplies = jpaQueryFactory.select(new QCommunityReplyDTO(
+                communityReply.user.userId,
+                communityReply.user.userNickname,
+                communityReply.communityPost.communityPostId,
+                communityReply.communityReplyContent,
+                communityReply.user.userFileName,
+                communityReply.user.userFilePath,
+                communityReply.user.userFileSize,
+                communityReply.user.userFileUuid
+        )).from(communityReply).where(communityReply.communityPost.communityPostId.eq(4L)).fetch();
 
 //        만약 포스트객체에 파일이 있다면?
         if(!postFiles.isEmpty()) {
 //        전체 삭제 메소드를 실행하여 포스트와 관련된 파일을 전체 삭제한다.
             fileRepositoryImpl.deleteByCommunityPost(post);
         }
+//        만약 포스트객체에 라이크가 있다면?
+        if(!llikes.isEmpty()) {
+//        전체 삭제 메소드를 실행하여 포스트와 관련된 파일을 전체 삭제한다.
+            likeRepositoryImpl.deleteByCommunityPost(post);
+        }
+//        댓글이 있다면?
+        if(!communityReplies.isEmpty()) {
+//        전체 삭제 메소드를 실행하여 포스트와 관련된 파일을 전체 삭제한다.
+            replyRepositoryImpl.deleteByCommunityPost(post);
+        }
 
-//        만약 포스트객체에 파일이 없다면 포스트 삭제를 진행한다.
+//        만약 포스트객체에 자식을 찾지 못하면 포스트 삭제를 진행한다.
         postRepository.delete(post);
     }
 

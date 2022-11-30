@@ -34,8 +34,7 @@ public class CommunityPost extends Period{
     @OneToMany(fetch = LAZY, mappedBy = "communityPost")
     private List<CommunityFile> communityFiles;
 
-    @OneToMany(fetch = LAZY, mappedBy = "communityPost")
-    private List<CommunityLike> communityLikes;
+    private int communityLikeNumber;
 
 //  양방향
     public void setUser(User user){
@@ -65,7 +64,10 @@ public class CommunityPost extends Period{
 
 //    변경을 자동감지해서 업데이트되므로,
 //    조회할 경우 updateView메소드를 실행하여 조회수를 증가한다.
-    public void updateView(){
+    public void updateReadCount(){
         this.communityViewNumber++;
+    }
+    public void updateLikeCount(){
+        this.communityLikeNumber++;
     }
 }
