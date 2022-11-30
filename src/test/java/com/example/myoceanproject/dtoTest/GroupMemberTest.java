@@ -77,12 +77,12 @@ public class GroupMemberTest {
         groupDTO.setEndTime(LocalDateTime.now());
 
         Group group1 = groupDTO.toEntity();
-        group1.setUser(userRepository.findById(1L).get());
+        group1.setUser(userRepository.findById(11L).get());
         groupRepository.save(group1);
         GroupMember groupMember = new GroupMember();
 
-        groupMember.setUser(userRepository.findById(1L).get());
-        groupMember.setGroup(groupRepository.findById(2L).get());
+        groupMember.setUser(userRepository.findById(11L).get());
+        groupMember.setGroup(groupRepository.findById(4L).get());
 
         groupMemberRepository.save(groupMember);
     }

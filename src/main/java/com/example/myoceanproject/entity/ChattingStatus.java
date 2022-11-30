@@ -26,6 +26,10 @@ public class ChattingStatus extends Period{
     @JoinColumn(name = "RECEIVER_GROUP_MEMBER_ID")
     @NotNull
     private GroupMember receiverGroupMember;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CHATTING_ID")
+    @NotNull
+    private Chatting chatting;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -39,6 +43,7 @@ public class ChattingStatus extends Period{
     public void setReceiverGroupMember(GroupMember groupMember){
         this.receiverGroupMember = groupMember;
     }
+    public void setChatting(Chatting chatting){this.chatting = chatting;}
 
     @Builder
     public ChattingStatus(ReadStatus readStatus) {
