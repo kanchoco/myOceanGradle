@@ -1045,8 +1045,8 @@ label {
 }
 .btn-outline-frip-primary:not(:disabled):not(.disabled).active, .btn-outline-frip-primary:not(:disabled):not(.disabled):active, .show>.btn-outline-frip-primary.dropdown-toggle {
     color: #fff;
-    background-color: #7a29fa;
-    border-color: #7a29fa;
+    background-color: #83aad1;
+    border-color: #83aad1;
 }.btn-outline-frip-default:not(:disabled):not(.disabled).active, .btn-outline-frip-default:not(:disabled):not(.disabled):active, .show>.btn-outline-frip-default.dropdown-toggle {
      color: #fff;
      background-color: #333;

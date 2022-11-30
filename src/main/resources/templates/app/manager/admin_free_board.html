@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:tr="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -98,147 +98,33 @@
                 <div id="table-wrapper">
                     <table id="info_table">
                         <thead>
-                        <tr>
-                            <th class="thead"></th>
-                            <th class="thead">제목</th>
-                            <th class="thead">작성자</th>
-                            <th class="thead">조회수</th>
-                            <th class="thead">댓글 수</th>
-                            <th class="thead">작성 일시</th>
-                            <th class="thead">수정 일시</th>
-                            <th class="thead">삭제</th>
-                        </tr>
+                            <tr>
+                                <th class="thead"></th>
+                                <th class="thead">제목</th>
+                                <th class="thead">작성자</th>
+                                <th class="thead">조회수</th>
+                                <th class="thead">댓글 수</th>
+                                <th class="thead">작성 일시</th>
+                                <th class="thead">수정 일시</th>
+                                <th class="thead">삭제</th>
+                            </tr>
                         </thead>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">김인영</td>
-                            <td class="info_td">김녕</td>
-                            <td class="info_td">34</td>
-                            <td class="info_td">203</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">2022-11-14</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">김인영</td>
-                            <td class="info_td">김녕</td>
-                            <td class="info_td">34</td>
-                            <td class="info_td">203</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">2022-11-14</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">김인영</td>
-                            <td class="info_td">김녕</td>
-                            <td class="info_td">34</td>
-                            <td class="info_td">203</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">2022-11-14</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">김인영</td>
-                            <td class="info_td">김녕</td>
-                            <td class="info_td">34</td>
-                            <td class="info_td">203</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">2022-11-14</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">김인영</td>
-                            <td class="info_td">김녕</td>
-                            <td class="info_td">34</td>
-                            <td class="info_td">203</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">2022-11-14</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">김인영</td>
-                            <td class="info_td">김녕</td>
-                            <td class="info_td">34</td>
-                            <td class="info_td">203</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">2022-11-14</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">김인영</td>
-                            <td class="info_td">김녕</td>
-                            <td class="info_td">34</td>
-                            <td class="info_td">203</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">2022-11-14</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">김인영</td>
-                            <td class="info_td">김녕</td>
-                            <td class="info_td">34</td>
-                            <td class="info_td">203</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">2022-11-14</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">김인영</td>
-                            <td class="info_td">김녕</td>
-                            <td class="info_td">34</td>
-                            <td class="info_td">203</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">2022-11-14</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">김인영</td>
-                            <td class="info_td">김녕</td>
-                            <td class="info_td">34</td>
-                            <td class="info_td">203</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">2022-11-14</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-
-                        </tr>
+                        <tbody>
+                            <th:block th:each="freeBoard:${freeBoards}">
+                                <tr th:object="${freeBoard}">
+                                    <td class="info_td" th:text="*{communityPostId}"></td>
+                                    <td class="info_td" th:text="*{communityTitle}" ></td>
+                                    <td class="info_td" th:text="*{userNickName}"></td>
+                                    <td class="info_td" th:text="*{communityViewNumber}"></td>
+                                    <td class="info_td" th:text="*{communityReplyCount}"></td>
+                                    <td class="info_td" th:text="*{createDate}"></td>
+                                    <td class="info_td" th:text="*{updatedDate}"></td>
+                                    <td class="info_td">
+                                        <button class="more"><img src="/imgin/more.png" width="15px"></button>
+                                    </td>
+                                </tr>
+                            </th:block>
+                        </tbody>
 
 
 
