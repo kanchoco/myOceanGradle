@@ -6,8 +6,10 @@ import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.repository.QuestAchievementRepository;
 import com.example.myoceanproject.repository.QuestRepository;
 import com.example.myoceanproject.repository.UserRepository;
+import com.mysema.commons.lang.Assert;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.example.myoceanproject.entity.QQuestAchievement.questAchievement;
+import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 @Slf4j
@@ -45,44 +48,31 @@ public class QuestAchievementTest {
 //        기존에 저장해놓은 user와 quest가 없으면 userDTO와 qusetDTO부터 만들어서 set해줘야함
 //        >>위 언급한 방식은 groupMemberTest 참고
 //        db에 저장해둔 user와 quest가 있기 때문에 findById만 사용해서 user엔티티와 quest엔티티를 변수에 담아줌
-        Optional<User> user = userRepository.findById(1L);
-        Optional<Quest> quest = questRepository.findById(8L);
+        Optional<User> user = userRepository.findById(2L);
+        Optional<Quest> quest = questRepository.findById(1L);
 //        QuestAchievement의 경우 컬럼이 fk 두개로 구성돼있기 때문에 DTO가 없음
 //        따라서 엔티티 객체를 바로 생성
         QuestAchievement questAchievement = new QuestAchievement();
 //        quest와 user 모두 fk 이기 때문에 change메소드를 이용해서 set 해줌
-        questAchievement.changeQuest(quest.get());
-        questAchievement.changeUser(user.get());
+        questAchievement.setQuest(quest.get());
+        questAchievement.setUser(user.get());
 //        questAchievement db에 저장해줌
         questAchievementRepository.save(questAchievement);
-
     }
 
-//    @Test
-//    public void findAllTest(){
-//        List<QuestAchievement> questAchievements = jpaQueryFactory.selectFrom(questAchievement)
-//                .join(questAchievement.user)
-//                .fetchJoin()
-//                .fetch();
-//
-//        questAchievements.stream().map(QuestAchievement::toString).forEach(log::info);
-//    }
-//
-//    @Test
-//    public void findByIdTest(){
-//        List<QuestAchievement> questAchievements = jpaQueryFactory.selectFrom(questAchievement)
-//                .join(questAchievement.user)
-//                .where(questAchievement.user.userId.eq(3L))
-//                .fetchJoin()
-//                .fetch();
-//        questAchievements.stream().map(QuestAchievement::toString).forEach(log::info);
-//    }
-//
-//    @Test
-//    public void deleteTest(){
-//        Long count = jpaQueryFactory
-//                .delete(questAchievement)
-//                .where(questAchievement.questAchievementId.eq(215L))
-//                .execute();
-//    }
+    @Test
+    public void findAllTest(){
+        assertThat(questAchievementRepository.findAll().size()).isEqualTo(2);
+    }
+
+    @Test
+    public void findByIdTest(){
+        assertThat(questAchievementRepository.findById(3L).get().getQuestAchievementId()).isEqualTo(3L);
+    }
+
+    @Test
+    public void deleteTest(){
+        QuestAchievement questAchievement = questAchievementRepository.findById(4L).get();
+        questAchievementRepository.delete(questAchievement);
+    }
 }

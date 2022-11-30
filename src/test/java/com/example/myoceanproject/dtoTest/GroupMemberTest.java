@@ -90,7 +90,6 @@ public class GroupMemberTest {
     @Test
     public void findAllTest(){
         assertThat(groupMemberRepository.findAll().size()).isEqualTo(3);
-
     }
 
     @Test

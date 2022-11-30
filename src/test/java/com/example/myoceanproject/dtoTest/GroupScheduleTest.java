@@ -115,7 +115,6 @@ public class GroupScheduleTest {
         groupSchedule1.setGroup(groupRepository.findById(groupScheduleDTO.getGroupId()).get());
 
         groupSchedule1.update(groupScheduleDTO);
-
     }
 
     @Test
