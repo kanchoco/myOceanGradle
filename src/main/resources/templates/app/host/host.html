@@ -234,7 +234,7 @@
 																						<div class="col-md-8 col-lg-10">
 																							<div data-v-72dffd28="" class="input-group has-label w-100">
 																								<!--모임 입력 창-->
-																								<input data-v-72dffd28="" type="text" maxlength="40" required="required" placeholder="모임의 특징이 잘 드러나도록 모임명을 입력해주세요." th:field="*{groupName}" class="form-control">
+																								<input data-v-72dffd28="" th:field="*{groupName}" type="text" maxlength="40" required="required" placeholder="모임의 특징이 잘 드러나도록 모임명을 입력해주세요." class="form-control">
 																								<div data-v-72dffd28="" class="input-group-append">
 																									<span data-v-72dffd28="" class="input-group-text">
 																										<small data-v-72dffd28="" class="text-muted"> 0 / 40 </small>
@@ -266,7 +266,7 @@
 																						<div class="col-md-8 col-lg-10">
 																							<div data-v-72dffd28="" class="input-group has-label w-100">
 																								<!---->
-																								<input data-v-72dffd28="" type="text" maxlength="40" required="required" placeholder="모임의 특징이 잘 드러나도록 카테고리를 입력해주세요." class="form-control">
+																								<input th:field="*{groupCategory}" data-v-72dffd28="" type="text" maxlength="40" required="required" placeholder="모임의 특징이 잘 드러나도록 카테고리를 입력해주세요." class="form-control">
 																								<div data-v-72dffd28="" class="input-group-append">
 																									<span data-v-72dffd28="" class="input-group-text">
 																										<small data-v-72dffd28="" class="text-muted"> 0 / 40 </small>
@@ -307,7 +307,7 @@
 																											<!---->
 																											<div data-v-307da538="" class="input-group">
 																												<!---->
-																												<input data-v-307da538=""  min="1" max="20" type="number" class="number1 form-control" valid="true">
+																												<input th:field="*{minMember}" data-v-307da538=""  min="1" max="20" type="number" class="number1 form-control" valid="true">
 																												<div data-v-307da538="" class="input-group-append">
 																													<span data-v-307da538="" class="input-group-text">
 																														<small data-v-307da538="">명</small>
@@ -332,7 +332,7 @@
 																											<!---->
 																											<div data-v-307da538="" class="input-group">
 																												<!---->
-																												<input data-v-307da538=""  min="1" max="20" type="number" class="number2 form-control" valid="true">
+																												<input th:field="*{maxmember}" data-v-307da538=""  min="1" max="20" type="number" class="number2 form-control" valid="true">
 																												<div data-v-307da538="" class="input-group-append">
 																													<span data-v-307da538="" class="input-group-text">
 																														<small data-v-307da538="">명</small>
@@ -441,7 +441,7 @@
 																										<!---->
 																										<div data-v-307da538="" class="">
 																											<!---->
-																											<input data-v-307da538="" type="text" placeholder="예시) 100포인트" mode="lazy" class="form-control" valid="true">
+																											<input th:field="*{groupPoint}" data-v-307da538="" type="text" placeholder="예시) 100포인트" mode="lazy" class="form-control" valid="true">
 																											<!---->
 																										</div>
 																										<!---->
