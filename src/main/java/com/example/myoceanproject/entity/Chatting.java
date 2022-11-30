@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "TBL_CHATTING")
 @Getter
-@ToString(exclude = "group")
+@ToString(exclude = {"group", "user", "receiver"})
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Chatting extends Period{
     @Id
@@ -19,7 +19,18 @@ public class Chatting extends Period{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "GROUP_ID")
     @NotNull
-    private Group group;//FK
+    private Group group;
+//    보내는 사람
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    @NotNull
+    private User user;
+
+//    받는 사람??
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    @NotNull
+    private User receiver;
 
     @NotNull
     private String chattingContent;
@@ -27,19 +38,17 @@ public class Chatting extends Period{
     @NotNull
     @Enumerated(EnumType.STRING)
     private ReadStatus readStatus;
-
-    @ManyToOne
-    @JoinColumn(name = "USER_ID")
-    @NotNull
-    private User user;
-
     public void setGroup(Group group){
         this.group = group;
     }
+
 //    양방향이 아니기 떄문에 add 없음
     public void setUser(User user){
-        this.user = user;
-    }
+    this.user = user;
+}
+    public void setReceiver(User receiver){
+    this.receiver = receiver;
+}
 
 //  group이 생성되고 chatting이 생성되기 때문에 Builder에는 group을 넣지 않는다.
     @Builder
