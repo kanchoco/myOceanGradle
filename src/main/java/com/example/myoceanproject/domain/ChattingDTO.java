@@ -43,10 +43,9 @@ public class ChattingDTO {
     private Long receiverGroupMemberId;
 //    채팅 관련
     private String chattingContent;
-    private ReadStatus readStatus;
 
     @QueryProjection
-    public ChattingDTO(Long senderUserId, String senderUserNickName, String senderUserFileName, String senderUserFilePath, Long senderUserFileSize, Long senderUserFileUuid, Long receiverUserId, String receiverUserNickName, String receiverUserFileName, String receiverUserFilePath, Long receiverUserFileSize, Long receiverUserFileUuid, Long groupId, String groupName, String groupFilePath, String groupFileName, String groupFileUuid, Long groupFileSize, Long senderGroupMemberId, Long receiverGroupMemberId, String chattingContent, ReadStatus readStatus) {
+    public ChattingDTO(Long senderUserId, String senderUserNickName, String senderUserFileName, String senderUserFilePath, Long senderUserFileSize, Long senderUserFileUuid, Long receiverUserId, String receiverUserNickName, String receiverUserFileName, String receiverUserFilePath, Long receiverUserFileSize, Long receiverUserFileUuid, Long groupId, String groupName, String groupFilePath, String groupFileName, String groupFileUuid, Long groupFileSize, Long senderGroupMemberId, Long receiverGroupMemberId, String chattingContent) {
         this.senderUserId = senderUserId;
         this.senderUserNickName = senderUserNickName;
         this.senderUserFileName = senderUserFileName;
@@ -68,7 +67,6 @@ public class ChattingDTO {
         this.senderGroupMemberId = senderGroupMemberId;
         this.receiverGroupMemberId = receiverGroupMemberId;
         this.chattingContent = chattingContent;
-        this.readStatus = readStatus;
     }
 
 

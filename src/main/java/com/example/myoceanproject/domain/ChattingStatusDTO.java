@@ -1,5 +1,7 @@
 package com.example.myoceanproject.domain;
 
+import com.example.myoceanproject.entity.Chatting;
+import com.example.myoceanproject.entity.ChattingStatus;
 import com.example.myoceanproject.entity.GroupMember;
 import com.example.myoceanproject.type.ReadStatus;
 import com.sun.istack.NotNull;
@@ -17,4 +19,10 @@ public class ChattingStatusDTO {
     private Long ChattingStatusId;
     private GroupMember receiverGroupMember;
     private ReadStatus readStatus;
+
+    public ChattingStatus toEntity(){
+        return ChattingStatus.builder()
+                .readStatus(readStatus)
+                .build();
+    }
 }
