@@ -108,26 +108,20 @@ public class AlarmTest {
                 alarm.user.userId,
                 alarm.user.userNickname,
                 alarm.alarmContent,
-                alarm.readStatus)).where(alarm.user.userId.eq(1L)).from(alarm).fetch();
+                alarm.readStatus)).where(alarm.user.userId.eq(5L)).from(alarm).fetch();
         alarms.stream().map(AlarmDTO::toString).forEach(log::info);
 
     }
 
     @Test
     public void updateTest(){
-//        상태를 read로 바꿔줌
+//        시나리오: 유저가 읽지 않은 알림을 누르면 해당 알림의 읽음 상태가 안읽음->읽음으로 변한다
 
-        AlarmDTO alarmDTO = new AlarmDTO();
-        alarmDTO.setUserId(1L);
-        alarmDTO.setReadStatus(ReadStatus.READ);
+//        유저가 클릭한 알림을 db에서 가져온다.
+        Alarm alarm1 = jpaQueryFactory.selectFrom(QAlarm.alarm).where(QAlarm.alarm.user.userId.eq(1L).and(QAlarm.alarm.alarmId.eq(4L))).fetchOne();
+//        사용자가 알림을 클릭했을때
 
-//      외부에서 넘겨온 모임 게시글 번호로 영속성 컨텍스트가 관리하는 개체를 가져온다.
-        Alarm alarm1 = jpaQueryFactory.selectFrom(alarm).where(alarm.alarmId.eq(4L)).fetchOne();
-
-//      entity로 변환하며 수정이 불가한 내용들은 지워지고 update 메소드에 포함된 내용만 저장이 된다.
-        alarm1.setUser(userRepository.findById(alarmDTO.getUserId()).get());
-
-        alarm1.update();
+        alarm1.update(ReadStatus.READ);
 
     }
 
