@@ -28,10 +28,13 @@ public class CommunityReply extends Period{
 
 
 
-    public void changeCommunityPost(CommunityPost communityPost){
+    public void setCommunityPost(CommunityPost communityPost){
         this.communityPost = communityPost;
     }
-    public void changeUser(User user){
+    public void setCommunityReplyId(Long communityReplyId){
+        this.communityReplyId = communityReplyId;
+    }
+    public void setUser(User user){
         this.user = user;
     }
 

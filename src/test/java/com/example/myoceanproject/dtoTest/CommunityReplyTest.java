@@ -1,16 +1,17 @@
 package com.example.myoceanproject.dtoTest;
 
 
+import com.example.myoceanproject.domain.CommunityFileDTO;
+import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.domain.CommunityReplyDTO;
-import com.example.myoceanproject.entity.Ask;
-import com.example.myoceanproject.entity.CommunityPost;
-import com.example.myoceanproject.entity.CommunityReply;
-import com.example.myoceanproject.entity.User;
+import com.example.myoceanproject.domain.QCommunityReplyDTO;
+import com.example.myoceanproject.entity.*;
 import com.example.myoceanproject.repository.CommunityPostRepository;
 import com.example.myoceanproject.repository.CommunityReplyRepository;
 import com.example.myoceanproject.repository.UserRepository;
 import com.example.myoceanproject.type.AskCategory;
 import com.example.myoceanproject.type.AskStatus;
+import com.example.myoceanproject.type.CommunityCategory;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.example.myoceanproject.entity.QAsk.ask;
+import static com.example.myoceanproject.entity.QCommunityPost.communityPost;
 import static com.example.myoceanproject.entity.QCommunityReply.communityReply;
 
 @SpringBootTest
@@ -63,10 +65,10 @@ public class CommunityReplyTest {
         CommunityReply communityReply = communityReplyDTO.toEntity();
 
 //      userRepository 인터페이스 구현체 hibernate의 findbyid메서드로 유저를 검색후 추가
-        communityReply.changeUser(user.get());
+        communityReply.setUser(user.get());
 
 //      communityPostRepository 인터페이스 구현체 hibernate의 findbyid메서드로 게시글 검색후 추가
-        communityReply.changeCommunityPost(communityPost.get());
+        communityReply.setCommunityPost(communityPost.get());
 
 //      커뮤니티 댓글 테이블에 해당 내용 저장
         communityReplyRepository.save(communityReply);
@@ -74,47 +76,58 @@ public class CommunityReplyTest {
 
     @Test
     public void findAllTest(){
-        List<CommunityReply> communityReplies = jpaQueryFactory.selectFrom(communityReply)
-                .join(communityReply.user)
-                .join(communityReply.communityPost)
-                .where(communityReply.communityPost.communityPostId.eq(1L))
-                .where(communityReply.user.userId.eq(2L))
-                .groupBy(communityReply.communityReplyId)
-//                .orderBy(communityReply.updatedDate)
-                .fetchJoin()
-                .fetch();
-        communityReplies.stream().map(CommunityReply::toString).forEach(log::info);
+//        포스트 전체 글 불러오기
+        List<CommunityReplyDTO> communityReplies = jpaQueryFactory.select(new QCommunityReplyDTO(
+                communityReply.user.userId,
+                communityReply.user.userNickname,
+                communityReply.communityPost.communityPostId,
+                communityReply.communityReplyContent,
+                communityReply.user.userFileName,
+                communityReply.user.userFilePath,
+                communityReply.user.userFileSize,
+                communityReply.user.userFileUuid
+        )).from(communityReply).where(communityReply.communityPost.communityPostId.eq(1L)).fetch();
+
+        communityReplies.stream().map(CommunityReplyDTO::toString).forEach(log::info);
     }
 //
-//    @Test
-//    public void findById(){
-//        List<CommunityReply> communityReplies = jpaQueryFactory.selectFrom(communityReply)
-//                .join(communityReply.user)
-//                .join(communityReply.communityPost)
-//                .where(communityReply.user.userId.eq(1L))
-//                .fetchJoin()
-//                .fetch();
+    @Test
+    public void findById(){
+//        내 댓글... 이런 기능이 있나?
+        List<CommunityReplyDTO> communityReplies = jpaQueryFactory.select(new QCommunityReplyDTO(
+                communityReply.user.userId,
+                communityReply.user.userNickname,
+                communityReply.communityPost.communityPostId,
+                communityReply.communityReplyContent,
+                communityReply.user.userFileName,
+                communityReply.user.userFilePath,
+                communityReply.user.userFileSize,
+                communityReply.user.userFileUuid
+        )).from(communityReply).where(communityReply.user.userId.eq(1L)).fetch();
+
+        communityReplies.stream().map(CommunityReplyDTO::toString).forEach(log::info);
+
+    }
 //
-//        communityReplies.stream().map(CommunityReply::toString).forEach(log::info);
+    @Test
+    public void updateTest(){
+//        화면에서 선택한 댓글을 수정하고 컨트롤러에 전달함(DTO)
+//        컨트롤러에서 해당 댓글을 서비스를 통해 업데이트함(DTO -> Entity)
+
+        CommunityReplyDTO replyDTO = new CommunityReplyDTO(14L, "칸초코", 15L, "댓글 수정합니다", null, null, null, null);
+//        외부에서 넘겨온 포스트번호로 개체를 가져온다(영속성 컨텍스트가 관리하는 개체)
+        CommunityReply reply = jpaQueryFactory.selectFrom(communityReply).where(communityReply.communityReplyId.eq(1L)).fetchOne();
+
+        reply.setCommunityPost(communityPostRepository.findById(replyDTO.getCommunityPostId()).get());
+        reply.setCommunityReplyId(1L);
+
+        reply.update(replyDTO.getCommunityReplyContent());
+    }
 //
-//    }
-//
-//    @Test
-//    public void updateTest(){
-//
-//        CommunityReply communityReply = jpaQueryFactory.selectFrom(communityReply)
-//                .where(communityReply.communityReplyId.eq(5L))
-//                .fetchOne();
-//
-//        communityReply.update("수정된 댓글 내용");
-//    }
-//
-//    @Test
-//    public void deleteTest(){
-//        Long count = jpaQueryFactory
-//                .delete(communityReply)
-//                .where(communityReply.communityReplyId.eq(5L))
-//                .execute();
-//    }
+    @Test
+    public void deleteTest(){
+//      1번 리플 삭제
+        communityReplyRepository.delete(communityReplyRepository.findById(1L).get());
+    }
 
 }
