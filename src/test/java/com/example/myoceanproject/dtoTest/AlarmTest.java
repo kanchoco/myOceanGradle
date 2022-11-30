@@ -72,7 +72,7 @@ public class AlarmTest {
         communityPostDTO.setCommunityTitle("안녕");
         communityPostDTO.setCommunityContent("ahffkahffk");
         CommunityPost communityPost = communityPostDTO.toEntity();
-        communityPost.changeUser(userRepository.findById(1L).get());
+        communityPost.setUser(userRepository.findById(1L).get());
         communityPostRepository.save(communityPost);
 
 

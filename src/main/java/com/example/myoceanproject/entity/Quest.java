@@ -1,5 +1,6 @@
 package com.example.myoceanproject.entity;
 
+import com.example.myoceanproject.domain.QuestDTO;
 import com.sun.istack.NotNull;
 import lombok.*;
 
@@ -22,23 +23,26 @@ public class Quest extends Period{
     @NotNull
     private String questContent;
     private LocalDateTime questDeadLine;
+    private String questFileName;
+    private String questFilePath;
+    private String questFileUuid;
+    private Long questFileSize;
 
     @Builder
-    public Quest(String questCategory, String questName, String questContent, LocalDateTime questDeadLine/*, String filePath, String fileOriginName*/) {
+    public Quest(String questCategory, String questName, String questContent, LocalDateTime questDeadLine, String questFileName, String questFilePath, Long questFileSize, String questFileUuid) {
         this.questCategory = questCategory;
         this.questName = questName;
         this.questContent = questContent;
         this.questDeadLine = questDeadLine;
-//        this.file.setFilePath(filePath);
-//        this.file.setFileOriginName(fileOriginName);
+        this.questFileName = questFileName;
+        this.questFilePath = questFilePath;
+        this.questFileUuid = questFileUuid;
+        this.questFileSize = questFileSize;
     }
-    public void update(String questCategory, String questName, String questContent, LocalDateTime questDeadLine) {
-        this.questCategory = questCategory;
-        this.questName = questName;
-        this.questContent = questContent;
-        this.questDeadLine = questDeadLine;
+    public void update(QuestDTO questDTO) {
+        this.questCategory = questDTO.getQuestCategory();
+        this.questName = questDTO.getQuestName();
+        this.questContent = questDTO.getQuestContent();
+        this.questDeadLine = questDTO.getQuestDeadLine();
     }
-
-
-
 }
