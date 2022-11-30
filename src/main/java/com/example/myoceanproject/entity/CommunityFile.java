@@ -34,9 +34,8 @@ public class CommunityFile extends Period{
 
 
     //  양방향
-    public void changeCommunityPost(CommunityPost communityPost){
+    public void setCommunityPost(CommunityPost communityPost){
         this.communityPost = communityPost;
-//        communityPost.getCommunityFiles().add(this);
     }
 
     @Builder
