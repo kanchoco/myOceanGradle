@@ -1,25 +1,17 @@
 package com.example.myoceanproject.dtoTest;
 
-import com.example.myoceanproject.domain.AlarmDTO;
-import com.example.myoceanproject.domain.CommunityPostDTO;
-import com.example.myoceanproject.domain.CommunityReplyDTO;
-import com.example.myoceanproject.domain.UserDTO;
-import com.example.myoceanproject.entity.Alarm;
-import com.example.myoceanproject.entity.CommunityPost;
-import com.example.myoceanproject.entity.QAlarm;
-import com.example.myoceanproject.entity.User;
+import com.example.myoceanproject.domain.*;
+import com.example.myoceanproject.entity.*;
 import com.example.myoceanproject.repository.AlarmRepository;
 import com.example.myoceanproject.repository.CommunityPostRepository;
 import com.example.myoceanproject.repository.CommunityReplyRepository;
 import com.example.myoceanproject.repository.UserRepository;
-import com.example.myoceanproject.type.CommunityCategory;
-import com.example.myoceanproject.type.ReadStatus;
-import com.example.myoceanproject.type.UserAccountStatus;
-import com.example.myoceanproject.type.UserLoginMethod;
+import com.example.myoceanproject.type.*;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 
 import static com.example.myoceanproject.entity.QAlarm.alarm;
+import static com.example.myoceanproject.entity.QGroup.group;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,7 +65,7 @@ public class AlarmTest {
         communityPostDTO.setCommunityTitle("안녕");
         communityPostDTO.setCommunityContent("ahffkahffk");
         CommunityPost communityPost = communityPostDTO.toEntity();
-        communityPost.changeUser(userRepository.findById(1L).get());
+        communityPost.setUser(userRepository.findById(1L).get());
         communityPostRepository.save(communityPost);
 
 
@@ -98,39 +91,47 @@ public class AlarmTest {
 
     }
 
-//    @Test
-//    public void findAllTest(){
-//        List<Alarm> alarms = jpaQueryFactory.selectFrom(new QAlarm(alarm))
-//                .join(alarm.user)
-//                .fetchJoin()
-//                .fetch();
-//        alarms.stream().map(Alarm::toString).forEach(log::info);
-//    }
-//
-//    @Test
-//    public void findById(){
-//        List<Alarm> alarms = jpaQueryFactory.selectFrom(alarm)
-//                .join(alarm.user)
-//                .where(alarm.user.userId.eq(1L))
-//                .fetchJoin()
-//                .fetch();
-//
-//        alarms.stream().map(Alarm::toString).forEach(log::info);
-//
-//    }
-//
-//    @Test
-//    public void updateTest(){
-//
-//        Alarm alarm1 = jpaQueryFactory.selectFrom(alarm)
-//                .where(alarm.alarmContent.eq("첫 알람입니다."))
-//                .fetchOne();
-//
-//        alarm1.update(ReadStatus.UNREAD);
-//
-//    }
-//
-//    //    여러개의 컬럼을 update할땐 set을 여러번 사용한다
+    @Test
+    public void findAllTest(){
+        List<AlarmDTO> alarms = jpaQueryFactory.select(new QAlarmDTO(
+                alarm.user.userId,
+                alarm.user.userNickname,
+                alarm.alarmContent,
+                alarm.readStatus)).from(alarm).fetch();
+        alarms.stream().map(AlarmDTO::toString).forEach(log::info);
+    }
+
+    @Test
+    public void findById(){
+//        시나리오 : 유저의 아이디가 1인 알람만 select
+        List<AlarmDTO> alarms = jpaQueryFactory.select(new QAlarmDTO(
+                alarm.user.userId,
+                alarm.user.userNickname,
+                alarm.alarmContent,
+                alarm.readStatus)).where(alarm.user.userId.eq(1L)).from(alarm).fetch();
+        alarms.stream().map(AlarmDTO::toString).forEach(log::info);
+
+    }
+
+    @Test
+    public void updateTest(){
+//        상태를 read로 바꿔줌
+
+        AlarmDTO alarmDTO = new AlarmDTO();
+        alarmDTO.setUserId(1L);
+        alarmDTO.setReadStatus(ReadStatus.READ);
+
+//      외부에서 넘겨온 모임 게시글 번호로 영속성 컨텍스트가 관리하는 개체를 가져온다.
+        Alarm alarm1 = jpaQueryFactory.selectFrom(alarm).where(alarm.alarmId.eq(4L)).fetchOne();
+
+//      entity로 변환하며 수정이 불가한 내용들은 지워지고 update 메소드에 포함된 내용만 저장이 된다.
+        alarm1.setUser(userRepository.findById(alarmDTO.getUserId()).get());
+
+        alarm1.update();
+
+    }
+
+    //    여러개의 컬럼을 update할땐 set을 여러번 사용한다
 //    @Test
 //    public void updateMultipleTest(){
 //
