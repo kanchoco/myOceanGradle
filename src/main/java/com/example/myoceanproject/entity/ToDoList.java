@@ -1,5 +1,6 @@
 package com.example.myoceanproject.entity;
 
+import com.example.myoceanproject.domain.ToDoListDTO;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -28,9 +29,8 @@ public class ToDoList extends Period{
 
     
 //  양방향
-    public void changeUser(User user){
+    public void setUser(User user){
         this.user = user;
-        user.getToDoLists().add(this);
     }
 
 
@@ -41,8 +41,8 @@ public class ToDoList extends Period{
     }
 
 //  투두리스트의 내용과 날짜는 변경이 가능
-    public void update(String toDoListContent, LocalDateTime toDoListSelectDate) {
-        this.toDoListContent = toDoListContent;
-        this.toDoListSelectDate = toDoListSelectDate;
+    public void update(ToDoListDTO toDoListDTO) {
+        this.toDoListContent = toDoListDTO.getToDoListContent();
+        this.toDoListSelectDate = toDoListDTO.getToDoListSelectDate();
     }
 }
