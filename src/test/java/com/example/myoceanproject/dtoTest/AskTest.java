@@ -1,6 +1,7 @@
 package com.example.myoceanproject.dtoTest;
 
 import com.example.myoceanproject.domain.AskDTO;
+import com.example.myoceanproject.domain.QAskDTO;
 import com.example.myoceanproject.entity.Alarm;
 import com.example.myoceanproject.entity.Ask;
 import com.example.myoceanproject.entity.QAsk;
@@ -70,52 +71,76 @@ public class AskTest {
     @Test
     public void findAllTest(){
 //      모든 문의사항을 검색한다.
-        List<Ask> asks = jpaQueryFactory.selectFrom(ask)
-                .join(ask.user)
-                .fetchJoin()
-                .fetch();
-        asks.stream().map(Ask::toString).forEach(log::info);
+//      DTO로 반환
+        List<AskDTO> asks=jpaQueryFactory.select(new QAskDTO(
+                ask.user.userId,
+                ask.askStatus,
+                ask.askTitle,
+                ask.askContent,
+                ask.askCategory
+        )).from(ask).fetch();
+        log.info("------------------------------------------------------------");
+        asks.stream().map(AskDTO::toString).forEach(log::info);
+        log.info("------------------------------------------------------------");
     }
 
     @Test
     public void findAllById(){
 //      사용자의 문의사항 전부를 가져온다.
-        List<Ask> asks = jpaQueryFactory.selectFrom(ask)
-                .join(ask.user)
-                .where(ask.user.userId.eq(2L))
-                .fetchJoin()
-                .fetch();
-
-        asks.stream().map(Ask::toString).forEach(log::info);
+//      2번 사용자의 문의사항 전부를 가져온다.
+        List<AskDTO> asks=jpaQueryFactory.select(new QAskDTO(
+                ask.user.userId,
+                ask.askStatus,
+                ask.askTitle,
+                ask.askContent,
+                ask.askCategory
+        )).from(ask).where(ask.user.userId.eq(2L)).fetch();
+        log.info("------------------------------------------------------------");
+        asks.stream().map(AskDTO::toString).forEach(log::info);
+        log.info("------------------------------------------------------------");
     }
 
     @Test
     public void updateTest(){
-//      시나리오 : 사용자(2L)에 의해 수정되어 화면에서 입력받은 값들(AskStatus.COMPLETE)을 변경
-//      동적 queryDSL 사용을 위해 builder 객체 생성
-        BooleanBuilder builder=new BooleanBuilder();
+//      시나리오 : 관리자에 의해 사용자(2L)의 문의하기 상태가 변경된다.
+//      가져온 DTO, 수정된 내용
+        AskDTO askDTO=new AskDTO(2L,AskStatus.COMPLETE,null,null,null);
+//      외부에서 넘겨받은 문의하기 번호로 개체를 가져온다.
+        Ask asks=jpaQueryFactory.selectFrom(ask).where(ask.askId.eq(8L)).fetchOne();
 
-//      askRepository 인터페이스 구현체 hibernate의 findcategoryByuserId메서드로 문의하기 1개의 결과 조회
-        Ask askone=askRepository.findcategoryByuserId(2L,AskCategory.QUESTINFO);
+//      entity로 변환하면서, 수정이 불가한 내용들은 모두 지워진다.
+        asks.changeUser(userRepository.findById(askDTO.getUserId()).get());
+        asks.setAskId(8L);
 
-//      where절에 추가될 필드명
-        builder.and(ask.user.userId.eq(2L));
-        builder.and(ask.askCategory.eq(AskCategory.QUESTINFO));
+//      문의하기 상태가 변경된다.
+        asks.update(askDTO);
 
-//      동적 QueryDSL을 사용하여 문의하기 내용 업데이트
-        long asks = jpaQueryFactory.update(ask)
-                .set(ask.askStatus,AskStatus.COMPLETE)
-                .where(builder)
-                .execute();
     }
 
     @Test
+    public void modifyUpdateTest(){
+//      시나리오 : 사용자(2L)가 자신의 문의하기 제목과 내용을 변경
+//      가져온 DTO, 수정된 내용
+        AskDTO askDTO=new AskDTO(2L,null,"2번째 제목 변경","2번째 내용 변경",null);
+
+//      외부에서 넘겨받은 문의하기 번호로 개체를 조회
+        Ask asks=jpaQueryFactory.selectFrom(ask).where(ask.askId.eq(8L)).fetchOne();
+
+//      entity로 변환하면서, 수정이 불가한 내용들은 모두 지워진다.
+        asks.changeUser(userRepository.findById(askDTO.getUserId()).get());
+        asks.setAskId(8L);
+
+//      문의하기의 제목과 내용은 변경된다.
+        asks.modifyupdate(askDTO);
+    }
+    @Test
     public void deleteTest(){
 
-//      시나리오 :
-        Long count = jpaQueryFactory
-                .delete(ask)
-                .where(ask.askId.eq(15L))
-                .execute();
+//      시나리오 : 사용자(2L)가 자신의 문의하기 내용을 선택(QUETINFO)해서 삭제한다.
+//      화면에서 넘어온 문의하기 번호로 개체 조회
+        Ask asks=jpaQueryFactory.selectFrom(ask).where(ask.askId.eq(8L)).fetchOne();
+
+//      해당 문의하기 개체 삭제
+        askRepository.delete(asks);
     }
 }
