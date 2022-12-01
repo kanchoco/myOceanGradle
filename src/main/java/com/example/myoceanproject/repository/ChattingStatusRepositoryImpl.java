@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 import static com.example.myoceanproject.entity.QChattingStatus.chattingStatus;
-import static com.example.myoceanproject.entity.QGroupMember.groupMember;
+
 
 @Repository
 @RequiredArgsConstructor
