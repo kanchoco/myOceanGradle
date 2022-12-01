@@ -1,17 +1,13 @@
-package com.example.myoceanproject.repository;
+package com.example.myoceanproject.repository.community.like;
 
-import com.example.myoceanproject.domain.CommunityFileDTO;
-import com.example.myoceanproject.domain.QCommunityFileDTO;
 import com.example.myoceanproject.entity.CommunityLike;
 import com.example.myoceanproject.entity.CommunityPost;
-import com.querydsl.core.types.dsl.BooleanOperation;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.example.myoceanproject.entity.QCommunityFile.communityFile;
 import static com.example.myoceanproject.entity.QCommunityLike.communityLike;
 
 @Repository

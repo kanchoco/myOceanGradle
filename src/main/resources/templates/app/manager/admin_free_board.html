@@ -84,14 +84,14 @@
                             <span><a href="/manager/freeReply">댓글 관리</a></span>
                         </div>
                     </div>
-                    <div id="search_box_wrapper">
+                    <div id="search_box_wrapper" th:object="${criteria}">
                         <div id="search_box">
                             <button id="search_button">
                                 <img id="serch_icon"
                                      src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' viewBox='0 0 24 24'%3E %3Cpath stroke='%23AAA' stroke-width='2' d='M11 17c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6zM15 15l4.95 4.95'/%3E %3C/svg%3E"
                                      alt="" class="MagnifierImg__MagnfierImg-vdfqqy-0 kKRRUP">
                             </button>
-                            <input id="search_input" type="text" placeholder="게시글 검색">
+                            <input id="search_input" th:field="*{keyword}" th:value="*{keyword}" type="text" placeholder="게시글 검색">
                         </div>
                     </div>
                 </div>
@@ -120,7 +120,7 @@
                                     <td class="info_td" th:text="*{createDate}"></td>
                                     <td class="info_td" th:text="*{updatedDate}"></td>
                                     <td class="info_td">
-                                        <button class="more"><img src="/imgin/more.png" width="15px"></button>
+                                        <button class="more" onclick="removePost(this);"><img src="/imgin/more.png" width="15px"></button>
                                     </td>
                                 </tr>
                             </th:block>
@@ -130,36 +130,35 @@
 
                     </table>
                 </div>
-                <div id="page_changer_wrapper">
+                <div id="page_changer_wrapper" th:object="${pagination}">
                     <div id="previous_button_wrapper">
-                        <button class="previous_buttons">
+                        <a class="previous_buttons changePage"  th:href="${1}">
                             <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
                                  class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
-                        </button>
-                        <button class="previous_buttons">
+                        </a>
+                        <a class="previous_buttons changePage" th:href="${pagination.getNumber()}">
                             <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
                                  class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
-                        </button>
+                        </a>
                     </div>
-                    <button class="page">1</button>
-                    <button class="page">2</button>
-                    <button class="page">3</button>
-                    <button class="page">4</button>
-                    <button class="page">5</button>
-                    <button class="page">6</button>
-                    <button class="page">7</button>
-                    <button class="page">8</button>
-                    <button class="page">9</button>
+                    <th:block th:each="page:${#numbers.sequence((endPage == 10 ? endPage - 10 + 1 : 1), endPage)}">
+                        <a th:if="${pagination.getNumber()+1 != page}" th:href="${page}" class="page changePage" th:text="${page}"></a>
+                        <a th:unless="${pagination.getNumber()+1 != page}" th:href="${page}" class="page active" th:text="${page}"></a>
+                    </th:block>
                     <div id="next_button_wrapper">
-                        <button class="next_buttons">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-                                 class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
-                        </button>
-                        <button class="next_buttons">
+                        <a class="next_buttons changePage" th:href="${(pageable.getPageNumber()+2 > endPage? endPage : pageable.getPageNumber()+2)}">
                             <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
                                  class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
-                        </button>
+                        </a>
+                        <a class="next_buttons changePage"  th:href="${pagination.getTotalPages()}">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
+                                 class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
+                        </a>
                     </div>
+                    <form th:action="@{/manager/freeBoard}" th:object="${criteria}" name="pageForm">
+                        <input type="hidden" th:field="*{page}">
+                        <input type="hidden" th:field="*{keyword}">
+                    </form>
                 </div>
             </div>
         </div>
@@ -171,6 +170,20 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/js/manager/admin_free_board.js"></script>
 <script>
+    const $pages = $('a.changePage');
+
+    $("#search_input").on("keyup",function(key){
+        if(key.keyCode === 13) {
+            $(document.pageForm.keyword).val($(this).val());
+            document.pageForm.submit();
+        }
+    });
+
+    $pages.on("click", function(e){
+        e.preventDefault();
+        $(document.pageForm.page).val($(this).attr("href"));
+        document.pageForm.submit();
+    });
 </script>
 
 </html>

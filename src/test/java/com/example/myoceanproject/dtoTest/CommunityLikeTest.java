@@ -1,16 +1,17 @@
 package com.example.myoceanproject.dtoTest;
 
+import com.example.myoceanproject.domain.QUserDTO;
+import com.example.myoceanproject.domain.UserDTO;
 import com.example.myoceanproject.entity.CommunityLike;
 import com.example.myoceanproject.entity.CommunityPost;
 import com.example.myoceanproject.entity.User;
-import com.example.myoceanproject.repository.CommunityLikeRepository;
-import com.example.myoceanproject.repository.CommunityLikeRepositoryImpl;
-import com.example.myoceanproject.repository.CommunityPostRepository;
+import com.example.myoceanproject.repository.community.like.CommunityLikeRepository;
+import com.example.myoceanproject.repository.community.like.CommunityLikeRepositoryImpl;
+import com.example.myoceanproject.repository.community.post.CommunityPostRepository;
 import com.example.myoceanproject.repository.UserRepository;
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -54,7 +55,7 @@ public class CommunityLikeTest {
 
 //      userRepository 인터페이스 구현체 hibernate의 findById메서드를 이용해서
 //      다른 유저를 검색한다.
-        Optional<User> user = userRepository.findById(3L);
+        Optional<User> user = userRepository.findById(2L);
         
 //      화면에서 입력받는 내용은 없으며, 다른 유저의 요청에 의해 
 //      커뮤니티 게시판에 출력되는 좋아요 값을 변경하기 위해 communityLike객체 선언
@@ -78,16 +79,15 @@ public class CommunityLikeTest {
     public void findAllTest(){
 //        이건 화면에 출력되지 않으므로, 엔티티로 진행한다.
 //        -----------좋아요를 누른 유저의 정보를 가져오는것으로 변경함--------------
-        List<Tuple> communityLikes = jpaQueryFactory.select(
-                communityLike.userId,
-                user.userNickname,
-                user.userFileName,
-                user.userFilePath,
-                user.userFileSize,
-                user.userFileUuid
-                ).from(user).join(communityLike).on(communityLike.userId.eq(user.userId)).fetch();
+        List<UserDTO> communityLikes = jpaQueryFactory.select( new QUserDTO(
+                    user.userNickname,
+                    user.userFileName,
+                    user.userFilePath,
+                    user.userFileSize,
+                    user.userFileUuid
+                )).from(user).join(communityLike).on(communityLike.userId.eq(user.userId)).fetch();
         log.info("----------------------------------------------------------");
-        communityLikes.stream().map(Tuple::toString).forEach(log::info);
+        communityLikes.stream().map(UserDTO::toString).forEach(log::info);
         log.info("----------------------------------------------------------");
     }
 

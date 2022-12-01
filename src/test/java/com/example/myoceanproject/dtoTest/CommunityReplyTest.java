@@ -1,17 +1,12 @@
 package com.example.myoceanproject.dtoTest;
 
 
-import com.example.myoceanproject.domain.CommunityFileDTO;
-import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.domain.CommunityReplyDTO;
 import com.example.myoceanproject.domain.QCommunityReplyDTO;
 import com.example.myoceanproject.entity.*;
-import com.example.myoceanproject.repository.CommunityPostRepository;
-import com.example.myoceanproject.repository.CommunityReplyRepository;
+import com.example.myoceanproject.repository.community.post.CommunityPostRepository;
+import com.example.myoceanproject.repository.community.reply.CommunityReplyRepository;
 import com.example.myoceanproject.repository.UserRepository;
-import com.example.myoceanproject.type.AskCategory;
-import com.example.myoceanproject.type.AskStatus;
-import com.example.myoceanproject.type.CommunityCategory;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -24,8 +19,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static com.example.myoceanproject.entity.QAsk.ask;
-import static com.example.myoceanproject.entity.QCommunityPost.communityPost;
 import static com.example.myoceanproject.entity.QCommunityReply.communityReply;
 
 @SpringBootTest
