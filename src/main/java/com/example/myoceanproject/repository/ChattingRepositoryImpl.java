@@ -30,7 +30,7 @@ public class ChattingRepositoryImpl implements ChattingCustomRepository{
     //    유저 아이디를 받아서 받은 유저 정보와 그룹 멤버 테이블의 유저 정보가 일치할 경우 그룹 아이디를 가지고 옴
     @Override
     public List<GroupDTO> findByUserId(Long userId) {
-        List<GroupDTO> groupDTOList = queryFactory.select(new QGroupDTO(
+        return queryFactory.select(new QGroupDTO(
                 group.user.userId,
                 group.user.userNickname,
                 group.groupName,
@@ -51,9 +51,11 @@ public class ChattingRepositoryImpl implements ChattingCustomRepository{
                 group.groupFileSize,
                 group.groupMemberLimit.maxMember,
                 group.groupMemberLimit.minMember
-        )).from(group).on(group.user.userId.eq(userId)).fetch();
+        )).from(group)
+                .join(groupMember)
+                .on(groupMember.group.groupId.eq(group.groupId))
+                .where(groupMember.user.userId.eq(userId)).fetch();
 
-        return groupDTOList;
 
 
     }

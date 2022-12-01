@@ -47,7 +47,7 @@ public class UserTest {
 //      입력받은 패스워드를 암호화하기 위한 과정
         String pw="qweQWE123!@#";
         String encryptPw=encryption(pw);
-        
+
 //      DTO객체에 화면에서 입력받은 정보와 계정의 추가 상태를 지정한다.
         userDTO.setUserEmail("whei1234@naver.com");
         userDTO.setUserNickname("notebook");
@@ -58,7 +58,7 @@ public class UserTest {
 
 //      toEntity메서드로 User타입의 엔티티에 저장
         User user=userDTO.toEntity();
-        
+
 //      유저 테이블에 저장
         userRepository.save(user);
 

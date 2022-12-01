@@ -2,6 +2,7 @@ package com.example.myoceanproject.dtoTest;
 
 import com.example.myoceanproject.domain.ChattingDTO;
 import com.example.myoceanproject.domain.ChattingStatusDTO;
+import com.example.myoceanproject.domain.GroupDTO;
 import com.example.myoceanproject.domain.QChattingDTO;
 import com.example.myoceanproject.entity.*;
 import com.example.myoceanproject.repository.*;
@@ -110,10 +111,13 @@ public class ChattingTest {
         chattingStatusList.stream().forEach(v-> v.update(ReadStatus.READ));
     }
 
-//    @Test
-//    public void findByUserId(){
-//        chattingRepositoryImpl.findByUserId()
-//    }
+    @Test
+    public void findByUserId(){
+        log.info("===================================================================================");
+        chattingRepositoryImpl.findByUserId(5L).stream().map(GroupDTO::toString).forEach(log::info);
+        log.info("===================================================================================");
+
+    }
 //
 //    @Test
 //    public void deleteTest(){

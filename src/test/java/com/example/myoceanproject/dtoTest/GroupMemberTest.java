@@ -73,8 +73,6 @@ public class GroupMemberTest {
         groupDTO.setGroupFilePath("FilePath");
         groupDTO.setGroupFileUuid(3298457L);
         groupDTO.setGroupFileSize(100L);
-        groupDTO.setStartTime(LocalDateTime.now());
-        groupDTO.setEndTime(LocalDateTime.now());
 
         Group group1 = groupDTO.toEntity();
         group1.setUser(userRepository.findById(18L).get());
