@@ -15,16 +15,17 @@ $('.noticeEx').css('display', '');
 //다이어리
 // 임시 데이터
 const data = [
-    { date: '2022-10-15', startTime: '' },
-    { date: '2022-10-03', startTime: '테스트2' },
-    { date: '2022-10-15', startTime: '테스트3' },
-    { date: '2022-10-26', startTime: '테스트4' },
-    { date: '2022-10-21', startTime: '테스트5' },
-    { date: '2022-11-21', startTime: '18:48' },
-    { date: '2022-11-03', startTime: '12:00' },
-    { date: '2022-11-15', startTime: '13:00' },
-    { date: '2022-11-20', startTime: '16:00' },
+    // { date: '2022-10-15', startTime: '' },
+    // { date: '2022-10-03', startTime: '테스트2' },
+    // { date: '2022-10-15', startTime: '테스트3' },
+    // { date: '2022-10-26', startTime: '테스트4' },
+    // { date: '2022-10-21', startTime: '테스트5' },
+    // { date: '2022-11-21', startTime: '18:48' },
+    // { date: '2022-11-03', startTime: '12:00' },
+    // { date: '2022-11-15', startTime: '13:00' },
+    // { date: '2022-11-20', startTime: '16:00' },
 ];
+
 
 // 데이터 가공
 const calendarList = data.reduce(
@@ -337,8 +338,14 @@ $('#placeAddress').on('blur', function(){
 });
 
 
+
 // 일정 추가 버튼 클릭 -> 모달창 열기
 $('.day-btn').on('click', function(){
+    // 일정 추가 버튼 유효성 검사
+    if($(".cancelRecruitment").css("display")=="none"){
+        alert("일정 설정은 저장 후 가능합니다.");
+        return;
+    }
     $('#__BVID__287___BV_modal_outer_').show();
     $('#__BVID__287___BV_modal_content_').hide();
     $('#__BVID__21___BV_modal_content_').hide();
@@ -414,6 +421,9 @@ $('.createPlan').on('click', function(){
     if($('.timeNotice').css('display') != 'none'){
         return;
     }
+    
+    
+    //rest로 일정 등록해서 집어 넣을 공간
 
     $('#__BVID__287___BV_modal_outer_').hide();
     $('#__BVID__1216___BV_modal_content_').hide();
@@ -531,18 +541,48 @@ $('.checkRequest').on('click', function (){
 
 });
 
+//REST 방식으로 저장하기
+let groupSave = (function(){
+    function add(groupContents, callback, error){
+        $.ajax({
+            url: "/host/index",
+            type: "post",
+            data: JSON.stringify(groupContents),
+            contentType: "application/json; charset=utf-8",
+            success: function(result, status, xhr) {
+                if (callback) {
+                    callback(result);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+    return {add: add}
+})();
+
+
 //임시 저장 버튼
 $('.saveRecruitment').on('click', function (){
+
+    // 일정 추가 버튼 생성
+    $(".btn.frip-button.btn-outline-frip-primary").eq(1).show();
     $('.cancelRecruitment').show();
     $('#__BVID__287___BV_modal_outer_').show();
     $('#__BVID__287___BV_modal_content_').hide();
     $('#__BVID__21___BV_modal_content_').hide();
     $('#__BVID__1216___BV_modal_content_').hide();
     $('#__BVID__123___BV_modal_content_').show();
+
+
 });
 
 //임시 저장 확인
-$('.saveRequest').on('click', function (){
+$('.saveRequest').on('click', function (e){
+    e.preventDefault();
     $('#__BVID__287___BV_modal_outer_').hide();
 
     //groupLocationType 설정
@@ -566,7 +606,6 @@ $('.saveRequest').on('click', function (){
     } else{
         $('input[name=groupParkingAvailable]').attr('value', "불가");
     }
-
     // 국내/해외
     if($(".my-2.custom-control.custom-radio").val()==true){
         $('input[name=groupOverSea]').attr('value', "국내");
@@ -577,10 +616,23 @@ $('.saveRequest').on('click', function (){
     //  실제 작성한 내용
     let content = tinymce.activeEditor.getContent();
     $('input[name=groupContent]').attr('value', content);
-    
-    // 컨트롤러로 해당 내용 모두 전송
-    $('#groupForm').submit();
 
+    // 컨트롤러로 해당 내용 모두 전송
+    groupSave.add({
+            groupName : $('input[name=groupName]').val(),
+            groupCategory : $('input[name=groupCategory]').val(),
+            groupContent :$('input[name=groupContent]').val(),
+            groupPoint : $('input[name=groupPoint]').val(),
+            groupOverSea : $('input[name=groupOverSea]').val(),
+            groupLocationName : $('input[name=groupLocationName]').val(),
+            groupLocation : $('input[name=groupLocation]').val(),
+            groupLocationDetail : $('input[name=groupLocationDetail]').val(),
+            groupParkingAvailable : $('input[name=groupMoreInformation]').val(),
+            groupMoreInformation : $('input[name=groupMoreInformation]').val(),
+            groupLocationType : $('input[name=groupLocationType]').val(),
+            maxMember : $('input[name=maxMember]').val(),
+            minMember : $('input[name=minMember]').val()
+        })
 });
 
 //에디터
