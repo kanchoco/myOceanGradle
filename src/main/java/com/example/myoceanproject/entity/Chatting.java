@@ -1,16 +1,15 @@
 package com.example.myoceanproject.entity;
 
-import com.example.myoceanproject.type.ReadStatus;
 import com.sun.istack.NotNull;
 import lombok.*;
-import org.hibernate.mapping.List;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "TBL_CHATTING")
 @Getter
-@ToString(exclude = {"group", "senderGroupMember"})
+@ToString(exclude = {"group", "senderGroupMember", "chattingStatusList"})
 @NoArgsConstructor
 //        (access = AccessLevel.PROTECTED)
 public class Chatting extends Period{
@@ -28,6 +27,9 @@ public class Chatting extends Period{
     @NotNull
     private GroupMember senderGroupMember;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "chatting")
+    private List<ChattingStatus> chattingStatusList;
+
     @NotNull
     private String chattingContent;
 
@@ -42,9 +44,11 @@ public class Chatting extends Period{
     }
 
 
+
     //  group이 생성되고 chatting이 생성되기 때문에 Builder에는 group을 넣지 않는다.
     @Builder
-    public Chatting(String chattingContent) {
+    public Chatting(java.util.List<ChattingStatus> chattingStatusList, String chattingContent) {
+        this.chattingStatusList = chattingStatusList;
         this.chattingContent = chattingContent;
     }
 

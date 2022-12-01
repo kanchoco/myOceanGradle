@@ -21,13 +21,6 @@ public class ChattingDTO {
     private Long senderUserFileSize;
     private Long senderUserFileUuid;
 
-    //    받는 사람 관련 유저 정보
-    private Long receiverUserId;
-    private String receiverUserNickName;
-    private String receiverUserFileName;
-    private String receiverUserFilePath;
-    private Long receiverUserFileSize;
-    private Long receiverUserFileUuid;
 
 //    그룹 관련
     private Long groupId;
@@ -35,7 +28,7 @@ public class ChattingDTO {
     private String groupFilePath;
     private String groupFileName;
 
-    private String groupFileUuid;
+    private Long groupFileUuid;
     private Long groupFileSize;
 //    보내는 사람의 groupMemberId
     private Long senderGroupMemberId;
@@ -45,19 +38,13 @@ public class ChattingDTO {
     private String chattingContent;
 
     @QueryProjection
-    public ChattingDTO(Long senderUserId, String senderUserNickName, String senderUserFileName, String senderUserFilePath, Long senderUserFileSize, Long senderUserFileUuid, Long receiverUserId, String receiverUserNickName, String receiverUserFileName, String receiverUserFilePath, Long receiverUserFileSize, Long receiverUserFileUuid, Long groupId, String groupName, String groupFilePath, String groupFileName, String groupFileUuid, Long groupFileSize, Long senderGroupMemberId, Long receiverGroupMemberId, String chattingContent) {
+    public ChattingDTO(Long senderUserId, String senderUserNickName, String senderUserFileName, String senderUserFilePath, Long senderUserFileSize, Long senderUserFileUuid, Long groupId, String groupName, String groupFilePath, String groupFileName, Long groupFileUuid, Long groupFileSize, Long senderGroupMemberId, String chattingContent) {
         this.senderUserId = senderUserId;
         this.senderUserNickName = senderUserNickName;
         this.senderUserFileName = senderUserFileName;
         this.senderUserFilePath = senderUserFilePath;
         this.senderUserFileSize = senderUserFileSize;
         this.senderUserFileUuid = senderUserFileUuid;
-        this.receiverUserId = receiverUserId;
-        this.receiverUserNickName = receiverUserNickName;
-        this.receiverUserFileName = receiverUserFileName;
-        this.receiverUserFilePath = receiverUserFilePath;
-        this.receiverUserFileSize = receiverUserFileSize;
-        this.receiverUserFileUuid = receiverUserFileUuid;
         this.groupId = groupId;
         this.groupName = groupName;
         this.groupFilePath = groupFilePath;
@@ -65,7 +52,6 @@ public class ChattingDTO {
         this.groupFileUuid = groupFileUuid;
         this.groupFileSize = groupFileSize;
         this.senderGroupMemberId = senderGroupMemberId;
-        this.receiverGroupMemberId = receiverGroupMemberId;
         this.chattingContent = chattingContent;
     }
 
