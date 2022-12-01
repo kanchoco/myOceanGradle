@@ -1,6 +1,8 @@
 server:
   port: 15000
 spring:
+  mustache:
+    suffix: .html
   devtools:
     livereload:
       enabled: true
