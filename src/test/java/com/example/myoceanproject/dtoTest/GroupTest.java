@@ -63,7 +63,7 @@ public class GroupTest {
         groupDTO.setGroupStatus(GroupStatus.WAITING);
         groupDTO.setGroupLocationType(GroupLocationType.ONLINE);
         groupDTO.setGroupFileSize(10L);
-        groupDTO.setGroupFileUuid("Uuid");
+        groupDTO.setGroupFileUuid(2389579825L);
         groupDTO.setGroupFilePath("filePath");
         groupDTO.setGroupFileName("groupName");
 
@@ -150,7 +150,7 @@ public class GroupTest {
         groupDTO.setGroupStatus(GroupStatus.WAITING);
         groupDTO.setGroupFilePath("수정 파일");
         groupDTO.setGroupFileName("수정 파일 이름");
-        groupDTO.setGroupFileUuid("수정 UUID");
+        groupDTO.setGroupFileUuid(243598725L);
         groupDTO.setGroupFileSize(155L);
         groupDTO.setMaxMember(15);
         groupDTO.setMinMember(1);

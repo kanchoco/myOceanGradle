@@ -71,18 +71,18 @@ public class GroupMemberTest {
         groupDTO.setMinMember(5);
         groupDTO.setGroupFileName("FileName");
         groupDTO.setGroupFilePath("FilePath");
-        groupDTO.setGroupFileUuid("FileUuid");
+        groupDTO.setGroupFileUuid(3298457L);
         groupDTO.setGroupFileSize(100L);
         groupDTO.setStartTime(LocalDateTime.now());
         groupDTO.setEndTime(LocalDateTime.now());
 
         Group group1 = groupDTO.toEntity();
-        group1.setUser(userRepository.findById(11L).get());
+        group1.setUser(userRepository.findById(20L).get());
         groupRepository.save(group1);
         GroupMember groupMember = new GroupMember();
 
-        groupMember.setUser(userRepository.findById(11L).get());
-        groupMember.setGroup(groupRepository.findById(4L).get());
+        groupMember.setUser(userRepository.findById(20L).get());
+        groupMember.setGroup(groupRepository.findById(10L).get());
 
         groupMemberRepository.save(groupMember);
     }
