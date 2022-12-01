@@ -1,7 +1,8 @@
-package com.example.myoceanproject.repository.community;
+package com.example.myoceanproject.repository.community.post;
 
 import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.domain.QCommunityPostDTO;
+import com.example.myoceanproject.repository.community.reply.CommunityReplyRepositoryImpl;
 import com.example.myoceanproject.type.CommunityCategory;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;

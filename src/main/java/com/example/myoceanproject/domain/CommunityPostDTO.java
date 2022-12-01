@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Component
 @Data
@@ -32,9 +33,9 @@ public class CommunityPostDTO {
 
     private int communityReplyCount;
 
-    private LocalDateTime createDate;
+    private String createDate;
 
-    private LocalDateTime updatedDate;
+    private String updatedDate;
 
 
 
@@ -51,8 +52,8 @@ public class CommunityPostDTO {
         this.communityTitle = communityTitle;
         this.communityContent = communityContent;
         this.communityViewNumber = communityViewNumber;
-        this.createDate = createDate;
-        this.updatedDate = updatedDate;
+        this.createDate = createDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.updatedDate = updatedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
 

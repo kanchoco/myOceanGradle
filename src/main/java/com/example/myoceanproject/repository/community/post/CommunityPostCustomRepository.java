@@ -1,4 +1,4 @@
-package com.example.myoceanproject.repository.community;
+package com.example.myoceanproject.repository.community.post;
 
 import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.type.CommunityCategory;

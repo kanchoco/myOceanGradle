@@ -1,4 +1,4 @@
-package com.example.myoceanproject.repository.community;
+package com.example.myoceanproject.repository.community.reply;
 
 import com.example.myoceanproject.entity.CommunityLike;
 import com.example.myoceanproject.entity.CommunityPost;

@@ -3,25 +3,28 @@ package com.example.myoceanproject.dtoTest;
 import com.example.myoceanproject.domain.*;
 import com.example.myoceanproject.entity.*;
 import com.example.myoceanproject.repository.*;
+import com.example.myoceanproject.repository.community.file.CommunityFileRepository;
+import com.example.myoceanproject.repository.community.file.CommunityFileRepositoryImpl;
+import com.example.myoceanproject.repository.community.like.CommunityLikeRepositoryImpl;
+import com.example.myoceanproject.repository.community.post.CommunityPostRepository;
+import com.example.myoceanproject.repository.community.reply.CommunityReplyRepository;
+import com.example.myoceanproject.repository.community.reply.CommunityReplyRepositoryImpl;
 import com.example.myoceanproject.type.CommunityCategory;
-import com.example.myoceanproject.type.ReadStatus;
-import com.example.myoceanproject.type.UserAccountStatus;
-import com.example.myoceanproject.type.UserLoginMethod;
-import com.querydsl.core.types.EntityPath;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.myoceanproject.entity.QAlarm.alarm;
-import static com.example.myoceanproject.entity.QCommunityFile.communityFile;
 import static com.example.myoceanproject.entity.QCommunityPost.communityPost;
 import static com.example.myoceanproject.entity.QCommunityReply.communityReply;
 
@@ -40,7 +43,7 @@ public class CommunityPostTest {
     private CommunityFileRepository communityFileRepository;
 
     @Autowired
-    private  CommunityReplyRepository replyRepository;
+    private CommunityReplyRepository replyRepository;
 
     @Autowired
     private CommunityFileRepositoryImpl fileRepositoryImpl;
@@ -61,7 +64,7 @@ public class CommunityPostTest {
 
 //      userRepository 인터페이스 구현체 hibernate의 findById메서드를 이용해서
 //      커뮤니티 게시글의 작성자를 추가하기위해 검색
-        Optional<User> user=userRepository.findById(1L);
+        Optional<User> user=userRepository.findById(2L);
         
 //      화면에서 입력받는 값들을 위해 게시판,파일 DTO 객체 선언
         CommunityPostDTO communityPostDTO=new CommunityPostDTO();
@@ -99,7 +102,9 @@ public class CommunityPostTest {
         communityFile.setCommunityPost(postRepository.findTop1ByOrderByCommunityPostIdDesc());
 
 //      커뮤니티 파일 테이블에 해당 내용을 저장
-        communityFileRepository.save(communityFile);
+        for (int i = 0; i<10; i++){
+            communityFileRepository.save(communityFile);
+        }
 
     }
 
@@ -145,11 +150,59 @@ public class CommunityPostTest {
                 communityPost.communityViewNumber,
                 communityPost.createDate,
                 communityPost.updatedDate
-        )).from(communityPost).where(communityPost.user.userId.eq(14L)).fetch();
+        )).from(communityPost).where(communityPost.communityCategory.eq(CommunityCategory.FREEBOARD)).orderBy(communityPost.communityPostId.desc()).fetch();
 
         log.info("------------------------------------------------------------");
         posts.stream().map(CommunityPostDTO::toString).forEach(log::info);
         log.info("------------------------------------------------------------");
+    }
+
+    @Test
+    public void pageTest(){
+        Pageable pageable = PageRequest.of(0, 10);
+
+        log.info(pageable.getPageNumber() + "number");
+        log.info(pageable.first() + "");
+        log.info(pageable.getOffset() + "offset");
+        log.info(pageable.getPageSize() + "size");
+
+        List<CommunityPostDTO> posts = jpaQueryFactory.select(new QCommunityPostDTO(
+                        communityPost.communityPostId,
+                        communityPost.user.userId,
+                        communityPost.user.userNickname,
+                        communityPost.user.userFileName,
+                        communityPost.user.userFilePath,
+                        communityPost.user.userFileSize,
+                        communityPost.user.userFileUuid,
+                        communityPost.communityCategory,
+                        communityPost.communityTitle,
+                        communityPost.communityContent,
+                        communityPost.communityViewNumber,
+                        communityPost.createDate,
+                        communityPost.updatedDate
+                ))
+                .from(communityPost)
+                .where(communityPost.communityCategory.eq(CommunityCategory.FREEBOARD))
+                .orderBy(communityPost.communityPostId.desc())
+                .offset(pageable.getPageNumber())
+                .limit(pageable.getPageSize()).fetch();
+
+        posts.stream().forEach(communityPostDTO -> {
+            communityPostDTO.setCommunityReplyCount(replyRepositoryImpl.CountReplyByCommunityPost(communityPostDTO.getCommunityPostId()));
+        });
+        long total = jpaQueryFactory.selectFrom(communityPost)
+                .where(communityPost.communityCategory.eq(CommunityCategory.FREEBOARD))
+                .fetch().size();
+
+        Page<CommunityPostDTO> postDTOPage = new PageImpl<>(posts, pageable, total);
+        log.info(postDTOPage.getTotalPages() + "total");
+        log.info(postDTOPage.getNumber() + "number");
+        log.info(postDTOPage.getNumberOfElements() + "numberofelement");
+        log.info(postDTOPage.getSize() + "size");
+        log.info("-----------------------posts--------------------------------------------");
+        posts.stream().map(CommunityPostDTO::toString).forEach(log::info);
+        log.info("-----------------------getContent--------------------------------------------");
+        postDTOPage.getContent().stream().map(CommunityPostDTO::toString).forEach(log::info);
     }
 
     @Test

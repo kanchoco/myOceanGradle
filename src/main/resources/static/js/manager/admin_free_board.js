@@ -16,6 +16,17 @@ $(document).ready(function () {
     });
 });
 
+$('#search_input').on('focus', function(){
+    console.log('ddd');
+    $(this).css('border', 'none');
+});
+
+// $('page').on('click',function (){
+//     $('page').attr('class', 'page');
+//    if(!$(this).attr('class') === 'page active'){
+//     $(this).attr('class', 'page active');
+//    }
+// });
 
 var Target = document.getElementById("clock");
 
@@ -46,24 +57,22 @@ let temp = 0;
 let $tr = $("#info_table").find('tr');
 let accountCondition = null;
 
-$tr.find('.more').click(function () {
+function removePost(tag){
     if (temp == 1) {
         temp--;
-        $(this).parent().children('.account-modal').remove();
+        $(tag).parent().children('.account-modal').remove();
     } else {
         temp++;
-        $(this).parent().append("<div class=\"account-modal\">\n" +
+        $(tag).parent().append("<div class=\"account-modal\">\n" +
             "    <button class=\"account-modal-button\">삭제</button>\n" +
             "</div>")
-        $(this).next().find('.account-modal-button').click(function () {
-            $(this).closest('.account-modal').remove()
-            $(this).remove()
+        $(tag).next().find('.account-modal-button').click(function () {
+            $(tag).closest('.account-modal').remove()
+            $(tag).remove()
             temp--;
         })
     }
-})
-
-
+}
 
 // 상단 필터 클릭시 색 변화
 // 하나 클릭하면 나머지는 색 없어짐

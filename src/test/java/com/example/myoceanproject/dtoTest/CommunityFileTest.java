@@ -1,12 +1,11 @@
 package com.example.myoceanproject.dtoTest;
 
 import com.example.myoceanproject.domain.CommunityFileDTO;
-import com.example.myoceanproject.entity.Alarm;
 import com.example.myoceanproject.entity.CommunityFile;
 import com.example.myoceanproject.entity.CommunityPost;
-import com.example.myoceanproject.repository.CommunityFileRepository;
-import com.example.myoceanproject.repository.CommunityFileRepositoryImpl;
-import com.example.myoceanproject.repository.CommunityPostRepository;
+import com.example.myoceanproject.repository.community.file.CommunityFileRepository;
+import com.example.myoceanproject.repository.community.file.CommunityFileRepositoryImpl;
+import com.example.myoceanproject.repository.community.post.CommunityPostRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;

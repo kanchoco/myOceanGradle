@@ -1,4 +1,4 @@
-package com.example.myoceanproject.repository.community;
+package com.example.myoceanproject.repository.community.post;
 
 import com.example.myoceanproject.entity.CommunityPost;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,7 +1,7 @@
-package com.example.myoceanproject.service;
+package com.example.myoceanproject.service.community;
 
 import com.example.myoceanproject.domain.CommunityPostDTO;
-import com.example.myoceanproject.repository.community.CommunityPostRepositoryImpl;
+import com.example.myoceanproject.repository.community.post.CommunityPostRepositoryImpl;
 import com.example.myoceanproject.type.CommunityCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
