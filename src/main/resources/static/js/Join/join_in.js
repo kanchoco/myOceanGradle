@@ -26,10 +26,14 @@ $(loginForm.email).on("change input",function(){
     if(!emailRegex.test($emailCheck.value)){
         $("input[name='email']").attr("class","Form__Input-sc-1quypp7-1 hYhAPw");
         $(".bViOzS").text("올바른 이메일 형식이 아닙니다.");
+        $("button[type='submit']").attr("disabled",true);
+        $("button[type='submit']").attr("class","Button-bqxlp0-0 SubmitButton__RegisterPageSubmitButton-np91gr-0 chSrfn");
         if($emailCheck.value==""){
             $("p.bViOzS").text("");
             $("input[name='email']").attr("class","Form__Input-sc-1quypp7-1 iRBMai");
             $("input[name='email']").css("border","");
+            $("button[type='submit']").attr("disabled",true);
+            $("button[type='submit']").attr("class","Button-bqxlp0-0 SubmitButton__RegisterPageSubmitButton-np91gr-0 chSrfn");
         }
     }
     else if(emailRegex.test($emailCheck.value)){
@@ -98,14 +102,15 @@ function checkemail(){
             }
             else{
                 $("p.bViOzS").text("");
-                $("button[type='submit']").attr("disabled",false);
-                $("button[type='submit']").attr("class","Button-bqxlp0-0 SubmitButton__RegisterPageSubmitButton-np91gr-0 foCOgK");
+                if($passwordCheck.value==$passwordConfrim.value) {
+                    $("button[type='submit']").attr("disabled",false);
+                    $("button[type='submit']").attr("class","Button-bqxlp0-0 SubmitButton__RegisterPageSubmitButton-np91gr-0 foCOgK");
+                }
             }
         },
         error:function(status,error){
             console.log("error");
             console.log(status,error);
         }
-
     });
 }

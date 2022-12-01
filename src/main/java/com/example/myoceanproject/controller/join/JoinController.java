@@ -2,13 +2,17 @@ package com.example.myoceanproject.controller.join;
 
 import com.example.myoceanproject.domain.QUserDTO;
 import com.example.myoceanproject.domain.UserDTO;
+import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.repository.UserRepository;
+import com.example.myoceanproject.type.UserAccountStatus;
+import com.example.myoceanproject.type.UserLoginMethod;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -84,17 +88,23 @@ public class JoinController {
                 user.userTotalPoint
         )).from(user).where(user.userNickname.eq(nickname)).fetch();
 
-        return users.get(0).getUserNickname();
+        if(users.size()>=1){
+            return "unavailable";
+        }else{return "available";}
     }
 
     // 회원가입 버튼 클릭후 메인 홈페이지 이동
     @PostMapping("/joinOk")
     public String joinOk(UserDTO userDTO){
-        log.info(userDTO.getUserEmail());
-        log.info(userDTO.getUserNickname());
-        log.info(userDTO.getUserPassword());
-        return "app/Main/main";
+        userDTO.setUserPassword(encryption(userDTO.getUserPassword()));
+        userDTO.setUserTotalPoint(5000);
+        userDTO.setUserAccountStatus(UserAccountStatus.ACTIVE);
+        userDTO.setUserLoginMethod(UserLoginMethod.GENERAL);
+        User user=userDTO.toEntity();
+        userRepository.save(user);
+        return "redirect:/main/index";
     }
+
     public String encryption(String userPassword){
         String alg = "AES/CBC/PKCS5Padding";
         //키

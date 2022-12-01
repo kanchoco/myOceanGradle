@@ -2,8 +2,6 @@ package com.example.myoceanproject.dtoTest;
 
 import com.example.myoceanproject.domain.QUserDTO;
 import com.example.myoceanproject.domain.UserDTO;
-import com.example.myoceanproject.entity.Alarm;
-import com.example.myoceanproject.entity.QUser;
 import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.repository.UserRepository;
 import com.example.myoceanproject.type.UserAccountStatus;
@@ -19,12 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
-import java.security.GeneralSecurityException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.List;
 

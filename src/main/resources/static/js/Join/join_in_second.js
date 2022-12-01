@@ -66,8 +66,10 @@ $(joinForm.userEmail).on("change input",function(){
         $("p.bViOzSS").text("");
         $("input[name='userEmail']").attr("class","Form__Input-sc-1quypp7-1 iRBMai");
         $("input[name='userEmail']").css("border","");
+
         $("button[name='sendemail']").attr("disabled",false);
         $("button[name='sendemail']").attr("class","Button-bqxlp0-0 jDtYZb");
+        checkEmail();
     }
 });
 
@@ -268,15 +270,6 @@ var alreadycheck=false;
 /* 버튼의 초기 텍스트 변경 */
 $(".eMDzoo").html("모두 동의하고 가입하기");
 
-
-
-
-
-
-
-
-
-
 /* 약관동의 첫번째 버튼 클릭시 */
 $("#btn1").on("click",function(){
     /* 체크버튼 누를때 */
@@ -417,7 +410,7 @@ function checknickname(){
         data:$nicknameCheck.value,
         success:function(result){
             console.log(result);
-            if(result==$nicknameCheck.value){
+            if(result=="unavailable"){
                 $("input[name='userNickname']").attr("class","Form__Input-sc-1quypp7-1 hYhAPw");
                 $(".bViOzS").text("이미 사용중인 닉네임입니다.");
             }else{
@@ -431,6 +424,37 @@ function checknickname(){
             console.log(status,error);
         }
 
+    })
+}
+
+function checkEmail(){
+    $.ajax({
+        url:"checkUserEmail",
+        type:"post",
+        headers:{"Content-Type":"application/json"},
+        data:$emailCheck.value,
+        dataType:"text",
+        success:function(result){
+            console.log("result:"+result);
+            if(result=="unavailable"){
+                console.log("unavailable in");
+                $("input[name='userEmail']").attr("class","Form__Input-sc-1quypp7-1 hYhAPw");
+                $(".bViOzSS").text("이미 가입된 이메일입니다.");
+                $("button[name='sendemail']").attr("disabled",true);
+                $("button[name='sendemail']").attr("class","Button-bqxlp0-0 gsRKCU");
+            }else{
+                console.log("available in");
+                $("p.bViOzSS").text("");
+                $("input[name='userEmail']").attr("class","Form__Input-sc-1quypp7-1 iRBMai");
+                $("input[name='userEmail']").css("border","");
+
+                $("button[name='sendemail']").attr("disabled",false);
+                $("button[name='sendemail']").attr("class","Button-bqxlp0-0 jDtYZb");
+            }
+        },
+        error:function(status,error){
+            console.log(status,error);
+        }
     })
 }
 
