@@ -35,7 +35,12 @@ public class Group extends Period{
     private String groupCategory;
     @NotNull
     private int groupPoint;
+    private String groupOverSea;
+    private String groupLocationName;
     private String groupLocation;
+    private String groupLocationDetail;
+    private String groupParkingAvailable;
+    private String groupMoreInformation;
     @NotNull
     private String groupFilePath;
     @NotNull
@@ -65,11 +70,16 @@ public class Group extends Period{
     }
 
     @Builder
-    public Group(String groupName, String groupCategory, String groupContent, int groupPoint, String groupLocation, GroupLocationType groupLocationType, GroupStatus groupStatus, GroupMemberLimit groupMemberLimit, GroupTime groupTime, String groupFileName, String groupFilePath, Long groupFileSize, Long groupFileUuid) {        this.groupName = groupName;
+    public Group(String groupName, String groupCategory, String groupContent, int groupPoint, String groupOverSea, String groupLocationName, String groupLocation, String groupLocationDetail, String groupParkingAvailable, String groupMoreInformation, GroupLocationType groupLocationType, GroupStatus groupStatus, GroupMemberLimit groupMemberLimit, GroupTime groupTime, String groupFileName, String groupFilePath, Long groupFileSize, Long groupFileUuid) {        this.groupName = groupName;
         this.groupCategory = groupCategory;
         this.groupContent = groupContent;
         this.groupPoint = groupPoint;
+        this.groupOverSea = groupOverSea;
+        this.groupLocationName = groupLocationName;
         this.groupLocation = groupLocation;
+        this.groupLocationDetail = groupLocationDetail;
+        this.groupParkingAvailable = groupParkingAvailable;
+        this.groupMoreInformation = groupMoreInformation;
         this.groupLocationType = groupLocationType;
         this.groupStatus = groupStatus;
         this.groupMemberLimit = groupMemberLimit;
@@ -93,7 +103,12 @@ public class Group extends Period{
         this.groupCategory = groupDTO.getGroupCategory();
         this.groupContent = groupDTO.getGroupContent();
         this.groupPoint = groupDTO.getGroupPoint();
+        this.groupOverSea = groupDTO.getGroupOverSea();
+        this.groupLocationName = groupDTO.getGroupLocationName();
         this.groupLocation = groupDTO.getGroupLocation();
+        this.groupLocationDetail = groupDTO.getGroupLocationDetail();
+        this.groupParkingAvailable=groupDTO.getGroupParkingAvailable();
+        this.groupMoreInformation=groupDTO.getGroupMoreInformation();
         this.groupLocationType = groupDTO.getGroupLocationType();
         this.groupStatus = groupDTO.getGroupStatus();
         this.groupMemberLimit = groupMemberLimit;
