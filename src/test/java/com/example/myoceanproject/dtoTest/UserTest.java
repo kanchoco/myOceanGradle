@@ -10,7 +10,6 @@ import com.example.myoceanproject.type.UserAccountStatus;
 import com.example.myoceanproject.type.UserLoginMethod;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,6 +25,7 @@ import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.List;
 
 import static com.example.myoceanproject.entity.QUser.user;
@@ -53,13 +53,12 @@ public class UserTest {
         UserDTO userDTO = new UserDTO();
 
 //      입력받은 패스워드를 암호화하기 위한 과정
-        String pw="12345";
-        String salt=Salt();
-        String encryptPw=SHA512(pw,salt);
+        String pw="qweQWE123!@#";
+        String encryptPw=encryption(pw);
         
 //      DTO객체에 화면에서 입력받은 정보와 계정의 추가 상태를 지정한다.
-        userDTO.setUserEmail("aaa@aaa.com");
-        userDTO.setUserNickname("abcmouse");
+        userDTO.setUserEmail("whei1234@naver.com");
+        userDTO.setUserNickname("notebook");
         userDTO.setUserPassword(encryptPw);
         userDTO.setUserLoginMethod(UserLoginMethod.GENERAL);
         userDTO.setUserAccountStatus(UserAccountStatus.ACTIVE);
@@ -95,8 +94,10 @@ public class UserTest {
         log.info("------------------------------------------------------------");
     }
 
+
     @Test
     public void findById(){
+
 //      시나리오 : 사용자(3L)의 정보를 조회한다.
         List<UserDTO> users=jpaQueryFactory.select(new QUserDTO(
                 user.userPassword,
@@ -134,8 +135,7 @@ public class UserTest {
 
 //      입력받은 패스워드를 암호화하여 저장하기 위한 과정
         String pw="23456";
-        String salt=Salt();
-        String encryptPw=SHA512(pw,salt);
+        String encryptPw=encryption(pw);
 
 //      화면에서 변경된 패스워드를 입력받는다.
         UserDTO userDTO=new UserDTO(encryptPw,null,null,null,null,null,null,null,null,0);
@@ -168,35 +168,80 @@ public class UserTest {
         userRepository.delete(user);
     }
 
-    //양방향 암호화 알고리즘인 AES256 암호화를 지원하는 클래스
-    public static String Salt() {
+    public String encryption(String userPassword){
+        String alg = "AES/CBC/PKCS5Padding";
+        //키
+        String aesKey = "abcdefghabcdefghabcdefghabcdefgh"; //32byte
 
-        String salt="";
+        String aesIv = "0123456789abcdef"; //16byte
+
+        //암호화 할 유저 패스워드
+        String userPw =userPassword;
+
+        //암호화된 유저 아이디
+        String encPw="";
+
+
+        //알고리즘 aes-256 **********[암호화]**********
         try {
-            SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
-            byte[] bytes = new byte[16];
-            random.nextBytes(bytes);
-            salt = new String(Base64.encodeBase64(bytes));
 
-        } catch (NoSuchAlgorithmException e) {
+            Cipher cipher = Cipher.getInstance(alg);
+
+            //키로 비밀키 생성
+            SecretKeySpec keySpec = new SecretKeySpec(aesKey.getBytes(), "AES");
+            //iv 로 spec 생성
+            IvParameterSpec ivParamSpec = new IvParameterSpec(aesIv.getBytes());
+            //암호화 적용
+            cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivParamSpec);
+
+            //암호화 실행
+            byte[] encrypted1 = cipher.doFinal(userPw.getBytes("UTF-8")); // ID 암호화(인코딩 설정)
+            encPw = java.util.Base64.getEncoder().encodeToString(encrypted1); // 암호화 인코딩 후 저장
+
+            System.out.println("암호화된 유저 아이디 -> " + encPw);
+
+        }catch (Exception e) {
+            System.out.println("암호화 중 오류 발생 ");
             e.printStackTrace();
         }
-        return salt;
+        //---------------------------------------------------------------------------
+        return encPw;
     }
 
-    public static String SHA512(String password, String hash) {
-        String salt = hash+password;
-        String hex = null;
+    public String decryption(String userPassword) {
+        String alg = "AES/CBC/PKCS5Padding";
+        //키
+        String aesKey = "abcdefghabcdefghabcdefghabcdefgh"; //32byte
+
+        String aesIv = "0123456789abcdef"; //16byte
+
+        //복호화 할 유저 패스워드
+        String encPw = userPassword;
+
+        //복호화된 유저 패스워드
+        String decPw = "";
+
+        //----암호화 해석 코드 **********[복호화]**********
         try {
-            MessageDigest msg = MessageDigest.getInstance("SHA-512");
-            msg.update(salt.getBytes());
+            Cipher cipher = Cipher.getInstance(alg);
 
-            hex = String.format("%128x", new BigInteger(1, msg.digest()));
+            SecretKeySpec keySpec = new SecretKeySpec(aesKey.getBytes(), "AES");
+            IvParameterSpec ivParamSpec = new IvParameterSpec(aesIv.getBytes());
+            cipher.init(Cipher.DECRYPT_MODE, keySpec, ivParamSpec);
 
-        } catch (NoSuchAlgorithmException e) {
+            //암호 해석
+            byte[] decodedBytes = Base64.getDecoder().decode(encPw);
+            byte[] decrypted = cipher.doFinal(decodedBytes);
+            decPw = new String(decrypted);
+
+
+            System.out.println("복호화한 유저 아이디 -> " + decPw);
+
+        }catch (Exception e) {
             e.printStackTrace();
         }
-        return hex;
+        //---------------------------------------------------------------------------
+        return decPw;
     }
 }
 

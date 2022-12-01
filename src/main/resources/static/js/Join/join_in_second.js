@@ -1,12 +1,13 @@
 /* 테스트를 위한 더미데이터 */
 var nicknametest="aaa";
 /* input태그의 입력값 속성을 읽기위해 선언 */
-var $nicknameCheck=joinForm.nickname;
-var $emailCheck=joinForm.email;
+var $nicknameCheck=joinForm.userNickname;
+var $emailCheck=joinForm.userEmail;
 var $numberCheck=joinForm.verificationCode;
+var $password=joinForm.userPassword;
 
 /* 이메일 정규표현식 */
-var emailRegex=/\w+([-+.]\w+)*@\w+([-.]\w+)*\.[a-zA-Z]{2,4}$/;
+var emailRegex=/\w+([-+.]\w+)*@\w+([-.]\w+)*\.[a-zA-Z]{3,4}$/;
 
 /* 인증번호를 저장할 변수 선언 */
 var saveNumber="";
@@ -17,6 +18,7 @@ function randomNumber(){
         saveNumber+=parseInt(Math.random()*10);
     }
 }
+console.log($password.value);
 
 /* input박스 클릭시 배경 및 테두리 색상 변경 */
 $(".Form__Input-sc-1quypp7-1").on("click",function(){
@@ -27,12 +29,12 @@ $(".Form__Input-sc-1quypp7-1").on("click",function(){
 });
 
 /* input박스에서 마우스가 다른 위치 클릭시 적용할 이벤트 */
-$(joinForm.nickname).on("blur",function(){
-    $("input[name='nickname']").css("border","");
+$(joinForm.userNickname).on("blur",function(){
+    $("input[name='userNickname']").css("border","");
     $(".Form__Input-sc-1quypp7-1").css("background-color","rgb(250,250,250)");
 });
-$(joinForm.email).on("blur",function(){
-    $("input[name='email']").css("border","");
+$(joinForm.userEmail).on("blur",function(){
+    $("input[name='userEmail']").css("border","");
     $(".Form__Input-sc-1quypp7-1").css("background-color","rgb(250,250,250)");
 });
 $(joinForm.verificationCode).on("blur",function(){
@@ -41,37 +43,29 @@ $(joinForm.verificationCode).on("blur",function(){
 });
 
 /* 닉네임 유효성 검사 */
-$(joinForm.nickname).on("change input",function(){
-    if($nicknameCheck.value==nicknametest){
-        $("input[name='nickname']").attr("class","Form__Input-sc-1quypp7-1 hYhAPw");
-        $(".bViOzS").text("이미 사용중인 닉네임입니다.");
-    }
-    else{
-        $("p.bViOzS").text("");
-        $("input[name='nickname']").attr("class","Form__Input-sc-1quypp7-1 iRBMai");
-        $("input[name='nickname']").css("border","");
-    }
+$(joinForm.userNickname).on("change input",function(){
+    checknickname();
 });
 
 /* 이메일 유효성 검사 */
-$(joinForm.email).on("change input",function(){
+$(joinForm.userEmail).on("change input",function(){
     if(!emailRegex.test($emailCheck.value)){
-        $("input[name='email']").attr("class","Form__Input-sc-1quypp7-1 hYhAPw");
+        $("input[name='userEmail']").attr("class","Form__Input-sc-1quypp7-1 hYhAPw");
         $(".bViOzSS").text("올바른 이메일 형식이 아닙니다.");
         $("button[name='sendemail']").attr("disabled",true);
         $("button[name='sendemail']").attr("class","Button-bqxlp0-0 gsRKCU");
         /* 이메일 입력값이 없을경우 */
         if($emailCheck.value==""){
             $("p.bViOzSS").text("");
-            $("input[name='email']").attr("class","Form__Input-sc-1quypp7-1 iRBMai");
-            $("input[name='email']").css("border","");
+            $("input[name='userEmail']").attr("class","Form__Input-sc-1quypp7-1 iRBMai");
+            $("input[name='userEmail']").css("border","");
         }
     }
     /* 이메일 입력값이 이메일 정규표현식을 통과한 경우 */
     else if(emailRegex.test($emailCheck.value)){
         $("p.bViOzSS").text("");
-        $("input[name='email']").attr("class","Form__Input-sc-1quypp7-1 iRBMai");
-        $("input[name='email']").css("border","");
+        $("input[name='userEmail']").attr("class","Form__Input-sc-1quypp7-1 iRBMai");
+        $("input[name='userEmail']").css("border","");
         $("button[name='sendemail']").attr("disabled",false);
         $("button[name='sendemail']").attr("class","Button-bqxlp0-0 jDtYZb");
     }
@@ -414,7 +408,31 @@ $("#btn4").on("click",function(){
     }
 });
 
+function checknickname(){
+    $.ajax({
+        url:"checkUserNickname",
+        type:"post",
+        headers:{"Content-Type":"application/json"},
+        dataType:"text",
+        data:$nicknameCheck.value,
+        success:function(result){
+            console.log(result);
+            if(result==$nicknameCheck.value){
+                $("input[name='userNickname']").attr("class","Form__Input-sc-1quypp7-1 hYhAPw");
+                $(".bViOzS").text("이미 사용중인 닉네임입니다.");
+            }else{
+                $("p.bViOzS").text("");
+                $("input[name='userNickname']").attr("class","Form__Input-sc-1quypp7-1 iRBMai");
+                $("input[name='userNickname']").css("border","");
+            }
+        },
+        error:function(status,error){
+            console.log("error");
+            console.log(status,error);
+        }
 
+    })
+}
 
 /* {{from_name}}
 {{to_name}}

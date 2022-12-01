@@ -32,13 +32,13 @@
                 <div class="Center__Wrapper-sc-19p29je-0 gVBJBr">
                     <h3>회원가입</h3>
                 </div>
-                <form action="/join/joinThree" class="Form__RegisterPageForm-sc-1l5lis6-0 fLECcs" autocomplete="false" name="loginForm" method="post">
+                <form th:action="@{/join/joinThree}" th:object="${userDTO}" class="Form__RegisterPageForm-sc-1l5lis6-0 fLECcs" autocomplete="false" name="loginForm" method="post">
                     <div id="emaildiv">
                         <input class="Form__Input-sc-1quypp7-1 iRBMai" type="text" name="email" placeholder="아이디 (이메일)">
                         <p class="Form__Description-sc-1quypp7-2 bViOzS"></p>
                     </div>
                     <div>
-                        <input class="Form__Input-sc-1quypp7-1 iRBMai" type="password" name="password" placeholder="비밀번호" autocomplete="new-password">
+                        <input class="Form__Input-sc-1quypp7-1 iRBMai" th:field="*{userPassword}" type="password" placeholder="비밀번호" autocomplete="new-password">
                         <p class="Form__Description-sc-1quypp7-2 cIOZzg">
                             소문자, 숫자, 특수문자 중 2가지 이상의 조합으로 10자 이상
                         </p>
