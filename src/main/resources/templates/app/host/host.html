@@ -279,7 +279,7 @@
 																							<div data-v-72dffd28="" class="input-group has-label w-100">
 
 																								<!--모임 입력 창-->
-																								<input data-v-72dffd28="" th:field="*{groupName}" type="text" maxlength="40" required="required" placeholder="모임의 특징이 잘 드러나도록 모임명을 입력해주세요." class="form-control">
+																								<input data-v-72dffd28="" th:field="*{groupName}" name="groupName" type="text" maxlength="40" required="required" placeholder="모임의 특징이 잘 드러나도록 모임명을 입력해주세요." class="form-control">
 
 																								<div data-v-72dffd28="" class="input-group-append">
 																									<span data-v-72dffd28="" class="input-group-text">
@@ -312,7 +312,7 @@
 																						<div class="col-md-8 col-lg-10">
 																							<div data-v-72dffd28="" class="input-group has-label w-100">
 																								<!---->
-																								<input th:field="*{groupCategory}" data-v-72dffd28="" type="text" maxlength="40" required="required" placeholder="모임의 특징이 잘 드러나도록 카테고리를 입력해주세요." class="form-control">
+																								<input th:field="*{groupCategory}" name="groupCategory" data-v-72dffd28="" type="text" maxlength="40" required="required" placeholder="모임의 특징이 잘 드러나도록 카테고리를 입력해주세요." class="form-control">
 																								<div data-v-72dffd28="" class="input-group-append">
 																									<span data-v-72dffd28="" class="input-group-text">
 																										<small data-v-72dffd28="" class="text-muted"> 0 / 40 </small>
@@ -353,7 +353,7 @@
 																											<!---->
 																											<div data-v-307da538="" class="input-group">
 																												<!---->
-																												<input th:field="*{minMember}" data-v-307da538=""  min="1" max="20" type="number" class="number1 form-control" valid="true">
+																												<input th:field="*{minMember}" name="minMember" data-v-307da538=""  min="1" max="20" type="number" class="number1 form-control" valid="true">
 																												<div data-v-307da538="" class="input-group-append">
 																													<span data-v-307da538="" class="input-group-text">
 																														<small data-v-307da538="">명</small>
@@ -370,7 +370,7 @@
 																									<fieldset data-v-307da538="" class="form-group" id="__BVID__1280">
 																										<div>
 																											<div data-v-307da538="" class="input-group">
-																												<input th:field="*{maxMember}" data-v-307da538=""  min="1" max="20" type="number" class="number2 form-control" valid="true">
+																												<input th:field="*{maxMember}" name="maxMember" data-v-307da538=""  min="1" max="20" type="number" class="number2 form-control" valid="true">
 																												<div data-v-307da538="" class="input-group-append">
 																													<span data-v-307da538="" class="input-group-text">
 																														<small data-v-307da538="">명</small>
@@ -472,7 +472,7 @@
 																									<div>
 																										<!---->
 																										<div data-v-307da538="" class="">
-																											<input th:field="*{groupPoint}" data-v-307da538="" type="text" placeholder="예시) 100포인트" mode="lazy" class="form-control" valid="true">
+																											<input th:field="*{groupPoint}" name="groupPoint" data-v-307da538="" type="text" placeholder="예시) 100포인트" mode="lazy" class="form-control" valid="true">
 																										</div>
 																									</div>
 																								</fieldset>
@@ -512,7 +512,7 @@
 																						</div>
 																						<div data-v-1e397a0c="" class="col">
 																							<div data-v-1e397a0c="" class="text-right mx-3">
-																								<button data-v-1e397a0c="" onclick="$('.day-btn').click();" type="button" class="btn frip-button btn-outline-frip-primary">
+																								<button data-v-1e397a0c="" onclick="$('.day-btn').click();" type="button" class="btn frip-button btn-outline-frip-primary" style="display:none;">
 																									<!---->
 																									일정 추가
 																								</button>
@@ -1110,7 +1110,7 @@
 				</footer>
 			</div>
 			<!-- 일정등록 모달 -->
-			<div id="__BVID__1216___BV_modal_content_" tabindex="-1" class="modal-content">
+			<div id="__BVID__1216___BV_modal_content_" tabindex="-1" class="modal-content" style="width:300%;">
 				<header id="__BVID__1216___BV_modal_header_" class="modal-header">
 					<h2 data-v-1e397a0c="">일정 등록</h2>
 					<button type="button" data-dismiss="modal" aria-label="Close" class="close" onclick="closeModal()">
