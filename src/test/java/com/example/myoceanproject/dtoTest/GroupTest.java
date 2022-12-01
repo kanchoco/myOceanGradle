@@ -4,7 +4,6 @@ import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.domain.GroupDTO;
 import com.example.myoceanproject.domain.QGroupDTO;
 import com.example.myoceanproject.domain.UserDTO;
-import com.example.myoceanproject.embeddable.GroupTime;
 import com.example.myoceanproject.entity.*;
 import com.example.myoceanproject.repository.GroupRepository;
 import com.example.myoceanproject.repository.UserRepository;
@@ -68,8 +67,6 @@ public class GroupTest {
         groupDTO.setGroupFileName("groupName");
 
 //        임베드 타입 set해줌
-        groupDTO.setEndTime(LocalDateTime.now());
-        groupDTO.setStartTime(LocalDateTime.now());
         groupDTO.setMaxMember(10);
         groupDTO.setMinMember(2);
 //        DTO를 엔티티로 바꿔서 저장해줌
@@ -88,7 +85,12 @@ public class GroupTest {
                 group.groupCategory,
                 group.groupContent,
                 group.groupPoint,
+                group.groupOverSea,
+                group.groupLocationName,
                 group.groupLocation,
+                group.groupLocationDetail,
+                group.groupParkingAvailable,
+                group.groupMoreInformation,
                 group.groupLocationType,
                 group.groupStatus,
                 group.groupFilePath,
@@ -96,9 +98,7 @@ public class GroupTest {
                 group.groupFileUuid,
                 group.groupFileSize,
                 group.groupMemberLimit.maxMember,
-                group.groupMemberLimit.minMember,
-                group.groupTime.startTime,
-                group.groupTime.endTime)).from(group).fetch();
+                group.groupMemberLimit.minMember)).from(group).fetch();
         log.info("------------------------------------------------------------");
         groups.stream().map(GroupDTO::toString).forEach(log::info);
         log.info("------------------------------------------------------------");
@@ -113,7 +113,12 @@ public class GroupTest {
                 group.groupCategory,
                 group.groupContent,
                 group.groupPoint,
+                group.groupOverSea,
+                group.groupLocationName,
                 group.groupLocation,
+                group.groupLocationDetail,
+                group.groupParkingAvailable,
+                group.groupMoreInformation,
                 group.groupLocationType,
                 group.groupStatus,
                 group.groupFilePath,
@@ -121,9 +126,7 @@ public class GroupTest {
                 group.groupFileUuid,
                 group.groupFileSize,
                 group.groupMemberLimit.maxMember,
-                group.groupMemberLimit.minMember,
-                group.groupTime.startTime,
-                group.groupTime.endTime)).from(group).where(group.user.userId.eq(1L)).fetch();
+                group.groupMemberLimit.minMember)).from(group).where(group.user.userId.eq(1L)).fetch();
 
         log.info("------------------------------------------------------------");
         groups.stream().map(GroupDTO::toString).forEach(log::info);
@@ -154,8 +157,6 @@ public class GroupTest {
         groupDTO.setGroupFileSize(155L);
         groupDTO.setMaxMember(15);
         groupDTO.setMinMember(1);
-        groupDTO.setStartTime(LocalDateTime.now());
-        groupDTO.setEndTime(LocalDateTime.now());
 
 //      외부에서 넘겨온 모임 게시글 번호로 영속성 컨텍스트가 관리하는 개체를 가져온다.
         Group group1 = jpaQueryFactory.selectFrom(group).where(group.groupId.eq(2L)).fetchOne();

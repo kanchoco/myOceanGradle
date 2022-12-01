@@ -109,6 +109,11 @@ public class ChattingTest {
         chattingStatusList.addAll(chattingStatusRepositoryImpl.findByGroupMemberId(groupMember));
         chattingStatusList.stream().forEach(v-> v.update(ReadStatus.READ));
     }
+
+//    @Test
+//    public void findByUserId(){
+//        chattingRepositoryImpl.findByUserId()
+//    }
 //
 //    @Test
 //    public void deleteTest(){
