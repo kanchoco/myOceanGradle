@@ -50,9 +50,7 @@ public class ChattingRepositoryImpl implements ChattingCustomRepository{
                 group.groupFileUuid,
                 group.groupFileSize,
                 group.groupMemberLimit.maxMember,
-                group.groupMemberLimit.minMember,
-                group.groupTime.startTime,
-                group.groupTime.endTime
+                group.groupMemberLimit.minMember
         )).from(group).on(group.user.userId.eq(userId)).fetch();
 
         return groupDTOList;
