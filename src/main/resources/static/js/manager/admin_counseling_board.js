@@ -46,22 +46,22 @@ let temp = 0;
 let $tr = $("#info_table").find('tr');
 let accountCondition = null;
 
-$tr.find('.more').click(function () {
+function removePost(tag){
     if (temp == 1) {
         temp--;
-        $(this).parent().children('.account-modal').remove();
+        $(tag).parent().children('.account-modal').remove();
     } else {
         temp++;
-        $(this).parent().append("<div class=\"account-modal\">\n" +
+        $(tag).parent().append("<div class=\"account-modal\">\n" +
             "    <button class=\"account-modal-button\">삭제</button>\n" +
             "</div>")
-        $(this).next().find('.account-modal-button').click(function () {
-            $(this).closest('.account-modal').remove()
-            $(this).remove()
+        $(tag).next().find('.account-modal-button').click(function () {
+            $(tag).closest('.account-modal').remove()
+            $(tag).remove()
             temp--;
         })
     }
-})
+}
 
 
 

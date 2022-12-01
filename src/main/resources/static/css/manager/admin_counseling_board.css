@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+a{
+    text-decoration: none;
+    color: #212121;
+}
 
 /* 사이드바 */
 @font-face {
@@ -11,11 +15,6 @@
 
 *{
     font-family: "Cafe24 Ohsquare", "SUIT", "UI Frip", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-a{
-    text-decoration: none;
-    color: #212121;
 }
 
 .menu {
@@ -362,8 +361,8 @@ table td:last-child {
 }
 
 #info_table td:last-child{
-      border-right: 0;
-  }
+    border-right: 0;
+}
 /*#info_table td:nth-child(2){
     border-left: 0;
 }*/
@@ -417,6 +416,10 @@ button.more {
     font-weight: 400;
 }
 
+#search_input {
+    outline: none;
+}
+
 .normal {
     font-family: inherit;
     height: 60%;
@@ -448,7 +451,11 @@ button.banned {
     color: #fff;
 } */
 
-div#page_changer_wrapper {
+input#search_input:focus {
+    border: none;
+}
+
+#page_changer_wrapper {
     display: flex;
     justify-content: center;
     flex: 0 0 auto;
@@ -459,11 +466,10 @@ div#page_changer_wrapper {
 
 #previous_button_wrapper {
     display: flex;
-    margin-right: 10px;
 }
 
 
-button.previous_buttons {
+a.previous_buttons {
     transform: scaleX(-1);
     width: 40px;
     height: 40px;
@@ -471,7 +477,7 @@ button.previous_buttons {
     padding: 0px;
     background-color: white;
     text-align: center;
-    cursor: not-allowed;
+    cursor: pointer;
     border-radius: 50%;
     font-size: 18px;
     display: flex;
@@ -483,7 +489,7 @@ button.previous_buttons {
     border: none;
 }
 
-button.page {
+.page {
     font: inherit;
     width: 40px;
     height: 40px;
@@ -493,7 +499,7 @@ button.page {
     text-align: center;
     cursor: pointer;
     border-radius: 50%;
-    color: black;
+    color: #c4bec9;
     font-size: 18px;
     font-weight: normal;
     display: flex;
@@ -504,7 +510,9 @@ button.page {
     outline: none;
     border: none;
 }
-
+.page.active{
+    color: black;
+}
 #next_button_wrapper {
     display: flex;
     margin-right: 10px;
@@ -518,7 +526,7 @@ button.next_buttons {
     padding: 0px;
     background-color: white;
     text-align: center;
-    cursor: not-allowed;
+    cursor: pointer;
     border-radius: 50%;
     font-size: 18px;
     display: flex;
