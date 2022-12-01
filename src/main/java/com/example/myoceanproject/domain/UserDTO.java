@@ -15,6 +15,8 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 public class UserDTO {
 
+    private Long userId;
+
     private String userEmail;
     private String userPassword;
     private String userNickname;
@@ -30,7 +32,8 @@ public class UserDTO {
     private Long userFileUuid;
 
     @QueryProjection
-    public UserDTO(String userPassword, String userNickname, UserAccountStatus userAccountStatus, String userFileName, String userFilePath, Long userFileSize, Long userFileUuid, String userEmail, UserLoginMethod userLoginMethod, int userTotalPoint) {
+    public UserDTO(Long userId, String userPassword, String userNickname, UserAccountStatus userAccountStatus, String userFileName, String userFilePath, Long userFileSize, Long userFileUuid, String userEmail, UserLoginMethod userLoginMethod, int userTotalPoint) {
+        this.userId = userId;
         this.userPassword = userPassword;
         this.userNickname = userNickname;
         this.userAccountStatus = userAccountStatus;

@@ -1,14 +1,15 @@
 package com.example.myoceanproject.controller.chatting;
 
 import com.example.myoceanproject.domain.GroupDTO;
+import com.example.myoceanproject.domain.UserDTO;
 import com.example.myoceanproject.service.GroupService;
 import com.example.myoceanproject.service.chattingService.ChattingService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @RestController // ViewResolver 관여하지 않는다.
@@ -18,10 +19,11 @@ public class ChattingRestController {
 
     private final ChattingService chattingService;
 
-//    @GetMapping("/list/{user}")
-//    public GroupDTO list(@PathVariable("user")Long userId){
-//        return new List<GroupDTO>(chattingService.show(userId));
-//    }
+    @GetMapping(value = "/list/",consumes = "application/json", produces = "text/plain; charset=utf-8")
+    public ResponseEntity<List<GroupDTO>> list(@RequestBody UserDTO userDTO) throws UnsupportedEncodingException {
+        List<GroupDTO> groupDTOList = chattingService.show(userDTO.getUserId());
+        return ResponseEntity.ok().body(groupDTOList);
+    }
 
 
 
