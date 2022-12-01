@@ -309,7 +309,7 @@ a, area, button, input, label, select, textarea, [tabindex] {
 
 .kfLoin {
     border-bottom: 1px solid rgb(238, 238, 238);
-    padding-top: 24px;
+    padding-top: 5px;
     padding-bottom: 24px;
     line-height: 1.8;
     font-size: 14px;
@@ -326,14 +326,6 @@ a, area, button, input, label, select, textarea, [tabindex] {
     padding-right: 12px;
 }
 
-.kfLoin {
-    border-bottom: 1px solid rgb(238, 238, 238);
-    padding-top: 24px;
-    padding-bottom: 24px;
-    line-height: 1.8;
-    font-size: 14px;
-    background-color: rgb(255, 255, 255);
-}
 
 .cSlmkE {
     width: 100%;
@@ -346,7 +338,7 @@ a, area, button, input, label, select, textarea, [tabindex] {
     align-items: baseline;
     flex-wrap: wrap;
     margin-top: 4px;
-    border-bottom: solid 1px #edeaea;
+    border-bottom: solid 1px rgb(238, 238, 238);
 }
 
 .lgXxUu {
@@ -931,11 +923,6 @@ button, html [type="button"], [type="reset"], [type="submit"] {
     margin-right: 6px;
 }
 
-.bremOa {
-    padding: 40px 0px;
-    border-top: 1px solid rgb(238, 238, 238);
-    border-bottom: none;
-}
 
 .fCwkht {
     margin: 0px 0px 24px;
@@ -945,13 +932,6 @@ button, html [type="button"], [type="reset"], [type="submit"] {
 .dbbJUL {
     margin: 0px;
     padding: 0px;
-}
-
-.bZNoYF {
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 24px;
-    margin: 0px;
 }
 
 h2 {
@@ -996,14 +976,9 @@ dd {
     min-height: 1px;
 }
 
-.bremOa {
-    padding: 40px 0px;
-    border-top: 1px solid rgb(238, 238, 238);
-    border-bottom: none;
-}
 
 .blaApX {
-    margin: 0px 0px 40px;
+    margin: 10px 0px 40px;
     padding: 0px;
 }
 
@@ -1017,6 +992,7 @@ dd {
     justify-content: center;
     -webkit-box-align: center;
     align-items: center;
+    margin-bottom:10px;
 }
 
 .edqUZK {
@@ -1053,13 +1029,6 @@ p {
     margin-inline-end: 0px;
 }
 
-.dvQeHx {
-    display: flex;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
-}
 
 button, html [type="button"], [type="reset"], [type="submit"] {
     -webkit-appearance: button;
@@ -1438,7 +1407,7 @@ b, strong {
     font-size: 18px;
     font-weight: 700;
     line-height: 24px;
-    margin: 0px;
+    margin-top: 10px;
 }
 
 .iXEvmI {
@@ -1582,12 +1551,6 @@ b, strong {
     padding: 0px;
 }
 
-.bZNoYF {
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 24px;
-    margin: 0px;
-}
 
 .dkOSL {
     display: grid;

@@ -305,8 +305,8 @@ $('.clearPlace').on('click', function(){
 
 // 진행 장소 등록 버튼 클릭 이벤트막기
 $('.createPlace').on('click', function(e){
-    if($('input[data-v-72dffd28]').eq(2).val() == ""){
-        $('input[data-v-72dffd28]').eq(2).blur();
+    if($('input[data-v-72dffd28]').eq(12).val() == ""){
+        $('input[data-v-72dffd28]').eq(12).blur();
     }
 
     if(!checkedLegion){
@@ -318,7 +318,7 @@ $('.createPlace').on('click', function(e){
         $('#placeAddress').blur();
     }
 
-    if($('input[data-v-72dffd28]').eq(8).val() != "" && $('#placeAddress').val() != ""){
+    if($('input[data-v-72dffd28]').eq(14).val() != "" && $('#placeAddress').val() != ""){
         e.preventDefault();
         $('.placeTable .placeName').text($("input[name='locationName']").val());
         $('.placeTable .placeAddr').text($('#placeAddress').val());
@@ -601,7 +601,7 @@ $('.saveRequest').on('click', function (e){
     // 주차 관련 상세 내용
     $('input[name=groupMoreInformation]').attr('value', $('#textarea').val());
     // 주차 가능여부
-    if($("#parkingOption_BV_option_0").val()==true){
+    if($("#parkingOption_BV_option_0").val()=="true"){
         $('input[name=groupParkingAvailable]').attr('value', "가능");
     } else{
         $('input[name=groupParkingAvailable]').attr('value', "불가");
@@ -627,12 +627,52 @@ $('.saveRequest').on('click', function (e){
             groupLocationName : $('input[name=groupLocationName]').val(),
             groupLocation : $('input[name=groupLocation]').val(),
             groupLocationDetail : $('input[name=groupLocationDetail]').val(),
-            groupParkingAvailable : $('input[name=groupMoreInformation]').val(),
+            groupParkingAvailable : $('input[name=groupParkingAvailable]').val(),
             groupMoreInformation : $('input[name=groupMoreInformation]').val(),
             groupLocationType : $('input[name=groupLocationType]').val(),
             maxMember : $('input[name=maxMember]').val(),
-            minMember : $('input[name=minMember]').val()
+            minMember : $('input[name=minMember]').val(),
+            groupFileName : $('input[name=groupFileName]').val(),
+            groupFilePath : $('input[name=groupFilePath]').val(),
+            groupFileSize : $('input[name=groupFileSize]').val(),
+            groupFileUuid : $('input[name=groupFileUuid]').val()
         })
+});
+
+//썸네일 이미지
+$(".plusThumb").on("change", function(){
+    let arrayFile =[];
+
+    let formData = new FormData();
+    let $inputFile = $("input[name='plusThumb']");
+    let files = $inputFile[0].files;
+    console.log(Array.from(files));
+
+    Array.from(files).forEach(file => arrayFile.push(file));
+    const dataTransfer = new DataTransfer();
+
+    arrayFile.forEach(file => dataTransfer.items.add(file));
+    $(this)[0].files = dataTransfer.files;
+
+    console.log($(this)[0].files);
+
+    $(files).each(function(i, file){
+        formData.append("upload", file);
+    });
+
+    $.ajax({
+        url: "/host/thumbnail",
+        type: "post",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(result){
+            $('input[name=groupFileName]').attr('value', Object.values(result[0])[15]);
+            $('input[name=groupFilePath]').attr('value', Object.values(result[0])[14]);
+            $('input[name=groupFileSize]').attr('value', Object.values(result[0])[17]);
+            $('input[name=groupFileUuid]').attr('value', Object.values(result[0])[16]);
+        }
+    });
 });
 
 //에디터
@@ -668,6 +708,7 @@ $(function() {
             here we add custom filepicker only to Image dialog
         */
         file_picker_types: 'image',
+
         /* and here's our custom image picker*/
         file_picker_callback: function (cb, value, meta) {
             var input = document.createElement('input');
