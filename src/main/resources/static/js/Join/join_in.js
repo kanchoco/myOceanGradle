@@ -1,8 +1,8 @@
 /* 아이디, 패스워드, 패스워드 확인 입력값 */
 var $emailCheck=loginForm.email;
-var $passwordCheck=loginForm.password;
+var $passwordCheck=loginForm.userPassword;
 var $passwordConfrim=loginForm.passwordConfrim;
-var emailRegex=/\w+([-+.]\w+)*@\w+([-.]\w+)*\.[a-zA-Z]{2,4}$/;
+var emailRegex=/\w+([-+.]\w+)*@\w+([-.]\w+)*\.[a-zA-Z]{3,4}$/;
 var passwordRegex=/^(?=.*?[A-Z]{0})(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,}$/;
 
 // /* 아이디 입력박스 위치에서 다른 곳 클릭시 */
@@ -17,8 +17,8 @@ $(".Form__Input-sc-1quypp7-1").on("click",function(e){
 $(loginForm.email).on("blur",function(){
     $("input[name='email']").css("border","");
 });
-$(loginForm.password).on("blur",function(){
-    $("input[name='password']").css("border","");
+$(loginForm.userPassword).on("blur",function(){
+    $("input[name='userPassword']").css("border","");
 });
 
 /* 아이디 입력박스 입력값이 입력될 때마다 검사 */
@@ -34,26 +34,27 @@ $(loginForm.email).on("change input",function(){
     }
     else if(emailRegex.test($emailCheck.value)){
         $("p.bViOzS").text("");
-        $("input[name='email']").attr("class","Form__Input-sc-1quypp7-1 iRBMai");
-        $("input[name='email']").css("border","");
+        $("input[name='email']").attr("class", "Form__Input-sc-1quypp7-1 iRBMai");
+        $("input[name='email']").css("border", "");
+        checkemail();
     }
 });
 
 /* 비밀번호 입력박스 입력값이 입력될 때마다 검사 */
-$(loginForm.password).on("change input",function(){
+$(loginForm.userPassword).on("change input",function(){
     if(!passwordRegex.test($passwordCheck.value)){
-        $("input[name='password']").attr("class","Form__Input-sc-1quypp7-1 hYhAPw");
-        $("p.cIOZzg").attr("class","Form__Description-sc-1quypp7-2 bViOzS");
+        $("input[name='userPassword']").attr("class","Form__Input-sc-1quypp7-1 hYhAPw");
+        $("p.cIOZzg").attr("class","Form__Description-sc-1quypp7-2 bViOzSSS");
         if($passwordCheck.value==""){
-            $("p.bViOzS").attr("class","Form__Description-sc-1quypp7-2 cIOZzg");
-            $("input[name='password']").attr("class","Form__Input-sc-1quypp7-1 iRBMai");
-            $("input[name='password']").css("border","");
+            $("p.bViOzSSS").attr("class","Form__Description-sc-1quypp7-2 cIOZzg");
+            $("input[name='userPassword']").attr("class","Form__Input-sc-1quypp7-1 iRBMai");
+            $("input[name='userPassword']").css("border","");
         }
     }
     else if(passwordRegex.test($passwordCheck.value)){
-        $("p.bViOzS").attr("class","Form__Description-sc-1quypp7-2 cIOZzg");
-        $("input[name='password']").attr("class","Form__Input-sc-1quypp7-1 iRBMai");
-        $("input[name='password']").css("border","");
+        $("p.bViOzSSS").attr("class","Form__Description-sc-1quypp7-2 cIOZzg");
+        $("input[name='userPassword']").attr("class","Form__Input-sc-1quypp7-1 iRBMai");
+        $("input[name='userPassword']").css("border","");
     }
 });
 
@@ -74,7 +75,37 @@ $(loginForm.passwordConfrim).on("change input",function(){
         $("p.bViOzSS").text("");
         $("input[name='passwordConfrim']").attr("class","Form__Input-sc-1quypp7-1 iRBMai");
         $("input[name='passwordConfrim']").css("border","");
+
         $("button[type='submit']").attr("disabled",false);
         $("button[type='submit']").attr("class","Button-bqxlp0-0 SubmitButton__RegisterPageSubmitButton-np91gr-0 foCOgK");
     }
+    checkemail();
 });
+/*===================================================================================================================================*/
+function checkemail(){
+    $.ajax({
+        url:"checkUserEmail",
+        type:"post",
+        headers:{"Content-Type":"application/json"},
+        dataType:"text",
+        data:$emailCheck.value,
+        success:function(result){//available 넘어옴
+            if(result=="unavailable") {
+                $("input[name='email']").attr("class", "Form__Input-sc-1quypp7-1 hYhAPw");
+                $("p.bViOzS").text("이미 가입된 이메일입니다.");
+                $("button[type='submit']").attr("disabled",true);
+                $("button[type='submit']").attr("class","Button-bqxlp0-0 SubmitButton__RegisterPageSubmitButton-np91gr-0 chSrfn");
+            }
+            else{
+                $("p.bViOzS").text("");
+                $("button[type='submit']").attr("disabled",false);
+                $("button[type='submit']").attr("class","Button-bqxlp0-0 SubmitButton__RegisterPageSubmitButton-np91gr-0 foCOgK");
+            }
+        },
+        error:function(status,error){
+            console.log("error");
+            console.log(status,error);
+        }
+
+    });
+}
