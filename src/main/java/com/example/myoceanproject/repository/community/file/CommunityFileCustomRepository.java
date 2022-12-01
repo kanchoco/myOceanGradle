@@ -1,4 +1,4 @@
-package com.example.myoceanproject.repository;
+package com.example.myoceanproject.repository.community;
 
 import com.example.myoceanproject.domain.CommunityFileDTO;
 import com.example.myoceanproject.entity.CommunityPost;

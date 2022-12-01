@@ -1,10 +1,8 @@
-package com.example.myoceanproject.repository;
+package com.example.myoceanproject.repository.community;
 
 import com.example.myoceanproject.domain.CommunityFileDTO;
 import com.example.myoceanproject.domain.QCommunityFileDTO;
-import com.example.myoceanproject.entity.CommunityFile;
 import com.example.myoceanproject.entity.CommunityPost;
-import com.example.myoceanproject.entity.QCommunityFile;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

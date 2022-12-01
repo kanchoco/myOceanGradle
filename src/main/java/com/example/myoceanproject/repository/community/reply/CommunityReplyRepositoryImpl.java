@@ -1,14 +1,10 @@
-package com.example.myoceanproject.repository;
+package com.example.myoceanproject.repository.community;
 
-import com.example.myoceanproject.entity.CommunityLike;
 import com.example.myoceanproject.entity.CommunityPost;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
-import static com.example.myoceanproject.entity.QCommunityLike.communityLike;
 import static com.example.myoceanproject.entity.QCommunityReply.communityReply;
 
 @Repository
