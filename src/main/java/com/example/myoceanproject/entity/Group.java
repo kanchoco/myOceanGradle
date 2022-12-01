@@ -60,17 +60,13 @@ public class Group extends Period{
     @Embedded
     private GroupMemberLimit groupMemberLimit;
 
-    @Embedded
-    private GroupTime groupTime;
-
-    
 //  양방향
     public void setUser(User user){
         this.user = user;
     }
 
     @Builder
-    public Group(String groupName, String groupCategory, String groupContent, int groupPoint, String groupOverSea, String groupLocationName, String groupLocation, String groupLocationDetail, String groupParkingAvailable, String groupMoreInformation, GroupLocationType groupLocationType, GroupStatus groupStatus, GroupMemberLimit groupMemberLimit, GroupTime groupTime, String groupFileName, String groupFilePath, Long groupFileSize, Long groupFileUuid) {        this.groupName = groupName;
+    public Group(String groupName, String groupCategory, String groupContent, int groupPoint, String groupOverSea, String groupLocationName, String groupLocation, String groupLocationDetail, String groupParkingAvailable, String groupMoreInformation, GroupLocationType groupLocationType, GroupStatus groupStatus, GroupMemberLimit groupMemberLimit, String groupFileName, String groupFilePath, Long groupFileSize, Long groupFileUuid) {        this.groupName = groupName;
         this.groupCategory = groupCategory;
         this.groupContent = groupContent;
         this.groupPoint = groupPoint;
@@ -83,7 +79,6 @@ public class Group extends Period{
         this.groupLocationType = groupLocationType;
         this.groupStatus = groupStatus;
         this.groupMemberLimit = groupMemberLimit;
-        this.groupTime = groupTime;
         this.groupFileName = groupFileName;
         this.groupFilePath = groupFilePath;
         this.groupFileUuid = groupFileUuid;
@@ -96,8 +91,6 @@ public class Group extends Period{
         groupMemberLimit.setMaxMember(groupDTO.getMaxMember());
         groupMemberLimit.setMinMember(groupDTO.getMinMember());
 
-        groupTime.setStartTime(LocalDateTime.now());
-        groupTime.setEndTime(LocalDateTime.now());
 
         this.groupName = groupDTO.getGroupName();
         this.groupCategory = groupDTO.getGroupCategory();
@@ -112,6 +105,5 @@ public class Group extends Period{
         this.groupLocationType = groupDTO.getGroupLocationType();
         this.groupStatus = groupDTO.getGroupStatus();
         this.groupMemberLimit = groupMemberLimit;
-        this.groupTime = groupTime;
     }
 }
