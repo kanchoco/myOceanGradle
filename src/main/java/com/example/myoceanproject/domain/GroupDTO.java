@@ -47,12 +47,10 @@ public class GroupDTO {
 //    임베드 타입 가져옴(이렇게 가져오는 것이 맞는지는 불확실함. 생성자와 toEntity에도 추가함)
     private Integer maxMember;
     private Integer minMember;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
 
 
     @QueryProjection
-    public GroupDTO(Long userId, String userNickName, String groupName, String groupCategory, String groupContent, int groupPoint, String groupOverSea, String groupLocationName, String groupLocation, String groupLocationDetail, String groupParkingAvailable, String groupMoreInformation, GroupLocationType groupLocationType, GroupStatus groupStatus, String groupFilePath, String groupFileName, Long groupFileUuid, Long groupFileSize, Integer maxMember, Integer minMember, LocalDateTime startTime, LocalDateTime endTime) {
+    public GroupDTO(Long userId, String userNickName, String groupName, String groupCategory, String groupContent, int groupPoint, String groupOverSea, String groupLocationName, String groupLocation, String groupLocationDetail, String groupParkingAvailable, String groupMoreInformation, GroupLocationType groupLocationType, GroupStatus groupStatus, String groupFilePath, String groupFileName, Long groupFileUuid, Long groupFileSize, Integer maxMember, Integer minMember) {
         this.userId = userId;
         this.userNickName = userNickName;
         this.groupName = groupName;
@@ -73,19 +71,14 @@ public class GroupDTO {
         this.groupFileSize = groupFileSize;
         this.maxMember = maxMember;
         this.minMember = minMember;
-        this.startTime = startTime;
-        this.endTime = endTime;
     }
 
     public Group toEntity(){
         GroupMemberLimit groupMemberLimit = new GroupMemberLimit();
-        GroupTime groupTime = new GroupTime();
 
         groupMemberLimit.setMaxMember(maxMember);
         groupMemberLimit.setMinMember(minMember);
 
-        groupTime.setStartTime(startTime);
-        groupTime.setEndTime(endTime);
 
         return Group.builder()
                 .groupName(groupName)
@@ -101,7 +94,6 @@ public class GroupDTO {
                 .groupLocationType(groupLocationType)
                 .groupStatus(GroupStatus.WAITING)
                 .groupMemberLimit(groupMemberLimit)
-                .groupTime(groupTime)
                 .groupName(groupName)
                 .groupFileName(groupFileName)
                 .groupFilePath(groupFilePath)
