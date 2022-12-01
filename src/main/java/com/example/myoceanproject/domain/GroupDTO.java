@@ -30,7 +30,12 @@ public class GroupDTO {
     private String groupCategory;
     private String groupContent;
     private int groupPoint;
+    private String groupOverSea;
+    private String groupLocationName;
     private String groupLocation;
+    private String groupLocationDetail;
+    private String groupParkingAvailable;
+    private String groupMoreInformation;
     private GroupLocationType groupLocationType;
     private GroupStatus groupStatus;
     private String groupFilePath;
@@ -47,14 +52,19 @@ public class GroupDTO {
 
 
     @QueryProjection
-    public GroupDTO(Long userId, String userNickName, String groupName, String groupCategory, String groupContent, int groupPoint, String groupLocation, GroupLocationType groupLocationType, GroupStatus groupStatus, String groupFilePath, String groupFileName, Long groupFileUuid, Long groupFileSize, Integer maxMember, Integer minMember, LocalDateTime startTime, LocalDateTime endTime) {
+    public GroupDTO(Long userId, String userNickName, String groupName, String groupCategory, String groupContent, int groupPoint, String groupOverSea, String groupLocationName, String groupLocation, String groupLocationDetail, String groupParkingAvailable, String groupMoreInformation, GroupLocationType groupLocationType, GroupStatus groupStatus, String groupFilePath, String groupFileName, Long groupFileUuid, Long groupFileSize, Integer maxMember, Integer minMember, LocalDateTime startTime, LocalDateTime endTime) {
         this.userId = userId;
         this.userNickName = userNickName;
         this.groupName = groupName;
         this.groupCategory = groupCategory;
         this.groupContent = groupContent;
         this.groupPoint = groupPoint;
+        this.groupOverSea = groupOverSea;
+        this.groupLocationName = groupLocationName;
         this.groupLocation = groupLocation;
+        this.groupLocationDetail = groupLocationDetail;
+        this.groupParkingAvailable = groupParkingAvailable;
+        this.groupMoreInformation = groupMoreInformation;
         this.groupLocationType = groupLocationType;
         this.groupStatus = groupStatus;
         this.groupFilePath = groupFilePath;
@@ -82,7 +92,12 @@ public class GroupDTO {
                 .groupCategory(groupCategory)
                 .groupContent(groupContent)
                 .groupPoint(groupPoint)
+                .groupOverSea(groupOverSea)
+                .groupLocationName(groupLocationName)
                 .groupLocation(groupLocation)
+                .groupLocationDetail(groupLocationDetail)
+                .groupParkingAvailable(groupParkingAvailable)
+                .groupMoreInformation(groupMoreInformation)
                 .groupLocationType(groupLocationType)
                 .groupStatus(GroupStatus.WAITING)
                 .groupMemberLimit(groupMemberLimit)

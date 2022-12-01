@@ -317,10 +317,9 @@ $('.createPlace').on('click', function(e){
         $('#placeAddress').blur();
     }
 
-    if($('input[data-v-72dffd28]').eq(2).val() != "" && $('#placeAddress').val() != ""){
+    if($('input[data-v-72dffd28]').eq(8).val() != "" && $('#placeAddress').val() != ""){
         e.preventDefault();
-
-        $('.placeTable .placeName').text($('input[data-v-72dffd28]').eq(2).val());
+        $('.placeTable .placeName').text($("input[name='locationName']").val());
         $('.placeTable .placeAddr').text($('#placeAddress').val());
         $('.my-2.placeTable').show();
         $('.placeTableBtn').show();
@@ -546,6 +545,40 @@ $('.saveRecruitment').on('click', function (){
 $('.saveRequest').on('click', function (){
     $('#__BVID__287___BV_modal_outer_').hide();
 
+    //groupLocationType 설정
+    if($(".selected .p-3 div")[0].innerText == "오프라인"){
+        $('input[name=groupLocationType]').attr('value',"OFFLINE");
+    } else{
+        $('input[name=groupLocationType]').attr('value',"ONLINE");
+    }
+
+    // 장소명
+    $('input[name=groupLocationName]').attr('value', $('input[name=locationName]').val());
+    // 진행 장소
+    $('input[name=groupLocation]').attr('value', $('#placeAddress').val());
+    // 진행 장소 상세 내용
+    $('input[name=groupLocationDetail]').attr('value', $('#locationDetail').val());
+    // 주차 관련 상세 내용
+    $('input[name=groupMoreInformation]').attr('value', $('#textarea').val());
+    // 주차 가능여부
+    if($("#parkingOption_BV_option_0").val()==true){
+        $('input[name=groupParkingAvailable]').attr('value', "가능");
+    } else{
+        $('input[name=groupParkingAvailable]').attr('value', "불가");
+    }
+
+    // 국내/해외
+    if($(".my-2.custom-control.custom-radio").val()==true){
+        $('input[name=groupOverSea]').attr('value', "국내");
+    } else{
+        $('input[name=groupOverSea]').attr('value', "해외");
+    }
+
+    //  실제 작성한 내용
+    let content = tinymce.activeEditor.getContent();
+    $('input[name=groupContent]').attr('value', content);
+    
+    // 컨트롤러로 해당 내용 모두 전송
     $('#groupForm').submit();
 
 });
@@ -643,7 +676,7 @@ $(function() {
 // });
 
 
-//인원 설정 시 유료성검사.
+//인원 설정 시 유효성검사.
 $('.number1').bind('keyup mouseup', function (){
     if($('.number1').val() > $('.number2').val()){
         $('.recruitment').next().css('display', '');
