@@ -40,7 +40,7 @@ public class UserTest {
 //      정보 : 이메일,닉네임,패스워드
 //      타입 : 회원가입은 일반(UserLoginMethod.GENERAL), 활성화(UserAccountStatus.ACTIVE)
 //      포인트 : 회원가입포인트(5000) - 임의로 지정
-        
+
 //      화면에서 이메일, 닉네임, 패스워드를 입력받고 저장하기 위해 DTO객체 생성
         UserDTO userDTO = new UserDTO();
 
@@ -49,8 +49,8 @@ public class UserTest {
         String encryptPw=encryption(pw);
 
 //      DTO객체에 화면에서 입력받은 정보와 계정의 추가 상태를 지정한다.
-        userDTO.setUserEmail("whei1234@naver.com");
-        userDTO.setUserNickname("notebook");
+        userDTO.setUserEmail("aaa@aaa.com");
+        userDTO.setUserNickname("firstuser");
         userDTO.setUserPassword(encryptPw);
         userDTO.setUserLoginMethod(UserLoginMethod.GENERAL);
         userDTO.setUserAccountStatus(UserAccountStatus.ACTIVE);
@@ -114,7 +114,7 @@ public class UserTest {
     @Test
     public void updateNicknameFileTest(){
 //      시나리오 : 마이페이지에서 회원(3L)의 닉네임, 및 회원 프로필 사진을 수정한다.
-        
+
 //      화면에서 회원의 닉네임 및 프로필 사진을 수정하여 입력받는다.
         UserDTO userDTO=new UserDTO(null,null,"cutenick",null,"dog.png","/image/",300L,123456L,null,null,0);
 
@@ -122,7 +122,7 @@ public class UserTest {
         User users=jpaQueryFactory.selectFrom(user).where(user.userId.eq(3L)).fetchOne();
         users.updateNicknameFile(userDTO);
     }
-    
+
     @Test
     public void updatePasswordTest(){
 //      시나리오 : 마이페이지에서 회원(3L)의 비밀번호 변경 버튼을 클릭해 비밀번호를 수정한다.
@@ -157,7 +157,7 @@ public class UserTest {
 
 //      화면에서 사용자가 탈퇴를 클릭하면 해당 사용자의 번호를 입력받는다.
         User user=userRepository.findById(3L).get();
-        
+
 //      유저 테이블에서 회원의 정보를 삭제
         userRepository.delete(user);
     }

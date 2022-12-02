@@ -81,7 +81,12 @@
     <!--    <link rel="stylesheet" href="/static/css/slide.css">-->
 </head>
 <body>
-<header th:replace="/app/fix/header.html :: header"></header>
+<div th:if="${session.userId}">
+    <header th:replace="/app/fix/header.html :: header"/>
+</div>
+<div th:unless="${session.userId}">
+    <header th:replace="/app/fix/headerModify.html:: header"/>
+</div>
 <div th:replace="/app/fix/chattingAll.html:: chattingAll"></div>
 <div id="app">
     <div class="App__AppWrapper-nc5ti6-0 idXWQn">

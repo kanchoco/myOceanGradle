@@ -16,20 +16,20 @@
         <div class="GlobalNavigationBar__TopNavMenuWrapper-og74wb-2 fWxgMt">
             <div class="GlobalNavigationBar__TopNavMenuNodeListWrapper-og74wb-3 dlTKtS">
                 <a href="https://frip.host" target="_blank" class="withLink__StyledA-zuberk-1 jfPgNj">
-                <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk">호스트 센터</div>
+                    <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk">호스트 센터</div>
                 </a>
             </div>
             <div class="GlobalNavigationBar__TopNavMenuNodeListWrapper-og74wb-3 dlTKtS">
                 <a class="withLink__StyledLink-zuberk-0 lQqkn" href="http://localhost:15000/myPage/index">
-                <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk"><span>홍준성</span>님
-                </div>
-            </a>
-                <button type="button" class="GlobalNavigationBar__LogoutButton-og74wb-5 jfHerU" onclick="location.href='http://localhost:15000/main/index'">로그아웃</button>
+                    <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk"th:if="${session.userId}"><span th:text="${session.userNickname}"></span>님
+                    </div>
+                </a>
+                <button type="button" class="GlobalNavigationBar__LogoutButton-og74wb-5 jfHerU" onclick="location.href='http://localhost:15000/login/logout'">로그아웃</button>
                 <a class="withLink__StyledLink-zuberk-0 lQqkn" href="http://localhost:15000/questionBoard/index">
                     <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk">자주 묻는 질문</div>
                 </a><a class="withLink__StyledLink-zuberk-0 lQqkn" href="/notices">
-                    <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk">공지사항</div>
-                </a>
+                <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk">공지사항</div>
+            </a>
             </div>
         </div>
     </section>
@@ -37,14 +37,14 @@
         <div class="GlobalNavigationBar__MainNavMenuWrapper-og74wb-7 uogLa">
             <div class="GlobalNavigationBar__MainNavLeftSection-og74wb-8 hgyAtx">
                 <a class="withLink__StyledLink-zuberk-0 lQqkn" onclick="toggleBtn1()" style="cursor:pointer;">
-                <div class="GlobalNavigationBar__MainNavMenu-og74wb-10 fqlSHx">
-                    <div class="GlobalNavigationBar__IconWrapper-og74wb-11 bXkqmJ">
-                        <img src="data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Crect x='11.5' y='10.5' width='7' height='7' fill='%23AAAAAA'/%3E %3Crect x='1.5' y='10.5' width='7' height='7' fill='%23AAAAAA'/%3E %3Crect x='1.5' y='0.5' width='7' height='7' fill='%23AAAAAA'/%3E %3Crect x='11.5' y='0.5' width='7' height='7' fill='%23AAAAAA'/%3E %3C/svg%3E"
-                            alt="카테고리-icon"></div>
-                    <span
-                            class="GlobalNavigationBar__MainLabel-og74wb-12 hqQfQn">카테고리</span>
-                </div>
-            </a><span class="GlobalNavigationBar__Pipe-og74wb-14 cRoOrU"></span><a
+                    <div class="GlobalNavigationBar__MainNavMenu-og74wb-10 fqlSHx">
+                        <div class="GlobalNavigationBar__IconWrapper-og74wb-11 bXkqmJ">
+                            <img src="data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Crect x='11.5' y='10.5' width='7' height='7' fill='%23AAAAAA'/%3E %3Crect x='1.5' y='10.5' width='7' height='7' fill='%23AAAAAA'/%3E %3Crect x='1.5' y='0.5' width='7' height='7' fill='%23AAAAAA'/%3E %3Crect x='11.5' y='0.5' width='7' height='7' fill='%23AAAAAA'/%3E %3C/svg%3E"
+                                 alt="카테고리-icon"></div>
+                        <span
+                                class="GlobalNavigationBar__MainLabel-og74wb-12 hqQfQn">카테고리</span>
+                    </div>
+                </a><span class="GlobalNavigationBar__Pipe-og74wb-14 cRoOrU"></span><a
                     class="withLink__StyledLink-zuberk-0 lQqkn" href="http://localhost:15000/main/index"><img
                     src="/imgin/main/logo.png"
                     class="GlobalNavigationBar__MainLogo-og74wb-13 butSez"></a>
@@ -108,40 +108,40 @@
             </div>
         </div>
     </div>
-<nav class="BottomMenuBar__Wrapper-sc-3nfr6g-0 ciqvqE">
-    <a class="withLink__StyledLink-zuberk-0 lQqkn" href="http://localhost:15000/main/index">
+    <nav class="BottomMenuBar__Wrapper-sc-3nfr6g-0 ciqvqE">
+        <a class="withLink__StyledLink-zuberk-0 lQqkn" href="http://localhost:15000/main/index">
         <span class="BottomMenuBar__MenuNode-sc-3nfr6g-1 jfjcoX">
             <img src="data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M10 0L2 6.78571V17.5H7.54545V12.2174H12.4545V17.5H18V6.78571L10 0Z' fill='%236A1DE3'/%3E %3C/svg%3E" alt="홈 메뉴">
             홈
         </span>
-    </a>
-    <a class="withLink__StyledLink-zuberk-0 lQqkn" href="http://localhost:15000/category/index">
+        </a>
+        <a class="withLink__StyledLink-zuberk-0 lQqkn" href="http://localhost:15000/category/index">
         <span class="BottomMenuBar__MenuNode-sc-3nfr6g-1 dUVSwM">
             <img src="data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Crect x='11.5' y='10.5' width='7' height='7' fill='%23CCCCCC'/%3E %3Crect x='1.5' y='10.5' width='7' height='7' fill='%23CCCCCC'/%3E %3Crect x='1.5' y='0.5' width='7' height='7' fill='%23CCCCCC'/%3E %3Crect x='11.5' y='0.5' width='7' height='7' fill='%23CCCCCC'/%3E %3C/svg%3E" alt="카테고리 메뉴">카테고리</span></a>
-    <a class="withLink__StyledLink-zuberk-0 lQqkn" href="http://localhost:15000/myspace/index">
+        <a class="withLink__StyledLink-zuberk-0 lQqkn" href="http://localhost:15000/myspace/index">
         <span class="BottomMenuBar__MenuNode-sc-3nfr6g-1 dUVSwM">
             <img src="data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Crect x='1' y='0.5' width='18' height='17' fill='%23CCCCCC'/%3E %3Crect x='4.375' y='13.375' width='11.25' height='0.75' stroke='white' stroke-width='0.75'/%3E %3Crect x='4.375' y='10.375' width='7.25' height='0.75' stroke='white' stroke-width='0.75'/%3E %3Cpath d='M8.87786 3.85311C8.63758 3.62543 8.31786 3.5 7.97789 3.5C7.63792 3.5 7.31829 3.62534 7.07783 3.85311L6.75005 4.16359L6.42227 3.85302C6.18189 3.62534 5.86218 3.5 5.5222 3.5C5.18223 3.5 4.86261 3.62534 4.62224 3.85311C4.12592 4.32322 4.12592 5.08808 4.62224 5.55819L6.61734 7.44794C6.65251 7.48126 6.70025 7.5 6.74995 7.5C6.79966 7.5 6.8474 7.48126 6.88257 7.44794L8.87767 5.55819C9.37408 5.08799 9.37408 4.32313 8.87786 3.85311Z' fill='white'/%3E %3C/svg%3E" alt="소셜피드 메뉴">나의공간</span></a>
-    <a class="withLink__StyledLink-zuberk-0 lQqkn" href="http://localhost:15000/bulletinBoard/index">
+        <a class="withLink__StyledLink-zuberk-0 lQqkn" href="http://localhost:15000/bulletinBoard/index">
         <span class="BottomMenuBar__MenuNode-sc-3nfr6g-1 dUVSwM">
             <img src="data:image/svg+xml,%3Csvg width='21' height='20' viewBox='0 0 21 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M3.66669 0.5H17.6667V17.5L10.6667 11.5L3.66669 17.5V0.5Z' fill='%23CCCCCC'/%3E %3C/svg%3E" alt="저장 프립 메뉴">
             모임
         </span>
-    </a>
-    <div aria-hidden="true">
-        <a class="withLink__StyledLink-zuberk-0 lQqkn" href="http://localhost:15000/myPage/index">
+        </a>
+        <div aria-hidden="true">
+            <a class="withLink__StyledLink-zuberk-0 lQqkn" href="http://localhost:15000/myPage/index">
             <span class="BottomMenuBar__MenuNode-sc-3nfr6g-1 dUVSwM">
                 <img src="data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M17 11H3L1 17.4H19L17 11Z' fill='%23CCCCCC'/%3E %3Ccircle cx='10' cy='5' r='4.5' fill='%23CCCCCC'/%3E %3C/svg%3E" alt="마이 프로필 메뉴">
                 마이
             </span>
-        </a>
-    </div>
-    <div class="BottomMenuBar__SpeechBubbleContainer-sc-3nfr6g-2 guFmbA">
-        <div class="SpeechBubble__Container-sc-19cq08p-0 doyyOD">
-            <a class="withLink__StyledLink-zuberk-0 lQqkn" href="http://localhost:15000/myAlarm/myAlarm">알람이 도착했습니다!
             </a>
         </div>
-    </div>
-</nav>
+        <div class="BottomMenuBar__SpeechBubbleContainer-sc-3nfr6g-2 guFmbA">
+            <div class="SpeechBubble__Container-sc-19cq08p-0 doyyOD">
+                <a class="withLink__StyledLink-zuberk-0 lQqkn" href="http://localhost:15000/myAlarm/myAlarm">알람이 도착했습니다!
+                </a>
+            </div>
+        </div>
+    </nav>
 </header>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
