@@ -25,7 +25,6 @@ public class GroupDTO {
 
     private Long userId;
     private String userNickName;
-
     private String groupName;
     private String groupCategory;
     private String groupContent;
@@ -41,7 +40,7 @@ public class GroupDTO {
     private String groupFilePath;
     private String groupFileName;
 
-    private Long groupFileUuid;
+    private String groupFileUuid;
     private Long groupFileSize;
 
 //    임베드 타입 가져옴(이렇게 가져오는 것이 맞는지는 불확실함. 생성자와 toEntity에도 추가함)
@@ -50,7 +49,7 @@ public class GroupDTO {
 
 
     @QueryProjection
-    public GroupDTO(Long userId, String userNickName, String groupName, String groupCategory, String groupContent, int groupPoint, String groupOverSea, String groupLocationName, String groupLocation, String groupLocationDetail, String groupParkingAvailable, String groupMoreInformation, GroupLocationType groupLocationType, GroupStatus groupStatus, String groupFilePath, String groupFileName, Long groupFileUuid, Long groupFileSize, Integer maxMember, Integer minMember) {
+    public GroupDTO(Long userId, String userNickName, String groupName, String groupCategory, String groupContent, int groupPoint, String groupOverSea, String groupLocationName, String groupLocation, String groupLocationDetail, String groupParkingAvailable, String groupMoreInformation, GroupLocationType groupLocationType, GroupStatus groupStatus, String groupFilePath, String groupFileName, String groupFileUuid, Long groupFileSize, Integer maxMember, Integer minMember) {
         this.userId = userId;
         this.userNickName = userNickName;
         this.groupName = groupName;
