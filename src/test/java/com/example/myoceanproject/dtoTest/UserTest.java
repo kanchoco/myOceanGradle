@@ -69,6 +69,7 @@ public class UserTest {
     public void findAllTest(){
 //      시나리오 : 사용자의 전체 정보를 조회한다.
         List<UserDTO> users=jpaQueryFactory.select(new QUserDTO(
+                user.userId,
                 user.userPassword,
                 user.userNickname,
                 user.userAccountStatus,
@@ -92,6 +93,7 @@ public class UserTest {
 
 //      시나리오 : 사용자(3L)의 정보를 조회한다.
         List<UserDTO> users=jpaQueryFactory.select(new QUserDTO(
+                user.userId,
                 user.userPassword,
                 user.userNickname,
                 user.userAccountStatus,
@@ -114,7 +116,7 @@ public class UserTest {
 //      시나리오 : 마이페이지에서 회원(3L)의 닉네임, 및 회원 프로필 사진을 수정한다.
         
 //      화면에서 회원의 닉네임 및 프로필 사진을 수정하여 입력받는다.
-        UserDTO userDTO=new UserDTO(null,"cutenick",null,"dog.png","/image/",300L,123456L,null,null,0);
+        UserDTO userDTO=new UserDTO(null,null,"cutenick",null,"dog.png","/image/",300L,123456L,null,null,0);
 
 //      화면에 로그인 중인 회원의 회원번호를 넘겨받고 회원 객체를 생성
         User users=jpaQueryFactory.selectFrom(user).where(user.userId.eq(3L)).fetchOne();
@@ -130,7 +132,7 @@ public class UserTest {
         String encryptPw=encryption(pw);
 
 //      화면에서 변경된 패스워드를 입력받는다.
-        UserDTO userDTO=new UserDTO(encryptPw,null,null,null,null,null,null,null,null,0);
+        UserDTO userDTO=new UserDTO(null,encryptPw,null,null,null,null,null,null,null,null,0);
 
 //      화면에서 로그인 중인 회원의 회원번호를 넘겨받고 객체를 생성
         User users=jpaQueryFactory.selectFrom(user).where(user.userId.eq(3L)).fetchOne();
@@ -142,7 +144,7 @@ public class UserTest {
 //      시나리오 : 관리자가 회원(3L)의 상태를 계정 정지상태로 변경한다.
 
 //      관리자에 의해 화면에서 회원의 상태가 변경된 값을 입력받는다.
-        UserDTO userDTO=new UserDTO(null,null,UserAccountStatus.BANNED,null,null,null,null,null,null,0);
+        UserDTO userDTO=new UserDTO(null,null,null,UserAccountStatus.BANNED,null,null,null,null,null,null,0);
 
 //      화면에서 로그인 중인 회원의 회원번호를 넘겨받고 객체를 생성
         User users=jpaQueryFactory.selectFrom(user).where(user.userId.eq(3L)).fetchOne();

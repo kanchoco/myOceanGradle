@@ -64,13 +64,13 @@
                 <h3>로그인</h3>
             </div>
             <!-- 로그인시 메인 페이지로 이동(중간에 DB 거쳐가야한다.)-->
-            <form action="/main/index" class="LoginRegister__LoginRegisterForm-gtp545-0 fjvnva" name="loginForm">
+            <form th:action="@{/login/loginOk}" th:object="${userDTO}" class="LoginRegister__LoginRegisterForm-gtp545-0 fjvnva" name="loginForm" method="post">
                 <div>
-                    <input class="Form__Input-sc-1quypp7-1 iRBMai" type="text" name="email" id="emailbox" placeholder="아이디 (이메일)">
+                    <input class="Form__Input-sc-1quypp7-1 iRBMai" type="text" th:field="*{userEmail}" placeholder="아이디 (이메일)">
                 </div>
                 <p id="emailError" class="Form__Description-sc-1quypp7-2 bViOzS"></p>
                 <div>
-                    <input class="Form__Input-sc-1quypp7-1 iRBMai" type="password" name="password" id="passwordbox" placeholder="비밀번호">
+                    <input class="Form__Input-sc-1quypp7-1 iRBMai" type="password" th:field="*{userPassword}" placeholder="비밀번호">
                 </div>
                 <span id="passwordError"></span>
                 <a class="LoginForm__FindPasswordLink-sc-1co2pzc-0 gbyPIP" href="/login/findPw">비밀번호 찾기</a>
