@@ -49,6 +49,7 @@ public class JoinController {
     @ResponseBody
     public String checkSavedUser(@RequestBody String email){
         List<UserDTO> users=jpaQueryFactory.select(new QUserDTO(
+                user.userId,
                 user.userEmail,
                 user.userNickname,
                 user.userAccountStatus,
@@ -76,6 +77,7 @@ public class JoinController {
     @ResponseBody
     public String checkNickname(@RequestBody String nickname){
         List<UserDTO> users=jpaQueryFactory.select(new QUserDTO(
+                user.userId,
                 user.userEmail,
                 user.userNickname,
                 user.userAccountStatus,
