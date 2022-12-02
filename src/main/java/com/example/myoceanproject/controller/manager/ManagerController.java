@@ -1,8 +1,10 @@
 package com.example.myoceanproject.controller.manager;
 
 import com.example.myoceanproject.domain.CommunityPostDTO;
+import com.example.myoceanproject.domain.CommunityReplyDTO;
 import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.service.community.CommunityPostService;
+import com.example.myoceanproject.service.community.CommunityReplyService;
 import com.example.myoceanproject.type.CommunityCategory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ManagerController {
     @Autowired
     private CommunityPostService postService;
+    @Autowired
+    private CommunityReplyService replyService;
 
     // 고민상담 게시글 관리
     @GetMapping("/counselingBoard")
@@ -27,7 +31,7 @@ public class ManagerController {
         //        0부터 시작,
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
-        Page<CommunityPostDTO> postDTOPage= postService.showPost(pageable, CommunityCategory.COUNSELING, criteria);
+        Page<CommunityPostDTO> postDTOPage= postService.showCounseling(pageable, CommunityCategory.COUNSELING, criteria);
         int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
         if(postDTOPage.getTotalPages() < endPage){
             endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
@@ -46,6 +50,20 @@ public class ManagerController {
     // 고민상담 댓글 관리
     @GetMapping("/counselingReply")
     public String counselingReply(Model model, Criteria criteria) {
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+
+        Page<CommunityReplyDTO> replyDTOPage= replyService.showReplyByCounseling(pageable, criteria);
+        int endPage = (int)(Math.ceil(replyDTOPage.getNumber()+1 / (double)10)) * 10;
+        if(replyDTOPage.getTotalPages() < endPage){
+            endPage = replyDTOPage.getTotalPages() == 0 ? 1 : replyDTOPage.getTotalPages();
+        }
+        log.info(endPage + "end");
+
+        model.addAttribute("replies", replyDTOPage.getContent());
+        model.addAttribute("pagination", replyDTOPage);
+        model.addAttribute("pageable", pageable);
+        model.addAttribute("criteria", criteria);
+        model.addAttribute("endPage", endPage);
 
 
         return "app/manager/admin_counseling_board_reply";
@@ -57,7 +75,7 @@ public class ManagerController {
 //        0부터 시작,
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
-        Page<CommunityPostDTO> postDTOPage= postService.showPost(pageable, CommunityCategory.FREEBOARD, criteria);
+        Page<CommunityPostDTO> postDTOPage= postService.showPost(pageable, criteria);
         int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
         if(postDTOPage.getTotalPages() < endPage){
             endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
@@ -72,21 +90,26 @@ public class ManagerController {
 
         return "app/manager/admin_free_board";
     }
-//    @GetMapping("/freeBoard")
-//    public String freeBoard(Model model) {
-//        Pageable pageable = PageRequest.of(1, 10);
-//        Page<CommunityPostDTO> postDTOPage= postService.showPost(pageable, CommunityCategory.FREEBOARD);
-//
-//
-//        model.addAttribute("freeBoards", postDTOPage.getContent());
-//        model.addAttribute("pagination", postDTOPage);
-//
-//        return "app/manager/admin_free_board";
-//    }
 
     // 자유게시판 댓글 관리
     @GetMapping("/freeReply")
-    public String freeReply() {
+    public String freeReply(Model model, Criteria criteria) {
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+
+        Page<CommunityReplyDTO> replyDTOPage= replyService.showReply(pageable, criteria);
+        int endPage = (int)(Math.ceil(replyDTOPage.getNumber()+1 / (double)10)) * 10;
+        if(replyDTOPage.getTotalPages() < endPage){
+            endPage = replyDTOPage.getTotalPages() == 0 ? 1 : replyDTOPage.getTotalPages();
+        }
+        log.info(endPage + "end");
+
+        model.addAttribute("replies", replyDTOPage.getContent());
+        model.addAttribute("pagination", replyDTOPage);
+        model.addAttribute("pageable", pageable);
+        model.addAttribute("criteria", criteria);
+        model.addAttribute("endPage", endPage);
+
+
         return "app/manager/admin_free_board_reply";
     }
 

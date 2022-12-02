@@ -56,6 +56,7 @@ $tr.find('.more').click(function () {
             "    <button class=\"account-modal-button\">삭제</button>\n" +
             "</div>")
         $(this).next().find('.account-modal-button').click(function () {
+            $(this).closest('tr').remove();
             $(this).closest('.account-modal').remove()
             $(this).remove()
             temp--;
@@ -63,6 +64,23 @@ $tr.find('.more').click(function () {
     }
 })
 
+
+function remove(replyNumber, callback, error){
+    $.ajax({
+        url: "/reply/" + replyNumber,
+        type: "delete",
+        success: function(text){
+            if(callback){
+                callback(text);
+            }
+        },
+        error: function(xhr, status, err){
+            if(error){
+                error(err);
+            }
+        }
+    });
+}
 
 
 // 상단 필터 클릭시 색 변화

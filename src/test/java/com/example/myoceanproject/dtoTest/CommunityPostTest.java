@@ -78,7 +78,7 @@ public class CommunityPostTest {
 //      커뮤니티 게시판 내용을 화면에서 입력받는다.
             communityPostDTO.setCommunityTitle("게시글 제목");
             communityPostDTO.setCommunityContent("게시글 내용");
-            communityPostDTO.setCommunityCategory(CommunityCategory.COUNSELING);
+            communityPostDTO.setCommunityCategory(CommunityCategory.COOK);
             communityPostDTO.setUserNickName(user.get().getUserNickname());
 
 //      추가 저장을 위해 toentity메서드를 통해 communityPost객체에 저장
@@ -226,7 +226,7 @@ public class CommunityPostTest {
 //        post.update(postDTO);
 
     }
-    
+
     @Test
     public void updateViewTest(){
 //        유저 정보 검사는 단테에서 진행 하지 않고 해당 유저가 아니라는 전제하에 로직
@@ -241,48 +241,50 @@ public class CommunityPostTest {
     }
 
 
-    @Test
-    public void deleteTest(){
-//        받아온 포스트번호가 17
-//        우선 파일있는지 확인하고, 파일이 존재할 경우ㅡ 파일을 전체 삭제 후 게시글 삭제를 진행한다.
-
-//      4번 포스트를 찾아서 객체 선언
-        CommunityPost post = postRepository.findById(4L).get();
-//      4번 포스트 객체로 파일 전체를 불러옴
-        List<CommunityFileDTO> postFiles = fileRepositoryImpl.findByCommunityPost(post);
-//      4번 포스트 객체로 좋아요 전체를 불러옴
-        List<CommunityFileDTO> llikes = fileRepositoryImpl.findByCommunityPost(post);
-//      4번 포스트 번호로 댓글 전체를 불러옴
-        List<CommunityReplyDTO> communityReplies = jpaQueryFactory.select(new QCommunityReplyDTO(
-                communityReply.user.userId,
-                communityReply.user.userNickname,
-                communityReply.communityPost.communityPostId,
-                communityReply.communityReplyContent,
-                communityReply.user.userFileName,
-                communityReply.user.userFilePath,
-                communityReply.user.userFileSize,
-                communityReply.user.userFileUuid
-        )).from(communityReply).where(communityReply.communityPost.communityPostId.eq(4L)).fetch();
-
-//        만약 포스트객체에 파일이 있다면?
-        if(!postFiles.isEmpty()) {
-//        전체 삭제 메소드를 실행하여 포스트와 관련된 파일을 전체 삭제한다.
-            fileRepositoryImpl.deleteByCommunityPost(post);
-        }
-//        만약 포스트객체에 라이크가 있다면?
-        if(!llikes.isEmpty()) {
-//        전체 삭제 메소드를 실행하여 포스트와 관련된 파일을 전체 삭제한다.
-            likeRepositoryImpl.deleteByCommunityPost(post);
-        }
-//        댓글이 있다면?
-        if(!communityReplies.isEmpty()) {
-//        전체 삭제 메소드를 실행하여 포스트와 관련된 파일을 전체 삭제한다.
-            replyRepositoryImpl.deleteByCommunityPost(post);
-        }
-
-//        만약 포스트객체에 자식을 찾지 못하면 포스트 삭제를 진행한다.
-        postRepository.delete(post);
-    }
+//    @Test
+//    public void deleteTest(){
+////        받아온 포스트번호가 17
+////        우선 파일있는지 확인하고, 파일이 존재할 경우ㅡ 파일을 전체 삭제 후 게시글 삭제를 진행한다.
+//
+////      4번 포스트를 찾아서 객체 선언
+//        CommunityPost post = postRepository.findById(4L).get();
+////      4번 포스트 객체로 파일 전체를 불러옴
+//        List<CommunityFileDTO> postFiles = fileRepositoryImpl.findByCommunityPost(post);
+////      4번 포스트 객체로 좋아요 전체를 불러옴
+//        List<CommunityFileDTO> llikes = fileRepositoryImpl.findByCommunityPost(post);
+////      4번 포스트 번호로 댓글 전체를 불러옴
+//        List<CommunityReplyDTO> communityReplies = jpaQueryFactory.select(new QCommunityReplyDTO(
+//                communityReply.user.userId,
+//                communityReply.user.userNickname,
+//                communityReply.user.userFileName,
+//                communityReply.user.userFilePath,
+//                communityReply.user.userFileSize,
+//                communityReply.user.userFileUuid,
+//                communityReply.communityPost.communityPostId,
+//                communityReply.communityPost.communityTitle,
+//                communityReply.communityReplyContent,
+//                communityReply.createDate,
+//                communityReply.updatedDate
+//        )).from(communityReply).where(communityReply.communityPost.communityPostId.eq(4L)).fetch();
+////        만약 포스트객체에 파일이 있다면?
+//        if(!postFiles.isEmpty()) {
+////        전체 삭제 메소드를 실행하여 포스트와 관련된 파일을 전체 삭제한다.
+//            fileRepositoryImpl.deleteByCommunityPost(post);
+//        }
+////        만약 포스트객체에 라이크가 있다면?
+//        if(!llikes.isEmpty()) {
+////        전체 삭제 메소드를 실행하여 포스트와 관련된 파일을 전체 삭제한다.
+//            likeRepositoryImpl.deleteByCommunityPost(post);
+//        }
+////        댓글이 있다면?
+//        if(!communityReplies.isEmpty()) {
+////        전체 삭제 메소드를 실행하여 포스트와 관련된 파일을 전체 삭제한다.
+//            replyRepositoryImpl.deleteByCommunityPost(post);
+//        }
+//
+////        만약 포스트객체에 자식을 찾지 못하면 포스트 삭제를 진행한다.
+//        postRepository.delete(post);
+//    }
 
 
 

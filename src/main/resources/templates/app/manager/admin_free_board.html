@@ -99,7 +99,8 @@
                     <table id="info_table">
                         <thead>
                             <tr>
-                                <th class="thead"></th>
+                                <th class="thead">번호</th>
+                                <th class="thead">카테고리</th>
                                 <th class="thead">제목</th>
                                 <th class="thead">작성자</th>
                                 <th class="thead">조회수</th>
@@ -113,6 +114,7 @@
                             <th:block th:each="freeBoard:${freeBoards}">
                                 <tr th:object="${freeBoard}">
                                     <td class="info_td" th:text="*{communityPostId}"></td>
+                                    <td class="info_td" th:text="*{communityCategory}"></td>
                                     <td class="info_td" th:text="*{communityTitle}" ></td>
                                     <td class="info_td" th:text="*{userNickName}"></td>
                                     <td class="info_td" th:text="*{communityViewNumber}"></td>
