@@ -1,5 +1,5 @@
 server:
-  port: 21000
+  port: 15000
   servlet:
     session:
       tracking-modes: cookie
@@ -25,9 +25,9 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.Oracle10gDialect
     hibernate:
-#            ddl-auto: create
+      #            ddl-auto: create
       #      ddl-auto: create-drop
-      #      ddl-auto: update
+      #            ddl-auto: update
       ddl-auto: validate
     properties:
       hibernate:

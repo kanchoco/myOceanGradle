@@ -49,8 +49,8 @@ public class UserTest {
         String encryptPw=encryption(pw);
 
 //      DTO객체에 화면에서 입력받은 정보와 계정의 추가 상태를 지정한다.
-        userDTO.setUserEmail("aaa@aaa.com");
-        userDTO.setUserNickname("firstuser");
+        userDTO.setUserEmail("whei1234@naver.com");
+        userDTO.setUserNickname("notebook");
         userDTO.setUserPassword(encryptPw);
         userDTO.setUserLoginMethod(UserLoginMethod.GENERAL);
         userDTO.setUserAccountStatus(UserAccountStatus.ACTIVE);
