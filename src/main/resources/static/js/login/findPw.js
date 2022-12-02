@@ -1,5 +1,5 @@
 /* 이메일 정규식,input박스 입력값, uuid생성 및 url경로값 저장하는 변수선언 */
-var emailRegex=/\w+([-+.]\w+)*@\w+([-.]\w+)*\.[a-zA-Z]{2,4}$/;
+var emailRegex=/\w+([-+.]\w+)*@\w+([-.]\w+)*\.[a-zA-Z]{3,4}$/;
 var $inputemail=findForm.email;
 var uuid=([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c=>(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c/4).toString(16));
 var url=location.href;
@@ -35,3 +35,33 @@ $(findForm.email).on("change input",function(){
         $("button[name='sendemail']").attr("class","Button-bqxlp0-0 bGHqGe");
     }
 });
+
+$('button[name=sendemail]').on("click",function() {
+    checkEmail();
+});
+
+function checkEmail(){
+    $.ajax({
+        type:"post",
+        url:"checkUserEmail",
+        headers:{"Content-Type":"application/json"},
+        data:$inputemail.value,
+        dataType:"text",
+        success:function(result){
+            if(result=="unavailable"){alert("등록된 이메일이 아닙니다. 소셜 회원이라면 가입한 소셜로 로그인해주세요.");}
+            else{transferMail();}
+        }
+    })
+}
+
+function saveFindData(){
+    $.ajax({
+        type:"post",
+        url:"requestFind",
+        headers:{"Content-Type":"application/json"},
+        data:$inputemail.value,
+        dataType:"text",
+        success:function(result){;},
+        error:function(status,error){;}
+    })
+}

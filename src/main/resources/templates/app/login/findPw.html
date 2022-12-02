@@ -56,26 +56,28 @@
         src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
 </script>
 <script type="text/javascript">
-    console.log(uuid);
-    var url="http://localhost:15000/login/changePassword";
-    emailjs.init("VPTiIAAgeT4A2QNeZ");
-    //"user_xxxxx"이 부분은 사용자마다 다르니 반드시 emailJS의 installation 화면을 확인
-    $('button[name=sendemail]').on("click",function(){
+    function transferMail() {
+        saveFindData();
+        console.log(uuid);
+        var url = "http://localhost:21000/login/changePassword";
+        emailjs.init("VPTiIAAgeT4A2QNeZ");
+        //"user_xxxxx"이 부분은 사용자마다 다르니 반드시 emailJS의 installation 화면을 확인
+
 
         var templateParams = {
             //각 요소는 emailJS에서 설정한 템플릿과 동일한 명으로 작성!
-            email : $('input[name=email]').val(),
+            email: $('input[name=email]').val(),
             verificationCode: uuid,
             url: url,
         };
-        emailjs.send('gmail', 'template_n8h04cp', templateParams,"VPTiIAAgeT4A2QNeZ")
+        emailjs.send('gmail', 'template_n8h04cp', templateParams, "VPTiIAAgeT4A2QNeZ")
             //emailjs.send('service ID', 'template ID', 보낼 내용이 담긴 객체)
-            .then(function(response) {
+            .then(function (response) {
                 console.log('SUCCESS!', response.status, response.text);
-                location.href="/login/findPwComplete";
-            }, function(error) {
+                location.href = "/login/findPwComplete";
+            }, function (error) {
                 console.log('FAILED...', error);
             });
-    });
+    }
 </script>
 </html>

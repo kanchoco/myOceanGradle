@@ -2,6 +2,9 @@ package com.example.myoceanproject.controller.login;
 
 import com.example.myoceanproject.domain.QUserDTO;
 import com.example.myoceanproject.domain.UserDTO;
+import com.example.myoceanproject.domain.UserFindDTO;
+import com.example.myoceanproject.entity.UserFind;
+import com.example.myoceanproject.repository.UserFindRepository;
 import com.example.myoceanproject.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -18,9 +21,9 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.net.http.HttpRequest;
 import java.util.Base64;
 import java.util.List;
+import java.util.UUID;
 
 import static com.example.myoceanproject.entity.QUser.user;
 
@@ -35,9 +38,13 @@ public class LoginController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserFindRepository userFindRepository;
+
     // 로그인 페이지
     @GetMapping("/index")
-    public String login(){
+    public String login(Model model){
+        model.addAttribute("userDTO",new UserDTO());
         return "app/login/login";
     }
 
@@ -77,13 +84,52 @@ public class LoginController {
 
     @PostMapping("/loginOk")
     public String afterLogin(UserDTO userDTO, HttpServletRequest request){
-        HttpSession httpSession=request.getSession();
+        HttpSession session=request.getSession();
+
 
         BooleanBuilder builder=new BooleanBuilder();
         builder.and(user.userEmail.eq(userDTO.getUserEmail()));
         builder.and(user.userPassword.eq(encryption(userDTO.getUserPassword())));
 
         UserDTO loginUser=jpaQueryFactory.select(new QUserDTO(
+                user.userId,
+                user.userPassword,
+                user.userNickname,
+                user.userAccountStatus,
+                user.userFileName,
+                user.userFilePath,
+                user.userFileSize,
+                user.userFileUuid,
+                user.userEmail,
+                user.userLoginMethod,
+                user.userTotalPoint
+        )).from(user).where(builder).fetchOne();
+
+        session.setAttribute("userId",loginUser.getUserId());
+        session.setAttribute("userEmail",loginUser.getUserEmail());
+        session.setAttribute("userNickname",loginUser.getUserNickname());
+
+        return "redirect:/main/index";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request){
+        HttpSession session=request.getSession();
+        session.removeAttribute("userId");
+        session.removeAttribute("userEmail");
+        session.removeAttribute("userNickname");
+        return "redirect:/main/index";
+    }
+    // 비밀번호 찾기 페이지
+    @GetMapping("/findPw")
+    public String findPw(){
+        return "app/login/findPw";
+    }
+
+    @RequestMapping("/checkUserEmail")
+    @ResponseBody
+    public String checkUserEmail(@RequestBody String email){
+        List<UserDTO> users=jpaQueryFactory.select(new QUserDTO(
                 user.userId,
                 user.userEmail,
                 user.userNickname,
@@ -95,17 +141,38 @@ public class LoginController {
                 user.userPassword,
                 user.userLoginMethod,
                 user.userTotalPoint
-        )).from(user).where(builder).fetchOne();
+        )).from(user).where(user.userEmail.eq(email)).fetch();
 
-//        httpSession.setAttribute("userId",loginUser);
-        return "redirect:/main/index";
-    }
-    // 비밀번호 찾기 페이지
-    @GetMapping("/findPw")
-    public String findPw(){
-        return "app/login/findPw";
+        if(users.size()>=1){
+            return "available";
+        }else{return "unavailable";}
     }
 
+    @RequestMapping("/requestFind")
+    @ResponseBody
+    public void saveRequestFind(@RequestBody String email){
+        UserFindDTO userFindDTO=new UserFindDTO();
+
+        UserDTO users=jpaQueryFactory.select(new QUserDTO(
+                user.userId,
+                user.userEmail,
+                user.userNickname,
+                user.userAccountStatus,
+                user.userFileName,
+                user.userFilePath,
+                user.userFileSize,
+                user.userFileUuid,
+                user.userPassword,
+                user.userLoginMethod,
+                user.userTotalPoint
+        )).from(user).where(user.userEmail.eq(email)).fetchOne();
+
+        userFindDTO.setUserEmail(email);
+        userFindDTO.setUserUuid(UUID.randomUUID().toString());
+        userFindDTO.setUserId(users.getUserId());
+        UserFind userFind=userFindDTO.toentity();
+        userFindRepository.save(userFind);
+    }
     // 비밀번호 찾기 요청후 페이지
     @GetMapping("/findPwComplete")
     public String findPwComplete(){
@@ -115,6 +182,7 @@ public class LoginController {
     // 비밀번호 변경 페이지
     @GetMapping("/changePassword")
     public String changePassword(){
+        String uuid = UUID.randomUUID().toString();
         return "app/login/changePassword";
     }
 
