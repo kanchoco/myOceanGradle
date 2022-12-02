@@ -64,48 +64,49 @@ public class CommunityPostTest {
 
 //      userRepository 인터페이스 구현체 hibernate의 findById메서드를 이용해서
 //      커뮤니티 게시글의 작성자를 추가하기위해 검색
-        Optional<User> user=userRepository.findById(2L);
-        
+        for (int k = 0; k<10; k++) {
+            Optional<User> user = userRepository.findById(2L);
+
 //      화면에서 입력받는 값들을 위해 게시판,파일 DTO 객체 선언
-        CommunityPostDTO communityPostDTO=new CommunityPostDTO();
-        CommunityFileDTO communityFileDTO=new CommunityFileDTO();
-        
+            CommunityPostDTO communityPostDTO = new CommunityPostDTO();
+            CommunityFileDTO communityFileDTO = new CommunityFileDTO();
+
 //      게시판을 작성한 유저, 파일을 첨부한 게시글 번호를 추가하기 위한 entity 객체 선언
-        CommunityPost communityPost=new CommunityPost();
-        CommunityFile communityFile=new CommunityFile();
+            CommunityPost communityPost = new CommunityPost();
+            CommunityFile communityFile = new CommunityFile();
 
 //      커뮤니티 게시판 내용을 화면에서 입력받는다.
-        communityPostDTO.setCommunityTitle("게시글 제목");
-        communityPostDTO.setCommunityContent("게시글 내용");
-        communityPostDTO.setCommunityCategory(CommunityCategory.FREEBOARD);
-        communityPostDTO.setUserNickName(user.get().getUserNickname());
-        
+            communityPostDTO.setCommunityTitle("게시글 제목");
+            communityPostDTO.setCommunityContent("게시글 내용");
+            communityPostDTO.setCommunityCategory(CommunityCategory.COUNSELING);
+            communityPostDTO.setUserNickName(user.get().getUserNickname());
+
 //      추가 저장을 위해 toentity메서드를 통해 communityPost객체에 저장
-        communityPost=communityPostDTO.toEntity();
+            communityPost = communityPostDTO.toEntity();
 
 //      userRepository 인터페이스 구현체 hibernate의 findbyid메서드로 유저를 검색후 추가
-        communityPost.setUser(user.get());
+            communityPost.setUser(user.get());
 
 //      커뮤니티 게시판 테이블에 해당 내용을 저장
-        postRepository.save(communityPost);
+            log.info(k + "");
+            postRepository.save(communityPost);
+
 
 //      커뮤니티 파일의 내용을 입력받는다.
-        communityFileDTO.setCommunityFileName("new.png");
-        communityFileDTO.setCommunityFilePath("/image/");
-        communityFileDTO.setCommunityFileSize(300L);
-        communityFileDTO.setCommunityFileUuid(234561L);
+            communityFileDTO.setCommunityFileName("new.png");
+            communityFileDTO.setCommunityFilePath("/image/");
+            communityFileDTO.setCommunityFileSize(300L);
+            communityFileDTO.setCommunityFileUuid(234561L);
 
 //      추가 저장을 위해 toEntity메서드를 통해 communityFile객체에 저장
-        communityFile=communityFileDTO.toEntity();
+            communityFile = communityFileDTO.toEntity();
 
 //      postRepository 인터페이스 구현체 hibernate의 findTop1ByOrderByCommunityPostIdDesc메서드로 최신 등록된 커뮤니티 게시판 1개를 가져와서 추가
-        communityFile.setCommunityPost(postRepository.findTop1ByOrderByCommunityPostIdDesc());
+            communityFile.setCommunityPost(postRepository.findTop1ByOrderByCommunityPostIdDesc());
 
 //      커뮤니티 파일 테이블에 해당 내용을 저장
-        for (int i = 0; i<10; i++){
             communityFileRepository.save(communityFile);
         }
-
     }
 
     @Test

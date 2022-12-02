@@ -109,171 +109,55 @@
                             <th class="thead">삭제</th>
                         </tr>
                         </thead>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">김인영</td>
-                            <td class="info_td">김녕</td>
-                            <td class="info_td">34</td>
-                            <td class="info_td">203</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">2022-11-14</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">김인영</td>
-                            <td class="info_td">김녕</td>
-                            <td class="info_td">34</td>
-                            <td class="info_td">203</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">2022-11-14</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">김인영</td>
-                            <td class="info_td">김녕</td>
-                            <td class="info_td">34</td>
-                            <td class="info_td">203</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">2022-11-14</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">김인영</td>
-                            <td class="info_td">김녕</td>
-                            <td class="info_td">34</td>
-                            <td class="info_td">203</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">2022-11-14</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">김인영</td>
-                            <td class="info_td">김녕</td>
-                            <td class="info_td">34</td>
-                            <td class="info_td">203</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">2022-11-14</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">김인영</td>
-                            <td class="info_td">김녕</td>
-                            <td class="info_td">34</td>
-                            <td class="info_td">203</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">2022-11-14</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">김인영</td>
-                            <td class="info_td">김녕</td>
-                            <td class="info_td">34</td>
-                            <td class="info_td">203</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">2022-11-14</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">김인영</td>
-                            <td class="info_td">김녕</td>
-                            <td class="info_td">34</td>
-                            <td class="info_td">203</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">2022-11-14</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">김인영</td>
-                            <td class="info_td">김녕</td>
-                            <td class="info_td">34</td>
-                            <td class="info_td">203</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">2022-11-14</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">김인영</td>
-                            <td class="info_td">김녕</td>
-                            <td class="info_td">34</td>
-                            <td class="info_td">203</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">2022-11-14</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-
-                        </tr>
-
+                        <tbody>
+                        <th:block th:each="counseling:${counselings}">
+                            <tr th:object="${counseling}">
+                                <td class="info_td" th:text="*{communityPostId}"></td>
+                                <td class="info_td" th:text="*{communityTitle}" ></td>
+                                <td class="info_td" th:text="*{userNickName}"></td>
+                                <td class="info_td" th:text="*{communityViewNumber}"></td>
+                                <td class="info_td" th:text="*{communityReplyCount}"></td>
+                                <td class="info_td" th:text="*{createDate}"></td>
+                                <td class="info_td" th:text="*{updatedDate}"></td>
+                                <td class="info_td">
+                                    <button class="more" onclick="removePost(this);"><img src="/imgin/more.png" width="15px"></button>
+                                </td>
+                            </tr>
+                        </th:block>
+                        </tbody>
 
 
                     </table>
                 </div>
-                <div id="page_changer_wrapper">
+                <div id="page_changer_wrapper" th:object="${pagination}">
                     <div id="previous_button_wrapper">
-                        <button class="previous_buttons">
+                        <a class="previous_buttons changePage"  th:href="${1}">
                             <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
                                  class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
-                        </button>
-                        <button class="previous_buttons">
+                        </a>
+                        <a class="previous_buttons changePage" th:href="${pagination.getNumber()}">
                             <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
                                  class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
-                        </button>
+                        </a>
                     </div>
-                    <button class="page">1</button>
-                    <button class="page">2</button>
-                    <button class="page">3</button>
-                    <button class="page">4</button>
-                    <button class="page">5</button>
-                    <button class="page">6</button>
-                    <button class="page">7</button>
-                    <button class="page">8</button>
-                    <button class="page">9</button>
+                    <th:block th:each="page:${#numbers.sequence((endPage == 10 ? endPage - 10 + 1 : 1), endPage)}">
+                        <a th:if="${pagination.getNumber()+1 != page}" th:href="${page}" class="page changePage" th:text="${page}"></a>
+                        <a th:unless="${pagination.getNumber()+1 != page}" th:href="${page}" class="page active" th:text="${page}"></a>
+                    </th:block>
                     <div id="next_button_wrapper">
-                        <button class="next_buttons">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-                                 class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
-                        </button>
-                        <button class="next_buttons">
+                        <a class="next_buttons changePage" th:href="${(pageable.getPageNumber()+2 > endPage? endPage : pageable.getPageNumber()+2)}">
                             <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
                                  class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
-                        </button>
+                        </a>
+                        <a class="next_buttons changePage"  th:href="${pagination.getTotalPages()}">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
+                                 class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
+                        </a>
                     </div>
+                    <form th:action="@{/manager/counselingBoard}" th:object="${criteria}" name="pageForm">
+                        <input type="hidden" th:field="*{page}">
+                        <input type="hidden" th:field="*{keyword}">
+                    </form>
                 </div>
             </div>
         </div>
@@ -285,6 +169,20 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/js/manager/admin_counseling_board.js"></script>
 <script>
+    const $pages = $('a.changePage');
+
+    $("#search_input").on("keyup",function(key){
+        if(key.keyCode === 13) {
+            $(document.pageForm.keyword).val($(this).val());
+            document.pageForm.submit();
+        }
+    });
+
+    $pages.on("click", function(e){
+        e.preventDefault();
+        $(document.pageForm.page).val($(this).attr("href"));
+        document.pageForm.submit();
+    });
 </script>
 
 </html>

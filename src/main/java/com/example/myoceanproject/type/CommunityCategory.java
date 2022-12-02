@@ -1,5 +1,5 @@
 package com.example.myoceanproject.type;
 
 public enum CommunityCategory {
-    EXERCISE, COOK, FREEBOARD, MOVIE, BOOK, COUNSELLING
+    EXERCISE, COOK, FREEBOARD, MOVIE, BOOK, COUNSELING
 }

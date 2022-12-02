@@ -23,14 +23,31 @@ public class ManagerController {
 
     // 고민상담 게시글 관리
     @GetMapping("/counselingBoard")
-    public String counselingBoard() {
+    public String counselingBoard(Model model, Criteria criteria) {
+        //        0부터 시작,
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+
+        Page<CommunityPostDTO> postDTOPage= postService.showPost(pageable, CommunityCategory.COUNSELING, criteria);
+        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
+        if(postDTOPage.getTotalPages() < endPage){
+            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
+        }
+        log.info(endPage + "end");
+
+        model.addAttribute("counselings", postDTOPage.getContent());
+        model.addAttribute("pagination", postDTOPage);
+        model.addAttribute("pageable", pageable);
+        model.addAttribute("criteria", criteria);
+        model.addAttribute("endPage", endPage);
 
         return "app/manager/admin_counseling_board";
     }
 
     // 고민상담 댓글 관리
     @GetMapping("/counselingReply")
-    public String counselingReply() {
+    public String counselingReply(Model model, Criteria criteria) {
+
+
         return "app/manager/admin_counseling_board_reply";
     }
 
@@ -38,18 +55,9 @@ public class ManagerController {
     @GetMapping("/freeBoard")
     public String freeBoard(Model model, Criteria criteria) {
 //        0부터 시작,
-        log.info((criteria.getKeyword()== null) + ": 검색어");
-        log.info(criteria.getPage() + ": 페이지");
-
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<CommunityPostDTO> postDTOPage= postService.showPost(pageable, CommunityCategory.FREEBOARD, criteria);
-        log.info("----------------------------------------");
-//        postDTOPage.getContent().stream().map(CommunityPostDTO::toString).forEach(log::info);
-        log.info(pageable.getOffset() + "시작");
-        log.info(postDTOPage.getTotalPages()+ "전체");
-        log.info(postDTOPage.getNumber()+ "현재");
-        log.info("----------------------------------------");
         int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
         if(postDTOPage.getTotalPages() < endPage){
             endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
