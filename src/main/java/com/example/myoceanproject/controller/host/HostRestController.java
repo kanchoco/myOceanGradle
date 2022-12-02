@@ -9,10 +9,8 @@ import net.coobird.thumbnailator.Thumbnailator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -88,23 +86,40 @@ public class HostRestController {
             log.info(groupFileSize+"");
             log.info("==========================");
 
-            groupDTO.setGroupFileName(uploadFileName);
+            groupDTO.setGroupFileName(fileName);
             groupDTO.setGroupFileUuid(fileUuid);
-            groupDTO.setGroupFileSize(groupFileSize);
+            groupDTO.setGroupFileSize(multipartFile.getSize());
             groupDTO.setGroupFilePath(groupFilePath);
 
-            File saveGroupFile = new File(uploadPath, uploadFileName);
-            multipartFile.transferTo(saveGroupFile);
+            try{
+                File saveGroupFile = new File(uploadPath, uploadFileName);
+                multipartFile.transferTo(saveGroupFile);
 
-//            if(checkImageType(saveGroupFile)){
-//                FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
-//                Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100);
-//                thumbnail.close();
-//            }
+//                if(checkImageType(saveGroupFile)){
+//                    FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
+//                    Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100);
+//                    thumbnail.close();
+//                }
+            } catch(Exception e){
+                log.error(e.getMessage());
+            }
             files.add(groupDTO);
-
         }
         return files;
+    }
+
+    @GetMapping("/display")
+    public byte[] display(String fileName) throws IOException{
+        File file = new File("C:/upload/group", fileName);
+        return FileCopyUtils.copyToByteArray(file);
+    }
+
+    @PostMapping("/delete")
+    public void delete(String uploadPath, String fileName){
+        File file = new File("C:/upload/group", uploadPath + "/" + fileName);
+        if(file.exists()){
+            file.delete();
+        }
     }
 
     public String createDirectoryByNow(){

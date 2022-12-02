@@ -454,29 +454,89 @@ $('.col-lg-5.selectBox').on('click', function(){
 });
 
 //인풋에서 이미지 주소 불러오기
-function readURL(input) {
-    if (input.files && input.files[0]) {
+// function readURL(input) {
+//     if (input.files && input.files[0]) {
+//         var reader = new FileReader();
+//         reader.onload = function(e) {
+//             var url = e.target.result;
+//             $('.img-box').attr('src', url);
+//         }
+//         console.log(input.files[0].name);
+//         reader.readAsDataURL(input.files[0]);
+//     }
+// }
+//
+// //섬네일 추가
+// $('.plusThumb').on('change', function(){
+//     readURL(this);
+//     $('.image-header').show();
+//     $('.img-box').show();
+// });
 
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            var url = e.target.result;
-            $('.img-box').attr('src', url);
+//썸네일 이미지
+$(".plusThumb").on("change", function(){
+    let arrayFile =[];
+
+    let formData = new FormData();
+    let $inputFile = $("input[name='plusThumb']");
+    let files = $inputFile[0].files;
+
+    Array.from(files).forEach(file => arrayFile.push(file));
+    const dataTransfer = new DataTransfer();
+
+    arrayFile.forEach(file => dataTransfer.items.add(file));
+    $(this)[0].files = dataTransfer.files;
+
+    $(files).each(function(i, file){
+        formData.append("upload", file);
+    });
+
+    $.ajax({
+        url: "/host/thumbnail",
+        type: "post",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(result) {
+            $('input[name=groupFileName]').attr('value', Object.values(result[0])[15]);
+            $('input[name=groupFilePath]').attr('value', Object.values(result[0])[14]);
+            $('input[name=groupFileSize]').attr('value', Object.values(result[0])[17]);
+            $('input[name=groupFileUuid]').attr('value', Object.values(result[0])[16]);
+            let imageSrc = "/host/display?fileName=" + Object.values(result[0])[14] + "/" + Object.values(result[0])[16] + "_" + Object.values(result[0])[15];
+            $('.image-header').show();
+            $('.img-box').show();
+
+
+            let text = "";
+            text += `<li id="thumbnailImage" data-file-size="` + Object.values(result[0])[17] + `" data-file-name="` + Object.values(result[0])[15] + `" data-file-upload-path="` + Object.values(result[0])[14] + `" data-file-uuid="` + Object.values(result[0])[16] + `" style="list-style: none;width:100%;">`;
+            text += `<img src=` + imageSrc + ` style="width:100%;" height="auto">`;
+            text += `</li>`;
+
+            $(".imgInputBox").append(text);
+
+            $(".text-center.container.thumbnailPlus").hide();
         }
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-
-//섬네일 추가
-$('.plusThumb').on('change', function(){
-    readURL(this);
-    $('.image-header').show();
-    $('.img-box').show();
+    });
 });
 
-//섬네일 삭제
+
+
+//썸네일 삭제
 $('.removeImg').on('click', function(){
     $('.image-header').hide();
     $('.img-box').attr('src', '');
+    let uploadPath = $("#thumbnailImage").data("file-upload-path");
+    let fileName = $("#thumbnailImage").data("file-uuid") + "_" + $("#thumbnailImage").data("file-name");
+
+    $.ajax({
+        url: "/host/delete",
+        type: "post",
+        data: {uploadPath: uploadPath, fileName: fileName},
+        success: function(){
+            $("#thumbnailImage").remove();
+            $(".text-center.container.thumbnailPlus").show();
+        }
+    });
 });
 
 //검수 요청 버튼
@@ -639,41 +699,6 @@ $('.saveRequest').on('click', function (e){
         })
 });
 
-//썸네일 이미지
-$(".plusThumb").on("change", function(){
-    let arrayFile =[];
-
-    let formData = new FormData();
-    let $inputFile = $("input[name='plusThumb']");
-    let files = $inputFile[0].files;
-    console.log(Array.from(files));
-
-    Array.from(files).forEach(file => arrayFile.push(file));
-    const dataTransfer = new DataTransfer();
-
-    arrayFile.forEach(file => dataTransfer.items.add(file));
-    $(this)[0].files = dataTransfer.files;
-
-    console.log($(this)[0].files);
-
-    $(files).each(function(i, file){
-        formData.append("upload", file);
-    });
-
-    $.ajax({
-        url: "/host/thumbnail",
-        type: "post",
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function(result){
-            $('input[name=groupFileName]').attr('value', Object.values(result[0])[15]);
-            $('input[name=groupFilePath]').attr('value', Object.values(result[0])[14]);
-            $('input[name=groupFileSize]').attr('value', Object.values(result[0])[17]);
-            $('input[name=groupFileUuid]').attr('value', Object.values(result[0])[16]);
-        }
-    });
-});
 
 //에디터
 $(function() {
