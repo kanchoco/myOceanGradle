@@ -13,6 +13,8 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,7 +36,12 @@ public class HostRestController {
     private final GroupService groupService;
 
     @PostMapping(value="/index", consumes = "application/json", produces = "text/plain; charset=utf-8")
-    public ResponseEntity<String> host(@RequestBody GroupDTO groupDTO) throws UnsupportedEncodingException {
+    public ResponseEntity<String> host(@RequestBody GroupDTO groupDTO, HttpServletRequest request) throws UnsupportedEncodingException {
+        HttpSession session=request.getSession();
+
+        Long userId = (Long) session.getAttribute("userId");
+        groupDTO.setUserId(userId);
+        log.info(userId +"    ===== 유저 아이디");
         log.info("==============================");
         log.info("그룹명: " + groupDTO.getGroupName());
         log.info("그룹카테고리: " + groupDTO.getGroupCategory());
@@ -53,6 +60,8 @@ public class HostRestController {
         log.info("썸네일 경로: " + groupDTO.getGroupFilePath());
         log.info("썸네일 파일 크기: " + groupDTO.getGroupFileSize());
         log.info("썸네일 UUID: "+ groupDTO.getGroupFileUuid());
+        log.info("유저 아이디: " + groupDTO.getUserId());
+
         Group group = groupDTO.toEntity();
         groupService.add(group);
         return new ResponseEntity<>(new String("register success".getBytes(), "UTF-8"), HttpStatus.OK);

@@ -11,7 +11,12 @@
 	<link rel="stylesheet" href="/css/fix/footer.css">
 </head>
 <body class="g-sidenav-pinned g-sidenav-show">
-<header th:replace="/app/fix/header.html :: header"></header>
+<div th:if="${session.userId}">
+	<header th:replace="/app/fix/header.html :: header"/>
+</div>
+<div th:unless="${session.userId}">
+	<header th:replace="/app/fix/headerModify.html:: header"/>
+</div>
 <div id="app">
 	<div class="main-content mb-9">
 		<div>
@@ -241,7 +246,7 @@
 																							<!--컨트롤러로 넘기기 위한 숨겨진 input 창-->
 																							<input data-v-72dffd28="" th:field="*{groupLocationType}" name="groupLocationType" type="text" maxlength="40" class="form-control groupLocationType" style="display:none;">
 																							<!--모임 상세 설명 input창-->
-																							<input data-v-72dffd28="" th:field="*{groupContent}" name="groupContent" type="text" maxlength="40" class="form-control groupContent" style="display:none;">
+																							<input data-v-72dffd28="" th:field="*{groupContent}" name="groupContent" type="text" class="form-control groupContent" style="display:none;">
 																							<!--진행 장소 이름-->
 																							<input data-v-72dffd28="" th:field="*{groupLocationName}" name="groupLocationName" type="text" maxlength="40" class="form-control groupLocationName" style="display:none;">
 																							<!--진행 장소-->
