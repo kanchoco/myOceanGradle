@@ -465,13 +465,6 @@ $('.col-lg-5.selectBox').on('click', function(){
 //         reader.readAsDataURL(input.files[0]);
 //     }
 // }
-//
-// //섬네일 추가
-// $('.plusThumb').on('change', function(){
-//     readURL(this);
-//     $('.image-header').show();
-//     $('.img-box').show();
-// });
 
 //썸네일 이미지
 $(".plusThumb").on("change", function(){
@@ -640,6 +633,7 @@ $('.saveRecruitment').on('click', function (){
 
 });
 
+
 //임시 저장 확인
 $('.saveRequest').on('click', function (e){
     e.preventDefault();
@@ -674,8 +668,8 @@ $('.saveRequest').on('click', function (e){
     }
 
     //  실제 작성한 내용
-    let content = tinymce.activeEditor.getContent();
-    $('input[name=groupContent]').attr('value', content);
+    // let content = tinymce.activeEditor.getContent();
+    // $('input[name=groupContent]').attr('value', content);
 
     // 컨트롤러로 해당 내용 모두 전송
     groupSave.add({
@@ -740,6 +734,7 @@ $(function() {
             input.setAttribute('type', 'file');
             input.setAttribute('accept', 'image/*');
 
+
             /*
             Note: In modern browsers input[type="file"] is functional without
             even adding it to the DOM, but that might not be the case in some older
@@ -752,11 +747,6 @@ $(function() {
 
                 var reader = new FileReader();
                 reader.onload = function () {
-                    /*
-                    Note: Now we need to register the blob in TinyMCEs image blob
-                    registry. In the next release this part hopefully won't be
-                    necessary, as we are looking to handle it internally.
-                    */
                     var id = 'blobid' + (new Date()).getTime();
                     var blobCache = tinymce.activeEditor.editorUpload.blobCache;
                     var base64 = reader.result.split(',')[1];
@@ -769,6 +759,17 @@ $(function() {
                 reader.readAsDataURL(file);
             };
             input.click();
+        },
+        
+        // 글 작성 시 hidden input태그에 내용 작성 -> 타임리프로 groupDTO의 contents에 내용 그대로 들어가도록 함
+        setup:function(ed) {
+            ed.on('change', function(e) {
+                console.log('the event object ', e);
+                console.log('the editor object ', ed);
+                console.log('the content ', ed.getContent());
+
+                $('input[name=groupContent]').attr('value', ed.getContent());
+            });
         },
         /*** image upload ***/
 

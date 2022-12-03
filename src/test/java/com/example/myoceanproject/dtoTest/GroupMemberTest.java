@@ -71,7 +71,7 @@ public class GroupMemberTest {
         groupDTO.setMinMember(5);
         groupDTO.setGroupFileName("FileName");
         groupDTO.setGroupFilePath("FilePath");
-        groupDTO.setGroupFileUuid(3298457L);
+        groupDTO.setGroupFileUuid("Uuid");
         groupDTO.setGroupFileSize(100L);
 
         Group group1 = groupDTO.toEntity();
