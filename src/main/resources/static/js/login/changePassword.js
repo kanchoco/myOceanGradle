@@ -3,17 +3,14 @@ var $password=passwordForm.password;
 var $passwordCheck=passwordForm.passwordConfirm;
 var passwordRegex=/^(?=.*?[A-Z]{0})(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,}$/;
 var $emailuuid=new URL(location.href).searchParams.get("verificationCode");
-var $dbuuid="32392a41-3013-4346-b459-b3368f610d3c";
+var $emailReceivedEmail=new URL(location.href).searchParams.get("email");
+var $dbuuid;
 
 /* 현재 시간과 db 시간값 차이를 확인하기 위한 변수 및 계산식(밀리초로 표현) */
-const now=new Date();
-const firstDay=new Date("2022-11-21 16:00:00");
+var passedTime=new Date("2022-12-02 17:46:00").getTime();
 
-const tonow=now.getTime();
-passedTime=firstDay.getTime();
-
-const difftime=(tonow-firstDay)/1000;
-console.log(difftime);
+var tonow=new Date().getMilliseconds();
+const difftime=(tonow-passedTime)/1000;
 
 /* 클릭시 input박스 테두리 변경 */
 $(passwordForm.password).on("click",function(){
@@ -38,10 +35,14 @@ $(passwordForm.password).on("change input",function(){
     if(!passwordRegex.test($password.value)){
         $("input[name='password']").attr("class","Form__Input-sc-1quypp7-1 hYhAPw");
         $("p.cIOZzg").attr("class","Form__Description-sc-1quypp7-2 bViOzS");
+        $("button[name='change']").attr("disabled",true);
+        $("button[name='change']").attr("class","Button-bqxlp0-0 ppTTf");
         if($password.value==""){
             $("p.bViOzS").attr("class","Form__Description-sc-1quypp7-2 cIOZzg");
             $("input[name='password']").attr("class","Form__Input-sc-1quypp7-1 iRBMai");
             $("input[name='password']").css("border","");
+            $("button[name='change']").attr("disabled",true);
+            $("button[name='change']").attr("class","Button-bqxlp0-0 ppTTf");
         }
     }
     else if(passwordRegex.test($password.value)){
@@ -62,6 +63,8 @@ $(passwordForm.passwordConfirm).on("change input",function(){
             $("p.bViOzSS").text("");
             $("input[name='passwordConfirm']").attr("class","Form__Input-sc-1quypp7-1 iRBMai");
             $("input[name='passwordConfirm']").css("border","");
+            $("button[name='change']").attr("disabled",true);
+            $("button[name='change']").attr("class","Button-bqxlp0-0 ppTTf");
         }
     }
     else{
@@ -69,14 +72,16 @@ $(passwordForm.passwordConfirm).on("change input",function(){
         $("p.bViOzSS").text("");
         $("input[name='passwordConfirm']").attr("class","Form__Input-sc-1quypp7-1 iRBMai");
         $("input[name='passwordConfirm']").css("border","");
+
         $("button[name='change']").attr("disabled",false);
         $("button[name='change']").attr("class","Button-bqxlp0-0 bGHqGe");
         $("button[name='change']").on("click",function(){
+            requestFinduser();
             /* 하단의 검은색 박스 나타났다 사라지는 부분 */
             if((difftime>=300) || $emailuuid!=$dbuuid){
-                console.log(difftime);
-                console.log($dbuuid);
-                console.log($emailuuid);
+                // console.log(difftime);
+                // console.log($dbuuid);
+                // console.log($emailuuid);
 
                 /* 하단의 검은박스 나타나는 부분 */
                 $(".bpzBFC").fadeIn(1000);
@@ -96,8 +101,50 @@ $(passwordForm.passwordConfirm).on("change input",function(){
             }
             /* 버튼 타입 submit으로 변경 */
             else{
+                // savechangePw();
                 $("button[name='change']").attr("type","submit");
             }
         });
     }
 });
+
+function requestFinduser(){
+    $.ajax({
+        type:"post",
+        url:"requestFindUser",
+        headers:{"Content-Type":"application/json"},
+        data:$emailReceivedEmail,
+        dataType:"json",
+        success:function(result){console.log(result);
+            console.log(result.userEmail);
+            console.log(result.userFindtime);
+            console.log(result.userId);
+            console.log(result.userUuid);
+
+            var dbrequestTime=result.userFindtime;
+            var year=dbrequestTime.substr(0,4);
+            var month=dbrequestTime.substr(5,7);
+            var day=dbrequestTime.substr(8,10);
+            var hour=dbrequestTime.substr(11,13);
+            var minute=dbrequestTime.substr(14,16);
+            var second=dbrequestTime.substr(17,19);
+            var dbdate=new Date(year,month,day,hour,minute,second).getMilliseconds();
+
+            console.log("diff:"+(tonow-dbdate)/1000);
+        },
+        error:function(status,error){;}
+    })
+}
+
+
+function savechangePw(){
+    $.ajax({
+        type:"post",
+        url:"saveChangePw",
+        headers:{"Content-Type":"application/json"},
+        data:$passwordCheck.value,
+        dataType:"text",
+        success:function(result){;},
+        error:function(status,error){;}
+    })
+}

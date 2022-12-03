@@ -1,6 +1,7 @@
 package com.example.myoceanproject.controller.login;
 
 import com.example.myoceanproject.domain.QUserDTO;
+import com.example.myoceanproject.domain.QUserFindDTO;
 import com.example.myoceanproject.domain.UserDTO;
 import com.example.myoceanproject.domain.UserFindDTO;
 import com.example.myoceanproject.entity.UserFind;
@@ -11,14 +12,19 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Base64;
@@ -26,6 +32,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.example.myoceanproject.entity.QUser.user;
+import static com.example.myoceanproject.entity.QUserFind.userFind;
 
 @Slf4j
 @Controller
@@ -182,10 +189,24 @@ public class LoginController {
     // 비밀번호 변경 페이지
     @GetMapping("/changePassword")
     public String changePassword(){
-        String uuid = UUID.randomUUID().toString();
         return "app/login/changePassword";
     }
 
+    @RequestMapping
+    @ResponseBody
+    @Transactional
+    @Modifying
+    public UserFindDTO giveRequest(@RequestBody String email){
+        UserFindDTO userFinds=jpaQueryFactory.select(new QUserFindDTO(
+                userFind.userId,
+                userFind.userUuid,
+                userFind.userEmail,
+                userFind.userFindtime
+        )).from(userFind).where(userFind.userEmail.eq(email)).fetchOne();
+
+        jpaQueryFactory.delete(userFind).where(userFind.userEmail.eq(email)).execute();
+        return userFinds;
+    }
     // 비밀번호 변경 완료 페이지
     @GetMapping("/changePwComplete")
     public String changePwComplete(){
