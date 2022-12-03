@@ -19,4 +19,7 @@ public class GroupServiceTest {
     public void showTest(){
         groupService.show().stream().map(Group::toString).forEach(log::info);
     }
+
+    @Test
+    public void findTest(){log.info(groupService.find(2L).toString());}
 }

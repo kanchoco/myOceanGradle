@@ -79,6 +79,7 @@ public class GroupTest {
     @Test
     public void findAllTest(){
         List<GroupDTO> groups = jpaQueryFactory.select(new QGroupDTO(
+                group.groupId,
                 group.user.userId,
                 group.user.userNickname,
                 group.groupName,
@@ -107,6 +108,7 @@ public class GroupTest {
     @Test
     public void findById(){
         List<GroupDTO> groups = jpaQueryFactory.select(new QGroupDTO(
+                group.groupId,
                 group.user.userId,
                 group.user.userNickname,
                 group.groupName,

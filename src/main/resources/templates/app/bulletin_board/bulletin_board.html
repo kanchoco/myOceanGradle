@@ -17,7 +17,12 @@
     }
 </style>
 <body>
-<header th:replace="/app/fix/header.html :: header"></header>
+<div th:if="${session.userId}">
+    <header th:replace="/app/fix/header.html :: header"/>
+</div>
+<div th:unless="${session.userId}">
+    <header th:replace="/app/fix/headerModify.html:: header"/>
+</div>
 <div th:replace="/app/fix/chattingAll.html:: chattingAll"></div>
 <div class="PageWrapper-sc-1w87j10-0 bScXKt">
     <!--    <div class="SocialFeedPage__Header-ky5ymg-1 jIjcTX">-->
@@ -42,7 +47,7 @@
             <th:block th:each="groupDTO:${groupDTOs}">
                 <div class="CardProduct__Wrapper-a817d1-0 ijdqTp" th:object="${groupDTO}">
                     <!--세부 게시글로 넘어가는 부분-->
-                    <a class="withLink__StyledLink-zuberk-0 lQqkn" th:href="*{groupId}">
+                    <a class="withLink__StyledLink-zuberk-0 lQqkn detailGroup" th:href="*{groupId}">
                         <div class="CardProduct__InfoWrapper-a817d1-1 hPIfDi">
                             <div class="CardProduct__ImageContainer-a817d1-2 eEpNrE">
                                 <!--썸네일 이미지 감싸고 있는 부분-->

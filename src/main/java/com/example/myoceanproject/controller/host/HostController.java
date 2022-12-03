@@ -49,9 +49,12 @@ public class HostController {
     }
 
     // 게시글 수정, 게시글 상세보기
-    @GetMapping(value = {"read", "update"})
+    @GetMapping(value = {"/read", "/update"})
     public void read(Long groupId, Model model){
-        model.addAttribute("group", groupService.find(groupId));
+        log.info("========================");
+        log.info("groupDTO : " + groupId);
+        log.info("model: " + model);
+        model.addAttribute("groupDTO", groupService.find(groupId));
     }
 
     @PostMapping("/update")
