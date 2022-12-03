@@ -9,6 +9,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 @Component
 @Data
@@ -31,8 +34,16 @@ public class UserDTO {
     private Long userFileSize;
     private Long userFileUuid;
 
+    private String createDate;
+
+    private String updatedDate;
+
+
+    private int userPostCount;
+    private int userReplyCount;
+
     @QueryProjection
-    public UserDTO(Long userId, String userPassword, String userNickname, UserAccountStatus userAccountStatus, String userFileName, String userFilePath, Long userFileSize, Long userFileUuid, String userEmail, UserLoginMethod userLoginMethod, int userTotalPoint) {
+    public UserDTO(Long userId, String userPassword, String userNickname, UserAccountStatus userAccountStatus, String userFileName, String userFilePath, Long userFileSize, Long userFileUuid, String userEmail, UserLoginMethod userLoginMethod, int userTotalPoint, LocalDateTime createDate, LocalDateTime updatedDate) {
         this.userId = userId;
         this.userPassword = userPassword;
         this.userNickname = userNickname;
@@ -44,6 +55,8 @@ public class UserDTO {
         this.userEmail=userEmail;
         this.userLoginMethod=userLoginMethod;
         this.userTotalPoint=userTotalPoint;
+        this.createDate = createDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.updatedDate = updatedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     public User toEntity(){

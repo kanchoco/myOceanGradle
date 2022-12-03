@@ -79,7 +79,9 @@ public class LoginController {
                 user.userFileUuid,
                 user.userPassword,
                 user.userLoginMethod,
-                user.userTotalPoint
+                user.userTotalPoint,
+                user.createDate,
+                user.updatedDate
         )).from(user).where(builder).fetch();
 //        log.info(userEmail);
 //        log.info(password);
@@ -109,7 +111,9 @@ public class LoginController {
                 user.userFileUuid,
                 user.userEmail,
                 user.userLoginMethod,
-                user.userTotalPoint
+                user.userTotalPoint,
+                user.createDate,
+                user.updatedDate
         )).from(user).where(builder).fetchOne();
 
         session.setAttribute("userId",loginUser.getUserId());
@@ -147,7 +151,9 @@ public class LoginController {
                 user.userFileUuid,
                 user.userPassword,
                 user.userLoginMethod,
-                user.userTotalPoint
+                user.userTotalPoint,
+                user.createDate,
+                user.updatedDate
         )).from(user).where(user.userEmail.eq(email)).fetch();
 
         if(users.size()>=1){
@@ -171,7 +177,9 @@ public class LoginController {
                 user.userFileUuid,
                 user.userPassword,
                 user.userLoginMethod,
-                user.userTotalPoint
+                user.userTotalPoint,
+                user.createDate,
+                user.updatedDate
         )).from(user).where(user.userEmail.eq(email)).fetchOne();
 
         userFindDTO.setUserEmail(email);
