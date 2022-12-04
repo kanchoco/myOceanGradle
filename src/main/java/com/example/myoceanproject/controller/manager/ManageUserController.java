@@ -1,12 +1,21 @@
 package com.example.myoceanproject.controller.manager;
 
 
+import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.domain.UserDTO;
+import com.example.myoceanproject.repository.UserRepositoryImpl;
+import com.example.myoceanproject.service.UserService;
 import com.example.myoceanproject.service.community.CommunityReplyService;
+import com.example.myoceanproject.type.UserAccountStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,10 +30,6 @@ public class ManageUserController {
 //    @RequestBody : 전달받은 데이터를 알맞는 매개변수로 주입
 //    ResponseEntity : 서버의 상태코드, 응답 메세지 등을 담을 수 있는 타입
 
-//    @GetMapping("/{userAccountStatus}")
-//    public UserDTO list(@PathVariable Long userAccountStatus){
-//        replyService.remove(replyNumber);
-//        return "delete success";
-//    }
+
 
 }

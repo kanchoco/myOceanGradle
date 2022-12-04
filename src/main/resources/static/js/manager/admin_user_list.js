@@ -90,24 +90,35 @@ $tr.find('.more').click(function () {
 // 하나 클릭하면 나머지는 색 없어짐
 // 상단 필터 클릭시 색 변화
 
-$('.filter').children('span').click(function(){
-    $(this).siblings().removeClass('active-filter')
-    $(this).addClass('active-filter');
-})
+// $('.filter').children('span').click(function(){
+//     $(this).siblings().removeClass('active-filter')
+//     $(this).addClass('active-filter');
+//
+//    if($(this).attr('class') == 'active'){
+//        $(document.pageForm.userAccountStatus).val(active);
+//    }else{
+//        $(document.pageForm.userAccountStatus).val(banned);
+//    }
+//     document.pageForm.submit();
+// });
 
-function remove(replyNumber, callback, error) {
+
+function getList(param, callback, error){
     $.ajax({
-        url: "/reply/" + replyNumber,
-        type: "delete",
-        success: function (text) {
-            if (callback) {
-                callback(text);
+        url: "/user/" + param.status + "/" + (param.page || 0) + "/" + param.keyword,
+        type: "get",
+        success: function(replyDTO, status, xhr){
+            console.log(replyDTO);
+            if(callback){
+                callback(replyDTO);
             }
         },
-        error: function (xhr, status, err) {
-            if (error) {
+        error: function(xhr, status, err){
+            if(error){
                 error(err);
             }
         }
     });
 }
+
+
