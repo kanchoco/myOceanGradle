@@ -1,30 +1,44 @@
 package com.example.myoceanproject.controller.chatting;
 
 import com.example.myoceanproject.domain.GroupDTO;
-import com.example.myoceanproject.domain.UserDTO;
-import com.example.myoceanproject.service.GroupService;
 import com.example.myoceanproject.service.chattingService.ChattingService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
-
-@RestController // ViewResolver 관여하지 않는다.
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/chatting/*")
 public class ChattingRestController {
 
-    private final ChattingService chattingService;
 
-    @GetMapping(value = "/list/",consumes = "application/json", produces = "text/plain; charset=utf-8")
-    public ResponseEntity<List<GroupDTO>> list(@RequestBody UserDTO userDTO) throws UnsupportedEncodingException {
-        List<GroupDTO> groupDTOList = chattingService.show(userDTO.getUserId());
-        return ResponseEntity.ok().body(groupDTOList);
-    }
-
-
-
+//    @Autowired
+//    private SimpMessageSendingOperations messagingTemplate;
+//
+//    @MessageMapping("/TTTx")
+//    @SendTo("/topic/message")
+//    public String tttx(String message) throws Exception {
+//        System.out.println("TTT>>" + message);
+//        return message;
+//    }
+//
+//    @MessageMapping("/TTT")
+////	@SendTo("/topic/message")
+//    public Message ttt(Message message) throws Exception {
+//        System.out.println("TTT>>" + message);
+////        System.out.println("ID=" + message.get);
+////        System.out.println("MSG=" + message.getMsg());
+//
+////        messagingTemplate.convertAndSend("/topic/" + message.getRoomid(), message.getMsg());
+////		messagingTemplate.convertAndSendToUser(message.getId(), "/topic/" + message.getRoomid(), message.getMsg());
+//
+//
+//        return message;
+//
+//
+//    }
 }
