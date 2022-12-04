@@ -62,8 +62,8 @@ public class HostRestController {
         log.info("썸네일 UUID: "+ groupDTO.getGroupFileUuid());
         log.info("유저 아이디: " + groupDTO.getUserId());
 
-        Group group = groupDTO.toEntity();
-        groupService.add(group);
+
+        groupService.add(groupDTO);
         return new ResponseEntity<>(new String("register success".getBytes(), "UTF-8"), HttpStatus.OK);
     }
 

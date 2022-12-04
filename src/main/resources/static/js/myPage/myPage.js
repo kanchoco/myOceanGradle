@@ -60,5 +60,17 @@ $(".fSxFPc").on("change", function(event) {
 
 // 내 정보 저장
 $(".jMUPmW").on("click", function(){
+    changeInfo();
     alert("회원 정보가 저장되었습니다.");
 })
+
+function changeInfo(){
+    $.ajax({
+        type:"post",
+        url:"changeInfo",
+        headers:{"Content-Type":"application/json"},
+        data:$nicknameInput.val(),
+        success:function(){;},
+        error:function(){;}
+    })
+}

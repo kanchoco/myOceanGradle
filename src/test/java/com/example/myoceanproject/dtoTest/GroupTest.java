@@ -54,24 +54,31 @@ public class GroupTest {
 
 //      모임 정보 저장
         GroupDTO groupDTO = new GroupDTO();
-        groupDTO.setGroupCategory("운동");
-        groupDTO.setGroupContent("놀아요");
+        groupDTO.setGroupCategory("풋살");
+        groupDTO.setGroupContent("같이 공이나 차요");
         groupDTO.setGroupLocation("장소");
-        groupDTO.setGroupName("모임 이름");
+        groupDTO.setGroupName("잠만보들");
         groupDTO.setGroupPoint(200);
         groupDTO.setGroupStatus(GroupStatus.WAITING);
         groupDTO.setGroupLocationType(GroupLocationType.ONLINE);
         groupDTO.setGroupFileSize(10L);
-        groupDTO.setGroupFileUuid("2389579825L");
+
         groupDTO.setGroupFilePath("filePath");
         groupDTO.setGroupFileName("groupName");
+        groupDTO.setGroupLocation("장소는 이러쿵저러쿵");
+        groupDTO.setGroupLocationDetail("sdkshgkh");
+        groupDTO.setGroupParkingAvailable("dsafhdsakdfh");
+        groupDTO.setGroupOverSea("해외");
+        groupDTO.setGroupLocationName("장소이름입니다");
+        groupDTO.setGroupMoreInformation("장소의 더보기");
+        
 
 //        임베드 타입 set해줌
         groupDTO.setMaxMember(10);
         groupDTO.setMinMember(2);
 //        DTO를 엔티티로 바꿔서 저장해줌
         Group group1 = groupDTO.toEntity();
-        group1.setUser(userRepository.findById(1L).get());
+        group1.setUser(userRepository.findById(2L).get());
         groupRepository.save(group1);
 
     }
@@ -79,6 +86,7 @@ public class GroupTest {
     @Test
     public void findAllTest(){
         List<GroupDTO> groups = jpaQueryFactory.select(new QGroupDTO(
+                group.groupId,
                 group.user.userId,
                 group.user.userNickname,
                 group.groupName,
@@ -107,6 +115,7 @@ public class GroupTest {
     @Test
     public void findById(){
         List<GroupDTO> groups = jpaQueryFactory.select(new QGroupDTO(
+                group.groupId,
                 group.user.userId,
                 group.user.userNickname,
                 group.groupName,
@@ -153,7 +162,7 @@ public class GroupTest {
         groupDTO.setGroupStatus(GroupStatus.WAITING);
         groupDTO.setGroupFilePath("수정 파일");
         groupDTO.setGroupFileName("수정 파일 이름");
-        groupDTO.setGroupFileUuid("243598725L");
+
         groupDTO.setGroupFileSize(155L);
         groupDTO.setMaxMember(15);
         groupDTO.setMinMember(1);

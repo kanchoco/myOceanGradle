@@ -4,13 +4,9 @@ var $passwordCheck=passwordForm.passwordConfirm;
 var passwordRegex=/^(?=.*?[A-Z]{0})(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,}$/;
 var $emailuuid=new URL(location.href).searchParams.get("verificationCode");
 var $emailReceivedEmail=new URL(location.href).searchParams.get("email");
-var $dbuuid;
 
 /* 현재 시간과 db 시간값 차이를 확인하기 위한 변수 및 계산식(밀리초로 표현) */
-var passedTime=new Date("2022-12-02 17:46:00").getTime();
-
-var tonow=new Date().getMilliseconds();
-const difftime=(tonow-passedTime)/1000;
+// var passedTime=new Date("2022-12-02 17:46:00").getTime();
 
 /* 클릭시 input박스 테두리 변경 */
 $(passwordForm.password).on("click",function(){
@@ -77,11 +73,28 @@ $(passwordForm.passwordConfirm).on("change input",function(){
         $("button[name='change']").attr("class","Button-bqxlp0-0 bGHqGe");
         $("button[name='change']").on("click",function(){
             requestFinduser();
+        });
+    }
+});
+
+function requestFinduser(){
+    $.ajax({
+        type:"post",
+        url:"requestFindUser",
+        headers:{"Content-Type":"application/json"},
+        data:$emailReceivedEmail,
+        dataType:"json",
+        success:function(result){
+
+            var $dbuuid=result.userUuid;
+
+            var dbrequestTime=result.userFindtime;
+            var dbdate=Date.parse(dbrequestTime);
+            var tonow=Date.now();
+            var difftime=(tonow-dbdate)/1000;
+
             /* 하단의 검은색 박스 나타났다 사라지는 부분 */
-            if((difftime>=300) || $emailuuid!=$dbuuid){
-                // console.log(difftime);
-                // console.log($dbuuid);
-                // console.log($emailuuid);
+            if((difftime>=300) || $emailuuid!=$dbuuid || $emailReceivedEmail!=result.userEmail){
 
                 /* 하단의 검은박스 나타나는 부분 */
                 $(".bpzBFC").fadeIn(1000);
@@ -100,51 +113,22 @@ $(passwordForm.passwordConfirm).on("change input",function(){
                 },3500);
             }
             /* 버튼 타입 submit으로 변경 */
-            else{
-                // savechangePw();
-                $("button[name='change']").attr("type","submit");
+            else {
+                // 변경된 비밀번호 저장을 위한 비동기 요청
+                var alterPassword={"password":$passwordCheck.value,"email":result.userEmail};
+                $.ajax({
+                    type:"post",
+                    url:"saveChangePw",
+                    headers:{"Content-Type":"application/json"},
+                    data:JSON.stringify(alterPassword),
+                    dataType:"text",
+                    success:function(result){;},
+                    error:function(status,error){;}
+                })
+                $("button[name='change']").attr("type", "submit");
+                location.href = "/login/changePwComplete";
             }
-        });
-    }
-});
-
-function requestFinduser(){
-    $.ajax({
-        type:"post",
-        url:"requestFindUser",
-        headers:{"Content-Type":"application/json"},
-        data:$emailReceivedEmail,
-        dataType:"json",
-        success:function(result){console.log(result);
-            console.log(result.userEmail);
-            console.log(result.userFindtime);
-            console.log(result.userId);
-            console.log(result.userUuid);
-
-            var dbrequestTime=result.userFindtime;
-            var year=dbrequestTime.substr(0,4);
-            var month=dbrequestTime.substr(5,7);
-            var day=dbrequestTime.substr(8,10);
-            var hour=dbrequestTime.substr(11,13);
-            var minute=dbrequestTime.substr(14,16);
-            var second=dbrequestTime.substr(17,19);
-            var dbdate=new Date(year,month,day,hour,minute,second).getMilliseconds();
-
-            console.log("diff:"+(tonow-dbdate)/1000);
         },
-        error:function(status,error){;}
-    })
-}
-
-
-function savechangePw(){
-    $.ajax({
-        type:"post",
-        url:"saveChangePw",
-        headers:{"Content-Type":"application/json"},
-        data:$passwordCheck.value,
-        dataType:"text",
-        success:function(result){;},
         error:function(status,error){;}
     })
 }

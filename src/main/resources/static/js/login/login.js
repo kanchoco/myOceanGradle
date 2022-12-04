@@ -69,7 +69,6 @@ $(loginForm.userPassword).on("change input",function(e){
 /* 이메일 또는 패스워드중 하나라도 일치하지 않으면 뜨는 검은 상자 */
 $("button[name='logindata']").on("click",function(){
     if(emailRegex.test($emailCheck.value) && $passwordCheck.value){
-        console.log("button click");
         checkUser();
         // $("button[name='logindata']").attr("type","submit");
         // loginForm.submit();
@@ -87,8 +86,6 @@ $("button[name='logindata']").on("click",function(){
 });
 
 function checkUser(){
-    console.log($emailCheck.value);
-    console.log($passwordCheck.value);
     var requestModel={userEmail:$emailCheck.value,userPassword:$passwordCheck.value};
     $.ajax({
         type:"post",
@@ -97,7 +94,6 @@ function checkUser(){
         data:JSON.stringify(requestModel),
         dataType:"text",
         success:function(result){
-            console.log(result);
             if(result=="member"){
                 $("button[name='logindata']").attr("type","submit");
                 loginForm.submit();
