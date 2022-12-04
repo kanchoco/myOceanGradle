@@ -6,6 +6,7 @@ import com.example.myoceanproject.domain.GroupDTO;
 import com.example.myoceanproject.domain.QChattingDTO;
 import com.example.myoceanproject.entity.*;
 import com.example.myoceanproject.repository.*;
+import com.example.myoceanproject.service.chattingService.ChattingService;
 import com.example.myoceanproject.type.ReadStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +48,9 @@ public class ChattingTest {
     @Autowired
     private ChattingStatusRepositoryImpl chattingStatusRepositoryImpl;
 
+    @Autowired
+    private ChattingService chattingService;
+
 
     @Test
     public void saveTest(){
@@ -74,31 +78,31 @@ public class ChattingTest {
     }
 
 
-    @Test
-    public void findById(){
-//        시나리오 : 특정 그룹의 채팅방에 들어가면 해당 그룹의 채팅 내용만 떠야한다.
-//        그룹 아이디가 4인 채팅 내용만 조회
-        List<ChattingDTO> chattingDTOs = jpaQueryFactory.select(new QChattingDTO(
-                        chatting.senderGroupMember.user.userId,
-                        chatting.senderGroupMember.user.userNickname,
-                        chatting.senderGroupMember.user.userFileName,
-                        chatting.senderGroupMember.user.userFilePath,
-                        chatting.senderGroupMember.user.userFileUuid,
-                        chatting.senderGroupMember.user.userFileSize,
-                        chatting.group.groupId,
-                        chatting.group.groupName,
-                        chatting.group.groupFilePath,
-                        chatting.group.groupFileName,
-                        chatting.group.groupFileUuid,
-                        chatting.group.groupFileSize,
-                        chatting.senderGroupMember.groupMemberId,
-                        chatting.chattingContent
-                )).where(chatting.group.groupId.eq(4L))
-                .from(chatting).fetch();
-
-        chattingDTOs.stream().map(ChattingDTO::toString).forEach(log::info);
-
-    }
+//    @Test
+//    public void findById(){
+////        시나리오 : 특정 그룹의 채팅방에 들어가면 해당 그룹의 채팅 내용만 떠야한다.
+////        그룹 아이디가 4인 채팅 내용만 조회
+//        List<ChattingDTO> chattingDTOs = jpaQueryFactory.select(new QChattingDTO(
+//                        chatting.senderGroupMember.user.userId,
+//                        chatting.senderGroupMember.user.userNickname,
+//                        chatting.senderGroupMember.user.userFileName,
+//                        chatting.senderGroupMember.user.userFilePath,
+//                        chatting.senderGroupMember.user.userFileUuid,
+//                        chatting.senderGroupMember.user.userFileSize,
+//                        chatting.group.groupId,
+//                        chatting.group.groupName,
+//                        chatting.group.groupFilePath,
+//                        chatting.group.groupFileName,
+//                        chatting.group.groupFileUuid,
+//                        chatting.group.groupFileSize,
+//                        chatting.senderGroupMember.groupMemberId,
+//                        chatting.chattingContent
+//                )).where(chatting.group.groupId.eq(4L))
+//                .from(chatting).fetch();
+//
+//        chattingDTOs.stream().map(ChattingDTO::toString).forEach(log::info);
+//
+//    }
 
     @Test
     public void updateTest(){
@@ -116,6 +120,12 @@ public class ChattingTest {
         log.info("===================================================================================");
         chattingRepositoryImpl.findByUserId(5L).stream().map(GroupDTO::toString).forEach(log::info);
         log.info("===================================================================================");
+
+    }
+
+    @Test
+    public void showTest(){
+        chattingService.show(1L).stream().map(GroupDTO::toString).forEach(log::info);
 
     }
 //

@@ -63,6 +63,8 @@ $(window).resize(function() {
 $(".chattingWrap2").on("click", function () {
     $(".chattingWrap2").css("display", "none");
     $("#chattingList").css("display", "block");
+
+
 })
 
 
@@ -195,4 +197,106 @@ $(".mentions__control").on("keyup",function(key){
     }
 });
 
+function showGroupList(param, callback, error){
+    $.ajax({
+        url: "/main/index/",
+        type: "get",
+        success: function(status, xhr){
+            if(callback){
+                callback();
+            }
+        },
+        error: function(xhr, status, err){
+            if(error){
+                error(err);
+            }
+        }
+    });
 
+}
+///////////////////////////////////////////////////////// Socket ////////////////////////////////////////////////////////////////////////
+// $(document).ready(  function() {
+//     //connectWS();
+//     //connectSockJS();
+//     connectStomp();
+//
+//     $('.buttonComponents_lgImg__2-hZO').on('click', function(evt) {
+//         evt.preventDefault();
+//         if (!isStomp && socket.readyState !== 1) return;
+//
+//         let msg = $('input#msg').val();
+//         console.log("mmmmmmmmmmmm>>", msg)
+//         if (isStomp)
+//             socket.send('/TTT', {}, JSON.stringify({roomid: 'message', id: 124, msg: msg}));
+//         else
+//             socket.send(msg);
+//     });
+// });
+//
+// var socket = null;
+// var isStomp = false;
+//
+// function connectStomp() {
+//     var sock = new SockJS("/stompTest"); // endpoint
+//     var client = Stomp.over(sock);
+//     isStomp = true;
+//     socket = client;
+//
+//     client.connect({}, function () {
+//         console.log("Connected stompTest!");
+//         // Controller's MessageMapping, header, message(자유형식)
+//         client.send('/TTT', {}, "msg: Haha~~~");
+//
+//         // 해당 토픽을 구독한다!
+//         client.subscribe('/topic/message', function (event) {
+//             console.log("!!!!!!!!!!!!event>>", event)
+//         });
+//     });
+//
+// }
+//
+// function connectSockJS() {
+//     console.log("eeeeeeeeeeeeeeeeeeeee")
+//     var sock = new SockJS("/replyEcho");
+//     socket = sock;
+//     sock.onopen = function () {
+//         console.log('Info: connection opened.');
+//         sock.send("hi~");
+//
+//         sock.onmessage = function (event) {
+//             console.log("ReceivedMessage:", event.data);
+//         };
+//         sock.onclose = function (event) {
+//             console.log('Info: connection closed.');
+//         };
+//     };
+// }
+//
+// // pure web-socket
+// function connectWS() {
+//     console.log("tttttttttttttt")
+//     var ws = new WebSocket("ws://localhost:9090/replyEcho");
+//     socket = ws;
+//
+//     ws.onopen = function () {
+//         console.log('Info: connection opened.');
+//     };
+//
+//     ws.onmessage = function (event) {
+//         console.log("ReceiveMessage:", event.data+'\n');
+//         /* let $socketAlert = $('div#socketAlert');
+//         $socketAlert.html(event.data);
+//         $socketAlert.css('display', 'block'); */
+//
+//         /* setTimeout( function() {
+//             $socketAlert.css('display', 'none');
+//         }, 3000); */
+//     };
+//
+//     ws.onclose = function (event) {
+//         console.log('Info: connection closed.');
+//         //setTimeout( function(){ connect(); }, 1000); // retry connection!!
+//     };
+//     ws.onerror = function (err) { console.log('Error:', err); };
+// }
+//
