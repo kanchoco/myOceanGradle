@@ -89,7 +89,9 @@ public class LoginController {
                 user.userFileUuid,
                 user.userEmail,
                 user.userLoginMethod,
-                user.userTotalPoint
+                user.userTotalPoint,
+                user.createDate,
+                user.updatedDate
         )).from(user).where(builder).fetch();
 //        log.info(userEmail);
 //        log.info(password);
@@ -124,7 +126,9 @@ public class LoginController {
                 user.userFileUuid,
                 user.userEmail,
                 user.userLoginMethod,
-                user.userTotalPoint
+                user.userTotalPoint,
+                user.createDate,
+                user.updatedDate
         )).from(user).where(builder).fetchOne();
 
 //      세션에 검색으로 조회한 값들을 저장
@@ -169,7 +173,9 @@ public class LoginController {
                 user.userFileUuid,
                 user.userEmail,
                 user.userLoginMethod,
-                user.userTotalPoint
+                user.userTotalPoint,
+                user.createDate,
+                user.updatedDate
         )).from(user).where(user.userEmail.eq(email)).fetch();
 
 //      1개 이상(해당 회원이 있다)이면 "available"문자열 반환, 아니면 "unavailable"문자열 반환
@@ -200,7 +206,9 @@ public class LoginController {
                 user.userFileUuid,
                 user.userEmail,
                 user.userLoginMethod,
-                user.userTotalPoint
+                user.userTotalPoint,
+                user.createDate,
+                user.updatedDate
         )).from(user).where(user.userEmail.eq(email)).fetchOne();
 
 //      화면에서 입력받은 값과 조회되 값을 저장 및 db에 저장

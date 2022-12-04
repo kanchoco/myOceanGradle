@@ -1,12 +1,8 @@
 package com.example.myoceanproject.repository.community.reply;
 
-import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.domain.CommunityReplyDTO;
 import com.example.myoceanproject.domain.Criteria;
-import com.example.myoceanproject.entity.CommunityLike;
 import com.example.myoceanproject.entity.CommunityPost;
-import com.example.myoceanproject.entity.CommunityReply;
-import com.example.myoceanproject.type.CommunityCategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -20,7 +16,7 @@ public interface CommunityReplyCustomRepository {
 
     public List<CommunityReplyDTO> findByCommunityPost(CommunityPost communityPost);
 //   게시글 전체 댓글 갯수
-    public Integer CountReplyByCommunityPost(Long communityPostId);
+    public Integer countReplyByCommunityPost(Long communityPostId);
 
 //  전체 댓글 불러오기
     public Page<CommunityReplyDTO> findAll(Pageable pageable);
@@ -33,4 +29,6 @@ public interface CommunityReplyCustomRepository {
 
 //    고민상담 댓글 전체, 검색어
     public Page<CommunityReplyDTO> findAllByCategory(Pageable pageable, Criteria criteria);
+
+    public Integer countReplyByUser(Long userId);
 }

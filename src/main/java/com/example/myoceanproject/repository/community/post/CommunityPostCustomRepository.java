@@ -15,4 +15,6 @@ public interface CommunityPostCustomRepository {
     public Page<CommunityPostDTO> findAllByCategory(Pageable pageable, CommunityCategory communityCategory);
     public Page<CommunityPostDTO> findAllByCategory(Pageable pageable, CommunityCategory communityCategory, Criteria criteria);
     public void deleteByPost(CommunityPost post);
+
+    public Integer countPostByUser(Long userId);
 }

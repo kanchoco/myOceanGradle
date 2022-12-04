@@ -3,6 +3,8 @@ package com.example.myoceanproject.controller.manager;
 import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.domain.CommunityReplyDTO;
 import com.example.myoceanproject.domain.Criteria;
+import com.example.myoceanproject.domain.UserDTO;
+import com.example.myoceanproject.service.UserService;
 import com.example.myoceanproject.service.community.CommunityPostService;
 import com.example.myoceanproject.service.community.CommunityReplyService;
 import com.example.myoceanproject.type.CommunityCategory;
@@ -24,6 +26,9 @@ public class ManagerController {
     private CommunityPostService postService;
     @Autowired
     private CommunityReplyService replyService;
+
+    @Autowired
+    private UserService userService;
 
     // 고민상담 게시글 관리
     @GetMapping("/counselingBoard")
@@ -145,7 +150,22 @@ public class ManagerController {
 
     //  회원 목록
     @GetMapping("/userList")
-    public String userList() {
+    public String userList(Model model, Criteria criteria) {
+
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+
+        Page<UserDTO> userDTOPage= userService.showUser(pageable, criteria);
+        int endPage = (int)(Math.ceil(userDTOPage.getNumber()+1 / (double)10)) * 10;
+        if(userDTOPage.getTotalPages() < endPage){
+            endPage = userDTOPage.getTotalPages() == 0 ? 1 : userDTOPage.getTotalPages();
+        }
+        log.info(endPage + "end");
+
+        model.addAttribute("users", userDTOPage.getContent());
+        model.addAttribute("pagination", userDTOPage);
+        model.addAttribute("pageable", pageable);
+        model.addAttribute("criteria", criteria);
+        model.addAttribute("endPage", endPage);
         return "app/manager/admin_user_list";
     }
 
