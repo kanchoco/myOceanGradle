@@ -31,6 +31,7 @@ public class ChattingRepositoryImpl implements ChattingCustomRepository{
     @Override
     public List<GroupDTO> findByUserId(Long userId) {
         return queryFactory.select(new QGroupDTO(
+                group.groupId,
                 group.user.userId,
                 group.user.userNickname,
                 group.groupName,

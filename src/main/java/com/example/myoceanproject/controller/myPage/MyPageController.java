@@ -52,7 +52,9 @@ public class MyPageController {
         session.setAttribute("userNickname",nickname);
         Long userid=(Long)session.getAttribute("userId");
 
-        UserDTO userDTO=new UserDTO(null,null,nickname,null,null,null,null,null,null,null,0);
+        UserDTO userDTO=new UserDTO();
+        userDTO.setUserTotalPoint(0);
+        userDTO.setUserNickname("nickName");
         User users=jpaQueryFactory.selectFrom(user).where(user.userId.eq(userid)).fetchOne();
 
 //      변경된 닉네임,파일 저장
@@ -84,7 +86,9 @@ public class MyPageController {
                 user.userFileUuid,
                 user.userEmail,
                 user.userLoginMethod,
-                user.userTotalPoint
+                user.userTotalPoint,
+                user.createDate,
+                user.updatedDate
         )).from(user).where(user.userId.eq(userIds)).fetchOne();
 
         log.info("dbpassword"+users.getUserPassword());
@@ -108,7 +112,10 @@ public class MyPageController {
 
         HttpSession session=request.getSession();
         Long userIds=(Long)session.getAttribute("userId");
-        UserDTO userDTO=new UserDTO(null,encryption(newPassword),null,null,null,null,null,null,null,null,0);
+        UserDTO userDTO=new UserDTO();
+        userDTO.setUserTotalPoint(0);
+        userDTO.setUserNickname("nickName");
+        userDTO.setUserPassword(encryption(newPassword));
         User users=jpaQueryFactory.selectFrom(user).where(user.userId.eq(userIds)).fetchOne();
 
         users.updatePassword(userDTO);
