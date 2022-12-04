@@ -27,3 +27,10 @@ function checkMedia(){
         $(".fFPQpk").css("margin", "20px 0px 30px");
     }
 }
+
+
+// 모임 상세 게시글로 화면 이동
+$(".detailGroup").on("click", function(e){
+    e.preventDefault();
+    location.href = "/host/read" + "&groupId=" + $(this).attr("href");
+})
