@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +8,7 @@
 	<link rel="stylesheet" href="/css/host/host.css">
 	<link rel="stylesheet" href="/css/fix/header.css">
 	<link rel="stylesheet" href="/css/fix/footer.css">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body class="g-sidenav-pinned g-sidenav-show">
 <div th:if="${session.userId}">
@@ -200,7 +200,7 @@
 														<hr>
 														<div class="p-4">
 															<label for="editor">모임 상세 설명</label>
-															<div class="editor" name="editor">
+															<div class="editor" name="editor" id="editorWriting">
 															</div>
 															<!-- p-4끝 -->
 														</div>

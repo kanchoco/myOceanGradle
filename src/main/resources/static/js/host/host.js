@@ -491,17 +491,20 @@ $(".plusThumb").on("change", function(){
         contentType: false,
         processData: false,
         success: function(result) {
-            $('input[name=groupFileName]').attr('value', Object.values(result[0])[15]);
-            $('input[name=groupFilePath]').attr('value', Object.values(result[0])[14]);
-            $('input[name=groupFileSize]').attr('value', Object.values(result[0])[17]);
-            $('input[name=groupFileUuid]').attr('value', Object.values(result[0])[16]);
-            let imageSrc = "/host/display?fileName=" + Object.values(result[0])[14] + "/" + Object.values(result[0])[16] + "_" + Object.values(result[0])[15];
+            $('input[name=groupFileName]').attr('value', Object.values(result[0])[16]);
+            $('input[name=groupFilePath]').attr('value', Object.values(result[0])[15]);
+            $('input[name=groupFileSize]').attr('value', Object.values(result[0])[18]);
+            $('input[name=groupFileUuid]').attr('value', Object.values(result[0])[17]);
+            let imageSrc = "/host/display?fileName=" + Object.values(result[0])[15] + "/" + Object.values(result[0])[17] + "_" + Object.values(result[0])[16];
+            console.log(result[0]);
+            console.log(Object.values(result));
+            console.log(imageSrc);
             $('.image-header').show();
             $('.img-box').show();
 
 
             let text = "";
-            text += `<li id="thumbnailImage" data-file-size="` + Object.values(result[0])[17] + `" data-file-name="` + Object.values(result[0])[15] + `" data-file-upload-path="` + Object.values(result[0])[14] + `" data-file-uuid="` + Object.values(result[0])[16] + `" style="list-style: none;width:100%;">`;
+            text += `<li id="thumbnailImage" data-file-size="` + Object.values(result[0])[18] + `" data-file-name="` + Object.values(result[0])[16] + `" data-file-upload-path="` + Object.values(result[0])[15] + `" data-file-uuid="` + Object.values(result[0])[17] + `" style="list-style: none;width:100%;">`;
             text += `<img src=` + imageSrc + ` style="width:100%;" height="auto">`;
             text += `</li>`;
 
@@ -716,6 +719,7 @@ $(function() {
         menubar: false,
         plugins: plugins,
         toolbar: edit_toolbar,
+        relative_urls: false,
 
         /*** image upload ***/
         image_title: true,
@@ -777,6 +781,10 @@ $(function() {
     });
 });
 
+
+$(".saveRecruitment ").on("click", function(){
+    console.log('내부 작성 내용 ', tinymce.get("editorWriting").getContent());
+})
 //저장
 // $("#save").on("click", function(){
 //     var content = tinymce.activeEditor.getContent();

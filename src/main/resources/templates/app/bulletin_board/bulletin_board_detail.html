@@ -195,7 +195,7 @@
                                 <!--모집 인원-->
                                 <div class="PriceInfo__PriceWrapper-sc-1s3i0u7-0 bZWTJt">
                                     <div class="PriceInfo__Price-sc-1s3i0u7-2 iRfDsw">
-                                        모집 인원: <span th:text="|*{groupMinMember} ~ *{groupMaxMember}명|" class="PriceInfo__PriceUnit-sc-1s3i0u7-3 kWprXL"></span>
+                                        모집 인원: <span th:text="|*{minMember} ~ *{maxMember}명|" class="PriceInfo__PriceUnit-sc-1s3i0u7-3 kWprXL"></span>
                                     </div>
                                 </div>
                                 <!--지역-->
@@ -242,7 +242,7 @@
                                                 <!--유저 정보--> <!--유저 정보 받은 후에 넣기-->
                                                 <a href="/hosts/238"><span class="Profile__NickName-sc-18xe7ny-7 cZgpqN">
                                                     <!--유저 닉네임-->
-                                                    <span>닉네임</span>
+                                                    <span th:text="*{userNickName}"></span>
                                                     <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 16 16'%3E %3Cpath stroke='%23333' stroke-linecap='round' stroke-width='1.5' d='M6 3l5 5-5 5'/%3E %3C/svg%3E" alt="arrow-right"></span></a>
                                             </div>
                                         </div>
@@ -288,7 +288,7 @@
                                         }
                                     </style>
                                     <!--본문 내용-->
-                                    <div th:text="*{groupContent}" class="product-description"></div>
+                                    <div th:utext="*{groupContent}" class="product-description"></div>
                                 </div>
                                 <div class="DescriptionSection__ButtonContainer-sc-1vvzceq-1 dvQeHx">
                                     <button type="button" class="ButtonMore__Button-sc-1xa20cg-0 jJfiPr">

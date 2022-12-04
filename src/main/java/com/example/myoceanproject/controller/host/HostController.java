@@ -36,6 +36,7 @@ public class HostController {
 
     @GetMapping("/display-list")
     public byte[] display(String fileName) throws IOException {
+        log.info("========================");
         log.info("fileName: " + fileName);
         File file = new File("C:/upload/group", fileName);
         return FileCopyUtils.copyToByteArray(file);
@@ -49,18 +50,17 @@ public class HostController {
     }
 
     // 게시글 수정, 게시글 상세보기
-    @GetMapping(value = {"/read", "/update"})
-    public void read(Long groupId, Model model){
-        log.info("========================");
-        log.info("groupDTO : " + groupId);
-        log.info("model: " + model);
+    @GetMapping(value = {"read", "update"})
+    public String read(Long groupId, Model model){
         model.addAttribute("groupDTO", groupService.find(groupId));
+        log.info(model.toString());
+        return "app/bulletin_board/bulletin_board_detail";
     }
 
     @PostMapping("/update")
     public RedirectView update(GroupDTO groupDTO, Criteria criteria, RedirectAttributes redirectAttributes){
         Group group = groupDTO.toEntity();
-        groupService.update(group);
+        groupService.update(groupDTO);
 
         redirectAttributes.addAttribute("groupId", group.getGroupId());
 //        redirectAttributes.addAttribute("page", criteria.getPage());
