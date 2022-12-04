@@ -113,9 +113,9 @@
                             <th class="thead"></th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="content">
                         <th:block th:each="user:${users}">
-                            <tr class="content" th:object="${user}">
+                            <tr th:object="${user}">
                                 <td class="info_td" th:text="*{userId}"></td>
                                 <td class="info_td" th:text="*{userEmail}"></td>
                                 <td class="info_td" th:text="*{userNickname}" ></td>
@@ -160,9 +160,9 @@
                         </a>
                     </div>
                     <form th:action="@{/user/list}" th:object="${criteria}" name="pageForm">
-                        <input type="hidden" th:field="*{page}">
-                        <input type="hidden" th:field="*{keyword}">
-                        <input type="hidden" th:field="*{userAccountStatus}">
+                        <input type="hidden" class="page" value="">
+                        <input type="hidden" class="status" value="">
+                        <input type="hidden" class="keyword" value="">
                     </form>
                 </div>
             </div>
@@ -170,55 +170,90 @@
     </div>
 </div>
 
-</div>
 </body>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/js/manager/admin_user_list.js"></script>
 
 <script>
-    let active = [[${active}]];
-    let banned = [[${banned}]];
-    let page = [[${criteria.page}]];
 
-    console.log(active);
-    console.log(banned);
-    console.log(criteria);
+    let status = 'active';
+    let page = 0;
+    let keyword = '';
+    const $pages = $('a.changePage');
 
     $("#search_input").on("keyup",function(key){
         if(key.keyCode === 13) {
-            $(document.pageForm.keyword).val($(this).val());
-            document.pageForm.submit();
+            $('.keyword').val($(this).val());
+            getListByKeyword({
+                status : 'active',
+                page : 0,
+                keyword : keyword
+            }, getUser)
         }
     });
 
     $pages.on("click", function(e){
         e.preventDefault();
         $(document.pageForm.page).val($(this).attr("href"));
-        document.pageForm.submit();
+        page = $(this).attr("href");
+        console.log(page);
+
+        getListByKeyword({
+            status : status,
+            page : page,
+            keyword : 'ㅇㅇ'
+        }, getUser)
     });
+
+    function list(userDTO){
+        console.log(userDTO);
+    }
 
     $('.filter').children('span').click(function(){
         $(this).siblings().removeClass('active-filter')
         $(this).addClass('active-filter');
 
-        if($(this).attr('class') == 'active'){
-            getList({
-                status : 'active',
-                page : 0,
-                keyword : ''
-            }, list)
-            function list(replyDTO){
-                console.log(replyDTO);
-            }
+        if($(this).attr('class') == 'active active-filter'){
+            status = 'active';
+            console.log(status);
+
+            getListByKeyword({
+                status : status,
+                page : page,
+                keyword : 'ㅇ'
+            }, getUser)
         }else{
-            getList({
-                status : 'banned',
-                page : 0,
-                keyword : ''
-            }, list)
+            status = 'banned';
+            console.log(status);
+            getListByKeyword({
+                status : status,
+                page : page,
+                keyword : 'ㅇ'
+            }, getUser)
         }
     });
 
+    function getUser(userDTO){
+        let text = "";
+        text += `<tr>`;
+        userDTO.userList.forEach(user => {
+            text += `<td class="info_td">`+ user.userId +`</td>`;
+            text += `<td class="info_td" >`+ user.userEmail +`</td>`;
+            text += `<td class="info_td" >`+ user.userNickname +`</td>`;
+            text += `<td class="info_td">`+ user.userPostCount +`</td>`;
+            text += `<td class="info_td">`+ user.userReplyCount +`</td>`;
+            text += `<td class="info_td" `+ user.createDate +`</td>`;
+            text += `<td class="info_td">`+ user.userTotalPoint +`</td>`;
+            text += `<td class="info_td">`+ user.userLoginMethod +`</td>`;
+            text += `<td class="info_td">`+ user.userAccountStatus +`</td>`;
+            text += `<td class="info_td">`;
+            text += `<button class="more" onClick="removePost(this);"><img src="/imgin/more.png" width="15px"></button>`;
+            text += "</td>";
+        });
+        text += `</tr>`;
+
+        $('.content').html(text);
+    }
 </script>
 
 </html>

@@ -154,7 +154,7 @@ public class UserRepositoryImpl implements UserCustomRepository {
                         user.updatedDate
                 ))
                 .from(user)
-                .where(user.userAccountStatus.eq(userAccountStatus).and(user.userAccountStatus.eq(userAccountStatus)))
+                .where(user.userAccountStatus.eq(userAccountStatus).and(user.userNickname.contains(criteria.getKeyword())))
                 .orderBy(user.userId.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()).fetch();
@@ -165,7 +165,7 @@ public class UserRepositoryImpl implements UserCustomRepository {
         });
 
         long total = queryFactory.selectFrom(communityPost)
-                .where(user.userAccountStatus.eq(userAccountStatus).and(user.userAccountStatus.eq(userAccountStatus)))
+                .where(user.userAccountStatus.eq(userAccountStatus).and(user.userNickname.contains(criteria.getKeyword())))
                 .fetch().size();
 
         return new PageImpl<>(users, pageable, total);

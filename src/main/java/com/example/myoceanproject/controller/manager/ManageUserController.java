@@ -63,7 +63,9 @@ public class ManageUserController {
     @GetMapping("/{status}/{page}")
 //    public UserDTO list(@RequestBody Criteria criteria){
     public UserDTO list(@PathVariable String status, @PathVariable int page){
+        log.info("---------------------------------------------------------");
         log.info("dddd");
+        log.info("---------------------------------------------------------");
 
         Criteria criteria = new Criteria();
         criteria.setPage(page);
