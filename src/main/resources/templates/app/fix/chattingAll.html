@@ -7,9 +7,9 @@
 </head>
 <body>
 <div th:fragment="chattingAll">
-    <div class="chattingWrap2">
-        <div class="chattingToggle active callChatNormal"></div>
-    </div>
+        <div class="chattingWrap2">
+            <div class="chattingToggle active callChatNormal"></div>
+        </div>
 
     <div class="chattingWrap listOff" id="chattingList">
         <div class="chattingContentWrap ">
@@ -37,39 +37,24 @@
             <div class="chattingSection">
                 <div class="list left leftBody">
                     <ul>
-                        <li class="active leftChattingList">
+                        <th:block th:each="groupList: ${groupDTOList}">
+                        <li class="active leftChattingList" th:object="${groupList}">
                             <div class="thumb chatThumb">
                                 <img src="/imgin/chat/logo.png" alt="chat_image">
                             </div>
                             <div class="chatInfo">
                                 <div class="userIdAndBeforeTime">
                                     <div class="right">
-                                        <span class="userId">노래모임 - 배워서 바로 써먹는 노래</span>
+                                        <span class="userId" th:text="*{groupName}"></span>
                                     </div>
                                 </div>
-                                <p class="chatInfoTxt">
-                                    노래 잘 부르는 비법
+                                <p class="chatInfoTxt" th:text="*{groupContent}">
                                 </p>
                                 <p class="endTime">채팅 기한: 22-11-23 21:00:00</p>
                             </div>
                         </li>
-                        <li class="active leftChattingList">
-                            <div class="thumb chatThumb">
-                                <img loading="lazy" src="/imgin/chat/logo.png" alt="chat_image">
-                            </div>
-                            <div class="chatInfo">
-                                <div class="userIdAndBeforeTime">
-                                    <div class="right">
-                                        <span class="userId">운동모임 - 한달간 따라하면 김**처럼 몸짱 가능</span>
-                                    </div>
-                                </div>
-                                <p class="chatInfoTxt">
-                                    운동 할때 스트레칭 필수, 이후는 가입하면 비법 전수
-                                </p>
-                                <p class="endTime">채팅 기한: 22-11-23 21:00:00</p>
-                            </div>
-                        </li>
-                    </ul>
+                        </th:block>
+                    </ul>>
                 </div>
                 <div class="chattingRoom right active rightBody">
                     <div class="chattingRoomWrap" style="height: 490px;">
@@ -258,4 +243,7 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/fix/chatting.js"></script>
+<script>
+showGroupList();
+</script>
 </html>

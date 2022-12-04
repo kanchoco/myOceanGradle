@@ -19,6 +19,8 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 import java.util.List;
+
+import static com.example.myoceanproject.entity.QCommunityPost.communityPost;
 import static com.example.myoceanproject.entity.QUser.user;
 
 @Controller
@@ -50,16 +52,18 @@ public class JoinController {
     public String checkSavedUser(@RequestBody String email){
         List<UserDTO> users=jpaQueryFactory.select(new QUserDTO(
                 user.userId,
-                user.userEmail,
+                user.userPassword,
                 user.userNickname,
                 user.userAccountStatus,
                 user.userFileName,
                 user.userFilePath,
                 user.userFileSize,
                 user.userFileUuid,
-                user.userPassword,
+                user.userEmail,
                 user.userLoginMethod,
-                user.userTotalPoint
+                user.userTotalPoint,
+                user.createDate,
+                user.updatedDate
         )).from(user).where(user.userEmail.eq(email)).fetch();
         log.info("users size:"+users.size());
         if(users.size()>=1){
@@ -87,7 +91,9 @@ public class JoinController {
                 user.userFileUuid,
                 user.userPassword,
                 user.userLoginMethod,
-                user.userTotalPoint
+                user.userTotalPoint,
+                user.createDate,
+                user.updatedDate
         )).from(user).where(user.userNickname.eq(nickname)).fetch();
 
         if(users.size()>=1){

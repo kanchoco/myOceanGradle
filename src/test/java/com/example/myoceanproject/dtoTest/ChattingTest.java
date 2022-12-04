@@ -6,6 +6,7 @@ import com.example.myoceanproject.domain.GroupDTO;
 import com.example.myoceanproject.domain.QChattingDTO;
 import com.example.myoceanproject.entity.*;
 import com.example.myoceanproject.repository.*;
+import com.example.myoceanproject.service.chattingService.ChattingService;
 import com.example.myoceanproject.type.ReadStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +47,9 @@ public class ChattingTest {
 
     @Autowired
     private ChattingStatusRepositoryImpl chattingStatusRepositoryImpl;
+
+    @Autowired
+    private ChattingService chattingService;
 
 
     @Test
@@ -116,6 +120,12 @@ public class ChattingTest {
         log.info("===================================================================================");
         chattingRepositoryImpl.findByUserId(5L).stream().map(GroupDTO::toString).forEach(log::info);
         log.info("===================================================================================");
+
+    }
+
+    @Test
+    public void showTest(){
+        chattingService.show(1L).stream().map(GroupDTO::toString).forEach(log::info);
 
     }
 //

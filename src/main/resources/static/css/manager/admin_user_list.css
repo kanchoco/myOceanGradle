@@ -440,7 +440,7 @@ button.banned {
     color: #fff;
 } */
 
-div#page_changer_wrapper {
+#page_changer_wrapper {
     display: flex;
     justify-content: center;
     flex: 0 0 auto;
@@ -455,7 +455,7 @@ div#page_changer_wrapper {
 }
 
 
-button.previous_buttons {
+.previous_buttons {
     transform: scaleX(-1);
     width: 40px;
     height: 40px;
@@ -475,7 +475,7 @@ button.previous_buttons {
     border: none;
 }
 
-button.page {
+.page {
     font: inherit;
     width: 40px;
     height: 40px;
@@ -503,7 +503,7 @@ button.page {
 }
 
 
-button.next_buttons {
+.next_buttons {
     width: 40px;
     height: 40px;
     line-height: normal;
