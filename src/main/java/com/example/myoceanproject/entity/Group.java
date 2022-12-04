@@ -65,7 +65,8 @@ public class Group extends Period{
     }
 
     @Builder
-    public Group(String groupName, String groupCategory, String groupContent, int groupPoint, String groupOverSea, String groupLocationName, String groupLocation, String groupLocationDetail, String groupParkingAvailable, String groupMoreInformation, GroupLocationType groupLocationType, GroupStatus groupStatus, GroupMemberLimit groupMemberLimit, String groupFileName, String groupFilePath, Long groupFileSize, String groupFileUuid) {        this.groupName = groupName;
+    public Group(String groupName, String groupCategory, String groupContent, int groupPoint, String groupOverSea, String groupLocationName, String groupLocation, String groupLocationDetail, String groupParkingAvailable, String groupMoreInformation, GroupLocationType groupLocationType, GroupStatus groupStatus, GroupMemberLimit groupMemberLimit, String groupFileName, String groupFilePath, Long groupFileSize, String groupFileUuid) {
+        this.groupName = groupName;
         this.groupCategory = groupCategory;
         this.groupContent = groupContent;
         this.groupPoint = groupPoint;
@@ -89,7 +90,6 @@ public class Group extends Period{
     public void update(GroupDTO groupDTO) {
         groupMemberLimit.setMaxMember(groupDTO.getMaxMember());
         groupMemberLimit.setMinMember(groupDTO.getMinMember());
-
 
         this.groupName = groupDTO.getGroupName();
         this.groupCategory = groupDTO.getGroupCategory();

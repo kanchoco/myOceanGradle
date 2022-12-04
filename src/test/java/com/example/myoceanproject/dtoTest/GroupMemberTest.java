@@ -79,7 +79,7 @@ public class GroupMemberTest {
 //        groupRepository.save(group1);
             GroupMember groupMember = new GroupMember();
 
-        groupMember.setUser(userRepository.findById(3L).get());
+
         groupMember.setGroup(groupRepository.findById(4L).get());
 
         groupMemberRepository.save(groupMember);

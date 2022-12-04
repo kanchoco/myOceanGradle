@@ -2,7 +2,6 @@ package com.example.myoceanproject.controller.manager;
 
 
 import com.example.myoceanproject.service.community.CommunityPostService;
-import com.example.myoceanproject.service.community.CommunityReplyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ import javax.transaction.Transactional;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/post/*")
-public class PostController {
+public class ManagePostController {
     @Autowired
     private CommunityPostService postService;
 //    브라우저에서 JSON 타입으로 데이터를 전송하고 서버에서는 댓글의 처리 결과에 따라 문자열로 결과를 리턴한다.

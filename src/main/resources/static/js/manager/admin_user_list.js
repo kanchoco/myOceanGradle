@@ -94,3 +94,20 @@ $('.filter').children('span').click(function(){
     $(this).siblings().removeClass('active-filter')
     $(this).addClass('active-filter');
 })
+
+function remove(replyNumber, callback, error) {
+    $.ajax({
+        url: "/reply/" + replyNumber,
+        type: "delete",
+        success: function (text) {
+            if (callback) {
+                callback(text);
+            }
+        },
+        error: function (xhr, status, err) {
+            if (error) {
+                error(err);
+            }
+        }
+    });
+}

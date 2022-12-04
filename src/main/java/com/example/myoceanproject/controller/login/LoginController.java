@@ -4,6 +4,7 @@ import com.example.myoceanproject.domain.QUserDTO;
 import com.example.myoceanproject.domain.QUserFindDTO;
 import com.example.myoceanproject.domain.UserDTO;
 import com.example.myoceanproject.domain.UserFindDTO;
+import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.entity.UserFind;
 import com.example.myoceanproject.repository.UserFindRepository;
 import com.example.myoceanproject.repository.UserRepository;
@@ -20,6 +21,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.context.annotation.SessionScope;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -37,13 +40,14 @@ import static com.example.myoceanproject.entity.QUserFind.userFind;
 @Slf4j
 @Controller
 @RequestMapping("/login/*")
+@SessionAttributes("userId")
 public class LoginController {
 
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
 
-    @Autowired
-    private UserRepository userRepository;
+//    @Autowired
+//    private UserRepository userRepository;
 
     @Autowired
     private UserFindRepository userFindRepository;
@@ -55,49 +59,62 @@ public class LoginController {
         return "app/login/login";
     }
 
+    //  로그인시 패스워드 확인을 위한 비동기 요청
     @RequestMapping("/checkUserPassword")
     @ResponseBody
     public String checkuserPassword(@RequestBody ObjectNode saveObj){
+//      2가지 이상의 조건으로 검색하기 위해 booleanbuilder객체 생성
         BooleanBuilder builder=new BooleanBuilder();
-        ObjectMapper mapper = new ObjectMapper();   // JSON을 Object화 하기 위한 Jackson ObjectMapper 이용
+//        ObjectMapper mapper = new ObjectMapper();   // JSON을 Object화 하기 위한 Jackson ObjectMapper 이용
 //        Board board = mapper.treeToValue(saveObj.get("board"), Board.class);
 //        User user = mapper.treeToValue(saveObj.get("user"), User.class);
+
+//      로그인시 입력받은 이메일과 비밀번호를 저장
         String userEmail=saveObj.get("userEmail").asText();
         String userPassword = saveObj.get("userPassword").asText();
 //        return boardService.update(boardDTO, password);
 
         builder.and(user.userEmail.eq(userEmail));
         builder.and(user.userPassword.eq(encryption(userPassword)));
+
+//      조건에 맞는 레코드들 검색
         List<UserDTO> users=jpaQueryFactory.select(new QUserDTO(
                 user.userId,
-                user.userEmail,
+                user.userPassword,
                 user.userNickname,
                 user.userAccountStatus,
                 user.userFileName,
                 user.userFilePath,
                 user.userFileSize,
                 user.userFileUuid,
-                user.userPassword,
+                user.userEmail,
                 user.userLoginMethod,
-                user.userTotalPoint
+                user.userTotalPoint,
+                user.createDate,
+                user.updatedDate
         )).from(user).where(builder).fetch();
 //        log.info(userEmail);
 //        log.info(password);
 
+//      1개이상(해당 회원이 있다)이면 "member"문자열 반환, 아니면 "notmember"문자열 반환
         if(users.size()>=1){
             return "member";
         }else{return "notmember";}
     }
 
+    //  로그인 버튼 클릭 시 세션 생성 및 세션에 데이터 저장
     @PostMapping("/loginOk")
     public String afterLogin(UserDTO userDTO, HttpServletRequest request){
+
+//      세션 생성
         HttpSession session=request.getSession();
 
-
+//      queryDSL에 2가지 이상의 조건식으로 검색하기 위해 BooleanBuilder 객체 생성 및 사용
         BooleanBuilder builder=new BooleanBuilder();
         builder.and(user.userEmail.eq(userDTO.getUserEmail()));
         builder.and(user.userPassword.eq(encryption(userDTO.getUserPassword())));
 
+//      queryDSL을 사용하여 조건에 해당하는 1개의 레코드 검색
         UserDTO loginUser=jpaQueryFactory.select(new QUserDTO(
                 user.userId,
                 user.userPassword,
@@ -109,22 +126,28 @@ public class LoginController {
                 user.userFileUuid,
                 user.userEmail,
                 user.userLoginMethod,
-                user.userTotalPoint
+                user.userTotalPoint,
+                user.createDate,
+                user.updatedDate
         )).from(user).where(builder).fetchOne();
 
+//      세션에 검색으로 조회한 값들을 저장
         session.setAttribute("userId",loginUser.getUserId());
         session.setAttribute("userEmail",loginUser.getUserEmail());
         session.setAttribute("userNickname",loginUser.getUserNickname());
 
+//      메인으로 이동
         return "redirect:/main/index";
     }
 
+    //  로그아웃 버튼 클릭 시 세션에 저장된 내용 삭제
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request){
+    public String logout(HttpServletRequest request,SessionStatus status){
         HttpSession session=request.getSession();
         session.removeAttribute("userId");
         session.removeAttribute("userEmail");
         session.removeAttribute("userNickname");
+        status.setComplete();
         return "redirect:/main/index";
     }
     // 비밀번호 찾기 페이지
@@ -133,49 +156,64 @@ public class LoginController {
         return "app/login/findPw";
     }
 
+    //  이메일로 비밀번호 찾을때의 비동기식 유효성 검사
     @RequestMapping("/checkUserEmail")
     @ResponseBody
     public String checkUserEmail(@RequestBody String email){
+
+//      이메일에 해당하는 레코드들 검색
         List<UserDTO> users=jpaQueryFactory.select(new QUserDTO(
                 user.userId,
-                user.userEmail,
+                user.userPassword,
                 user.userNickname,
                 user.userAccountStatus,
                 user.userFileName,
                 user.userFilePath,
                 user.userFileSize,
                 user.userFileUuid,
-                user.userPassword,
+                user.userEmail,
                 user.userLoginMethod,
-                user.userTotalPoint
+                user.userTotalPoint,
+                user.createDate,
+                user.updatedDate
         )).from(user).where(user.userEmail.eq(email)).fetch();
 
+//      1개 이상(해당 회원이 있다)이면 "available"문자열 반환, 아니면 "unavailable"문자열 반환
         if(users.size()>=1){
             return "available";
         }else{return "unavailable";}
     }
 
-    @RequestMapping("/requestFind")
+    //  이메일 인증 요청한 사용자를 판별하기 위한 임시 테이블에 데이터를 저장하기 위한 비동기 요청
+    @RequestMapping("/requestSaveFind")
     @ResponseBody
-    public void saveRequestFind(@RequestBody String email){
+    public void saveRequestFind(@RequestBody ObjectNode saveObj){
         UserFindDTO userFindDTO=new UserFindDTO();
 
+//      입력받은 이메일과 랜덤으로 생성한 uuid값을 저장
+        String email=saveObj.get("email").asText();
+        String uuid=saveObj.get("uuid").asText();
+
+//      이메일에 해당하는 1개의 레코드 검색
         UserDTO users=jpaQueryFactory.select(new QUserDTO(
                 user.userId,
-                user.userEmail,
+                user.userPassword,
                 user.userNickname,
                 user.userAccountStatus,
                 user.userFileName,
                 user.userFilePath,
                 user.userFileSize,
                 user.userFileUuid,
-                user.userPassword,
+                user.userEmail,
                 user.userLoginMethod,
-                user.userTotalPoint
+                user.userTotalPoint,
+                user.createDate,
+                user.updatedDate
         )).from(user).where(user.userEmail.eq(email)).fetchOne();
 
+//      화면에서 입력받은 값과 조회되 값을 저장 및 db에 저장
         userFindDTO.setUserEmail(email);
-        userFindDTO.setUserUuid(UUID.randomUUID().toString());
+        userFindDTO.setUserUuid(uuid);
         userFindDTO.setUserId(users.getUserId());
         UserFind userFind=userFindDTO.toentity();
         userFindRepository.save(userFind);
@@ -192,11 +230,14 @@ public class LoginController {
         return "app/login/changePassword";
     }
 
-    @RequestMapping
+    //  사용자가 이메일 인증 페이지를 들어오면 요청했었던 사용자 정보 삭제
+    @RequestMapping("/requestFindUser")
     @ResponseBody
     @Transactional
     @Modifying
     public UserFindDTO giveRequest(@RequestBody String email){
+
+//  url에서 받아온 이메일 주소로 사용자의 이메일에 해당하는 1개의 레코드 검색
         UserFindDTO userFinds=jpaQueryFactory.select(new QUserFindDTO(
                 userFind.userId,
                 userFind.userUuid,
@@ -204,8 +245,29 @@ public class LoginController {
                 userFind.userFindtime
         )).from(userFind).where(userFind.userEmail.eq(email)).fetchOne();
 
+//  이메일 인증으로 비밀번호 변경을 하며, 가입되었던 회원임을 확인 하였으므로 임시 데이터 삭제
         jpaQueryFactory.delete(userFind).where(userFind.userEmail.eq(email)).execute();
+
+//  비정상적인 방법(파라미터 변조)으로 접근 여부를 확인하기 위해 요청시 데이터를 반환
         return userFinds;
+    }
+
+    //  이메일 인증후 비밀번호 변경시 비동기 요청으로 변경
+    @RequestMapping("/saveChangePw")
+    @ResponseBody
+    @Transactional
+    @Modifying
+    public void alterPassword(@RequestBody ObjectNode saveObj){
+//      조회용 이메일, 변경할 패스워드 값을 ajax 요청으로 불러옴
+        String password=saveObj.get("password").asText();
+        String email=saveObj.get("email").asText();
+
+//      화면에서 입력받는 변경 패스워드는 DTO객체에 저장, queryDSL로 이메일과 일치하는 1개의 레코드 검색
+        UserDTO userDTO=new UserDTO(null,encryption(password),null,null,null,null,null,null,null,null,0);
+        User users=jpaQueryFactory.selectFrom(user).where(user.userEmail.eq(email)).fetchOne();
+
+//      변경된 패스워드 저장
+        users.updatePassword(userDTO);
     }
     // 비밀번호 변경 완료 페이지
     @GetMapping("/changePwComplete")

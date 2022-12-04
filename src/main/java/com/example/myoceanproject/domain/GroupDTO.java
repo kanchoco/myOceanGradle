@@ -23,6 +23,7 @@ import static com.example.myoceanproject.embeddable.QGroupTime.groupTime;
 @NoArgsConstructor
 public class GroupDTO {
 
+    private Long groupId;
     private Long userId;
     private String userNickName;
     private String groupName;
@@ -49,7 +50,8 @@ public class GroupDTO {
 
 
     @QueryProjection
-    public GroupDTO(Long userId, String userNickName, String groupName, String groupCategory, String groupContent, int groupPoint, String groupOverSea, String groupLocationName, String groupLocation, String groupLocationDetail, String groupParkingAvailable, String groupMoreInformation, GroupLocationType groupLocationType, GroupStatus groupStatus, String groupFilePath, String groupFileName, String groupFileUuid, Long groupFileSize, Integer maxMember, Integer minMember) {
+    public GroupDTO(Long groupId, Long userId, String userNickName, String groupName, String groupCategory, String groupContent, int groupPoint, String groupOverSea, String groupLocationName, String groupLocation, String groupLocationDetail, String groupParkingAvailable, String groupMoreInformation, GroupLocationType groupLocationType, GroupStatus groupStatus, String groupFilePath, String groupFileName, String groupFileUuid, Long groupFileSize, Integer maxMember, Integer minMember) {
+        this.groupId = groupId;
         this.userId = userId;
         this.userNickName = userNickName;
         this.groupName = groupName;

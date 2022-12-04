@@ -24,7 +24,6 @@ $(loginForm.userPassword).on("blur",function(){
 /* 아이디 입력박스 입력값이 입력될 때마다 검사 */
 $(loginForm.email).on("change input",function(){
     if(!emailRegex.test($emailCheck.value)){
-        console.log("not correct");
         $("input[name='email']").attr("class","Form__Input-sc-1quypp7-1 hYhAPw");
         $(".bViOzS").text("올바른 이메일 형식이 아닙니다.");
         $("button[type='submit']").attr("disabled",true);
@@ -33,13 +32,11 @@ $(loginForm.email).on("change input",function(){
             $("p.bViOzS").text("");
             $("input[name='email']").attr("class","Form__Input-sc-1quypp7-1 iRBMai");
             $("input[name='email']").css("border","");
-            console.log("no value");
             $("button[type='submit']").attr("disabled",true);
             $("button[type='submit']").attr("class","Button-bqxlp0-0 SubmitButton__RegisterPageSubmitButton-np91gr-0 chSrfn");
         }
     }
     else if(emailRegex.test($emailCheck.value)){
-        console.log("correct email");
         $("p.bViOzS").text("");
         $("input[name='email']").attr("class", "Form__Input-sc-1quypp7-1 iRBMai");
         $("input[name='email']").css("border", "");
@@ -97,7 +94,6 @@ function checkemail(){
         dataType:"text",
         data:$emailCheck.value,
         success:function(result){//available 넘어옴
-            console.log(result);
             if(result=="unavailable") {
                 $("input[name='email']").attr("class", "Form__Input-sc-1quypp7-1 hYhAPw");
                 $("p.bViOzS").text("이미 가입된 이메일입니다.");
@@ -113,7 +109,6 @@ function checkemail(){
             }
         },
         error:function(status,error){
-            console.log("error");
             console.log(status,error);
         }
     });

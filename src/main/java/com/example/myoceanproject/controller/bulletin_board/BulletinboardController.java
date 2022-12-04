@@ -13,4 +13,5 @@ public class BulletinboardController {
     public String bulletinBoard(){
         return "app/bulletin_board/bulletin_board";
     }
+
 }

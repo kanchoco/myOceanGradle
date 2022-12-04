@@ -57,7 +57,7 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
                 .limit(pageable.getPageSize()).fetch();
 
         posts.stream().forEach(communityPostDTO -> {
-            communityPostDTO.setCommunityReplyCount(replyRepositoryImpl.CountReplyByCommunityPost(communityPostDTO.getCommunityPostId()));
+            communityPostDTO.setCommunityReplyCount(replyRepositoryImpl.countReplyByCommunityPost(communityPostDTO.getCommunityPostId()));
         });
         long total = jpaQueryFactory.selectFrom(communityPost)
                 .where(communityPost.communityCategory.eq(communityCategory))
@@ -89,7 +89,7 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
                 .limit(pageable.getPageSize()).fetch();
 
         posts.stream().forEach(communityPostDTO -> {
-            communityPostDTO.setCommunityReplyCount(replyRepositoryImpl.CountReplyByCommunityPost(communityPostDTO.getCommunityPostId()));
+            communityPostDTO.setCommunityReplyCount(replyRepositoryImpl.countReplyByCommunityPost(communityPostDTO.getCommunityPostId()));
         });
         long total = jpaQueryFactory.selectFrom(communityPost)
                 .where(communityPost.communityCategory.eq(communityCategory).and(communityPost.communityTitle.contains(criteria.getKeyword())))
@@ -122,7 +122,7 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
                 .limit(pageable.getPageSize()).fetch();
 
         posts.stream().forEach(communityPostDTO -> {
-            communityPostDTO.setCommunityReplyCount(replyRepositoryImpl.CountReplyByCommunityPost(communityPostDTO.getCommunityPostId()));
+            communityPostDTO.setCommunityReplyCount(replyRepositoryImpl.countReplyByCommunityPost(communityPostDTO.getCommunityPostId()));
         });
         long total = jpaQueryFactory.selectFrom(communityPost)
                 .where(communityPost.communityCategory.ne(CommunityCategory.COUNSELING))
@@ -155,7 +155,7 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
                 .limit(pageable.getPageSize()).fetch();
 
         posts.stream().forEach(communityPostDTO -> {
-            communityPostDTO.setCommunityReplyCount(replyRepositoryImpl.CountReplyByCommunityPost(communityPostDTO.getCommunityPostId()));
+            communityPostDTO.setCommunityReplyCount(replyRepositoryImpl.countReplyByCommunityPost(communityPostDTO.getCommunityPostId()));
         });
         long total = jpaQueryFactory.selectFrom(communityPost)
                 .where(communityPost.communityTitle.contains(criteria.getKeyword()).and(communityPost.communityCategory.ne(CommunityCategory.COUNSELING)))
@@ -186,6 +186,14 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
             replyRepositoryImpl.deleteByCommunityPost(post);
         }
 
+    }
+
+    @Override
+    public Integer countPostByUser(Long userId){
+        return Math.toIntExact(jpaQueryFactory.select(communityPost.communityPostId.count())
+                .from(communityPost)
+                .where(communityPost.user.userId.eq(userId))
+                .fetchFirst());
     }
 
 

@@ -10,10 +10,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static com.example.myoceanproject.entity.QCommunityPost.communityPost;
 import static com.example.myoceanproject.entity.QCommunityReply.communityReply;
 
 @Repository
@@ -34,10 +32,17 @@ public class CommunityReplyRepositoryImpl implements CommunityReplyCustomReposit
     }
 
     @Override
-    public Integer CountReplyByCommunityPost(Long communityPostId){
+    public Integer countReplyByCommunityPost(Long communityPostId){
         return Math.toIntExact(queryFactory.select(communityReply.communityReplyId.count())
                 .from(communityReply)
                 .where(communityReply.communityPost.communityPostId.eq(communityPostId))
+                .fetchFirst());
+    }
+    @Override
+    public Integer countReplyByUser(Long userId){
+        return Math.toIntExact(queryFactory.select(communityReply.communityReplyId.count())
+                .from(communityReply)
+                .where(communityReply.user.userId.eq(userId))
                 .fetchFirst());
     }
 

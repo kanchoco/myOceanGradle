@@ -62,7 +62,7 @@ public class GroupTest {
         groupDTO.setGroupStatus(GroupStatus.WAITING);
         groupDTO.setGroupLocationType(GroupLocationType.ONLINE);
         groupDTO.setGroupFileSize(10L);
-        groupDTO.setGroupFileUuid("파일 uuid");
+
         groupDTO.setGroupFilePath("filePath");
         groupDTO.setGroupFileName("groupName");
         groupDTO.setGroupLocation("장소는 이러쿵저러쿵");
@@ -86,6 +86,7 @@ public class GroupTest {
     @Test
     public void findAllTest(){
         List<GroupDTO> groups = jpaQueryFactory.select(new QGroupDTO(
+                group.groupId,
                 group.user.userId,
                 group.user.userNickname,
                 group.groupName,
@@ -114,6 +115,7 @@ public class GroupTest {
     @Test
     public void findById(){
         List<GroupDTO> groups = jpaQueryFactory.select(new QGroupDTO(
+                group.groupId,
                 group.user.userId,
                 group.user.userNickname,
                 group.groupName,
@@ -160,7 +162,7 @@ public class GroupTest {
         groupDTO.setGroupStatus(GroupStatus.WAITING);
         groupDTO.setGroupFilePath("수정 파일");
         groupDTO.setGroupFileName("수정 파일 이름");
-        groupDTO.setGroupFileUuid("파일uuid");
+
         groupDTO.setGroupFileSize(155L);
         groupDTO.setMaxMember(15);
         groupDTO.setMinMember(1);
