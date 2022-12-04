@@ -8,6 +8,7 @@ import com.example.myoceanproject.entity.QUser;
 import com.example.myoceanproject.entity.QUserFind;
 import com.example.myoceanproject.repository.community.post.CommunityPostRepositoryImpl;
 import com.example.myoceanproject.repository.community.reply.CommunityReplyRepositoryImpl;
+import com.example.myoceanproject.type.UserAccountStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,5 +102,75 @@ public class UserRepositoryImpl implements UserCustomRepository {
 
         return new PageImpl<>(users, pageable, total);
     }
+
+    public Page<UserDTO> findAllByStatus(Pageable pageable, UserAccountStatus userAccountStatus){
+        List<UserDTO> users = queryFactory.select(new QUserDTO(
+                        user.userId,
+                        user.userPassword,
+                        user.userNickname,
+                        user.userAccountStatus,
+                        user.userFileName,
+                        user.userFilePath,
+                        user.userFileSize,
+                        user.userFileUuid,
+                        user.userEmail,
+                        user.userLoginMethod,
+                        user.userTotalPoint,
+                        user.createDate,
+                        user.updatedDate
+                ))
+                .from(user)
+                .where(user.userAccountStatus.eq(userAccountStatus))
+                .orderBy(user.userId.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize()).fetch();
+
+        users.stream().forEach(userDTO -> {
+            userDTO.setUserPostCount(postRepositoryImpl.countPostByUser(userDTO.getUserId()));
+            userDTO.setUserReplyCount(replyRepositoryImpl.countReplyByUser(userDTO.getUserId()));
+        });
+
+        long total = queryFactory.selectFrom(communityPost)
+                .where(user.userAccountStatus.eq(userAccountStatus))
+                .fetch().size();
+
+        return new PageImpl<>(users, pageable, total);
+
+    }
+    public Page<UserDTO> findAllByStatus(Pageable pageable, Criteria criteria, UserAccountStatus userAccountStatus){
+        List<UserDTO> users = queryFactory.select(new QUserDTO(
+                        user.userId,
+                        user.userPassword,
+                        user.userNickname,
+                        user.userAccountStatus,
+                        user.userFileName,
+                        user.userFilePath,
+                        user.userFileSize,
+                        user.userFileUuid,
+                        user.userEmail,
+                        user.userLoginMethod,
+                        user.userTotalPoint,
+                        user.createDate,
+                        user.updatedDate
+                ))
+                .from(user)
+                .where(user.userAccountStatus.eq(userAccountStatus).and(user.userAccountStatus.eq(userAccountStatus)))
+                .orderBy(user.userId.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize()).fetch();
+
+        users.stream().forEach(userDTO -> {
+            userDTO.setUserPostCount(postRepositoryImpl.countPostByUser(userDTO.getUserId()));
+            userDTO.setUserReplyCount(replyRepositoryImpl.countReplyByUser(userDTO.getUserId()));
+        });
+
+        long total = queryFactory.selectFrom(communityPost)
+                .where(user.userAccountStatus.eq(userAccountStatus).and(user.userAccountStatus.eq(userAccountStatus)))
+                .fetch().size();
+
+        return new PageImpl<>(users, pageable, total);
+
+    }
+
 
 }

@@ -81,8 +81,8 @@
                     <div id="content-top-right">
                         <div class="filter">
                             <span class = "active-filter">전체 회원 보기</span>
-                            <span>일반 회원 보기</span>
-                            <span>정지 회원 보기</span>
+                            <span class="active">일반 회원 보기</span>
+                            <span class="banned">정지 회원 보기</span>
                         </div>
                     </div>
                     <div id="search_box_wrapper">
@@ -115,7 +115,7 @@
                         </thead>
                         <tbody>
                         <th:block th:each="user:${users}">
-                            <tr th:object="${user}">
+                            <tr class="content" th:object="${user}">
                                 <td class="info_td" th:text="*{userId}"></td>
                                 <td class="info_td" th:text="*{userEmail}"></td>
                                 <td class="info_td" th:text="*{userNickname}" ></td>
@@ -159,9 +159,10 @@
                                  class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
                         </a>
                     </div>
-                    <form th:action="@{/manager/freeBoard}" th:object="${criteria}" name="pageForm">
+                    <form th:action="@{/user/list}" th:object="${criteria}" name="pageForm">
                         <input type="hidden" th:field="*{page}">
                         <input type="hidden" th:field="*{keyword}">
+                        <input type="hidden" th:field="*{userAccountStatus}">
                     </form>
                 </div>
             </div>
@@ -175,6 +176,13 @@
 <script src="/js/manager/admin_user_list.js"></script>
 
 <script>
+    let active = [[${active}]];
+    let banned = [[${banned}]];
+    let page = [[${criteria.page}]];
+
+    console.log(active);
+    console.log(banned);
+    console.log(criteria);
 
     $("#search_input").on("keyup",function(key){
         if(key.keyCode === 13) {
@@ -188,6 +196,29 @@
         $(document.pageForm.page).val($(this).attr("href"));
         document.pageForm.submit();
     });
+
+    $('.filter').children('span').click(function(){
+        $(this).siblings().removeClass('active-filter')
+        $(this).addClass('active-filter');
+
+        if($(this).attr('class') == 'active'){
+            getList({
+                status : 'active',
+                page : 0,
+                keyword : ''
+            }, list)
+            function list(replyDTO){
+                console.log(replyDTO);
+            }
+        }else{
+            getList({
+                status : 'banned',
+                page : 0,
+                keyword : ''
+            }, list)
+        }
+    });
+
 </script>
 
 </html>
