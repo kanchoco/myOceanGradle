@@ -27,3 +27,18 @@ function checkMedia(){
         $(".fFPQpk").css("margin", "20px 0px 30px");
     }
 }
+
+// // 각 모임의 썸네일 이미지 출력
+// $(document).ready(function(){
+//     let text = "";
+//     let imageSrc = "/host/display-list?filename=" + $('input[name=groupFilePath]').val() + "/" + $('input[name=groupFileUuid]').val() + "_" +$('input[name=groupFileName]').val();
+//     text = `<img src=` + imageSrc + ` class="Image__StyledImage-v97gyx-1 VUNpu" width="192">`;
+//     $(".Ratio-content").append(text);
+// })
+
+
+// 모임 상세 게시글로 화면 이동
+$(".detailGroup").on("click", function(e){
+    e.preventDefault();
+    location.href = "/host/read?groupId=" + $(this).attr("href");
+})

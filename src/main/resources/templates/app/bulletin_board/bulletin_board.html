@@ -17,7 +17,12 @@
     }
 </style>
 <body>
-<header th:replace="/app/fix/header.html :: header"></header>
+<div th:if="${session.userId}">
+    <header th:replace="/app/fix/header.html :: header"/>
+</div>
+<div th:unless="${session.userId}">
+    <header th:replace="/app/fix/headerModify.html:: header"/>
+</div>
 <div th:replace="/app/fix/chattingAll.html:: chattingAll"></div>
 <div class="PageWrapper-sc-1w87j10-0 bScXKt">
     <!--    <div class="SocialFeedPage__Header-ky5ymg-1 jIjcTX">-->
@@ -42,7 +47,7 @@
             <th:block th:each="groupDTO:${groupDTOs}">
                 <div class="CardProduct__Wrapper-a817d1-0 ijdqTp" th:object="${groupDTO}">
                     <!--세부 게시글로 넘어가는 부분-->
-                    <a class="withLink__StyledLink-zuberk-0 lQqkn" th:href="*{groupId}">
+                    <a class="withLink__StyledLink-zuberk-0 lQqkn detailGroup" th:href="*{groupId}">
                         <div class="CardProduct__InfoWrapper-a817d1-1 hPIfDi">
                             <div class="CardProduct__ImageContainer-a817d1-2 eEpNrE">
                                 <!--썸네일 이미지 감싸고 있는 부분-->
@@ -50,9 +55,17 @@
                                     <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
                                         <div class="Ratio " style="display: block;">
                                             <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
-                                                <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                <div class="Ratio-content" style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
                                                     <!--썸네일 이미지-->
-                                                    <img th:src="@{/host/display-list(filename=*{groupFilePath} + '/' + *{groupFileUuid} + '_' + *{groupFileName})}" class="Image__StyledImage-v97gyx-1 VUNpu" width="192">
+                                                    <!--파일 이름-->
+                                                    <input th:value="*{groupFileName}" name="groupFileName" type="text" maxlength="40" class="form-control groupFileName" style="display:none;">
+                                                    <!--파일 경로-->
+                                                    <input th:value="*{groupFilePath}" name="groupFilePath" type="text" maxlength="40" class="form-control groupFilePath" style="display:none;">
+                                                    <!--파일 크기-->
+                                                    <input th:value="*{groupFileSize}" name="groupFileSize" type="text" maxlength="40" class="form-control groupFileSize" style="display:none;">
+                                                    <!--파일 UUID-->
+                                                    <input th:value="*{groupFileUuid}" name="groupFileUuid" type="text" maxlength="40" class="form-control groupFileUuid" style="display:none;">
+                                                    <img th:src="@{/host/display-list(filename=${groupDTO.groupFilePath} + '/' + ${groupDTO.groupFileUuid} + '_' + ${groupDTO.groupFileName})}" class="Image__StyledImage-v97gyx-1 VUNpu" width="192">
                                                 </div>
                                             </div>
                                         </div>

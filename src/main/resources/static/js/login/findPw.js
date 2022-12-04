@@ -4,8 +4,6 @@ var $inputemail=findForm.email;
 var uuid=([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c=>(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c/4).toString(16));
 var url=location.href;
 
-console.log(uuid);
-
 /* 입력박스 클릭시 테두리 변경 */
 $(findForm.email).on("click",function(){
     $(this).css("border","1px solid blue");
@@ -55,11 +53,12 @@ function checkEmail(){
 }
 
 function saveFindData(){
+    var requestFindPw={"email":$inputemail.value,"uuid":uuid};
     $.ajax({
         type:"post",
-        url:"requestFind",
+        url:"requestSaveFind",
         headers:{"Content-Type":"application/json"},
-        data:$inputemail.value,
+        data:JSON.stringify(requestFindPw),
         dataType:"text",
         success:function(result){;},
         error:function(status,error){;}

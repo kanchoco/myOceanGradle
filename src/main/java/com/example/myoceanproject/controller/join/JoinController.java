@@ -52,14 +52,14 @@ public class JoinController {
     public String checkSavedUser(@RequestBody String email){
         List<UserDTO> users=jpaQueryFactory.select(new QUserDTO(
                 user.userId,
-                user.userEmail,
+                user.userPassword,
                 user.userNickname,
                 user.userAccountStatus,
                 user.userFileName,
                 user.userFilePath,
                 user.userFileSize,
                 user.userFileUuid,
-                user.userPassword,
+                user.userEmail,
                 user.userLoginMethod,
                 user.userTotalPoint,
                 user.createDate,
