@@ -65,7 +65,7 @@
                                                     <input th:value="*{groupFileSize}" name="groupFileSize" type="text" maxlength="40" class="form-control groupFileSize" style="display:none;">
                                                     <!--파일 UUID-->
                                                     <input th:value="*{groupFileUuid}" name="groupFileUuid" type="text" maxlength="40" class="form-control groupFileUuid" style="display:none;">
-                                                    <img th:src="@{/host/display-list(filename=${groupDTO.groupFilePath + '/' + groupDTO.groupFileUuid + '_' + groupDTO.groupFileName})}" class="Image__StyledImage-v97gyx-1 VUNpu" width="192">
+                                                    <img th:src="@{/host/display-list(filename=${groupDTO.groupFilePath} + '/' + ${groupDTO.groupFileUuid} + '_' + ${groupDTO.groupFileName})}" class="Image__StyledImage-v97gyx-1 VUNpu" width="192">
                                                 </div>
                                             </div>
                                         </div>

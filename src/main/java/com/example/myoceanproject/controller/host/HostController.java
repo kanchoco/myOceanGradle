@@ -49,12 +49,19 @@ public class HostController {
         return "app/host/host";
     }
 
-    // 게시글 수정, 게시글 상세보기
-    @GetMapping(value = {"read", "update"})
-    public String read(Long groupId, Model model){
+    // 게시글 상세보기
+    @GetMapping("read")
+    public String read(Long groupId, Model model, Model model2){
         model.addAttribute("groupDTO", groupService.find(groupId));
-        log.info(model.toString());
+        model2.addAttribute("groupTop5DTOs", groupService.findTop5BygroupId(groupId));
         return "app/bulletin_board/bulletin_board_detail";
+    }
+
+    // 게시글 수정하기
+    @GetMapping("update")
+    public String update(Long groupId, Model model){
+        model.addAttribute("groupDTO", groupService.find(groupId));
+        return "app/host/host";
     }
 
     @PostMapping("/update")

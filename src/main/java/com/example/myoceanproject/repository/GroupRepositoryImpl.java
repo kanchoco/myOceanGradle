@@ -50,7 +50,34 @@ public class GroupRepositoryImpl implements GroupCustomRepository{
                 group.groupFileSize,
                 group.groupMemberLimit.maxMember,
                 group.groupMemberLimit.minMember
-        )).from(group).fetch();
+        )).from(group).orderBy(group.groupId.desc()).fetch();
+    }
+
+    @Override
+    public List<GroupDTO> findGroupTop5ByGroupId(Long groupId) {
+        return queryFactory.select(new QGroupDTO(
+                group.groupId,
+                group.user.userId,
+                group.user.userNickname,
+                group.groupName,
+                group.groupCategory,
+                group.groupContent,
+                group.groupPoint,
+                group.groupOverSea,
+                group.groupLocationName,
+                group.groupLocation,
+                group.groupLocationDetail,
+                group.groupParkingAvailable,
+                group.groupMoreInformation,
+                group.groupLocationType,
+                group.groupStatus,
+                group.groupFilePath,
+                group.groupFileName,
+                group.groupFileUuid,
+                group.groupFileSize,
+                group.groupMemberLimit.maxMember,
+                group.groupMemberLimit.minMember
+        )).from(group).orderBy(group.groupId.desc()).limit(5L).fetch();
     }
 
     @Override

@@ -46,6 +46,11 @@ public class GroupService implements GroupBoardService {
     }
 
     @Override
+    public List<GroupDTO> findTop5BygroupId(Long groupId){
+        return groupRepositoryImpl.findGroupTop5ByGroupId(groupId);
+    }
+
+    @Override
     public void update(GroupDTO groupDTO) {
 
     }

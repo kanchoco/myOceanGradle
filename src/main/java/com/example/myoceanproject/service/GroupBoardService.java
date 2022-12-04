@@ -14,11 +14,15 @@ public interface GroupBoardService {
     public List<GroupDTO> show();
 
     //  게시글 조회
-    public GroupDTO find(Long GroupId);
+    public GroupDTO find(Long groupId);
+
+    //  게시글 5개 조회
+    public List<GroupDTO> findTop5BygroupId(Long groupId);
 
     //  게시글 수정
     public void update(GroupDTO groupDTO);
 
     //  게시글 삭제
     public void delete(Long GroupId);
+
 }
