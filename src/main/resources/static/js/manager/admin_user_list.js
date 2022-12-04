@@ -103,14 +103,31 @@ $tr.find('.more').click(function () {
 // });
 
 
-function getList(param, callback, error){
+function getListByKeyword(param, callback, error) {
     $.ajax({
         url: "/user/" + param.status + "/" + (param.page || 0) + "/" + param.keyword,
         type: "get",
-        success: function(replyDTO, status, xhr){
-            console.log(replyDTO);
+        success: function (userDTO, status, xhr) {
+            console.log(userDTO.userList);
+            if (callback) {
+                callback(userDTO);
+            }
+        },
+        error: function (xhr, status, err) {
+            if (error) {
+                error(err);
+            }
+        }
+    });
+}
+function getList(param, callback, error){
+    $.ajax({
+        url: "/user/" + param.status + "/" + (param.page || 0),
+        type: "get",
+        success: function(userDTO, status, xhr){
+            console.log(userDTO.userList);
             if(callback){
-                callback(replyDTO);
+                callback(userDTO);
             }
         },
         error: function(xhr, status, err){
@@ -120,5 +137,7 @@ function getList(param, callback, error){
         }
     });
 }
+
+
 
 
