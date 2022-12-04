@@ -263,7 +263,9 @@ public class LoginController {
         String email=saveObj.get("email").asText();
 
 //      화면에서 입력받는 변경 패스워드는 DTO객체에 저장, queryDSL로 이메일과 일치하는 1개의 레코드 검색
-        UserDTO userDTO=new UserDTO(null,encryption(password),null,null,null,null,null,null,null,null,0);
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserPassword(encryption(password));
+        userDTO.setUserTotalPoint(0);
         User users=jpaQueryFactory.selectFrom(user).where(user.userEmail.eq(email)).fetchOne();
 
 //      변경된 패스워드 저장

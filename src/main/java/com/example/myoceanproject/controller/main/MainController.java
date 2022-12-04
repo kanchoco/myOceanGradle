@@ -25,9 +25,6 @@ public class MainController {
     public String main(HttpServletRequest request, Model model){
         HttpSession session=request.getSession();
         Long userId = (Long)session.getAttribute("userId");
-        System.out.println("===========================================================================");
-        System.out.println(userId.toString());
-        System.out.println("===========================================================================");
 
         if(session.getAttribute("userId") != null) {
             List<GroupDTO> groupDTOList = chattingService.show(userId);

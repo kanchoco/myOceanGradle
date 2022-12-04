@@ -21,10 +21,10 @@ public class ManageUserController {
 //    @RequestBody : 전달받은 데이터를 알맞는 매개변수로 주입
 //    ResponseEntity : 서버의 상태코드, 응답 메세지 등을 담을 수 있는 타입
 
-    @GetMapping("/{userAccountStatus}")
-    public UserDTO list(@PathVariable Long userAccountStatus){
-        replyService.remove(replyNumber);
-        return "delete success";
-    }
+//    @GetMapping("/{userAccountStatus}")
+//    public UserDTO list(@PathVariable Long userAccountStatus){
+//        replyService.remove(replyNumber);
+//        return "delete success";
+//    }
 
 }
