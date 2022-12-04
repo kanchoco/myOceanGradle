@@ -63,16 +63,4 @@ public class HostController {
         model.addAttribute("groupDTO", groupService.find(groupId));
         return "app/host/host";
     }
-
-    @PostMapping("/update")
-    public RedirectView update(GroupDTO groupDTO, Criteria criteria, RedirectAttributes redirectAttributes){
-        Group group = groupDTO.toEntity();
-        groupService.update(groupDTO);
-
-        redirectAttributes.addAttribute("groupId", group.getGroupId());
-//        redirectAttributes.addAttribute("page", criteria.getPage());
-//        redirectAttributes.addAttribute("amount", criteria.getAmount());
-        return new RedirectView("/group/detail");
-    }
-
 }

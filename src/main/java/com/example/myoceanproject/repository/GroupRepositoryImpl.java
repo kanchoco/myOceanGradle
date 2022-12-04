@@ -104,7 +104,6 @@ public class GroupRepositoryImpl implements GroupCustomRepository{
                 group.groupFileSize,
                 group.groupMemberLimit.maxMember,
                 group.groupMemberLimit.minMember
-        )).from(group)
-                .where(group.groupId.eq(groupId)).fetchOne();
+        )).from(group).where(group.groupId.eq(groupId)).fetchOne();
     }
 }

@@ -10,4 +10,5 @@ public interface GroupCustomRepository {
     List<GroupDTO> findAll();
 
     List<GroupDTO> findGroupTop5ByGroupId(Long groupId);
+
 }
