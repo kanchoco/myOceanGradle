@@ -7,10 +7,12 @@ import com.example.myoceanproject.type.UserLoginMethod;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 
 @Component
@@ -41,6 +43,9 @@ public class UserDTO {
 
     private int userPostCount;
     private int userReplyCount;
+
+    private List<UserDTO> userList;
+    private int endPage;
 
     @QueryProjection
     public UserDTO(Long userId, String userPassword, String userNickname, UserAccountStatus userAccountStatus, String userFileName, String userFilePath, Long userFileSize, Long userFileUuid, String userEmail, UserLoginMethod userLoginMethod, int userTotalPoint, LocalDateTime createDate, LocalDateTime updatedDate) {
