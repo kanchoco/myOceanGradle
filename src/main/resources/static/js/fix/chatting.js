@@ -104,6 +104,7 @@ $(".redBtn").on("click", function () {
 $("li.active").on("click", function () {
     $("li.active").removeClass("select");
     $(this).addClass("select");
+
 })
 
 

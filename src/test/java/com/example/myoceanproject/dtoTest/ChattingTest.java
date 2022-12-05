@@ -3,9 +3,12 @@ package com.example.myoceanproject.dtoTest;
 import com.example.myoceanproject.domain.ChattingDTO;
 import com.example.myoceanproject.domain.ChattingStatusDTO;
 import com.example.myoceanproject.domain.GroupDTO;
-import com.example.myoceanproject.domain.QChattingDTO;
 import com.example.myoceanproject.entity.*;
 import com.example.myoceanproject.repository.*;
+import com.example.myoceanproject.repository.chatting.ChattingRepository;
+import com.example.myoceanproject.repository.chatting.ChattingRepositoryImpl;
+import com.example.myoceanproject.repository.chatting.ChattingStatusRepository;
+import com.example.myoceanproject.repository.chatting.ChattingStatusRepositoryImpl;
 import com.example.myoceanproject.service.chattingService.ChattingService;
 import com.example.myoceanproject.type.ReadStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -18,9 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.myoceanproject.entity.QChatting.chatting;
-import static com.example.myoceanproject.entity.QChattingStatus.chattingStatus;
 
 
 @SpringBootTest

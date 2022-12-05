@@ -34,7 +34,7 @@ public class UserDTO {
     private String userFileName;
     private String userFilePath;
     private Long userFileSize;
-    private Long userFileUuid;
+    private String userFileUuid;
 
     private String createDate;
 
@@ -48,7 +48,7 @@ public class UserDTO {
     private int endPage;
 
     @QueryProjection
-    public UserDTO(Long userId, String userPassword, String userNickname, UserAccountStatus userAccountStatus, String userFileName, String userFilePath, Long userFileSize, Long userFileUuid, String userEmail, UserLoginMethod userLoginMethod, int userTotalPoint, LocalDateTime createDate, LocalDateTime updatedDate) {
+    public UserDTO(Long userId, String userPassword, String userNickname, UserAccountStatus userAccountStatus, String userFileName, String userFilePath, Long userFileSize, String userFileUuid, String userEmail, UserLoginMethod userLoginMethod, int userTotalPoint, LocalDateTime createDate, LocalDateTime updatedDate) {
         this.userId = userId;
         this.userPassword = userPassword;
         this.userNickname = userNickname;
