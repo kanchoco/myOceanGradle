@@ -38,7 +38,7 @@
                 <div class="list left leftBody">
                     <ul>
                         <th:block th:each="groupList: ${groupDTOList}">
-                            <li class="active leftChattingList" th:object="${groupList}" th:action = "@{/chatting/room(groupId=${groupList.groupId})}">
+                            <li class="active leftChattingList" th:object="${groupList}" th:href="*{groupId}">
                                 <div class="thumb chatThumb">
                                     <img src="/imgin/chat/logo.png" alt="chat_image">
                                 </div>
@@ -58,124 +58,6 @@
                 </div>
                 <div class="chattingRoom right active rightBody">
                     <div class="chattingRoomWrap" style="height: 490px;">
-                        <div class="dayInfo">
-                            <p>22.11.23 월요일</p>
-                        </div>
-
-                        <div class="opponent">
-                            <div class="thumb">
-                                <a href="/people/엔잡쏘" target="_blank">
-                                    <img src="/imgin/chat/logo.png" alt="chat_image">
-                                </a>
-                            </div>
-                            <div class="userIdChatTxt">
-                                <span class="userId">홍**</span>
-                                <div class="chatTxt">
-                                    <span class="chatTxtContents">
-                                        <a style="color: rgb(51, 51, 51);">노래? 누워서 떡먹기지</a>
-                                    </span>
-                                    <div class="timeWrap">
-                                        <span class="time">오후 5:03</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="opponent">
-                            <div class="thumb">
-                                <a href="/people/dddog" target="_blank">
-                                    <img src="/imgin/chat/logo.png" alt="chat_image">
-                                </a>
-                            </div>
-                            <div class="userIdChatTxt">
-                                <span class="userId">배**</span>
-                                <div class="chatTxt">
-                                    <span class="chatTxtContents">
-                                        <a style="color: rgb(51, 51, 51);">우오오오오~~</a>
-                                    </span>
-                                    <div class="timeWrap">
-                                        <span class="time">오후 5:04</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="opponent">
-                            <div class="thumb">
-                                <a href="/people/렛플운영자" target="_blank">
-                                    <img src="/imgin/chat/logo.png" alt="chat_image">
-                                </a>
-                            </div>
-                            <div class="userIdChatTxt">
-                                <span class="userId">김**</span>
-                                <div class="chatTxt">
-                                    <span class="chatTxtContents">
-                                        <a style="color: rgb(51, 51, 51);">&nbsp;</a>
-                                        <a style="color: rgb(51, 51, 51);">역시 준성님~~</a>
-                                    </span>
-                                    <div class="timeWrap">
-                                        <span class="time">오후 5:05</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="dayInfo">
-                            <p>22.11.04 화요일</p>
-                        </div>
-                        <div class="opponent">
-                            <div class="thumb">
-                                <a href="/people/ROSA" target="_blank">
-                                    <img src="/imgin/chat/logo.png" alt="chat_image"></a>
-                            </div>
-                            <div class="userIdChatTxt">
-                                <span class="userId">손**</span>
-                                <div class="chatTxt">
-                                    <span class="chatTxtContents">
-                                        <a style="color: rgb(51, 51, 51);">짝짝짝, 역시 준성님!</a>
-                                    </span>
-                                    <div class="timeWrap">
-                                        <span class="time">오후 5:06</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="opponent">
-                            <div class="thumb">
-                                <a href="/people/ROSA" target="_blank">
-                                    <img src="/imgin/chat/logo.png" alt="chat_image">
-                                </a>
-                            </div>
-                            <div class="userIdChatTxt">
-                                <span class="userId">이**</span>
-                                <div class="chatTxt">
-                                    <span class="chatTxtContents">
-                                        <a style="color: rgb(51, 51, 51);">노래 한곡 해주시면 좋을것 같습니다.</a>
-                                    </span>
-                                    <div class="timeWrap">
-                                        <span class="time">오후 5:07</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="opponent">
-                            <div class="thumb">
-                                <a href="/people/렛플운영자" target="_blank">
-                                    <img src="/imgin/chat/logo.png" alt="chat_image">
-                                </a>
-                            </div>
-                            <div class="userIdChatTxt">
-                                <span class="userId">홍**</span>
-                                <div class="chatTxt">
-                                    <span class="chatTxtContents">
-                                        <a style="color: rgb(51, 51, 51);">프로젝트 끝나고 한 번 부른다. 듣고 눈물 흘리지마.</a>
-                                    </span>
-                                    <div class="timeWrap">
-                                        <span class="time">오후 5:08</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div id="chat_ref_0"></div>
                     </div>
                     <div class="chatInputArea">
                         <div class="mentions mentions--multiLine"
@@ -242,66 +124,8 @@
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/js/fix/chatting.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.3.0/sockjs.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-<script>
-</script>
 <script th:inline="javascript">
-    const groupName = [[${groupDTOList.groupName}]];
-    const groupId = [[${groupDTOList.groupId}]];
-    console.log("자바스크립트 들어옴")
-
-
-    // var username = [[${groupDTOList.senderUser}]];
-
-    // console.log(roomName + ", " + roomId + ", " + username);
-
-    var sockJs = new SockJS("/stomp/chat");
-    //1. SockJS를 내부에 들고있는 stomp를 내어줌
-    var stomp = Stomp.over(sockJs);
-
-    //2. connection이 맺어지면 실행
-    stomp.connect({}, function (){
-        console.log("STOMP Connection")
-
-        //4. subscribe(path, callback)으로 메세지를 받을 수 있음
-        stomp.subscribe("/sub/chat/room/" + groupId, function (chat) {
-            var content = JSON.parse(chat.body);
-
-            var writer = content.writer;
-            var str = '';
-            console.log("subscribe 들어옴")
-
-            if(writer === username){
-                str = "<div class='col-6'>";
-                str += "<div class='alert alert-secondary'>";
-                str += "<b>" + writer + " : " + message + "</b>";
-                str += "</div></div>";
-                $("#msgArea").append(str);
-            }
-            else{
-                str = "<div class='col-6'>";
-                str += "<div class='alert alert-warning'>";
-                str += "<b>" + writer + " : " + message + "</b>";
-                str += "</div></div>";
-                $("#msgArea").append(str);
-            }
-
-            $("#msgArea").append(str);
-        });
-
-        //3. send(path, header, message)로 메세지를 보낼 수 있음
-        stomp.send('/pub/chat/enter', {}, JSON.stringify({groupId: groupId, writer: username}))
-    });
-
-    $("#sendButton").on("click", function(e){
-        var msg = document.getElementById("msg").value();
-
-        // console.log(username + ":" + msg.value);
-        stomp.send('/pub/chat/message', {}, JSON.stringify({groupId: groupId, message: msg.value/*, writer: username*/}));
-        msg.value = '';
-    });
-
+    const groupDTOList = [[${groupDTOList}]];
 </script>
+<script src="/js/fix/chatting.js"></script>
 </html>

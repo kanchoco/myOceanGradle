@@ -60,27 +60,28 @@ public class ChattingRepositoryImpl implements ChattingCustomRepository {
                 .on(groupMember.group.groupId.eq(group.groupId))
                 .where(groupMember.user.userId.eq(userId)).fetch();
     }
-//
-//    @Override
-//    public List<ChattingDTO> findChattingContentByUserId(Long userId) {
-//        return queryFactory.select(new QChattingDTO(
-//                chatting.chattingId,
-//                chatting.senderGroupMember.user.userId,
-//                chatting.senderGroupMember.user.userNickname,
-//                chatting.senderGroupMember.user.userFileName,
-//                chatting.senderGroupMember.user.userFilePath,
-//                chatting.senderGroupMember.user.userFileSize,
-//                chatting.senderGroupMember.user.userFileUuid,
-//                chatting.senderGroupMember.group.groupId,
-//                chatting.senderGroupMember.group.groupName,
-//                chatting.senderGroupMember.group.groupFilePath,
-//                chatting.senderGroupMember.group.groupFileName,
-//                chatting.senderGroupMember.group.groupFileUuid,
-//                chatting.senderGroupMember.group.groupFileSize,
-//                chatting.senderGroupMember.groupMemberId,
-//                chatting.chattingContent
-//        )).from(chatting).join(groupMember).on(chatting.group.group)
-//    }
+
+//    채팅 목록 클릭시 그룹 아이디를 넘겨받음. 이를 통해서 해당 그룹의 채팅 내용을 조회한다.
+    public List<ChattingDTO> findChattingByUserId(Long groupId) {
+        return queryFactory.select(new QChattingDTO(
+                chatting.chattingId,
+                chatting.senderGroupMember.user.userId,
+                chatting.senderGroupMember.user.userNickname,
+                chatting.senderGroupMember.user.userFileName,
+                chatting.senderGroupMember.user.userFilePath,
+                chatting.senderGroupMember.user.userFileSize,
+                chatting.senderGroupMember.user.userFileUuid,
+                chatting.senderGroupMember.group.groupId,
+                chatting.senderGroupMember.group.groupName,
+                chatting.senderGroupMember.group.groupFilePath,
+                chatting.senderGroupMember.group.groupFileName,
+                chatting.senderGroupMember.group.groupFileUuid,
+                chatting.senderGroupMember.group.groupFileSize,
+                chatting.senderGroupMember.groupMemberId,
+                chatting.chattingContent,
+                chatting.createDate
+        )).from(chatting).where(chatting.group.groupId.eq(groupId)).fetch();
+    }
 
 
 }
