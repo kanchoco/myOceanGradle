@@ -58,7 +58,7 @@
                                                 <div class="Ratio-content" style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
                                                     <!--썸네일 이미지-->
                                                     <!--파일 이름-->
-                                                    <input th:value="*{groupFileName}" name="groupFileName" type="text" maxlength="40" class="form-control groupFileName" style="display:none;">
+                                                    <input th:value="*{groupFilePath} + '/' + *{groupFileUuid} + '_' + *{groupFileName}" name="groupFileName" type="text" class="form-control groupFileName" style="display:none;">
                                                     <!--파일 경로-->
                                                     <input th:value="*{groupFilePath}" name="groupFilePath" type="text" maxlength="40" class="form-control groupFilePath" style="display:none;">
                                                     <!--파일 크기-->
