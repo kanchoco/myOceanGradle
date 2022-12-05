@@ -11,6 +11,7 @@ import com.example.myoceanproject.type.CommunityCategory;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.convert.Jsr310Converters;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +20,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
@@ -203,16 +207,24 @@ public class MyListController {
         log.info(endPage + "end");
 
         List<CommunityPost> posts=jpaQueryFactory.selectFrom(communityPost).orderBy(communityPost.communityPostId.desc()).fetch();
+        log.info("posts size:"+posts.size());
+        log.info("postDTOpage size:"+postDTOPage.getContent().size());
+        for(int i=0;i<10;i++){
 
-        for(int i=0;i<posts.size();i++){
+//            try {
+//                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//
+//                // 문자열 -> Date
+//                Date date = formatter.parse(postDTOPage.getContent().get(i).getCreateDate());
+//                LocalDateTime localDateTime= (LocalDateTime)Jsr310Converters.StringToLocalDateTimeConverter.valueOf(postDTOPage.getContent().get(i).getCreateDate());
+//                log.info("date:"+date);
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
 
-            log.info("creadteDate:"+posts.get(i).getCreateDate());
-            postDTOPage.getContent().get(i).setCreateDate(
-                    posts.get(i).getUpdatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
-            );
-//            log.info("category:"+postDTOPage.getContent().get(i).getCommunityCategory());
-//            log.info("category:"+postDTOPage.getContent().get(i).getCreateDate());
         }
+
+
         model.addAttribute("listTotals", postDTOPage.getContent());
         model.addAttribute("pagination", postDTOPage);
         model.addAttribute("pageable", pageable);
