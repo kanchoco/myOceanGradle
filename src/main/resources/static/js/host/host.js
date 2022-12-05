@@ -695,8 +695,9 @@ $('.saveRequest').on('click', function (e){
     }
 
     //  실제 작성한 내용
-    // let content = tinymce.activeEditor.getContent();
-    // $('input[name=groupContent]').attr('value', content);
+    let content = $(".note-editable").html();
+    $('input[name=groupContent]').attr('value', content);
+
     if($('input[name=groupId]').val()=="신규등록"){
         // 컨트롤러로 해당 내용 모두 전송
         groupSave.add({
@@ -745,133 +746,6 @@ $('.saveRequest').on('click', function (e){
     }
 });
 
-
-//에디터
-$(function() {
-    var plugins = [
-        "advlist", "autolink", "lists", "link", "image", "charmap", "print", "preview", "anchor",
-        "searchreplace", "visualblocks", "code", "fullscreen", "insertdatetime", "media", "table",
-        "paste", "code", "help", "wordcount", "save"
-    ];
-    var edit_toolbar = 'formatselect fontselect fontsizeselect |'
-        + ' forecolor backcolor |'
-        + ' bold italic underline strikethrough |'
-        + ' alignjustify alignleft aligncenter alignright |'
-        + ' bullist numlist |'
-        + ' table tabledelete |'
-        + ' link image';
-
-    tinymce.init({
-        language: "ko_KR", //한글판으로 변경
-        selector: '.editor',
-        height: 500,
-        menubar: false,
-        plugins: plugins,
-        toolbar: edit_toolbar,
-        relative_urls: false,
-        /*** image upload ***/
-        image_title: true,
-        /* enable automatic uploads of images represented by blob or data URIs*/
-        automatic_uploads: true,
-        /*
-            URL of our upload handler (for more details check: https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_url)
-            images_upload_url: 'postAcceptor.php',
-            here we add custom filepicker only to Image dialog
-        */
-        file_picker_types: 'image',
-
-        /* and here's our custom image picker*/
-        file_picker_callback: function (cb, value, meta) {
-            var input = document.createElement('input');
-            input.setAttribute('type', 'file');
-            input.setAttribute('accept', 'image/*');
-
-
-            /*
-            Note: In modern browsers input[type="file"] is functional without
-            even adding it to the DOM, but that might not be the case in some older
-            or quirky browsers like IE, so you might want to add it to the DOM
-            just in case, and visually hide it. And do not forget do remove it
-            once you do not need it anymore.
-            */
-            input.onchange = function () {
-                var file = this.files[0];
-
-                var reader = new FileReader();
-                reader.onload = function () {
-                    var id = 'blobid' + (new Date()).getTime();
-                    var blobCache = tinymce.activeEditor.editorUpload.blobCache;
-                    var base64 = reader.result.split(',')[1];
-                    var blobInfo = blobCache.create(id, file, base64);
-                    blobCache.add(blobInfo);
-
-                    /* call the callback and populate the Title field with the file name */
-                    cb(blobInfo.blobUri(), {title: file.name});
-                };
-                reader.readAsDataURL(file);
-            };
-            input.click();
-        },
-
-        // 글 작성 시 hidden input태그에 내용 작성 -> 타임리프로 groupDTO의 contents에 내용 그대로 들어가도록 함
-        setup:function(ed) {
-            ed.on('change', function(e) {
-                console.log('the event object ', e);
-                console.log('the editor object ', ed);
-                console.log('the content ', ed.getContent());
-
-                $('input[name=groupContent]').attr('value', ed.getContent());
-            });
-
-            ed.ui.registry.addButton('custom_image', {
-                icon: 'image',
-                tooltip: 'insert Image',
-                onAction: function () {
-                    documentUpload({
-                        multiple: false,
-                        accept: '.jpg, .png',
-                        callback: function (data) {
-                            if (data.rs_st === 0) {
-                                var fileInfo = data.rs_data;
-                                tinymce.execCommand('mceInsertContent', false,
-                                    /**
-                                     "<img src='" + fileInfo.fullPath + "' data-mce-src='" + fileInfo.fullPath + "' data-originalFileName='" + fileInfo.orgFilename + "' >");
-                                     **/
-                                    "<img src='" + fileInfo.thumbnailPath + "' data-mce-src='" + fileInfo.thumbnailPath + "' data-originalFileName='" + fileInfo.orgFilename + "' >");
-                            }
-                        }
-                    });
-                }
-            });
-        },
-        /*** image upload ***/
-
-        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-    });
-});
-
-
-$(".saveRecruitment ").on("click", function(){
-    console.log('내부 작성 내용 ', tinymce.get("editorWriting").getContent());
-})
-//저장
-// $("#save").on("click", function(){
-//     var content = tinymce.activeEditor.getContent();
-//     console.log(content);
-// });
-
-//에디터 모두 초기화
-// $('.removeText').on('click', function(){
-//     tinymce.activeEditor.selection.setContent('','<p>');
-//     // var content = tinymce.activeEditor.getContent();
-//     // console.log(content);
-//     // console.log($('#tinymce').attr('data-id'));
-//     // // Remove all editors
-//     // text = '<p><br data-mce-bogus="1"></p>';
-//     // $('#tinymce').html(text);
-// });
-
-
 //인원 설정 시 유효성검사.
 $('.number1').bind('keyup mouseup', function (){
     if($('.number1').val() > $('.number2').val()){
@@ -895,10 +769,8 @@ $('.number2').bind('keyup mouseup', function (){
 
 let thumbnailCheck = 0;
 
-// 수정 진행 시 tinymce에 기존 내용 출력하기
+// 수정 진행 시 썸머노트에 기존 내용 출력하기
 $(".py-2.px-0.container.ex").on("click", function(){
-
-    tinymce.get("editorWriting").setContent($('input[name=groupContent]').val());
 
     if($('input[name=groupFilePath]').val()){
         thumbnailCheck++;
@@ -916,4 +788,52 @@ $(".py-2.px-0.container.ex").on("click", function(){
             $(".text-center.container.thumbnailPlus").hide();
         }
     }
+
+
 })
+
+
+/*썸머노트*/
+// // 서머노트에 text 쓰기
+// $('#summernote').summernote('insertText', 써머노트에 쓸 텍스트);
+
+$(document).ready(function() {
+    function sendFile(file){
+        var data = new FormData();
+        data.append("file",file);
+        $.ajax({
+            url: "/host/summernote/",
+            type: "POST",
+            enctype: 'multipart/form-data',
+            data: data,
+            cache: false,
+            contentType : false,
+            processData : false,
+            success: function(image){
+                $('#summernote').summernote('insertImage',image);
+            },
+            error: function(e){console.log(e);}
+        });
+    }
+
+    // summernote
+    $('#summernote').summernote({
+        height :500,
+        minHeight:null,
+        maxHeight:1000,
+        focus:true,
+        lang : "ko-KR",
+        callbacks: {
+            onImageUpload : function(files){
+                sendFile(files[0]);
+            }
+        }
+    });
+
+    /*$('#summernote').summernote('insertText', $('input[name=groupContent]').val());*/
+    $(".note-editable").html($('input[name=groupContent]').val());
+
+    $('#summernote').on('summernote.change', function(we, contents, $editable) {
+        $('input[name=groupContent]').attr('value', $(".note-editable").html());
+    });
+}); //ready

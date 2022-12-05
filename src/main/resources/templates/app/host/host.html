@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="/css/fix/header.css">
 	<link rel="stylesheet" href="/css/fix/footer.css">
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="/css/summernote/summernote-lite.css">
 </head>
 <body class="g-sidenav-pinned g-sidenav-show">
 <div th:if="${session.userId}">
@@ -165,9 +166,7 @@
 														<hr>
 														<div class="p-4">
 															<label for="editor">모임 상세 설명</label>
-															<div class="editor" name="editor" id="editorWriting">
-															</div>
-															<!-- p-4끝 -->
+															<div id="summernote"></div>
 														</div>
 													</div>
 
@@ -1478,7 +1477,8 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="https://cdn.tiny.cloud/1/7g9q3f9jluo7zuzu3l7othnpiuw6r6krxchn5gn33j1c8mp1/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="/js/summernote/summernote-lite.js"></script>
+<script src="/js/summernote/lang/summernote-ko-KR.js"></script>
 <script src="/js/fix/header.js"></script>
 <script src="/js/host/host.js"></script>
 <script>
