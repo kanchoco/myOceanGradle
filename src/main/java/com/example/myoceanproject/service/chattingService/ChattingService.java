@@ -1,4 +1,5 @@
 package com.example.myoceanproject.service.chattingService;
+import com.example.myoceanproject.domain.ChattingDTO;
 import com.example.myoceanproject.domain.GroupDTO;
 import com.example.myoceanproject.repository.*;
 import com.example.myoceanproject.repository.chatting.ChattingRepository;
@@ -29,6 +30,8 @@ public class ChattingService {
     public List<GroupDTO> show(Long userId){
         return chattingRepositoryImple.findByUserId(userId);
     }
+
+    public List<ChattingDTO> showChatting(Long groupId){return chattingRepositoryImple.findChattingByUserId(groupId);}
 
 
 
