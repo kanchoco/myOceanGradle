@@ -39,7 +39,7 @@ public class User extends Period {
     private String userFileName;
     private String userFilePath;
     private Long userFileSize;
-    private Long userFileUuid;
+    private String userFileUuid;
 
     //    그룹 테이블 양방향
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
@@ -70,7 +70,7 @@ public class User extends Period {
     private List<Alarm> alarms;
 
     @Builder
-    public User(String userPassword, String userNickname, String userEmail,UserAccountStatus userAccountStatus,UserLoginMethod userLoginMethod, int userTotalPoint, String userFileName, String userFilePath, Long userFileSize, Long userFileUuid) {
+    public User(String userPassword, String userNickname, String userEmail,UserAccountStatus userAccountStatus,UserLoginMethod userLoginMethod, int userTotalPoint, String userFileName, String userFilePath, Long userFileSize, String userFileUuid) {
         this.userPassword = userPassword;
         this.userNickname = userNickname;
         this.userEmail = userEmail;

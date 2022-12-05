@@ -1,8 +1,10 @@
 package com.example.myoceanproject.service.chattingService;
 import com.example.myoceanproject.domain.GroupDTO;
-import com.example.myoceanproject.entity.User;
-import com.example.myoceanproject.entity.Group;
 import com.example.myoceanproject.repository.*;
+import com.example.myoceanproject.repository.chatting.ChattingRepository;
+import com.example.myoceanproject.repository.chatting.ChattingRepositoryImpl;
+import com.example.myoceanproject.repository.chatting.ChattingStatusRepository;
+import com.example.myoceanproject.repository.chatting.ChattingStatusRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;

@@ -23,7 +23,7 @@ public class CommunityReplyDTO {
     private String userFileName;
     private String userFilePath;
     private Long userFileSize;
-    private Long userFileUuid;
+    private String userFileUuid;
 
     private Long communityPostId;
 
@@ -38,7 +38,7 @@ public class CommunityReplyDTO {
 
 
     @QueryProjection
-    public CommunityReplyDTO(Long userId, String userNickName, String userFileName, String userFilePath, Long userFileSize, Long userFileUuid, Long communityPostId, String communityPostTitle, Long communityReplyId ,String communityReplyContent, LocalDateTime createDate, LocalDateTime updatedDate) {
+    public CommunityReplyDTO(Long userId, String userNickName, String userFileName, String userFilePath, Long userFileSize, String userFileUuid, Long communityPostId, String communityPostTitle, Long communityReplyId ,String communityReplyContent, LocalDateTime createDate, LocalDateTime updatedDate) {
         this.userId = userId;
         this.userNickName = userNickName;
         this.userFileName = userFileName;
