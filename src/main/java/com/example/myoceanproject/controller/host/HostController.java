@@ -36,6 +36,7 @@ public class HostController {
 
     @GetMapping("/display-list")
     public byte[] display(String fileName) throws IOException {
+        log.info("========================");
         log.info("fileName: " + fileName);
         File file = new File("C:/upload/group", fileName);
         return FileCopyUtils.copyToByteArray(file);
@@ -48,24 +49,18 @@ public class HostController {
         return "app/host/host";
     }
 
-    // 게시글 수정, 게시글 상세보기
-    @GetMapping(value = {"/read", "/update"})
-    public void read(Long groupId, Model model){
-        log.info("========================");
-        log.info("groupDTO : " + groupId);
-        log.info("model: " + model);
+    // 게시글 상세보기
+    @GetMapping("read")
+    public String read(Long groupId, Model model, Model model2){
         model.addAttribute("groupDTO", groupService.find(groupId));
+        model2.addAttribute("groupTop5DTOs", groupService.findTop5BygroupId(groupId));
+        return "app/bulletin_board/bulletin_board_detail";
     }
 
-    @PostMapping("/update")
-    public RedirectView update(GroupDTO groupDTO, Criteria criteria, RedirectAttributes redirectAttributes){
-        Group group = groupDTO.toEntity();
-        groupService.update(group);
-
-        redirectAttributes.addAttribute("groupId", group.getGroupId());
-//        redirectAttributes.addAttribute("page", criteria.getPage());
-//        redirectAttributes.addAttribute("amount", criteria.getAmount());
-        return new RedirectView("/group/detail");
+    // 게시글 수정하기
+    @GetMapping("update")
+    public String update(Long groupId, Model model){
+        model.addAttribute("groupDTO", groupService.find(groupId));
+        return "app/host/host";
     }
-
 }

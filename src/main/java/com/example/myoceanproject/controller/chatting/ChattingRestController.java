@@ -1,7 +1,6 @@
 package com.example.myoceanproject.controller.chatting;
 
 import com.example.myoceanproject.domain.GroupDTO;
-import com.example.myoceanproject.service.chattingService.ChattingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

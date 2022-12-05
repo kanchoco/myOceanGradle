@@ -491,17 +491,20 @@ $(".plusThumb").on("change", function(){
         contentType: false,
         processData: false,
         success: function(result) {
-            $('input[name=groupFileName]').attr('value', Object.values(result[0])[15]);
-            $('input[name=groupFilePath]').attr('value', Object.values(result[0])[14]);
-            $('input[name=groupFileSize]').attr('value', Object.values(result[0])[17]);
-            $('input[name=groupFileUuid]').attr('value', Object.values(result[0])[16]);
-            let imageSrc = "/host/display?fileName=" + Object.values(result[0])[14] + "/" + Object.values(result[0])[16] + "_" + Object.values(result[0])[15];
+            $('input[name=groupFileName]').attr('value', Object.values(result[0])[16]);
+            $('input[name=groupFilePath]').attr('value', Object.values(result[0])[15]);
+            $('input[name=groupFileSize]').attr('value', Object.values(result[0])[18]);
+            $('input[name=groupFileUuid]').attr('value', Object.values(result[0])[17]);
+            let imageSrc = "/host/display?fileName=" + Object.values(result[0])[15] + "/" + Object.values(result[0])[17] + "_" + Object.values(result[0])[16];
+            console.log(result[0]);
+            console.log(Object.values(result));
+            console.log(imageSrc);
             $('.image-header').show();
             $('.img-box').show();
 
 
             let text = "";
-            text += `<li id="thumbnailImage" data-file-size="` + Object.values(result[0])[17] + `" data-file-name="` + Object.values(result[0])[15] + `" data-file-upload-path="` + Object.values(result[0])[14] + `" data-file-uuid="` + Object.values(result[0])[16] + `" style="list-style: none;width:100%;">`;
+            text += `<li id="thumbnailImage" data-file-size="` + Object.values(result[0])[18] + `" data-file-name="` + Object.values(result[0])[16] + `" data-file-upload-path="` + Object.values(result[0])[15] + `" data-file-uuid="` + Object.values(result[0])[17] + `" style="list-style: none;width:100%;">`;
             text += `<img src=` + imageSrc + ` style="width:100%;" height="auto">`;
             text += `</li>`;
 
@@ -614,6 +617,7 @@ let groupSave = (function(){
             }
         });
     }
+
     return {add: add}
 })();
 
@@ -638,6 +642,7 @@ $('.saveRecruitment').on('click', function (){
 $('.saveRequest').on('click', function (e){
     e.preventDefault();
     $('#__BVID__287___BV_modal_outer_').hide();
+
 
     //groupLocationType 설정
     if($(".selected .p-3 div")[0].innerText == "오프라인"){
@@ -673,24 +678,26 @@ $('.saveRequest').on('click', function (e){
 
     // 컨트롤러로 해당 내용 모두 전송
     groupSave.add({
-            groupName : $('input[name=groupName]').val(),
-            groupCategory : $('input[name=groupCategory]').val(),
-            groupContent :$('input[name=groupContent]').val(),
-            groupPoint : $('input[name=groupPoint]').val(),
-            groupOverSea : $('input[name=groupOverSea]').val(),
-            groupLocationName : $('input[name=groupLocationName]').val(),
-            groupLocation : $('input[name=groupLocation]').val(),
-            groupLocationDetail : $('input[name=groupLocationDetail]').val(),
-            groupParkingAvailable : $('input[name=groupParkingAvailable]').val(),
-            groupMoreInformation : $('input[name=groupMoreInformation]').val(),
-            groupLocationType : $('input[name=groupLocationType]').val(),
-            maxMember : $('input[name=maxMember]').val(),
-            minMember : $('input[name=minMember]').val(),
-            groupFileName : $('input[name=groupFileName]').val(),
-            groupFilePath : $('input[name=groupFilePath]').val(),
-            groupFileSize : $('input[name=groupFileSize]').val(),
-            groupFileUuid : $('input[name=groupFileUuid]').val()
-        })
+        groupName : $('input[name=groupName]').val(),
+        groupCategory : $('input[name=groupCategory]').val(),
+        groupContent :$('input[name=groupContent]').val(),
+        groupPoint : $('input[name=groupPoint]').val(),
+        groupOverSea : $('input[name=groupOverSea]').val(),
+        groupLocationName : $('input[name=groupLocationName]').val(),
+        groupLocation : $('input[name=groupLocation]').val(),
+        groupLocationDetail : $('input[name=groupLocationDetail]').val(),
+        groupParkingAvailable : $('input[name=groupParkingAvailable]').val(),
+        groupMoreInformation : $('input[name=groupMoreInformation]').val(),
+        groupLocationType : $('input[name=groupLocationType]').val(),
+        maxMember : $('input[name=maxMember]').val(),
+        minMember : $('input[name=minMember]').val(),
+        groupFileName : $('input[name=groupFileName]').val(),
+        groupFilePath : $('input[name=groupFilePath]').val(),
+        groupFileSize : $('input[name=groupFileSize]').val(),
+        groupFileUuid : $('input[name=groupFileUuid]').val()
+    })
+
+    /*게시글 수정일 때*/
 });
 
 
@@ -716,7 +723,7 @@ $(function() {
         menubar: false,
         plugins: plugins,
         toolbar: edit_toolbar,
-
+        relative_urls: false,
         /*** image upload ***/
         image_title: true,
         /* enable automatic uploads of images represented by blob or data URIs*/
@@ -777,6 +784,10 @@ $(function() {
     });
 });
 
+
+$(".saveRecruitment ").on("click", function(){
+    console.log('내부 작성 내용 ', tinymce.get("editorWriting").getContent());
+})
 //저장
 // $("#save").on("click", function(){
 //     var content = tinymce.activeEditor.getContent();
@@ -816,6 +827,27 @@ $('.number2').bind('keyup mouseup', function (){
     }
 });
 
-//
+let thumbnailCheck = 0;
 
+// 수정 진행 시 tinymce에 기존 내용 출력하기
+$(".py-2.px-0.container.ex").on("click", function(){
 
+    tinymce.get("editorWriting").setContent($('input[name=groupContent]').val());
+
+    if($('input[name=groupFilePath]').val()){
+        thumbnailCheck++;
+        if(thumbnailCheck<=1){
+            let imageSrc = "/host/display?fileName=" + $('input[name=groupFilePath]').val() + "/" + $('input[name=groupFileUuid]').val() + "_" + $('input[name=groupFileName]').val();
+
+            $('.image-header').show();
+            $('.img-box').show();
+            let text = "";
+            text += `<li id="thumbnailImage" data-file-size="` + $('input[name=groupFileSize]').val() + `" data-file-name="` + $('input[name=groupFileName]').val() + `" data-file-upload-path="` +$('input[name=groupFilePath]').val() + `" data-file-uuid="` + $('input[name=groupFileUuid]').val() + `" style="list-style: none;width:100%;">`;
+            text += `<img src=` + imageSrc + ` style="width:100%;" height="auto">`;
+            text += `</li>`;
+
+            $(".imgInputBox").append(text);
+            $(".text-center.container.thumbnailPlus").hide();
+        }
+    }
+})

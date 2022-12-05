@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -62,8 +64,8 @@ public class HostRestController {
         log.info("썸네일 UUID: "+ groupDTO.getGroupFileUuid());
         log.info("유저 아이디: " + groupDTO.getUserId());
 
-        Group group = groupDTO.toEntity();
-        groupService.add(group);
+
+        groupService.add(groupDTO);
         return new ResponseEntity<>(new String("register success".getBytes(), "UTF-8"), HttpStatus.OK);
     }
 

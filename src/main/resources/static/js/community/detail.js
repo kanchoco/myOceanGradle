@@ -24,9 +24,11 @@ $(".fOXNjA").on("click",function () {
         $updateAndDeleteModal.hide();
         modalCheck=false;
     }
-
-
 })
 
 
-
+// 모임 페이지 수정 페이지로 이동
+$(".goUpdate").on("click", function(e){
+    e.preventDefault();
+    location.href = "/host/update?groupId=" + $(this).attr("href");
+})

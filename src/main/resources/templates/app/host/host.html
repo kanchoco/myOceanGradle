@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +8,7 @@
 	<link rel="stylesheet" href="/css/host/host.css">
 	<link rel="stylesheet" href="/css/fix/header.css">
 	<link rel="stylesheet" href="/css/fix/footer.css">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body class="g-sidenav-pinned g-sidenav-show">
 <div th:if="${session.userId}">
@@ -22,21 +22,16 @@
 		<div>
 			<div class="content" style="transform-origin: center top;">
 				<!--수정으로 들어왔을때는 "모임 수정" 으로 텍스트 수정-->
-				<div class="bg-white wg-100 p-3 font-weight-bold"> 모임 등록 </div>
+				<div th:if="${groupDTO.groupId}" class="bg-white wg-100 p-3 font-weight-bold"> 모임 수정 </div>
+				<div th:unless="${groupDTO.groupId}" class="bg-white wg-100 p-3 font-weight-bold"> 모임 등록 </div>
 				<div data-v-59b7de29 class="m-3" style="">
 					<div data-v-59b7de29 class="row">
 						<div data-v-59b7de29 class="col-lg-8">
-							<!---->
 							<!--수정으로 들어왔을때 상태 표시 항목-->
 							<div data-v-2ba7cd5f="" data-v-59b7de29="" class="card shadow-0">
-								<!---->
-								<!---->
-								<!---->
-								<!---->
-								<!---->
 								<div data-v-2ba7cd5f="" class="card-header border-bottom-0">
-									<span data-v-2ba7cd5f="" class="" style="font-weight: 700;"> 모임 수정 </span>
-									<!---->
+									<span th:if="${groupDTO.groupId}" data-v-2ba7cd5f="" class="" style="font-weight: 700;"> 모임 수정 </span>
+									<span th:unless="${groupDTO.groupId}" data-v-2ba7cd5f="" class="" style="font-weight: 700;"> 모임 등록 </span>
 								</div>
 								<div data-v-2ba7cd5f="" class="">
 									<div data-v-59b7de29="" class="my-3">
@@ -52,40 +47,29 @@
 														<div data-v-59b7de29="" class="row">
 															<div data-v-59b7de29="" class="col">
 																<fieldset data-v-59b7de29="" class="form-group" id="__BVID__579">
-																	<!---->
 																	<div>
 																		<label class="form-control-label">ID</label>
-																		<div class="text-sm">165120</div>
-																		<!---->
-																		<!---->
-																		<!---->
+																		<div th:if="${groupDTO.groupId}" th:text="${groupDTO.groupId}" class="text-sm"></div>
+																		<div th:unless="${groupDTO.groupId}" class="text-sm">신규등록</div>
 																	</div>
 																</fieldset>
 															</div>
 															<div data-v-59b7de29="" class="col"><fieldset data-v-59b7de29="" class="form-group" id="__BVID__581">
-																<!---->
 																<div>
 																	<label class="form-control-label">상태</label>
 																	<div class="text-sm">
 																		<div data-v-59b7de29="" class="text-frip-primary font-weight-bold"> 등록중 </div>
 																	</div>
-																	<!---->
-																	<!---->
-																	<!---->
 																</div>
 															</fieldset>
 															</div>
 															<div data-v-59b7de29="" class="col">
 																<fieldset data-v-59b7de29="" class="form-group" id="__BVID__583">
-																	<!---->
 																	<div>
 																		<label class="form-control-label">검수상태</label>
 																		<div class="text-sm">
 																			<div data-v-59b7de29="" class="text-muted font-weight-bold"> 검수 미신청 </div>
 																		</div>
-																		<!---->
-																		<!---->
-																		<!---->
 																	</div>
 																</fieldset>
 															</div>
@@ -94,31 +78,18 @@
 												</div>
 											</div>
 										</div>
-										<!---->
 									</div>
 								</div>
-								<!---->
-								<!---->
-								<!---->
 							</div>
 							<div data-v-2ba7cd5f data-v-59b7de29 class="card shadow-0">
-								<!---->
-								<!---->
-								<!---->
-								<!---->
-								<!---->
 								<div data-v-2ba7cd5f class="card-header border-bottom-0">
 									<span data-v-2ba7cd5f class="" style="font-weight: 700;"> 모임 등록 </span>
-									<!---->
 								</div>
 								<div data-v-2ba7cd5f class="">
-									<!---->
 									<div data-v-59b7de29 class="tabs" id="__BVID__561">
-										<!---->
 										<div class="border-bottom">
 											<ul role="tablist" class="nav nav-fill"
 												id="__BVID__561__BV_tab_controls_">
-												<!---->
 												<li role="presentation" class="nav-item">
 													<a role="tab" aria-selected="true" aria-setsize="5"aria-posinset="1" href="#" target="_self"class="nav-link active active-tab"id="__BVID__562___BV_tab_button__"aria-controls="__BVID__562">
 														<div data-v-59b7de29="" class="py-2 px-0 container info">
@@ -157,17 +128,14 @@
 																			<div class="row">
 																				<div class="col-md-6 col-lg-4">
 																					<div data-v-2ba7cd5f="" data-v-292c0328="" class="card shadow-0">
-																						<!----><!----><!----><!----><!----><!---->
 																						<div data-v-2ba7cd5f="" class="" >
 																							<div data-v-292c0328="" class="container imgInputBox">
-																								<!---->
 																								<div data-v-292c0328="" style="display: none" class="image-header">
 																									<button data-v-292c0328="" class="removeImg">
 																										<img data-v-292c0328="" src="https://frip.host/img/delete-white.d7c8ddda.svg" width="24" height="24">
 																									</button>
 																									<img data-v-292c0328="" src="https://frip.host/img/bullet-list-text-white.6124978a.svg" width="24" height="24" style="display:hidden;">
 																								</div>
-																								<!---->
 																								<div data-v-292c0328="" class="img-text container"  onclick="$('.plusThumb').click()">
 																									<div data-v-292c0328="">
 																										<div data-v-292c0328="" class="text-center container thumbnailPlus">
@@ -178,13 +146,10 @@
 																								</div>
 																								<input class="plusThumb" name="plusThumb" data-v-292c0328="" type="file" accept="image/*">
 																								<img data-v-292c0328="" src="" class="img-box">
-																								<!---->
 																							</div>
 																							<div data-v-292c0328="" class="container">
-																								<!---->
 																							</div>
 																						</div>
-																						<!----><!----><!---->
 																					</div>
 																				</div>
 																			</div>
@@ -200,7 +165,7 @@
 														<hr>
 														<div class="p-4">
 															<label for="editor">모임 상세 설명</label>
-															<div class="editor" name="editor">
+															<div class="editor" name="editor" id="editorWriting">
 															</div>
 															<!-- p-4끝 -->
 														</div>
@@ -225,12 +190,12 @@
 																				<div data-v-217c2c81="">
 																					<div data-v-2c2bef28="" data-v-217c2c81="" class="description">어떤 모임을 호스팅하고 싶으신가요?</div>
 																					<div data-v-71dbc711="" data-v-217c2c81="">
-																						<div data-v-71dbc711="" class="row no-gutters">
+																						<div data-v-71dbc711="" class="row no-gutters" th:if="${groupDTO.groupLocation}">
 																							<div data-v-71dbc711="" class="my-2 col-lg-6 align-self-stretch">
-																								<div data-v-71dbc711="" class="selectBox mx-2" style="min-height: 7rem;" data-type="offline">
+																								<div data-v-71dbc711="" class="selectBox mx-2 selected" style="min-height: 7rem;" data-type="offline">
 																									<div data-v-71dbc711="" class="p-3">
 																										<div data-v-71dbc711="">오프라인</div>
-																										<div data-v-71dbc711="" class="mt-2 text-sm">크루와 오프라인에서 직접 대면하여 진행되는 모임 </div>
+																										<div data-v-71dbc711="" class="mt-2 text-sm">오프라인에서 직접 대면하여 진행되는 모임 </div>
 																									</div>
 																								</div>
 																							</div>
@@ -238,11 +203,29 @@
 																								<div data-v-71dbc711="" class="selectBox mx-2" style="min-height: 7rem;" data-type="online">
 																									<div data-v-71dbc711="" class="p-3">
 																										<div data-v-71dbc711="">온라인</div>
-																										<div data-v-71dbc711="" class="mt-2 text-sm">크루와 실시간 채팅, 전화, 영상 등의 방법으로 만나는 비대면 모임 </div>
+																										<div data-v-71dbc711="" class="mt-2 text-sm">실시간 채팅, 전화, 영상 등의 방법으로 만나는 비대면 모임 </div>
 																									</div>
 																								</div>
 																							</div>
-
+																						</div>
+																						<div data-v-71dbc711="" class="row no-gutters" th:unless="${groupDTO.groupLocation}">
+																							<div data-v-71dbc711="" class="my-2 col-lg-6 align-self-stretch">
+																								<div data-v-71dbc711="" class="selectBox mx-2" style="min-height: 7rem;" data-type="offline">
+																									<div data-v-71dbc711="" class="p-3">
+																										<div data-v-71dbc711="">오프라인</div>
+																										<div data-v-71dbc711="" class="mt-2 text-sm">오프라인에서 직접 대면하여 진행되는 모임 </div>
+																									</div>
+																								</div>
+																							</div>
+																							<div data-v-71dbc711="" class="my-2 col-lg-6 align-self-stretch">
+																								<div data-v-71dbc711="" class="selectBox mx-2 selected" style="min-height: 7rem;" data-type="online">
+																									<div data-v-71dbc711="" class="p-3">
+																										<div data-v-71dbc711="">온라인</div>
+																										<div data-v-71dbc711="" class="mt-2 text-sm">실시간 채팅, 전화, 영상 등의 방법으로 만나는 비대면 모임 </div>
+																									</div>
+																								</div>
+																							</div>
+																						</div>
 																							<!--컨트롤러로 넘기기 위한 숨겨진 input 창-->
 																							<input data-v-72dffd28="" th:field="*{groupLocationType}" name="groupLocationType" type="text" maxlength="40" class="form-control groupLocationType" style="display:none;">
 																							<!--모임 상세 설명 input창-->
@@ -267,7 +250,6 @@
 																							<input data-v-72dffd28="" th:field="*{groupFileSize}" name="groupFileSize" type="text" maxlength="40" class="form-control groupFileSize" style="display:none;">
 																							<!--파일 UUID-->
 																							<input data-v-72dffd28="" th:field="*{groupFileUuid}" name="groupFileUuid" type="text" maxlength="40" class="form-control groupFileUuid" style="display:none;">
-																						</div>
 																					</div>
 																					<div data-v-2c2bef28="" data-v-217c2c81="" class="description text-frip-danger">모임 유형은 최초 등록 후에는 변경이 불가능합니다.</div>
 																				</div>
@@ -1016,20 +998,15 @@
 									<!---->
 									<hr data-v-59b7de29="">
 								</div>
-								<!---->
-								<!---->
-								<!---->
 							</div>
 						</div>
 					</div>
 					<div data-v-087ac9bc="" data-v-59b7de29="" class="fixed-bottom bg-white p-2 px-3 text-right border-top" style="">
 							<span data-v-087ac9bc="">
 								<button data-v-087ac9bc="" type="button" class="btn frip-button float-left btn-outline-frip-default">
-									<!---->
 									<img data-v-087ac9bc="" src="https://frip.host/img/top-arrow.94425994.svg" width="24" height="24">
 								</button>
 								<button data-v-087ac9bc="" type="button" class="btn frip-button float-left btn-outline-frip-default">
-									<!---->
 									<img data-v-087ac9bc="" src="https://frip.host/img/down-arrow.b55e9493.svg" width="24" height="24">
 								</button>
 							</span>
@@ -1038,22 +1015,15 @@
 									<!-- 백엔드에서 불러온 데이터가 있다면(수정하기를 눌러서 온거라면) 모임삭제 show() -->
 									<button type="button" class="cancelRecruitment btn frip-button btn-outline-frip-danger btn-tab"><!---->모임 삭제</button>
 									<button type="button" class="saveRecruitment btn frip-button btn-outline-frip-default btn-tab">
-										<!---->
 										저장
 									</button>
 								</span>
-							<!---->
 								<span data-v-087ac9bc="" class="mr-3 text-frip-secondary">|</span>
 							</span>
-						<!---->
 						<button data-v-59b7de29="" type="button" class="btn frip-button btn-frip-primary btn-tab">
-							<!---->
 							검수 요청
 						</button>
 						<span data-v-59b7de29="" title="좌측 저장버튼 클릭 후 요청해주세요"><!----></span>
-						<!---->
-						<!---->
-						<!---->
 					</div>
 				</div>
 			</div>
@@ -1086,9 +1056,8 @@
 				<footer id="__BVID__123___BV_modal_footer_" class="modal-footer">
 					<div class="text-center p-3 container">
 						<button type="button" class="saveRequest btn frip-button btn-frip-primary btn-tab">
-							<!----> 확인
+							확인
 						</button>
-						<!---->
 					</div>
 				</footer>
 			</div>
@@ -1324,31 +1293,26 @@
 									<span>
 										<form class="needs-validation">
 											<div data-v-72dffd28="" class="py-1 px-3">
-												<span data-v-72dffd28="" placeholder="장소 명을 입력해주세요.">
+												<span data-v-72dffd28="" placeholder="장소명을 입력해주세요.">
 													<div data-v-72dffd28="">
 														<fieldset data-v-72dffd28="" class="form-group" id="__BVID__1033" aria-labelledby="__BVID__1033__BV_label_">
 															<div class="form-row">
 																<legend tabindex="-1" class="col-md-4 col-lg-2 bv-no-focus-ring col-form-label" id="__BVID__1033__BV_label_">
 																	<span data-v-72dffd28="" class="text-danger position-absolute ml-2">*</span>
-																	<span data-v-72dffd28="" class="pl-3" style="font-size: 0.9rem;">장소 명</span>
+																	<span data-v-72dffd28="" class="pl-3" style="font-size: 0.9rem;">장소명</span>
 																	<!---->
 																</legend>
 																<div class="col-md-8 col-lg-6">
 																	<div data-v-72dffd28="" class="input-group has-label w-100">
 																		<!---->
-																		<input data-v-72dffd28="" name="locationName" type="text" maxlength="40" required="required" placeholder="장소 명을 입력해주세요." class="form-control">
+																		<input th:value="${groupDTO.groupLocationName}" data-v-72dffd28="" name="locationName" type="text" maxlength="40" required="required" placeholder="장소 명을 입력해주세요." class="form-control">
 																		<div data-v-72dffd28="" class="input-group-append">
 																			<span data-v-72dffd28="" class="input-group-text">
 																				<small data-v-72dffd28="" class="text-muted"> 0 / 40 </small>
 																			</span>
 																		</div>
 																	</div>
-																	<!---->
 																	<div data-v-72dffd28="" class="invalid-feedback" style="display: none;"> 장소 명을 입력해주세요. </div>
-																	<!---->
-																	<!---->
-																	<!---->
-																	<!---->
 																</div>
 															</div>
 														</fieldset>
@@ -1369,17 +1333,14 @@
 															<fieldset class="form-group" id="__BVID__1035">
 																<!---->
 																<div class="countryOption">
-																	<div class="my-2 custom-control custom-radio" data-value = "country">
-																		<input type="radio" name="isOverseas" class="custom-control-input" value="false" id="__BVID__1036">
+																	<div class="my-2 custom-control custom-radio" data-value = "country" value="true">
+																		<input type="radio" name="isOverseas" class="custom-control-input" value="true" id="__BVID__1036">
 																		<label class="custom-control-label" for="__BVID__1036">국내장소</label>
 																	</div>
 																	<div class="custom-control custom-radio" data-value = "foreign">
 																		<input type="radio" name="isOverseas" class="custom-control-input" value="false" id="__BVID__1037">
 																		<label class="custom-control-label" for="__BVID__1037">해외장소</label>
 																	</div>
-																	<!---->
-																	<!---->
-																	<!---->
 																</div>
 															</fieldset>
 														</div>
@@ -1410,14 +1371,14 @@
 																			<!---->
 																			<div data-v-307da538="" class="input-group">
 																				<!---->
-																				<input id="placeAddress" data-v-307da538="" readonly="readonly" type="text" placeholder="주소를 입력해주세요." class="form-control">
+																				<input th:value="${groupDTO.groupLocation}" id="placeAddress" data-v-307da538="" readonly="readonly" type="text" placeholder="주소를 입력해주세요." class="form-control">
 																				<!---->
 																			</div>
 																			<!---->
 																			<div data-v-307da538="" class="invalid-feedback" style="display: none;"> 주소를 입력해주세요. </div>
 																			<div data-v-307da538="" class="input-group">
 																				<!---->
-																				<input data-v-307da538="" id="locationDetail" type="text" placeholder="상세주소를 입력해주세요." class="form-control">
+																				<input th:value="${groupDTO.groupLocationDetail}" data-v-307da538="" id="locationDetail" type="text" placeholder="상세주소를 입력해주세요." class="form-control">
 																				<!---->
 																			</div>
 																			<!---->
@@ -1442,9 +1403,6 @@
 													<div class="col-lg-10">
 														<div>
 															<fieldset class="form-group mt-2" id="__BVID__1047">
-<!--																<legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__1047__BV_label_">-->
-<!--																	<h3>주차 가능 여부</h3>-->
-<!--																</legend>-->
 																<div>
 																	<div id="parkingOption" role="radiogroup" tabindex="-1" class="bv-no-focus-ring">
 																		<div class="custom-control custom-control-inline custom-radio">
@@ -1460,9 +1418,6 @@
 																			</label>
 																		</div>
 																	</div>
-																	<!---->
-																	<!---->
-																	<!---->
 																</div>
 															</fieldset>
 														</div>
@@ -1473,7 +1428,7 @@
 												<div class="col-lg-2"><!----></div>
 												<div class="col-lg-10">
 													<div>
-														<textarea id="textarea" disabled="disabled" placeholder="추가 안내사항을 입력해주세요. (예시) 건물 내 1대 주차 가능 / 근처 공영주차장을 이용해주세요." wrap="soft" class="form-control" style="resize: none; overflow-y: scroll; height: 90px;"></textarea>
+														<textarea th:value="${groupDTO.groupMoreInformation}" id="textarea" disabled="disabled" placeholder="추가 안내사항을 입력해주세요. (예시) 건물 내 1대 주차 가능 / 근처 공영주차장을 이용해주세요." wrap="soft" class="form-control" style="resize: none; overflow-y: scroll; height: 90px;"></textarea>
 													</div>
 												</div>
 											</div>
