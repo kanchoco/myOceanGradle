@@ -151,27 +151,25 @@ public class ManagerController {
 
     //  회원 목록
     @GetMapping("/userList")
-    public String userList(Model model, Criteria criteria) {
+    public String userList() {
 
-        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
-
-        Page<UserDTO> userDTOPage= userService.showAllUser(pageable, criteria);
-        int endPage = (int)(Math.ceil(userDTOPage.getNumber()+1 / (double)10)) * 10;
-        if(userDTOPage.getTotalPages() < endPage){
-            endPage = userDTOPage.getTotalPages() == 0 ? 1 : userDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
-
-        model.addAttribute("users", userDTOPage.getContent());
-        model.addAttribute("pagination", userDTOPage);
-        model.addAttribute("pageable", pageable);
-        model.addAttribute("criteria", criteria);
-        model.addAttribute("endPage", endPage);
-        model.addAttribute("active", UserAccountStatus.ACTIVE);
-        model.addAttribute("banned", UserAccountStatus.BANNED);
+//        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+//
+//        Page<UserDTO> userDTOPage= userService.showAllUser(pageable, criteria);
+//        int endPage = (int)(Math.ceil(userDTOPage.getNumber()+1 / (double)10)) * 10;
+//        if(userDTOPage.getTotalPages() < endPage){
+//            endPage = userDTOPage.getTotalPages() == 0 ? 1 : userDTOPage.getTotalPages();
+//        }
+//        log.info(endPage + "end");
+//
+//        model.addAttribute("users", userDTOPage.getContent());
+//        model.addAttribute("pagination", userDTOPage);
+//        model.addAttribute("pageable", pageable);
+//        model.addAttribute("criteria", criteria);
+//        model.addAttribute("endPage", endPage);
+//        model.addAttribute("active", UserAccountStatus.ACTIVE);
+//        model.addAttribute("banned", UserAccountStatus.BANNED);
         return "app/manager/admin_user_list";
     }
-
-
 
 }

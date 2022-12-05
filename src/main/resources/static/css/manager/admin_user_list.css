@@ -2,7 +2,9 @@
 
 a{
     text-decoration: none;
+    color: #212121;
 }
+
 /* 사이드바 */
 @font-face {
     font-family: 'SUIT';
@@ -276,7 +278,7 @@ span.active-filter{
 }
 
 .filter span:hover{
-background-color: #dbd4ed;
+    background-color: #dbd4ed;
 
 }
 
@@ -329,25 +331,25 @@ input#search_input::placeholder {
 }
 
 #info_table {
-    position: relative;
     display: table;
     width: inherit;
-    border-collapse: collapse;
     box-sizing: border-box;
     text-indent: initial;
-    border-spacing: 2px;
     border-bottom: grey;
+    border-collapse: collapse;
     margin: 0px 20px auto auto;
     background-color: #fff;
 }
 
+table th,
+table td {
+    border-right: 1px black solid;
 
-/*#info_td  {*/
+}
 
-/*    position: relative;*/
-/*    border-left: 1px solid #dee2e6;*/
-/*}*/
-
+table td:last-child {
+    border-right: 0;
+}
 /*#info_td  {*/
 
 /*    position: relative;*/
@@ -357,10 +359,13 @@ input#search_input::placeholder {
 #info_table td:first-child{
     border-left: 0;
 }
-/*#info_table td:last-child{
-    border-right: 0;
-  }*/
 
+#info_table td:last-child{
+    border-right: 0;
+}
+/*#info_table td:nth-child(2){
+    border-left: 0;
+}*/
 
 .info_td {
     text-align: center;
@@ -368,8 +373,7 @@ input#search_input::placeholder {
     height: 40px;
     line-height: 40px;
     vertical-align: top;
-    border-top: 1px solid #dee2e6;
-    border-left: 1px solid #dee2e6;
+    border: 1px solid #dee2e6;
     font-weight: 300;
 }
 
@@ -389,9 +393,12 @@ input#search_input::placeholder {
     font-size: 16px;
     font-weight: 500;
     background-color:#f3f3f3;
-    border: none;
     border-top: 2px solid #dee2e6;
     border-bottom: 2px solid #dee2e6;
+    border-right: none;
+    border: none;
+    border-collapse: collapse;
+
     height: 40px;
 }
 
@@ -407,6 +414,10 @@ button.more {
     padding: 0px 8px;
     color: #6837f8;
     font-weight: 400;
+}
+
+#search_input {
+    outline: none;
 }
 
 .normal {
@@ -440,6 +451,10 @@ button.banned {
     color: #fff;
 } */
 
+input#search_input:focus {
+    border: none;
+}
+
 #page_changer_wrapper {
     display: flex;
     justify-content: center;
@@ -451,11 +466,10 @@ button.banned {
 
 #previous_button_wrapper {
     display: flex;
-    margin-right: 10px;
 }
 
 
-.previous_buttons {
+a.previous_buttons {
     transform: scaleX(-1);
     width: 40px;
     height: 40px;
@@ -463,7 +477,7 @@ button.banned {
     padding: 0px;
     background-color: white;
     text-align: center;
-    cursor: not-allowed;
+    cursor: pointer;
     border-radius: 50%;
     font-size: 18px;
     display: flex;
@@ -485,7 +499,7 @@ button.banned {
     text-align: center;
     cursor: pointer;
     border-radius: 50%;
-    color: black;
+    color: #c4bec9;
     font-size: 18px;
     font-weight: normal;
     display: flex;
@@ -496,21 +510,23 @@ button.banned {
     outline: none;
     border: none;
 }
-
+.page.active{
+    color: black;
+}
 #next_button_wrapper {
     display: flex;
     margin-right: 10px;
 }
 
 
-.next_buttons {
+button.next_buttons {
     width: 40px;
     height: 40px;
     line-height: normal;
     padding: 0px;
     background-color: white;
     text-align: center;
-    cursor: not-allowed;
+    cursor: pointer;
     border-radius: 50%;
     font-size: 18px;
     display: flex;
@@ -541,6 +557,7 @@ button.banned {
     outline: none;
     background-color: rgb(238 238 238);
 }
+
 
 .account-modal button:hover{
     background-color:#dbd4ed;

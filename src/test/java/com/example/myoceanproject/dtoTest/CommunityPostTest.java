@@ -189,7 +189,7 @@ public class CommunityPostTest {
                 .limit(pageable.getPageSize()).fetch();
 
         posts.stream().forEach(communityPostDTO -> {
-            communityPostDTO.setCommunityReplyCount(replyRepositoryImpl.CountReplyByCommunityPost(communityPostDTO.getCommunityPostId()));
+            communityPostDTO.setCommunityReplyCount(replyRepositoryImpl.countReplyByCommunityPost(communityPostDTO.getCommunityPostId()));
         });
         long total = jpaQueryFactory.selectFrom(communityPost)
                 .where(communityPost.communityCategory.eq(CommunityCategory.FREEBOARD))

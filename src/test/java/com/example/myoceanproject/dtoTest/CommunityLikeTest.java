@@ -77,8 +77,8 @@ public class CommunityLikeTest {
 
 //    @Test
 //    public void findAllTest(){
-//        이건 화면에 출력되지 않으므로, 엔티티로 진행한다.
-//        -----------좋아요를 누른 유저의 정보를 가져오는것으로 변경함--------------
+////        이건 화면에 출력되지 않으므로, 엔티티로 진행한다.
+////        -----------좋아요를 누른 유저의 정보를 가져오는것으로 변경함--------------
 //        List<UserDTO> communityLikes = jpaQueryFactory.select( new QUserDTO(
 //                    user.userNickname,
 //                    user.userFileName,
