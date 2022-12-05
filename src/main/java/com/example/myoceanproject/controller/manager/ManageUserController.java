@@ -85,7 +85,7 @@ public class ManageUserController {
     }
 
     @PatchMapping (value = "/{status}/{userId}")
-    public void updateStatus(@RequestBody UserDTO userDTO, @PathVariable String status, @PathVariable Long userId){
+    public String updateStatus(@RequestBody UserDTO userDTO, @PathVariable String status, @PathVariable Long userId){
         UserAccountStatus userStatus = status.equals("ACTIVE") ? UserAccountStatus.ACTIVE : UserAccountStatus.BANNED;
         log.info(userStatus + "status");
 
@@ -93,6 +93,8 @@ public class ManageUserController {
         userDTO.setUserId(userId);
 
         userService.modify(userDTO);
+
+        return "update success";
     }
 
 }

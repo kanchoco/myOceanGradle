@@ -1,3 +1,7 @@
+/*
+* /manager/admin_free_board.html
+* */
+
 // html dom 이 다 로딩된 후 실행된다.
 $(document).ready(function () {
     // menu 클래스 바로 하위에 있는 a 태그를 클릭했을때
@@ -58,17 +62,19 @@ let $tr = $("#info_table").find('tr');
 let accountCondition = null;
 
 function removePost(tag){
+    let postNumber = $(tag).closest('tr').children('.postId').text();
     if (temp == 1) {
         temp--;
-        $(tag).parent().children('.account-modal').remove();
+        $(tag).next().remove();
     } else {
         temp++;
         $(tag).parent().append("<div class=\"account-modal\">\n" +
             "    <button class=\"account-modal-button\">삭제</button>\n" +
             "</div>")
         $(tag).next().find('.account-modal-button').click(function () {
-            $(tag).closest('.account-modal').remove()
-            $(tag).remove()
+            $(tag).next().remove();
+            postService.remove(postNumber,
+                function(){show()});
             temp--;
         })
     }
@@ -79,4 +85,44 @@ function removePost(tag){
 $('.filter').children('span').click(function(){
     $(this).siblings().removeClass('active-filter')
     $(this).addClass('active-filter');
-})
+});
+
+
+let postService = (function(){
+    function getList(param, callback, error){
+        $.ajax({
+            url: "/post/" + (param.page || 0) + "/" + param.keyword,
+            type: "get",
+            async : false,
+            success: function(postDTO, status, xhr){
+                if(callback){
+                    callback(postDTO);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+
+    function remove(postNumber, callback, error){
+        $.ajax({
+            url: "/post/" + postNumber,
+            type: "delete",
+            async : false,
+            success: function(text){
+                if(callback){
+                    callback(text);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+    return {getList: getList,remove: remove}
+}) ();

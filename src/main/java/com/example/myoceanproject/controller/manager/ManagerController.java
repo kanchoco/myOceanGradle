@@ -78,21 +78,21 @@ public class ManagerController {
     // 자유게시판 게시글 관리
     @GetMapping("/freeBoard")
     public String freeBoard(Model model, Criteria criteria) {
-//        0부터 시작,
-        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
-
-        Page<CommunityPostDTO> postDTOPage= postService.showPost(pageable, criteria);
-        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
-        if(postDTOPage.getTotalPages() < endPage){
-            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
-
-        model.addAttribute("freeBoards", postDTOPage.getContent());
-        model.addAttribute("pagination", postDTOPage);
-        model.addAttribute("pageable", pageable);
-        model.addAttribute("criteria", criteria);
-        model.addAttribute("endPage", endPage);
+////        0부터 시작,
+//        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+//
+//        Page<CommunityPostDTO> postDTOPage= postService.showPost(pageable, criteria);
+//        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
+//        if(postDTOPage.getTotalPages() < endPage){
+//            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
+//        }
+//        log.info(endPage + "end");
+//
+//        model.addAttribute("freeBoards", postDTOPage.getContent());
+//        model.addAttribute("pagination", postDTOPage);
+//        model.addAttribute("pageable", pageable);
+//        model.addAttribute("criteria", criteria);
+//        model.addAttribute("endPage", endPage);
 
         return "app/manager/admin_free_board";
     }
