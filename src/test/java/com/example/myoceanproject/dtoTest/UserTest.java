@@ -42,7 +42,6 @@ public class UserTest {
 //      포인트 : 회원가입포인트(5000) - 임의로 지정
 
 //      화면에서 이메일, 닉네임, 패스워드를 입력받고 저장하기 위해 DTO객체 생성
-        for (int i = 0; i < 20; i++){
         UserDTO userDTO = new UserDTO();
 
 //      입력받은 패스워드를 암호화하기 위한 과정
@@ -53,8 +52,8 @@ public class UserTest {
         userDTO.setUserEmail("whei1234@naver.com");
         userDTO.setUserNickname("곽두팔");
         userDTO.setUserPassword(encryptPw);
-        userDTO.setUserLoginMethod(UserLoginMethod.GENERAL);
-        userDTO.setUserAccountStatus(UserAccountStatus.ACTIVE);
+        userDTO.setUserLoginMethod(UserLoginMethod.NAVER);
+        userDTO.setUserAccountStatus(UserAccountStatus.BANNED);
         userDTO.setUserTotalPoint(5000);
 
 //      toEntity메서드로 User타입의 엔티티에 저장
@@ -62,7 +61,6 @@ public class UserTest {
 
 //      유저 테이블에 저장
             userRepository.save(user);
-        }
 
     }
 

@@ -52,6 +52,7 @@ public class ManageUserController {
             endPage = userDTOPage.getTotalPages() == 0 ? 1 : userDTOPage.getTotalPages();
         }
         log.info(endPage + "end");
+        log.info(userDTOPage.getContent().size() + "end");
 
         UserDTO userDTO = new UserDTO();
         userDTO.setUserList(userDTOPage.getContent());
@@ -59,6 +60,39 @@ public class ManageUserController {
 
 
         return userDTO;
+    }
+    @GetMapping("/{page}/{keyword}")
+    public UserDTO list(@PathVariable int page, @PathVariable(required = false) String keyword){
+
+        Criteria criteria = new Criteria();
+        criteria.setKeyword(keyword);
+        criteria.setPage(page);
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+
+        Page<UserDTO> userDTOPage= userService.showAllUser(pageable, criteria);
+        int endPage = (int)(Math.ceil(userDTOPage.getNumber()+1 / (double)10)) * 10;
+        if(userDTOPage.getTotalPages() < endPage){
+            endPage = userDTOPage.getTotalPages() == 0 ? 1 : userDTOPage.getTotalPages();
+        }
+        log.info(endPage + "end");
+
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserList(userDTOPage.getContent());
+        userDTO.setEndPage(endPage);
+
+
+        return userDTO;
+    }
+
+    @PatchMapping (value = "/{status}/{userId}")
+    public void updateStatus(@RequestBody UserDTO userDTO, @PathVariable String status, @PathVariable Long userId){
+        UserAccountStatus userStatus = status.equals("ACTIVE") ? UserAccountStatus.ACTIVE : UserAccountStatus.BANNED;
+        log.info(userStatus + "status");
+
+        userDTO.setUserAccountStatus(userStatus);
+        userDTO.setUserId(userId);
+
+        userService.modify(userDTO);
     }
 
 }
