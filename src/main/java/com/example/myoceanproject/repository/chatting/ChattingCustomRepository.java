@@ -14,4 +14,8 @@ public interface ChattingCustomRepository {
     List<GroupDTO> findByUserId(Long userId);
 
     List<ChattingDTO> findChattingByUserId(Long groupId);
+
+    Long findGroupMemberIdByUserIdAndGroupId(Long userId, Long groupId);
+
+
 }

@@ -3,8 +3,13 @@ package com.example.myoceanproject.controller.chatting;
 import com.example.myoceanproject.domain.ChattingDTO;
 import com.example.myoceanproject.service.chattingService.ChattingService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 @RestController
 @RequiredArgsConstructor
@@ -13,14 +18,23 @@ public class ChattingRestController {
 
 
     private final ChattingService chattingService;
+
     @GetMapping("/groupId/{groupId}")
     public List<ChattingDTO> list(@PathVariable("groupId") Long groupId){
 
-        System.out.println("====================================================================");
-        System.out.println("컨트롤러"+ groupId);
-        System.out.println("====================================================================");
         List<ChattingDTO> chattingDTOList= chattingService.showChatting(groupId);
         return chattingDTOList;
+    }
+
+    @PostMapping(value = "/new", consumes = "application/json", produces = "text/plain; charset=utf-8")
+    public ResponseEntity<String> write(@RequestBody ChattingDTO chattingDTO, HttpServletRequest request) throws UnsupportedEncodingException {
+        HttpSession session=request.getSession();
+        Long userId = (Long)session.getAttribute("userId");
+
+
+        chattingService.saveMessage(userId, chattingDTO.getGroupId(), chattingDTO);
+
+        return new ResponseEntity<>(new String("write success".getBytes(), "UTF-8"), HttpStatus.OK);
     }
 
 

@@ -1,9 +1,11 @@
-
 $chatDateLine = $(".chattingWrap .chattingContentWrap .chattingSection .chattingRoom .chattingRoomWrap .dayInfo");
 
+
+
 checkChatMedia();
+
 /*반응형*/
-function checkChatMedia(){
+function checkChatMedia() {
     if (window.innerWidth < 769) {
         //채팅창 썸네일 이미지 삭제
         $(".chatThumb").css("display", "none");
@@ -16,7 +18,7 @@ function checkChatMedia(){
         //채팅 내역에서 날짜 옆 선 길이 조정
         $chatDateLine.attr("class", "dayInfo media");
 
-    } else{
+    } else {
         //채팅창 썸네일 이미지 살리기
         $(".chatThumb").css("display", "block");
         //채팅창 활성화 시작 시간 삭제
@@ -30,7 +32,7 @@ function checkChatMedia(){
     }
 }
 
-$(window).resize(function() {
+$(window).resize(function () {
     if (window.innerWidth < 769) {
         //채팅창 썸네일 이미지 삭제
         $(".chatThumb").css("display", "none");
@@ -44,7 +46,7 @@ $(window).resize(function() {
         $chatDateLine.attr("class", "dayInfo media");
 
 
-    } else{
+    } else {
         //채팅창 썸네일 이미지 살리기
         $(".chatThumb").css("display", "block");
         //채팅창 활성화 시작 시간 삭제
@@ -98,7 +100,6 @@ $(".whiteBtn").on("click", function () {
 $(".redBtn").on("click", function () {
     $(".chatExitModal").css("display", "none");
 })
-
 
 
 /* 처음 대화를 시도하는 상대방의 1:1 대화 버튼을 누르면 나오는 모달 */
@@ -157,9 +158,8 @@ $(".chatMini").on("click", function () {
 })
 
 
-
 /* 이미 대화중일 때 뜨는 모달 */
-$(".already_chat_btn").click(function(){
+$(".already_chat_btn").click(function () {
     let name = $(this).closest(".profileInfoTxt").find(".name").text();
     let text = "";
     text += `<p class="modalTit"><span>` + name + `</span>님과</p>`
@@ -184,40 +184,36 @@ $(".whiteBtn").on("click", function () {
 })
 
 
-
-$(".mentions__control").on("keyup",function(key){
-    if(key.keyCode==13) {
+$(".mentions__control").on("keyup", function (key) {
+    if (key.keyCode == 13) {
         $(".mentions--multiLine").attr("style",)
     }
 });
 
 
-
-
 /*==============================================================================================================================================*/
 /*==============================================================================================================================================*/
 /*==============================================================================================================================================*/
 /*==============================================================================================================================================*/
 
 
-        function getList(param, callback, error) {
-            console.log("chattingservice 들어옴")
-            $.ajax({
-                url: "/chatting/groupId/" + param.groupId,
-                type: "get",
-                success: function(chattingDTOList, status, xhr){
-                    if(callback){
-                        callback(chattingDTOList);
-                    }
-                },
-                error: function(xhr, status, err){
-                    if(error){
-                        error(err);
-                    }
-                }
-            });
-
+function getList(param, callback, error) {
+    $.ajax({
+        url: "/chatting/groupId/" + param.groupId,
+        type: "get",
+        success: function (chattingDTOList, status, xhr) {
+            if (callback) {
+                callback(chattingDTOList);
+            }
+        },
+        error: function (xhr, status, err) {
+            if (error) {
+                error(err);
+            }
         }
+    });
+
+}
 
 
 /* 왼쪽 대화목록에서 선택될 때마다 css 바꾸는 부분 */
@@ -226,20 +222,27 @@ $("li.active").on("click", function (e) {
     $("li.active").removeClass("select");
     $(this).addClass("select");
     let groupId = $(this).attr("href");
-    console.log("채팅방 클릭")
-    console.log(groupId);
+
     getList({
-        groupId : groupId
+        groupId: groupId
     }, getChattingContentList)
+
+    $("#sendButton").on("click", function(){
+        add({
+            chattingContent: $("#msg").val(),
+            senderUserId: $("input[name='replyWriter']").val(),
+            groupId : groupId
+        }, getChattingContentList);
+    });
 
 
 })
 
-function getChattingContentList(chattingDTOList){
+function getChattingContentList(chattingDTOList) {
     let text = "";
     var time;
     chattingDTOList.forEach(chatting => {
-        if(chatting.chattingCreateDate !== time) {
+        if (chatting.chattingCreateDate !== time) {
             time = chatting.chattingCreateDate
             text += "<div class=\"dayInfo\">"
             text += "<p>" + chatting.chattingCreateDate + "</p>"
@@ -250,31 +253,31 @@ function getChattingContentList(chattingDTOList){
             text += "<img src=\"/imgin/chat/logo.png\" alt=\"chat_image\"></a>"
             text += "</div>"
             text += "<div class=\"userIdChatTxt\">"
-            text += "<span class=\"userId\">"+chatting.senderUserNickName+"</span>"
+            text += "<span class=\"userId\">" + chatting.senderUserNickName + "</span>"
             text += "<div class=\"chatTxt\">"
             text += "<span class=\"chatTxtContents\">"
-            text += "<a style=\"color: rgb(51, 51, 51);\">"+chatting.chattingContent+"</a>"
+            text += "<a style=\"color: rgb(51, 51, 51);\">" + chatting.chattingContent + "</a>"
             text += "</span>"
             text += "<div class=\"timeWrap\">"
-            text += "<span class=\"time\">"+chatting.chattingCreateTime+"</span>"
+            text += "<span class=\"time\">" + chatting.chattingCreateTime + "</span>"
             text += "</div>"
             text += "</div>"
             text += "</div>"
             text += "</div>"
-        }else{
+        } else {
             text += "<div class=\"opponent\">";
             text += "<div class=\"thumb\">"
             text += "<a href=\"/people/ROSA\" target=\"_blank\">"
             text += "<img src=\"/imgin/chat/logo.png\" alt=\"chat_image\"></a>"
             text += "</div>"
             text += "<div class=\"userIdChatTxt\">"
-            text += "<span class=\"userId\">"+chatting.senderUserNickName+"</span>"
+            text += "<span class=\"userId\">" + chatting.senderUserNickName + "</span>"
             text += "<div class=\"chatTxt\">"
             text += "<span class=\"chatTxtContents\">"
-            text += "<a style=\"color: rgb(51, 51, 51);\">"+chatting.chattingContent+"</a>"
+            text += "<a style=\"color: rgb(51, 51, 51);\">" + chatting.chattingContent + "</a>"
             text += "</span>"
             text += "<div class=\"timeWrap\">"
-            text += "<span class=\"time\">"+chatting.chattingCreateTime+"</span>"
+            text += "<span class=\"time\">" + chatting.chattingCreateTime + "</span>"
             text += "</div>"
             text += "</div>"
             text += "</div>"
@@ -285,5 +288,27 @@ function getChattingContentList(chattingDTOList){
     $(".chattingRoomWrap").html(text)
 
 }
+
+function add(chatting, callback, error){
+    $.ajax({
+        url: "/chatting/new",
+        type: "post",
+        data: JSON.stringify(chatting),
+        contentType: "application/json; charset=utf-8",
+        success: function(result, status, xhr){
+            if(callback){
+                callback(result);
+            }
+        },
+        error: function(xhr, status, err){
+            if(error){
+                error(err);
+            }
+        }
+    });
+}
+
+
+
 
 
