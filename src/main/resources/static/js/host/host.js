@@ -618,7 +618,26 @@ let groupSave = (function(){
         });
     }
 
-    return {add: add}
+    function update(groupContents, callback, error){
+        $.ajax({
+            url: "/host/update",
+            type: "post",
+            data: JSON.stringify(groupContents),
+            contentType: "application/json; charset=utf-8",
+            success: function(result, status, xhr) {
+                if (callback) {
+                    callback(result);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+
+    return {add: add, update: update}
 })();
 
 
@@ -637,12 +656,15 @@ $('.saveRecruitment').on('click', function (){
 
 });
 
+/*그룹 아이디값 지정*/
+$('input[name=groupId]').attr('value', $("#__BVID__579 .text-sm").text());
 
 //임시 저장 확인
 $('.saveRequest').on('click', function (e){
     e.preventDefault();
     $('#__BVID__287___BV_modal_outer_').hide();
-
+    
+    /*추가 유효성검사 필요하면 여기에 기재*/
 
     //groupLocationType 설정
     if($(".selected .p-3 div")[0].innerText == "오프라인"){
@@ -675,29 +697,52 @@ $('.saveRequest').on('click', function (e){
     //  실제 작성한 내용
     // let content = tinymce.activeEditor.getContent();
     // $('input[name=groupContent]').attr('value', content);
-
-    // 컨트롤러로 해당 내용 모두 전송
-    groupSave.add({
-        groupName : $('input[name=groupName]').val(),
-        groupCategory : $('input[name=groupCategory]').val(),
-        groupContent :$('input[name=groupContent]').val(),
-        groupPoint : $('input[name=groupPoint]').val(),
-        groupOverSea : $('input[name=groupOverSea]').val(),
-        groupLocationName : $('input[name=groupLocationName]').val(),
-        groupLocation : $('input[name=groupLocation]').val(),
-        groupLocationDetail : $('input[name=groupLocationDetail]').val(),
-        groupParkingAvailable : $('input[name=groupParkingAvailable]').val(),
-        groupMoreInformation : $('input[name=groupMoreInformation]').val(),
-        groupLocationType : $('input[name=groupLocationType]').val(),
-        maxMember : $('input[name=maxMember]').val(),
-        minMember : $('input[name=minMember]').val(),
-        groupFileName : $('input[name=groupFileName]').val(),
-        groupFilePath : $('input[name=groupFilePath]').val(),
-        groupFileSize : $('input[name=groupFileSize]').val(),
-        groupFileUuid : $('input[name=groupFileUuid]').val()
-    })
-
+    if($('input[name=groupId]').val()=="신규등록"){
+        // 컨트롤러로 해당 내용 모두 전송
+        groupSave.add({
+            groupName : $('input[name=groupName]').val(),
+            groupCategory : $('input[name=groupCategory]').val(),
+            groupContent :$('input[name=groupContent]').val(),
+            groupPoint : $('input[name=groupPoint]').val(),
+            groupOverSea : $('input[name=groupOverSea]').val(),
+            groupLocationName : $('input[name=groupLocationName]').val(),
+            groupLocation : $('input[name=groupLocation]').val(),
+            groupLocationDetail : $('input[name=groupLocationDetail]').val(),
+            groupParkingAvailable : $('input[name=groupParkingAvailable]').val(),
+            groupMoreInformation : $('input[name=groupMoreInformation]').val(),
+            groupLocationType : $('input[name=groupLocationType]').val(),
+            maxMember : $('input[name=maxMember]').val(),
+            minMember : $('input[name=minMember]').val(),
+            groupFileName : $('input[name=groupFileName]').val(),
+            groupFilePath : $('input[name=groupFilePath]').val(),
+            groupFileSize : $('input[name=groupFileSize]').val(),
+            groupFileUuid : $('input[name=groupFileUuid]').val()
+        })
+    }
+    
     /*게시글 수정일 때*/
+    else{
+        groupSave.update({
+            groupName : $('input[name=groupName]').val(),
+            groupCategory : $('input[name=groupCategory]').val(),
+            groupContent :$('input[name=groupContent]').val(),
+            groupPoint : $('input[name=groupPoint]').val(),
+            groupOverSea : $('input[name=groupOverSea]').val(),
+            groupLocationName : $('input[name=groupLocationName]').val(),
+            groupLocation : $('input[name=groupLocation]').val(),
+            groupLocationDetail : $('input[name=groupLocationDetail]').val(),
+            groupParkingAvailable : $('input[name=groupParkingAvailable]').val(),
+            groupMoreInformation : $('input[name=groupMoreInformation]').val(),
+            groupLocationType : $('input[name=groupLocationType]').val(),
+            maxMember : $('input[name=maxMember]').val(),
+            minMember : $('input[name=minMember]').val(),
+            groupFileName : $('input[name=groupFileName]').val(),
+            groupFilePath : $('input[name=groupFilePath]').val(),
+            groupFileSize : $('input[name=groupFileSize]').val(),
+            groupFileUuid : $('input[name=groupFileUuid]').val(),
+            groupId : $('input[name=groupId]').val()
+        })
+    }
 });
 
 

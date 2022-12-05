@@ -101,8 +101,11 @@ public class Group extends Period{
         this.groupLocationDetail = groupDTO.getGroupLocationDetail();
         this.groupParkingAvailable=groupDTO.getGroupParkingAvailable();
         this.groupMoreInformation=groupDTO.getGroupMoreInformation();
-        this.groupLocationType = groupDTO.getGroupLocationType();
         this.groupStatus = groupDTO.getGroupStatus();
+        this.groupFileSize = groupDTO.getGroupFileSize();
+        this.groupFileName = groupDTO.getGroupFileName();
+        this.groupFilePath = groupDTO.getGroupFilePath();
+        this.groupFileUuid = groupDTO.getGroupFileUuid();
         this.groupMemberLimit = groupMemberLimit;
     }
 }

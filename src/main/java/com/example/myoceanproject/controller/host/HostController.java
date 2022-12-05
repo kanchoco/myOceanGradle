@@ -63,4 +63,11 @@ public class HostController {
         model.addAttribute("groupDTO", groupService.find(groupId));
         return "app/host/host";
     }
+
+    // 게시글 삭제하기
+    @GetMapping("/deleteGroup")
+    public RedirectView delete(Long groupId){
+        groupService.delete(groupId);
+        return new RedirectView("/host/group-list");
+    }
 }

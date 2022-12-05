@@ -56,7 +56,8 @@ public class GroupService implements GroupBoardService {
     }
 
     @Override
-    public void delete(Long GroupId) {
-
+    @Transactional(rollbackFor = Exception.class)
+    public void delete(Long groupId) {
+        groupRepository.deleteById(groupId);
     }
 }
