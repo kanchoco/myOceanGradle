@@ -617,6 +617,7 @@ let groupSave = (function(){
             }
         });
     }
+
     return {add: add}
 })();
 
@@ -641,6 +642,7 @@ $('.saveRecruitment').on('click', function (){
 $('.saveRequest').on('click', function (e){
     e.preventDefault();
     $('#__BVID__287___BV_modal_outer_').hide();
+
 
     //groupLocationType 설정
     if($(".selected .p-3 div")[0].innerText == "오프라인"){
@@ -676,24 +678,26 @@ $('.saveRequest').on('click', function (e){
 
     // 컨트롤러로 해당 내용 모두 전송
     groupSave.add({
-            groupName : $('input[name=groupName]').val(),
-            groupCategory : $('input[name=groupCategory]').val(),
-            groupContent :$('input[name=groupContent]').val(),
-            groupPoint : $('input[name=groupPoint]').val(),
-            groupOverSea : $('input[name=groupOverSea]').val(),
-            groupLocationName : $('input[name=groupLocationName]').val(),
-            groupLocation : $('input[name=groupLocation]').val(),
-            groupLocationDetail : $('input[name=groupLocationDetail]').val(),
-            groupParkingAvailable : $('input[name=groupParkingAvailable]').val(),
-            groupMoreInformation : $('input[name=groupMoreInformation]').val(),
-            groupLocationType : $('input[name=groupLocationType]').val(),
-            maxMember : $('input[name=maxMember]').val(),
-            minMember : $('input[name=minMember]').val(),
-            groupFileName : $('input[name=groupFileName]').val(),
-            groupFilePath : $('input[name=groupFilePath]').val(),
-            groupFileSize : $('input[name=groupFileSize]').val(),
-            groupFileUuid : $('input[name=groupFileUuid]').val()
-        })
+        groupName : $('input[name=groupName]').val(),
+        groupCategory : $('input[name=groupCategory]').val(),
+        groupContent :$('input[name=groupContent]').val(),
+        groupPoint : $('input[name=groupPoint]').val(),
+        groupOverSea : $('input[name=groupOverSea]').val(),
+        groupLocationName : $('input[name=groupLocationName]').val(),
+        groupLocation : $('input[name=groupLocation]').val(),
+        groupLocationDetail : $('input[name=groupLocationDetail]').val(),
+        groupParkingAvailable : $('input[name=groupParkingAvailable]').val(),
+        groupMoreInformation : $('input[name=groupMoreInformation]').val(),
+        groupLocationType : $('input[name=groupLocationType]').val(),
+        maxMember : $('input[name=maxMember]').val(),
+        minMember : $('input[name=minMember]').val(),
+        groupFileName : $('input[name=groupFileName]').val(),
+        groupFilePath : $('input[name=groupFilePath]').val(),
+        groupFileSize : $('input[name=groupFileSize]').val(),
+        groupFileUuid : $('input[name=groupFileUuid]').val()
+    })
+
+    /*게시글 수정일 때*/
 });
 
 
@@ -720,7 +724,6 @@ $(function() {
         plugins: plugins,
         toolbar: edit_toolbar,
         relative_urls: false,
-
         /*** image upload ***/
         image_title: true,
         /* enable automatic uploads of images represented by blob or data URIs*/
@@ -824,6 +827,27 @@ $('.number2').bind('keyup mouseup', function (){
     }
 });
 
-//
+let thumbnailCheck = 0;
 
+// 수정 진행 시 tinymce에 기존 내용 출력하기
+$(".py-2.px-0.container.ex").on("click", function(){
 
+    tinymce.get("editorWriting").setContent($('input[name=groupContent]').val());
+
+    if($('input[name=groupFilePath]').val()){
+        thumbnailCheck++;
+        if(thumbnailCheck<=1){
+            let imageSrc = "/host/display?fileName=" + $('input[name=groupFilePath]').val() + "/" + $('input[name=groupFileUuid]').val() + "_" + $('input[name=groupFileName]').val();
+
+            $('.image-header').show();
+            $('.img-box').show();
+            let text = "";
+            text += `<li id="thumbnailImage" data-file-size="` + $('input[name=groupFileSize]').val() + `" data-file-name="` + $('input[name=groupFileName]').val() + `" data-file-upload-path="` +$('input[name=groupFilePath]').val() + `" data-file-uuid="` + $('input[name=groupFileUuid]').val() + `" style="list-style: none;width:100%;">`;
+            text += `<img src=` + imageSrc + ` style="width:100%;" height="auto">`;
+            text += `</li>`;
+
+            $(".imgInputBox").append(text);
+            $(".text-center.container.thumbnailPlus").hide();
+        }
+    }
+})
