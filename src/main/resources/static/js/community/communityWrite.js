@@ -80,3 +80,61 @@ function checkMedia(){
         $(".until650px").hide()
     }
 }
+
+
+/*썸머노트*/
+// // 서머노트에 text 쓰기
+// $('#summernote').summernote('insertText', 써머노트에 쓸 텍스트);
+
+$(document).ready(function() {
+    function sendFile(file){
+        var data = new FormData();
+        data.append("file",file);
+        $.ajax({
+            url: "/host/summernote/",
+            type: "POST",
+            enctype: 'multipart/form-data',
+            data: data,
+            cache: false,
+            contentType : false,
+            processData : false,
+            success: function(image){
+                $('#summernote').summernote('insertImage',image);
+            },
+            error: function(e){console.log(e);}
+        });
+    }
+
+    // summernote
+    $('#summernote').summernote({
+        height :500,
+        minHeight:null,
+        maxHeight:1000,
+        toolbar: [
+            ['fontname', ['fontname']],
+            ['fontsize', ['fontsize']],
+            ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+            ['color', ['forecolor','color']],
+            ['table', ['table']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['insert',['picture']],
+        ],
+        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+        focus:true,
+        lang : "ko-KR",
+        callbacks: {
+            onImageUpload : function(files){
+                sendFile(files[0]);
+            }
+        }
+    });
+
+    /*$('#summernote').summernote('insertText', $('input[name=groupContent]').val());*/
+    $(".note-editable").html($('input[name=groupContent]').val());
+
+    $('#summernote').on('summernote.change', function(we, contents, $editable) {
+        $('input[name=groupContent]').attr('value', $(".note-editable").html());
+    });
+}); //ready

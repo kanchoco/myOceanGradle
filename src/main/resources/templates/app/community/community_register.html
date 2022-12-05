@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>h.hyeoniya 커뮤니티 글작성</title>
+    <title>커뮤니티 글작성</title>
     <link rel="stylesheet" href="/css/community/community.css">
     <link rel="stylesheet" href="/css/community/community_write2.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
-<!--    <link rel="stylesheet" href="https://codex.so/public/build/codex.bundle.css?v=1647866282">-->
     <link rel="stylesheet" href="/css/community/bundle.css">
     <link rel="stylesheet" href="/css/fix/header.css">
     <link rel="stylesheet" href="/css/fix/footer.css">
+    <link rel="stylesheet" href="/css/summernote/summernote-lite-community.css">
     <script charset="utf-8" src="https://codex.so/public/build/editor.bundle.js?h=223d8eb43073a38b4278"></script>
 
 </head>
@@ -25,7 +25,12 @@
     }
 </style>
 <body>
-<header th:replace="/app/fix/header.html :: header"></header>
+<div th:if="${session.userId}">
+    <header th:replace="/app/fix/header.html :: header"/>
+</div>
+<div th:unless="${session.userId}">
+    <header th:replace="/app/fix/headerModify.html:: header"/>
+</div>
 <form onsubmit="return false;">
     <div class="SocialFeedPage__Wrapper-ky5ymg-0 fzBbGO">
         <div class="highWrapper">
@@ -47,7 +52,7 @@
                 <div class="selectBox2 post_filter ">
                     <button class="label">요리</button>
                     <ul class="optionList">
-                        <input type="hidden" class="post_filter_input" value="요리">
+                        <input name="post_filter_input"  type="hidden" class="post_filter_input" value="요리">
                         <li class="optionItem">요리</li>
                         <li class="optionItem">운동</li>
                         <li class="optionItem">영화</li>
@@ -59,7 +64,7 @@
                 <div class="selectBox2 diary_filter_1h ">
                     <button class="label">공개</button>
                     <ul class="optionList">
-                        <input type="hidden" class="diary_filter_input" value="공개">
+                        <input type="hidden" name="diary_filter_input" class="diary_filter_input" value="공개">
                         <li class="optionItem">공개</li>
                         <li class="optionItem">비공개</li>
                     </ul>
@@ -68,7 +73,7 @@
                 <div class="selectBox2 exchange_filter_1h ">
                     <button class="label">교환 일기</button>
                     <ul class="optionList">
-                        <input type="hidden" class="exchange_filter_input" value="교환 일기">
+                        <input type="hidden" name="exchange_filter_input" class="exchange_filter_input" value="교환 일기">
                         <li class="optionItem">교환 일기</li>
                         <li class="optionItem">나의 일기</li>
                     </ul>
@@ -82,34 +87,29 @@
                 </div>
             </div>
         </div>
-    <div style="padding: 30px 0;">
+        <div style="padding: 30px 0">
 
-        <div class="editor-landing__demo" data-module="editorLanding">
+            <div class="editor-landing__demo" data-module="editorLanding">
                 <textarea name="module-settings" hidden="">            {
                         "output_id" : "output",
                         "blocks" : []
                     }
                 </textarea>
 
-            <div class="editor-landing__demo-inner">
-                <div id="editorjs">
-
+                <div class="editor-landing__demo-inner">
+                    <div id="summernote"></div>
                 </div>
-            </div>
 
+            </div>
         </div>
-    </div>
 </form>
 <footer th:replace="/app/fix/footer.html :: footer"></footer>
 
 </body>
-<!--<script data-cfasync="false" src="https://codex.so/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32652805 = new Ya.Metrika({ id:32652805, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="https://mc.yandex.ru/watch/32652805" style="position:absolute; left:-9999px;" alt="" /></div></noscript>-->
-<!--<script type="text/javascript">(window.Image ? (new Image()) : document.createElement('img')).src = location.protocol + '//vk.com/rtrg?r=r/h9TMw6W*8InHxVrFZ4tmb*x6Z5C3xX8BdMxOLhjmn9fIv51wjPMiGmbHGJJd7sOl87xLCs94644RwgS0o2PeBS*/xssAPVS1zN/LOx/HWw2kLUkcg0ELryq4QZF0IJtKIs0pJyo6/*z0qgpPsNl0u8pQPEQ12R4jrwKFQZK4k-';</script>-->
-<!--<script onload="codex.init();" src="https://codex.so/public/build/codex.bundle.js?v=1654014248" defer></script>-->
-<!--<script onload="Emoji.parse();" src="https://codex.so/public/extensions/emoji-parser/specc-emoji.js?v=1630788928" defer></script>-->
-<!--<script onload="codex.init();" src="https://codex.so/public/build/codex.bundle.js?v=1654014248" defer></script>-->
 <script onload = "codex.init();" src="/js/community/communityEdit.js" th:defer></script>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/js/summernote/summernote-lite.js"></script>
+<script src="/js/summernote/lang/summernote-ko-KR.js"></script>
 <script src="/js/fix/header.js"></script>
 <script>
     const $labelBtn = $(".label");

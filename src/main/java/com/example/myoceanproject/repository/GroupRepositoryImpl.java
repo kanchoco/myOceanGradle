@@ -2,8 +2,6 @@ package com.example.myoceanproject.repository;
 
 import com.example.myoceanproject.domain.GroupDTO;
 import com.example.myoceanproject.domain.QGroupDTO;
-import com.example.myoceanproject.entity.Group;
-import com.example.myoceanproject.entity.User;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +17,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 import static com.example.myoceanproject.entity.QGroup.group;
+
 
 @Repository
 @RequiredArgsConstructor

@@ -39,6 +39,7 @@ dependencies {
 	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
 	implementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'net.coobird:thumbnailator:0.4.8'
+	implementation 'com.google.code.gson:gson:2.9.0'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -48,8 +49,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testAnnotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.projectlombok:lombok'
-//    testImplementation 'org.springframework.security:spring-security-test'
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
+
 }
 
 tasks.named('test') {
