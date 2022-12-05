@@ -64,7 +64,7 @@ function updateStatus(user){
                 update({
                     userAccountStatus : userAccountStatus,
                     userId : userId
-                },(status === 'null') ? showAll() : show())
+                },function (){status === 'null' ? showAll() : show();})
                 $(user).next().remove();
                 temp--;
             })
@@ -77,7 +77,9 @@ function updateStatus(user){
                 update({
                     userAccountStatus : userAccountStatus,
                     userId : userId
-                },(status === 'null') ? showAll() : show());
+                },function (){
+                 (status === 'null') ? showAll() : show();
+                })
                 $(user).next().remove();
                 // $(user).remove();
                 temp--;
@@ -97,8 +99,8 @@ function getListByKeyword(param, callback, error) {
     $.ajax({
         url: "/user/" + param.status + "/" + (param.page || 0) + "/" + param.keyword,
         type: "get",
+        async : false,
         success: function (userDTO, status, xhr) {
-            console.log(userDTO.userList);
             if (callback) {
                 callback(userDTO);
             }
@@ -114,6 +116,7 @@ function getList(param, callback, error){
     $.ajax({
         url: "/user/" + (param.page || 0) + "/" + param.keyword,
         type: "get",
+        async : false,
         success: function(userDTO, status, xhr){
             console.log(userDTO.userList);
             if(callback){
@@ -133,8 +136,13 @@ function update(user, callback, error){
         url: "/user/" + user.userAccountStatus + "/" + user.userId,
         type: "patch",
         contentType: "application/json; charset=utf-8",
+        async:false,
         data: JSON.stringify(user),
-        success: console.log('성공'),
+        success: function(text){
+            if(callback){
+                callback(text);
+            }
+        },
         error: function(xhr, status, err){
             if(error){
                 error(err);

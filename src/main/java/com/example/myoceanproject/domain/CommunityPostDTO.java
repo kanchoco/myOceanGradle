@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Component
 @Data
@@ -36,6 +37,9 @@ public class CommunityPostDTO {
     private String createDate;
 
     private String updatedDate;
+
+    private List<CommunityPostDTO> postList;
+    private int endPage;
 
 
     @QueryProjection
