@@ -1,6 +1,7 @@
 package com.example.myoceanproject.serviceTest;
 
 
+import com.example.myoceanproject.domain.GroupDTO;
 import com.example.myoceanproject.entity.Group;
 import com.example.myoceanproject.service.GroupService;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +18,7 @@ public class GroupServiceTest {
 
     @Test
     public void showTest(){
-        groupService.show().stream().map(Group::toString).forEach(log::info);
+        groupService.show().stream().map(GroupDTO::toString).forEach(log::info);
     }
 
     @Test

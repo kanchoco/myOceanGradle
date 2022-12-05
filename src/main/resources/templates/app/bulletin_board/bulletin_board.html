@@ -55,9 +55,9 @@
                                     <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
                                         <div class="Ratio " style="display: block;">
                                             <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
-                                                <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                <div class="Ratio-content" style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
                                                     <!--썸네일 이미지-->
-                                                    <img th:src="@{/host/display-list(filename=*{groupFilePath} + '/' + *{groupFileUuid} + '_' + *{groupFileName})}" class="Image__StyledImage-v97gyx-1 VUNpu" width="192">
+                                                    <img th:src="@{/host/display(fileName=${groupDTO.groupFilePath} + '/' + ${groupDTO.groupFileUuid} + '_' + ${groupDTO.groupFileName})}" class="Image__StyledImage-v97gyx-1 VUNpu" width="192">
                                                 </div>
                                             </div>
                                         </div>

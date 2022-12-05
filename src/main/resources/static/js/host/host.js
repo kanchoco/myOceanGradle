@@ -491,17 +491,20 @@ $(".plusThumb").on("change", function(){
         contentType: false,
         processData: false,
         success: function(result) {
-            $('input[name=groupFileName]').attr('value', Object.values(result[0])[15]);
-            $('input[name=groupFilePath]').attr('value', Object.values(result[0])[14]);
-            $('input[name=groupFileSize]').attr('value', Object.values(result[0])[17]);
-            $('input[name=groupFileUuid]').attr('value', Object.values(result[0])[16]);
-            let imageSrc = "/host/display?fileName=" + Object.values(result[0])[14] + "/" + Object.values(result[0])[16] + "_" + Object.values(result[0])[15];
+            $('input[name=groupFileName]').attr('value', Object.values(result[0])[16]);
+            $('input[name=groupFilePath]').attr('value', Object.values(result[0])[15]);
+            $('input[name=groupFileSize]').attr('value', Object.values(result[0])[18]);
+            $('input[name=groupFileUuid]').attr('value', Object.values(result[0])[17]);
+            let imageSrc = "/host/display?fileName=" + Object.values(result[0])[15] + "/" + Object.values(result[0])[17] + "_" + Object.values(result[0])[16];
+            console.log(result[0]);
+            console.log(Object.values(result));
+            console.log(imageSrc);
             $('.image-header').show();
             $('.img-box').show();
 
 
             let text = "";
-            text += `<li id="thumbnailImage" data-file-size="` + Object.values(result[0])[17] + `" data-file-name="` + Object.values(result[0])[15] + `" data-file-upload-path="` + Object.values(result[0])[14] + `" data-file-uuid="` + Object.values(result[0])[16] + `" style="list-style: none;width:100%;">`;
+            text += `<li id="thumbnailImage" data-file-size="` + Object.values(result[0])[18] + `" data-file-name="` + Object.values(result[0])[16] + `" data-file-upload-path="` + Object.values(result[0])[15] + `" data-file-uuid="` + Object.values(result[0])[17] + `" style="list-style: none;width:100%;">`;
             text += `<img src=` + imageSrc + ` style="width:100%;" height="auto">`;
             text += `</li>`;
 
@@ -614,7 +617,27 @@ let groupSave = (function(){
             }
         });
     }
-    return {add: add}
+
+    function update(groupContents, callback, error){
+        $.ajax({
+            url: "/host/update",
+            type: "post",
+            data: JSON.stringify(groupContents),
+            contentType: "application/json; charset=utf-8",
+            success: function(result, status, xhr) {
+                if (callback) {
+                    callback(result);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+
+    return {add: add, update: update}
 })();
 
 
@@ -633,11 +656,15 @@ $('.saveRecruitment').on('click', function (){
 
 });
 
+/*그룹 아이디값 지정*/
+$('input[name=groupId]').attr('value', $("#__BVID__579 .text-sm").text());
 
 //임시 저장 확인
 $('.saveRequest').on('click', function (e){
     e.preventDefault();
     $('#__BVID__287___BV_modal_outer_').hide();
+    
+    /*추가 유효성검사 필요하면 여기에 기재*/
 
     //groupLocationType 설정
     if($(".selected .p-3 div")[0].innerText == "오프라인"){
@@ -670,9 +697,9 @@ $('.saveRequest').on('click', function (e){
     //  실제 작성한 내용
     // let content = tinymce.activeEditor.getContent();
     // $('input[name=groupContent]').attr('value', content);
-
-    // 컨트롤러로 해당 내용 모두 전송
-    groupSave.add({
+    if($('input[name=groupId]').val()=="신규등록"){
+        // 컨트롤러로 해당 내용 모두 전송
+        groupSave.add({
             groupName : $('input[name=groupName]').val(),
             groupCategory : $('input[name=groupCategory]').val(),
             groupContent :$('input[name=groupContent]').val(),
@@ -691,6 +718,31 @@ $('.saveRequest').on('click', function (e){
             groupFileSize : $('input[name=groupFileSize]').val(),
             groupFileUuid : $('input[name=groupFileUuid]').val()
         })
+    }
+    
+    /*게시글 수정일 때*/
+    else{
+        groupSave.update({
+            groupName : $('input[name=groupName]').val(),
+            groupCategory : $('input[name=groupCategory]').val(),
+            groupContent :$('input[name=groupContent]').val(),
+            groupPoint : $('input[name=groupPoint]').val(),
+            groupOverSea : $('input[name=groupOverSea]').val(),
+            groupLocationName : $('input[name=groupLocationName]').val(),
+            groupLocation : $('input[name=groupLocation]').val(),
+            groupLocationDetail : $('input[name=groupLocationDetail]').val(),
+            groupParkingAvailable : $('input[name=groupParkingAvailable]').val(),
+            groupMoreInformation : $('input[name=groupMoreInformation]').val(),
+            groupLocationType : $('input[name=groupLocationType]').val(),
+            maxMember : $('input[name=maxMember]').val(),
+            minMember : $('input[name=minMember]').val(),
+            groupFileName : $('input[name=groupFileName]').val(),
+            groupFilePath : $('input[name=groupFilePath]').val(),
+            groupFileSize : $('input[name=groupFileSize]').val(),
+            groupFileUuid : $('input[name=groupFileUuid]').val(),
+            groupId : $('input[name=groupId]').val()
+        })
+    }
 });
 
 
@@ -716,7 +768,7 @@ $(function() {
         menubar: false,
         plugins: plugins,
         toolbar: edit_toolbar,
-
+        relative_urls: false,
         /*** image upload ***/
         image_title: true,
         /* enable automatic uploads of images represented by blob or data URIs*/
@@ -760,7 +812,7 @@ $(function() {
             };
             input.click();
         },
-        
+
         // 글 작성 시 hidden input태그에 내용 작성 -> 타임리프로 groupDTO의 contents에 내용 그대로 들어가도록 함
         setup:function(ed) {
             ed.on('change', function(e) {
@@ -770,6 +822,27 @@ $(function() {
 
                 $('input[name=groupContent]').attr('value', ed.getContent());
             });
+
+            ed.ui.registry.addButton('custom_image', {
+                icon: 'image',
+                tooltip: 'insert Image',
+                onAction: function () {
+                    documentUpload({
+                        multiple: false,
+                        accept: '.jpg, .png',
+                        callback: function (data) {
+                            if (data.rs_st === 0) {
+                                var fileInfo = data.rs_data;
+                                tinymce.execCommand('mceInsertContent', false,
+                                    /**
+                                     "<img src='" + fileInfo.fullPath + "' data-mce-src='" + fileInfo.fullPath + "' data-originalFileName='" + fileInfo.orgFilename + "' >");
+                                     **/
+                                    "<img src='" + fileInfo.thumbnailPath + "' data-mce-src='" + fileInfo.thumbnailPath + "' data-originalFileName='" + fileInfo.orgFilename + "' >");
+                            }
+                        }
+                    });
+                }
+            });
         },
         /*** image upload ***/
 
@@ -777,6 +850,10 @@ $(function() {
     });
 });
 
+
+$(".saveRecruitment ").on("click", function(){
+    console.log('내부 작성 내용 ', tinymce.get("editorWriting").getContent());
+})
 //저장
 // $("#save").on("click", function(){
 //     var content = tinymce.activeEditor.getContent();
@@ -816,6 +893,27 @@ $('.number2').bind('keyup mouseup', function (){
     }
 });
 
-//
+let thumbnailCheck = 0;
 
+// 수정 진행 시 tinymce에 기존 내용 출력하기
+$(".py-2.px-0.container.ex").on("click", function(){
 
+    tinymce.get("editorWriting").setContent($('input[name=groupContent]').val());
+
+    if($('input[name=groupFilePath]').val()){
+        thumbnailCheck++;
+        if(thumbnailCheck<=1){
+            let imageSrc = "/host/display?fileName=" + $('input[name=groupFilePath]').val() + "/" + $('input[name=groupFileUuid]').val() + "_" + $('input[name=groupFileName]').val();
+
+            $('.image-header').show();
+            $('.img-box').show();
+            let text = "";
+            text += `<li id="thumbnailImage" data-file-size="` + $('input[name=groupFileSize]').val() + `" data-file-name="` + $('input[name=groupFileName]').val() + `" data-file-upload-path="` +$('input[name=groupFilePath]').val() + `" data-file-uuid="` + $('input[name=groupFileUuid]').val() + `" style="list-style: none;width:100%;">`;
+            text += `<img src=` + imageSrc + ` style="width:100%;" height="auto">`;
+            text += `</li>`;
+
+            $(".imgInputBox").append(text);
+            $(".text-center.container.thumbnailPlus").hide();
+        }
+    }
+})

@@ -2,6 +2,7 @@ package com.example.myoceanproject.repository;
 
 import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.domain.UserDTO;
+import com.example.myoceanproject.type.UserAccountStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -13,6 +14,9 @@ public interface UserCustomRepository {
 
     public Page<UserDTO> findAll(Pageable pageable);
     public Page<UserDTO> findAll(Pageable pageable, Criteria criteria);
+
+    public Page<UserDTO> findAllByStatus(Pageable pageable, UserAccountStatus userAccountStatus);
+    public Page<UserDTO> findAllByStatus(Pageable pageable, Criteria criteria, UserAccountStatus userAccountStatus);
 
 
 }

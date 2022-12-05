@@ -23,123 +23,24 @@
     <header th:replace="/app/fix/headerModify.html:: header"/>
 </div>
     <!--시작 부분-->
-    <div th:object="${groupDTO}" class="ProductDetailPage__Wrapper-sc-126q1k2-0 CijWU">
+    <div class="ProductDetailPage__Wrapper-sc-126q1k2-0 CijWU">
         <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
             <div class="ProductDetailPage__ContentWrapper-sc-126q1k2-1 eNYAxQ">
-                <div class="ProductDetailPage__ProductDetailContainer-sc-126q1k2-2 jAFMyC">
+                <div class="ProductDetailPage__ProductDetailContainer-sc-126q1k2-2 jAFMyC" th:object="${groupDTO}">
                     <div class="HeadSection__Wrapper-ty4t88-0 fZHPAt">
                         <div class="RepresentationImageSection__Wrapper-mdp59s-0 cTEgEx">
                             <div class="ImageSlider__SliderWrapper-sc-1obm2ug-0 dueCVJ">
                                 <div class="slick-slider ImageSlider__StyledSlider-sc-1obm2ug-1 cOsMnB slick-initialized" dir="ltr">
                                     <div class="slick-list">
-                                        <div class="slick-track" style="opacity: 1; transform: translate3d(-375px, 0px, 0px); width: 2625px;">
-                                            <div data-index="-1" tabindex="-1" class="slick-slide slick-cloned" aria-hidden="true" style="width: 375px;">
-                                                <div>
-                                                    <div class="Image__Wrapper-v97gyx-0 gDuKGF">
-                                                        <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
-                                                            <div class="Ratio " style="display: block;">
-                                                                <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
-                                                                    <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
-                                                                        <img class="Image__StyledImage-v97gyx-1 VUNpz" width="768" th:src="@{/host/display-list(filename=*{groupFilePath} + '/' + *{groupFileUuid} + '_' + *{groupFileName})}">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div data-index="0" class="slick-slide slick-active slick-current" tabindex="-1" aria-hidden="false" style="outline: none; width: 375px;">
-                                                <div>
-                                                    <div class="Image__Wrapper-v97gyx-0 gDuKGF">
-                                                        <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="768" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_375/1703_kayak_01_1490236706090">
-                                                        <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
-                                                            <div class="Ratio " style="display: block;">
-                                                                <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
-                                                                    <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
-
-
-                                                                        <!--썸네일 이미지-->
-                                                                        <img alt="상품 이미지" class="Image__StyledImage-v97gyx-1 VUNpz" width="768" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_375/1703_kayak_01_1490236706090">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div data-index="1" class="slick-slide" tabindex="-1" aria-hidden="true" style="outline: none; width: 375px;">
-                                                <div>
-                                                    <div class="Image__Wrapper-v97gyx-0 gDuKGF">
-                                                        <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="768" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_375/160615_CityNightKayaking_3_1465356368325">
-                                                        <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
-                                                            <div class="Ratio " style="display: block;">
-                                                                <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
-                                                                    <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
-                                                                        <img alt="상품 이미지" class="Image__StyledImage-v97gyx-1 VUNpz" width="768" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_375/160615_CityNightKayaking_3_1465356368325">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div data-index="2" class="slick-slide" tabindex="-1" aria-hidden="true" style="outline: none; width: 375px;">
-                                                <div>
-                                                    <div class="Image__Wrapper-v97gyx-0 gDuKGF">
-                                                        <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="768" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_375/20171124003478_0_20171124170857348_gwg3yv">
-                                                        <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
-                                                            <div class="Ratio " style="display: block;">
-                                                                <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
-                                                                    <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
-                                                                        <img alt="상품 이미지" class="Image__StyledImage-v97gyx-1 VUNpz" width="768" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_375/20171124003478_0_20171124170857348_gwg3yv">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div data-index="3" tabindex="-1" class="slick-slide slick-cloned" aria-hidden="true" style="width: 375px;">
-                                                <div>
-                                                    <div class="Image__Wrapper-v97gyx-0 gDuKGF">
-                                                        <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="768" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_375/1703_kayak_01_1490236706090">
-                                                        <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
-                                                            <div class="Ratio " style="display: block;">
-                                                                <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
-                                                                    <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
-                                                                        <img alt="상품 이미지" class="Image__StyledImage-v97gyx-1 VUNpz" width="768" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_375/1703_kayak_01_1490236706090">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div data-index="4" tabindex="-1" class="slick-slide slick-cloned" aria-hidden="true" style="width: 375px;">
-                                                <div>
-                                                    <div class="Image__Wrapper-v97gyx-0 gDuKGF">
-                                                        <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="768" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_375/160615_CityNightKayaking_3_1465356368325">
-                                                        <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
-                                                            <div class="Ratio " style="display: block;">
-                                                                <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
-                                                                    <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
-                                                                        <img alt="상품 이미지" class="Image__StyledImage-v97gyx-1 VUNpz" width="768" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_375/160615_CityNightKayaking_3_1465356368325">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="slick-track" style="opacity: 1; transform: translate3d(0px, 0px, 0px); width: 2625px;">
                                             <div data-index="5" tabindex="-1" class="slick-slide slick-cloned" aria-hidden="true" style="width: 375px;">
                                                 <div>
                                                     <div class="Image__Wrapper-v97gyx-0 gDuKGF">
-                                                        <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="768" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_375/20171124003478_0_20171124170857348_gwg3yv">
                                                         <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
                                                             <div class="Ratio " style="display: block;">
                                                                 <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
                                                                     <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
-                                                                        <img alt="상품 이미지" class="Image__StyledImage-v97gyx-1 VUNpz" width="768" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_375/20171124003478_0_20171124170857348_gwg3yv">
+                                                                        <img class="Image__StyledImage-v97gyx-1 VUNpz" width="768" th:src="@{/host/display(fileName=${groupDTO.groupFilePath} + '/' + ${groupDTO.groupFileUuid} + '_' + ${groupDTO.groupFileName})}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -162,9 +63,10 @@
                                             <h1 th:text="*{groupName}" class="BasicInfoSection__Title-sc-1f238bn-5 cWsrnE" style="margin-bottom:5px;"></h1>
                                         </hgroup>
                                         <div class="BasicInfoSection__ActionButtonContainer-sc-1f238bn-6 fOXNjA">
-                                            <button class="Profile__MoreButton-sc-14xkqhl-6 lbwitP"><img
-                                                    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='17' viewBox='0 0 4 17'%3E %3Cpath fill='%23999' fill-rule='evenodd' d='M1.57 14a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-7a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-7a1.5 1.5 0 110 3 1.5 1.5 0 010-3z'/%3E %3C/svg%3E"
-                                                    alt=""></button>
+                                            <!--게시글 작성 당사자일 경우에만 상단 도시락 버튼이 나옴-->
+                                            <button th:if="${session.userId == groupDTO.userId}" class="Profile__MoreButton-sc-14xkqhl-6 lbwitP">
+                                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='17' viewBox='0 0 4 17'%3E %3Cpath fill='%23999' fill-rule='evenodd' d='M1.57 14a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-7a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-7a1.5 1.5 0 110 3 1.5 1.5 0 010-3z'/%3E %3C/svg%3E" alt="">
+                                            </button>
                                         </div>
                                         <!-- 수정,삭제 모달-->
                                         <div class="loungeCardContentsComponents_loungeContentsMoreButtonBox__2jERo">
@@ -173,8 +75,12 @@
                                             <div class="selectBox2 exchange_filter_1h active" style="display: block;">
                                                 <ul class="optionList">
                                                     <input type="hidden" class="exchange_filter_input" value="교환 일기">
-                                                    <li class="optionItem" style="border-bottom: 1px solid rgb(220 215 215);">수정</li>
-                                                    <li class="optionItem">삭제</li>
+                                                    <li class="optionItem" style="border-bottom: 1px solid rgb(220 215 215);">
+                                                        <a class="goUpdate" th:href="*{groupId}">수정</a>
+                                                    </li>
+                                                    <li class="optionItem">
+                                                        <a class="goDelete" th:href="*{groupId}">삭제</a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -195,7 +101,7 @@
                                 <!--모집 인원-->
                                 <div class="PriceInfo__PriceWrapper-sc-1s3i0u7-0 bZWTJt">
                                     <div class="PriceInfo__Price-sc-1s3i0u7-2 iRfDsw">
-                                        모집 인원: <span th:text="|*{groupMinMember} ~ *{groupMaxMember}명|" class="PriceInfo__PriceUnit-sc-1s3i0u7-3 kWprXL"></span>
+                                        모집 인원: <span th:text="|*{minMember} ~ *{maxMember}명|" class="PriceInfo__PriceUnit-sc-1s3i0u7-3 kWprXL"></span>
                                     </div>
                                 </div>
                                 <!--지역-->
@@ -240,10 +146,9 @@
                                         <div class="Profile__ProfileContent-sc-18xe7ny-5 fMiunS">
                                             <div class="Profile__HostNameWrapper-sc-18xe7ny-6 jYAYJP">
                                                 <!--유저 정보--> <!--유저 정보 받은 후에 넣기-->
-                                                <a href="/hosts/238"><span class="Profile__NickName-sc-18xe7ny-7 cZgpqN">
-                                                    <!--유저 닉네임-->
-                                                    <span>닉네임</span>
-                                                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 16 16'%3E %3Cpath stroke='%23333' stroke-linecap='round' stroke-width='1.5' d='M6 3l5 5-5 5'/%3E %3C/svg%3E" alt="arrow-right"></span></a>
+                                                <span class="Profile__NickName-sc-18xe7ny-7 cZgpqN">
+                                                <!--유저 닉네임-->
+                                                <span th:text="*{userNickName}"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -288,7 +193,7 @@
                                         }
                                     </style>
                                     <!--본문 내용-->
-                                    <div th:text="*{groupContent}" class="product-description"></div>
+                                    <div th:utext="*{groupContent}" class="product-description"></div>
                                 </div>
                                 <div class="DescriptionSection__ButtonContainer-sc-1vvzceq-1 dvQeHx">
                                     <button type="button" class="ButtonMore__Button-sc-1xa20cg-0 jJfiPr">
@@ -337,6 +242,9 @@
                             </div>
                         </article>
                     </section>
+                </th:object>
+
+
                     <!--다른 모임 추천(최근 모임 게시글 5개)-->
                     <section class="ProductDetailPage__SectionContainer-sc-126q1k2-4 bremOa">
                         <article>
@@ -348,139 +256,33 @@
                             <!--모임 추천 게시글 wrap-->
                             <div class="AssociatedSection__Container-sc-1t2rh5j-0 dkOSL">
                                 <!--모임 추천 게시글 실제 본문 부분-->
-                                <div class="Card__Container-c6op6d-0 jAvETA">
-                                    <!--랜딩 url-->
-                                    <a href="/products/153745">
-                                        <div class="Card__ImageContainer-c6op6d-1 chdPXL">
-                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF">
-                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
-                                                    <div class="Ratio " style="display: block;">
-                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
-                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
-                                                                <!--썸네일 이미지-->
-                                                                <img class="Image__StyledImage-v97gyx-1 VUNpz" width="500" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/product_banner_1631672958402_208811">
+                                <th:block th:each="groupTop5DTO:${groupTop5DTOs}">
+                                    <div class="Card__Container-c6op6d-0 jAvETA" th:object="${groupTop5DTO}">
+                                        <!--랜딩 url-->
+                                        <a class="recommendDetail" th:href="*{groupId}">
+                                            <div class="Card__ImageContainer-c6op6d-1 chdPXL">
+                                                <div class="Image__Wrapper-v97gyx-0 gDuKGF">
+                                                    <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
+                                                        <div class="Ratio " style="display: block;">
+                                                            <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
+                                                                <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                                    <!--썸네일 이미지-->
+                                                                    <img class="Image__StyledImage-v97gyx-1 VUNpz" width="500" th:src="@{/host/display(fileName=${groupTop5DTO.groupFilePath} + '/' + ${groupTop5DTO.groupFileUuid} + '_' + ${groupTop5DTO.groupFileName})}">
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div>
-                                            <!--지역명-->
-                                            <div class="Card__Location-c6op6d-2 hiCWJQ">
-                                                강남/서초
+                                            <div>
+                                                <!--지역명-->
+                                                <div class="Card__Location-c6op6d-2 hiCWJQ" th:text="*{groupLocationType}"></div>
+                                                <!--제목-->
+                                                <div class="Card__Title-c6op6d-3 hNmYCQ" th:text="*{groupName}"></div>
                                             </div>
-                                            <!--제목-->
-                                            <div class="Card__Title-c6op6d-3 hNmYCQ">
-                                                [한강/이색데이트] 한강 카약 체험 &amp; 썬셋 카약 프로그램 (예약 가능)
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="Card__Container-c6op6d-0 jAvETA">
-                                    <a href="/products/152111">
-                                        <div class="Card__ImageContainer-c6op6d-1 chdPXL">
-                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF">
-                                                <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="500" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/KakaoTalk_20210910_094354327_12_mq2w4y">
-                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
-                                                    <div class="Ratio " style="display: block;">
-                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
-                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
-                                                                <img alt="[서울/반포] 인생샷 맛집! 다같이 즐겨요! 한강 카약 card" class="Image__StyledImage-v97gyx-1 VUNpz" width="500" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/KakaoTalk_20210910_094354327_12_mq2w4y">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="Card__Location-c6op6d-2 hiCWJQ">
-                                                강남/서초
-                                            </div>
-                                            <div class="Card__Title-c6op6d-3 hNmYCQ">
-                                                [서울/반포] 인생샷 맛집! 다같이 즐겨요! 한강 카약
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="Card__Container-c6op6d-0 jAvETA">
-                                    <a href="/products/133455">
-                                        <div class="Card__ImageContainer-c6op6d-1 chdPXL">
-                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF">
-                                                <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="500" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/product_banner_1584604065699_985601">
-                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
-                                                    <div class="Ratio " style="display: block;">
-                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
-                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
-                                                                <img alt="[제주] 제주의 투명한 바다를 느껴보는 카약체험 (예약 가능) card" class="Image__StyledImage-v97gyx-1 VUNpz" width="500" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/product_banner_1584604065699_985601">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="Card__Location-c6op6d-2 hiCWJQ">
-                                                제주시
-                                            </div>
-                                            <div class="Card__Title-c6op6d-3 hNmYCQ">
-                                                [제주] 제주의 투명한 바다를 느껴보는 카약체험 (예약 가능)
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="Card__Container-c6op6d-0 jAvETA">
-                                    <a href="/products/158244">
-                                        <div class="Card__ImageContainer-c6op6d-1 chdPXL">
-                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF">
-                                                <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="500" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/%ED%82%B9%EC%B9%B4%EB%88%84%EB%A9%94%EC%9D%B81_869c0a3e6e3850a93accb82607c2bb471f5233dd0316850f2f2f9483aaf0c97a">
-                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
-                                                    <div class="Ratio " style="display: block;">
-                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
-                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
-                                                                <img alt="춘천 의암호 킹카누 물길여행 card" class="Image__StyledImage-v97gyx-1 VUNpz" width="500" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/%ED%82%B9%EC%B9%B4%EB%88%84%EB%A9%94%EC%9D%B81_869c0a3e6e3850a93accb82607c2bb471f5233dd0316850f2f2f9483aaf0c97a">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="Card__Location-c6op6d-2 hiCWJQ">
-                                                강원 전체
-                                            </div>
-                                            <div class="Card__Title-c6op6d-3 hNmYCQ">
-                                                춘천 의암호 킹카누 물길여행
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="Card__Container-c6op6d-0 jAvETA">
-                                    <a href="/products/133463">
-                                        <div class="Card__ImageContainer-c6op6d-1 chdPXL">
-                                            <div class="Image__Wrapper-v97gyx-0 gDuKGF">
-                                                <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="500" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/product_banner_1584610266788_43310">
-                                                <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
-                                                    <div class="Ratio " style="display: block;">
-                                                        <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
-                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
-                                                                <img alt="[제주] 바다에서 카약을 타고 낚시에 도전! 피싱카약! (예약 가능) card" class="Image__StyledImage-v97gyx-1 VUNpz" width="500" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_310/product_banner_1584610266788_43310">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="Card__Location-c6op6d-2 hiCWJQ">
-                                                제주시
-                                            </div>
-                                            <div class="Card__Title-c6op6d-3 hNmYCQ">
-                                                [제주] 바다에서 카약을 타고 낚시에 도전! 피싱카약! (예약 가능)
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
+                                        </a>
+                                    </div>
+                                </th:block>
                             </div>
                         </article>
                     </section>

@@ -24,9 +24,24 @@ $(".fOXNjA").on("click",function () {
         $updateAndDeleteModal.hide();
         modalCheck=false;
     }
-
-
 })
 
 
+// 모임 페이지 수정 페이지로 이동
+$(".goUpdate").on("click", function(e){
+    e.preventDefault();
+    location.href = "/host/update?groupId=" + $(this).attr("href");
+})
 
+// 모임 페이지 삭제
+$(".goDelete").on("click", function(e){
+    e.preventDefault();
+    location.href ="/host/deleteGroup?groupId=" + $(this).attr("href");
+})
+
+// 모임 페이지 다른 글로 이동
+// 모임 상세 게시글로 화면 이동
+$(".recommendDetail").on("click", function(e){
+    e.preventDefault();
+    location.href = "/host/read?groupId=" + $(this).attr("href");
+})
