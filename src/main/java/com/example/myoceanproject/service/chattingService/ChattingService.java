@@ -33,9 +33,11 @@ public class ChattingService {
 
     public List<ChattingDTO> showChatting(Long groupId){return chattingRepositoryImple.findChattingByUserId(groupId);}
 
+//    public GroupDTO showGroup(Long groupMemberId){return chattingRepositoryImple.findGroupByGroupMemberId(groupMemberId);}
 
 
-
-
-
+    public void saveMessage(Long userId, Long groupId, ChattingDTO chattingDTO) {
+        chattingRepositoryImple.findGroupMemberIdByUserIdAndGroupId(userId,groupId);
+        chattingRepository.save(chattingDTO);
+    }
 }
