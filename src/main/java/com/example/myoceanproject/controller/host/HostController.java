@@ -34,13 +34,6 @@ public class HostController {
         return "app/bulletin_board/bulletin_board";
     }
 
-    @GetMapping("/display-list")
-    public byte[] display(String fileName) throws IOException {
-        log.info("========================");
-        log.info("fileName: " + fileName);
-        File file = new File("C:/upload/group", fileName);
-        return FileCopyUtils.copyToByteArray(file);
-    }
 
     // 소모임 작성 페이지
     @GetMapping("/index")
@@ -54,6 +47,7 @@ public class HostController {
     public String read(Long groupId, Model model, Model model2){
         model.addAttribute("groupDTO", groupService.find(groupId));
         model2.addAttribute("groupTop5DTOs", groupService.findTop5BygroupId(groupId));
+        log.info(model2.toString());
         return "app/bulletin_board/bulletin_board_detail";
     }
 
@@ -62,5 +56,12 @@ public class HostController {
     public String update(Long groupId, Model model){
         model.addAttribute("groupDTO", groupService.find(groupId));
         return "app/host/host";
+    }
+
+    // 게시글 삭제하기
+    @GetMapping("/deleteGroup")
+    public RedirectView delete(Long groupId){
+        groupService.delete(groupId);
+        return new RedirectView("/host/group-list");
     }
 }

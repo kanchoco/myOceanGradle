@@ -1,5 +1,16 @@
 package com.example.myoceanproject.type;
 
 public enum CommunityCategory {
-    EXERCISE, COOK, FREEBOARD, MOVIE, BOOK, COUNSELING
+    EXERCISE("운동"), COOK("요리"), FREEBOARD("자유"), MOVIE("영화"), BOOK("책"), COUNSELING("고민");
+
+    private String value;
+    private CommunityCategory(String value)
+    {
+        this.value = value;
+    }
+
+    public String toString()
+    {
+        return this.value; //will return , or ' instead of COMMA or APOSTROPHE
+    }
 }
