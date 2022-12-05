@@ -32,3 +32,9 @@ $(".goUpdate").on("click", function(e){
     e.preventDefault();
     location.href = "/host/update?groupId=" + $(this).attr("href");
 })
+
+// 모임 페이지 삭제
+$(".goDelete").on("click", function(e){
+    e.preventDefault();
+    location.href ="/host/deleteGroup?groupId=" + $(this).attr("href");
+})
