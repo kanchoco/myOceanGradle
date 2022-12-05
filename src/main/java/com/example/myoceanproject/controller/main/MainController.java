@@ -28,7 +28,6 @@ public class MainController {
 
         if(session.getAttribute("userId") != null) {
             List<GroupDTO> groupDTOList = chattingService.show(userId);
-            groupDTOList.stream().map(GroupDTO::toString).forEach(System.out::println);
             model.addAttribute("groupDTOList", groupDTOList);
             return "app/Main/main";
         }else {

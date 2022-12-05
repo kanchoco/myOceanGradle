@@ -7,9 +7,9 @@
 </head>
 <body>
 <div th:fragment="chattingAll">
-        <div class="chattingWrap2">
-            <div class="chattingToggle active callChatNormal"></div>
-        </div>
+    <div class="chattingWrap2">
+        <div class="chattingToggle active callChatNormal"></div>
+    </div>
 
     <div class="chattingWrap listOff" id="chattingList">
         <div class="chattingContentWrap ">
@@ -25,157 +25,39 @@
                         </div>
                     </div>
                     <div class="userIdAndTimeInfo">
-                        <p class="userId chattingRoomName">홍**</p>
+                        <p class="userId chattingRoomName" th:text="${session.userNickname}"></p>
                         <div class="morAndFoldBtnWrap">
-<!--                            <div class="moreBtn"></div>-->
+                            <!--                            <div class="moreBtn"></div>-->
                             <div class="foldChatBtn"></div>
                         </div>
                     </div>
                 </div>
-<!--                <div class="foldChatBtn"></div>-->
+                <!--                <div class="foldChatBtn"></div>-->
             </div>
             <div class="chattingSection">
                 <div class="list left leftBody">
                     <ul>
                         <th:block th:each="groupList: ${groupDTOList}">
-                        <li class="active leftChattingList" th:object="${groupList}">
-                            <div class="thumb chatThumb">
-                                <img src="/imgin/chat/logo.png" alt="chat_image">
-                            </div>
-                            <div class="chatInfo">
-                                <div class="userIdAndBeforeTime">
-                                    <div class="right">
-                                        <span class="userId" th:text="*{groupName}"></span>
-                                    </div>
+                            <li class="active leftChattingList" th:object="${groupList}" th:href="*{groupId}">
+                                <div class="thumb chatThumb">
+                                    <img src="/imgin/chat/logo.png" alt="chat_image">
                                 </div>
-                                <p class="chatInfoTxt" th:text="*{groupContent}">
-                                </p>
-                                <p class="endTime">채팅 기한: 22-11-23 21:00:00</p>
-                            </div>
-                        </li>
+                                <div class="chatInfo">
+                                    <div class="userIdAndBeforeTime">
+                                        <div class="right">
+                                            <span class="userId" th:text="*{groupName}"></span>
+                                        </div>
+                                    </div>
+                                    <p class="chatInfoTxt" th:text="*{groupContent}">
+                                    </p>
+                                    <p class="endTime">채팅 기한: 22-11-23 21:00:00</p>
+                                </div>
+                            </li>
                         </th:block>
-                    </ul>>
+                    </ul>
                 </div>
                 <div class="chattingRoom right active rightBody">
                     <div class="chattingRoomWrap" style="height: 490px;">
-                        <div class="dayInfo">
-                            <p>22.11.23 월요일</p>
-                        </div>
-
-                        <div class="opponent">
-                            <div class="thumb">
-                                <a href="/people/엔잡쏘" target="_blank">
-                                    <img src="/imgin/chat/logo.png" alt="chat_image">
-                                </a>
-                            </div>
-                            <div class="userIdChatTxt">
-                                <span class="userId">홍**</span>
-                                <div class="chatTxt">
-                                    <span class="chatTxtContents">
-                                        <a style="color: rgb(51, 51, 51);">노래? 누워서 떡먹기지</a>
-                                    </span>
-                                    <div class="timeWrap">
-                                        <span class="time">오후 5:03</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="opponent">
-                            <div class="thumb">
-                                <a href="/people/dddog" target="_blank">
-                                    <img src="/imgin/chat/logo.png" alt="chat_image">
-                                </a>
-                            </div>
-                            <div class="userIdChatTxt">
-                                <span class="userId">배**</span>
-                                <div class="chatTxt">
-                                    <span class="chatTxtContents">
-                                        <a style="color: rgb(51, 51, 51);">우오오오오~~</a>
-                                    </span>
-                                    <div class="timeWrap">
-                                        <span class="time">오후 5:04</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="opponent">
-                            <div class="thumb">
-                                <a href="/people/렛플운영자" target="_blank">
-                                    <img src="/imgin/chat/logo.png" alt="chat_image">
-                                </a>
-                            </div>
-                            <div class="userIdChatTxt">
-                                <span class="userId">김**</span>
-                                <div class="chatTxt">
-                                    <span class="chatTxtContents">
-                                        <a style="color: rgb(51, 51, 51);">&nbsp;</a>
-                                        <a style="color: rgb(51, 51, 51);">역시 준성님~~</a>
-                                    </span>
-                                    <div class="timeWrap">
-                                        <span class="time">오후 5:05</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="dayInfo">
-                            <p>22.11.04 화요일</p>
-                        </div>
-                        <div class="opponent">
-                            <div class="thumb">
-                                <a href="/people/ROSA" target="_blank">
-                                    <img src="/imgin/chat/logo.png" alt="chat_image"></a>
-                            </div>
-                            <div class="userIdChatTxt">
-                                <span class="userId">손**</span>
-                                <div class="chatTxt">
-                                    <span class="chatTxtContents">
-                                        <a style="color: rgb(51, 51, 51);">짝짝짝, 역시 준성님!</a>
-                                    </span>
-                                    <div class="timeWrap">
-                                        <span class="time">오후 5:06</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="opponent">
-                            <div class="thumb">
-                                <a href="/people/ROSA" target="_blank">
-                                    <img src="/imgin/chat/logo.png" alt="chat_image">
-                                </a>
-                            </div>
-                            <div class="userIdChatTxt">
-                                <span class="userId">이**</span>
-                                <div class="chatTxt">
-                                    <span class="chatTxtContents">
-                                        <a style="color: rgb(51, 51, 51);">노래 한곡 해주시면 좋을것 같습니다.</a>
-                                    </span>
-                                    <div class="timeWrap">
-                                        <span class="time">오후 5:07</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="opponent">
-                            <div class="thumb">
-                                <a href="/people/렛플운영자" target="_blank">
-                                    <img src="/imgin/chat/logo.png" alt="chat_image">
-                                </a>
-                            </div>
-                            <div class="userIdChatTxt">
-                                <span class="userId">홍**</span>
-                                <div class="chatTxt">
-                                    <span class="chatTxtContents">
-                                        <a style="color: rgb(51, 51, 51);">프로젝트 끝나고 한 번 부른다. 듣고 눈물 흘리지마.</a>
-                                    </span>
-                                    <div class="timeWrap">
-                                        <span class="time">오후 5:08</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div id="chat_ref_0"></div>
                     </div>
                     <div class="chatInputArea">
                         <div class="mentions mentions--multiLine"
@@ -183,10 +65,10 @@
                             <div class="mentions__control">
                                 <div class="mentions__highlighter"
                                      style="position: relative; box-sizing: border-box; width: 100%; color: transparent; overflow: hidden; white-space: pre-wrap; overflow-wrap: break-word; border: 1px solid transparent; text-align: start;"></div>
-                                <textarea rows="5" cols="40" class="mentions__input" style="display: block; width: 100%; position: absolute; margin: 0px; top: 0px; left: 0px; box-sizing: border-box; background-color: transparent; font-family: inherit; font-size: inherit; letter-spacing: inherit; height: 100%; bottom: 0px; overflow: hidden; resize: none; padding-top: 6px; outline: none;"></textarea>
+                                <textarea rows="5" cols="40" id = "msg" class="mentions__input" style="display: block; width: 100%; position: absolute; margin: 0px; top: 0px; left: 0px; box-sizing: border-box; background-color: transparent; font-family: inherit; font-size: inherit; letter-spacing: inherit; height: 100%; bottom: 0px; overflow: hidden; resize: none; padding-top: 6px; outline: none;"></textarea>
                             </div>
                         </div>
-                        <button class="buttonComponents_button__1hvQa buttonComponents_circle__2iQ3w buttonComponents_blueBlack__2HIFu  buttonComponents_lgImg__2-hZO " style="width:55px;box-shadow: 0px 3px 16px -1px darkgrey;">
+                        <button id= "sendButton" class="buttonComponents_button__1hvQa buttonComponents_circle__2iQ3w buttonComponents_blueBlack__2HIFu  buttonComponents_lgImg__2-hZO " style="width:55px;box-shadow: 0px 3px 16px -1px darkgrey;">
                             전송
                         </button>
                     </div>
@@ -242,8 +124,8 @@
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/js/fix/chatting.js"></script>
-<script>
-showGroupList();
+<script th:inline="javascript">
+    const groupDTOList = [[${groupDTOList}]];
 </script>
+<script src="/js/fix/chatting.js"></script>
 </html>

@@ -9,6 +9,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Component
 @Data
 @NoArgsConstructor
@@ -19,7 +22,7 @@ public class ChattingDTO {
     private String senderUserFileName;
     private String senderUserFilePath;
     private Long senderUserFileSize;
-    private Long senderUserFileUuid;
+    private String senderUserFileUuid;
 
 
 //    그룹 관련
@@ -28,17 +31,23 @@ public class ChattingDTO {
     private String groupFilePath;
     private String groupFileName;
 
-    private Long groupFileUuid;
+    private String groupFileUuid;
     private Long groupFileSize;
 //    보내는 사람의 groupMemberId
     private Long senderGroupMemberId;
 //    받는 사람의 Group Member ID
     private Long receiverGroupMemberId;
 //    채팅 관련
+    private Long chattingId;
     private String chattingContent;
 
+    private String chattingCreateTime;
+    private String chattingCreateDate;
+
+
     @QueryProjection
-    public ChattingDTO(Long senderUserId, String senderUserNickName, String senderUserFileName, String senderUserFilePath, Long senderUserFileSize, Long senderUserFileUuid, Long groupId, String groupName, String groupFilePath, String groupFileName, Long groupFileUuid, Long groupFileSize, Long senderGroupMemberId, String chattingContent) {
+    public ChattingDTO(Long chattingId, Long senderUserId, String senderUserNickName, String senderUserFileName, String senderUserFilePath, Long senderUserFileSize, String senderUserFileUuid, Long groupId, String groupName, String groupFilePath, String groupFileName, String groupFileUuid, Long groupFileSize, Long senderGroupMemberId, String chattingContent, LocalDateTime createDate) {
+        this.chattingId = chattingId;
         this.senderUserId = senderUserId;
         this.senderUserNickName = senderUserNickName;
         this.senderUserFileName = senderUserFileName;
@@ -53,6 +62,8 @@ public class ChattingDTO {
         this.groupFileSize = groupFileSize;
         this.senderGroupMemberId = senderGroupMemberId;
         this.chattingContent = chattingContent;
+        this.chattingCreateDate = createDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.chattingCreateTime = createDate.format(DateTimeFormatter.ofPattern("HH:mm"));
     }
 
 

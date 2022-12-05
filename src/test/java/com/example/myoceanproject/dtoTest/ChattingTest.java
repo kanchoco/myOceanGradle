@@ -3,9 +3,12 @@ package com.example.myoceanproject.dtoTest;
 import com.example.myoceanproject.domain.ChattingDTO;
 import com.example.myoceanproject.domain.ChattingStatusDTO;
 import com.example.myoceanproject.domain.GroupDTO;
-import com.example.myoceanproject.domain.QChattingDTO;
 import com.example.myoceanproject.entity.*;
 import com.example.myoceanproject.repository.*;
+import com.example.myoceanproject.repository.chatting.ChattingRepository;
+import com.example.myoceanproject.repository.chatting.ChattingRepositoryImpl;
+import com.example.myoceanproject.repository.chatting.ChattingStatusRepository;
+import com.example.myoceanproject.repository.chatting.ChattingStatusRepositoryImpl;
 import com.example.myoceanproject.service.chattingService.ChattingService;
 import com.example.myoceanproject.type.ReadStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -18,9 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.myoceanproject.entity.QChatting.chatting;
-import static com.example.myoceanproject.entity.QChattingStatus.chattingStatus;
 
 
 @SpringBootTest
@@ -52,30 +52,30 @@ public class ChattingTest {
     private ChattingService chattingService;
 
 
-    @Test
-    public void saveTest(){
-//        시나리오 : 20번 멤버가 메세지를 보내면 같은 그룹의 그룹원들에게만 채팅이 전송된다.
-
-//        채팅 내용, 보낸 사람 저장(TBL_CHATTING)
-        ChattingDTO chattingDTO = new ChattingDTO();
-        chattingDTO.setChattingContent("안녕하세요 저는 김인영입니다.");
-        Chatting chatting1 = chattingDTO.toEntity();
-        chatting1.setSenderGroupMember(groupMemberRepository.findById(20L).get());
-        chatting1.setGroup(groupMemberRepository.findById(20L).get().getGroup());
-
-//        채팅 읽음 상태, 받는 사람들 저장(TBL_CHATTING_STATUS)
-        List<ChattingStatus> chattingStatusList = new ArrayList<>();
-        for (GroupMember groupMember : chattingRepositoryImpl.findByGroupId(chatting1.getGroup().getGroupId())) {
-            ChattingStatusDTO chattingStatusDTO = new ChattingStatusDTO();
-            chattingStatusDTO.setReadStatus(ReadStatus.UNREAD);
-            ChattingStatus chattingStatus1 = chattingStatusDTO.toEntity();
-            chattingStatus1.setReceiverGroupMember(groupMember);
-            chattingStatus1.setChatting(chatting1);
-            chattingStatusList.add(chattingStatus1);
-        }
-        chattingRepository.save(chatting1);
-        chattingStatusRepository.saveAll(chattingStatusList);
-    }
+//    @Test
+//    public void saveTest(){
+////        시나리오 : 20번 멤버가 메세지를 보내면 같은 그룹의 그룹원들에게만 채팅이 전송된다.
+//
+////        채팅 내용, 보낸 사람 저장(TBL_CHATTING)
+//        ChattingDTO chattingDTO = new ChattingDTO();
+//        chattingDTO.setChattingContent("안녕하세요 저는 김인영입니다.");
+//        Chatting chatting1 = chattingDTO.toEntity();
+//        chatting1.setSenderGroupMember(groupMemberRepository.findById(20L).get());
+//        chatting1.setGroup(groupMemberRepository.findById(20L).get().getGroup());
+//
+////        채팅 읽음 상태, 받는 사람들 저장(TBL_CHATTING_STATUS)
+//        List<ChattingStatus> chattingStatusList = new ArrayList<>();
+//        for (GroupMember groupMember : chattingRepositoryImpl.findByGroupId(chatting1.getGroup().getGroupId())) {
+//            ChattingStatusDTO chattingStatusDTO = new ChattingStatusDTO();
+//            chattingStatusDTO.setReadStatus(ReadStatus.UNREAD);
+//            ChattingStatus chattingStatus1 = chattingStatusDTO.toEntity();
+//            chattingStatus1.setReceiverGroupMember(groupMember);
+//            chattingStatus1.setChatting(chatting1);
+//            chattingStatusList.add(chattingStatus1);
+//        }
+//        chattingRepository.save(chatting1);
+//        chattingStatusRepository.saveAll(chattingStatusList);
+//    }
 
 
 //    @Test

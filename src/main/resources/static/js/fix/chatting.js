@@ -1,9 +1,11 @@
-
 $chatDateLine = $(".chattingWrap .chattingContentWrap .chattingSection .chattingRoom .chattingRoomWrap .dayInfo");
 
+
+
 checkChatMedia();
+
 /*반응형*/
-function checkChatMedia(){
+function checkChatMedia() {
     if (window.innerWidth < 769) {
         //채팅창 썸네일 이미지 삭제
         $(".chatThumb").css("display", "none");
@@ -16,7 +18,7 @@ function checkChatMedia(){
         //채팅 내역에서 날짜 옆 선 길이 조정
         $chatDateLine.attr("class", "dayInfo media");
 
-    } else{
+    } else {
         //채팅창 썸네일 이미지 살리기
         $(".chatThumb").css("display", "block");
         //채팅창 활성화 시작 시간 삭제
@@ -30,7 +32,7 @@ function checkChatMedia(){
     }
 }
 
-$(window).resize(function() {
+$(window).resize(function () {
     if (window.innerWidth < 769) {
         //채팅창 썸네일 이미지 삭제
         $(".chatThumb").css("display", "none");
@@ -44,7 +46,7 @@ $(window).resize(function() {
         $chatDateLine.attr("class", "dayInfo media");
 
 
-    } else{
+    } else {
         //채팅창 썸네일 이미지 살리기
         $(".chatThumb").css("display", "block");
         //채팅창 활성화 시작 시간 삭제
@@ -97,13 +99,6 @@ $(".whiteBtn").on("click", function () {
 
 $(".redBtn").on("click", function () {
     $(".chatExitModal").css("display", "none");
-})
-
-
-/* 왼쪽 대화목록에서 선택될 때마다 css 바꾸는 부분 */
-$("li.active").on("click", function () {
-    $("li.active").removeClass("select");
-    $(this).addClass("select");
 })
 
 
@@ -163,9 +158,8 @@ $(".chatMini").on("click", function () {
 })
 
 
-
 /* 이미 대화중일 때 뜨는 모달 */
-$(".already_chat_btn").click(function(){
+$(".already_chat_btn").click(function () {
     let name = $(this).closest(".profileInfoTxt").find(".name").text();
     let text = "";
     text += `<p class="modalTit"><span>` + name + `</span>님과</p>`
@@ -190,20 +184,120 @@ $(".whiteBtn").on("click", function () {
 })
 
 
-
-$(".mentions__control").on("keyup",function(key){
-    if(key.keyCode==13) {
+$(".mentions__control").on("keyup", function (key) {
+    if (key.keyCode == 13) {
         $(".mentions--multiLine").attr("style",)
     }
 });
 
-function showGroupList(param, callback, error){
+
+/*==============================================================================================================================================*/
+/*==============================================================================================================================================*/
+/*==============================================================================================================================================*/
+/*==============================================================================================================================================*/
+
+
+function getList(param, callback, error) {
     $.ajax({
-        url: "/main/index/",
+        url: "/chatting/groupId/" + param.groupId,
         type: "get",
-        success: function(status, xhr){
+        success: function (chattingDTOList, status, xhr) {
+            if (callback) {
+                callback(chattingDTOList);
+            }
+        },
+        error: function (xhr, status, err) {
+            if (error) {
+                error(err);
+            }
+        }
+    });
+
+}
+
+
+/* 왼쪽 대화목록에서 선택될 때마다 css 바꾸는 부분 */
+$("li.active").on("click", function (e) {
+    e.preventDefault()
+    $("li.active").removeClass("select");
+    $(this).addClass("select");
+    let groupId = $(this).attr("href");
+
+    getList({
+        groupId: groupId
+    }, getChattingContentList)
+
+    $("#sendButton").on("click", function(){
+        add({
+            chattingContent: $("#msg").val(),
+            senderUserId: $("input[name='replyWriter']").val(),
+            groupId : groupId
+        }, getChattingContentList);
+    });
+
+
+})
+
+function getChattingContentList(chattingDTOList) {
+    let text = "";
+    var time;
+    chattingDTOList.forEach(chatting => {
+        if (chatting.chattingCreateDate !== time) {
+            time = chatting.chattingCreateDate
+            text += "<div class=\"dayInfo\">"
+            text += "<p>" + chatting.chattingCreateDate + "</p>"
+            text += "</div>"
+            text += "<div class=\"opponent\">";
+            text += "<div class=\"thumb\">"
+            text += "<a href=\"/people/ROSA\" target=\"_blank\">"
+            text += "<img src=\"/imgin/chat/logo.png\" alt=\"chat_image\"></a>"
+            text += "</div>"
+            text += "<div class=\"userIdChatTxt\">"
+            text += "<span class=\"userId\">" + chatting.senderUserNickName + "</span>"
+            text += "<div class=\"chatTxt\">"
+            text += "<span class=\"chatTxtContents\">"
+            text += "<a style=\"color: rgb(51, 51, 51);\">" + chatting.chattingContent + "</a>"
+            text += "</span>"
+            text += "<div class=\"timeWrap\">"
+            text += "<span class=\"time\">" + chatting.chattingCreateTime + "</span>"
+            text += "</div>"
+            text += "</div>"
+            text += "</div>"
+            text += "</div>"
+        } else {
+            text += "<div class=\"opponent\">";
+            text += "<div class=\"thumb\">"
+            text += "<a href=\"/people/ROSA\" target=\"_blank\">"
+            text += "<img src=\"/imgin/chat/logo.png\" alt=\"chat_image\"></a>"
+            text += "</div>"
+            text += "<div class=\"userIdChatTxt\">"
+            text += "<span class=\"userId\">" + chatting.senderUserNickName + "</span>"
+            text += "<div class=\"chatTxt\">"
+            text += "<span class=\"chatTxtContents\">"
+            text += "<a style=\"color: rgb(51, 51, 51);\">" + chatting.chattingContent + "</a>"
+            text += "</span>"
+            text += "<div class=\"timeWrap\">"
+            text += "<span class=\"time\">" + chatting.chattingCreateTime + "</span>"
+            text += "</div>"
+            text += "</div>"
+            text += "</div>"
+            text += "</div>"
+        }
+
+    })
+    $(".chattingRoomWrap").html(text)
+
+}
+
+function add(chatting, callback, error){
+    $.ajax({
+        url: "/chatting/new",
+        type: "post",
+        data: JSON.stringify(chatting),
+        contentType: "application/json; charset=utf-8",
+        success: function(result, status, xhr){
             if(callback){
-                callback();
+                callback(result);
             }
         },
         error: function(xhr, status, err){
@@ -212,91 +306,9 @@ function showGroupList(param, callback, error){
             }
         }
     });
-
 }
-///////////////////////////////////////////////////////// Socket ////////////////////////////////////////////////////////////////////////
-// $(document).ready(  function() {
-//     //connectWS();
-//     //connectSockJS();
-//     connectStomp();
-//
-//     $('.buttonComponents_lgImg__2-hZO').on('click', function(evt) {
-//         evt.preventDefault();
-//         if (!isStomp && socket.readyState !== 1) return;
-//
-//         let msg = $('input#msg').val();
-//         console.log("mmmmmmmmmmmm>>", msg)
-//         if (isStomp)
-//             socket.send('/TTT', {}, JSON.stringify({roomid: 'message', id: 124, msg: msg}));
-//         else
-//             socket.send(msg);
-//     });
-// });
-//
-// var socket = null;
-// var isStomp = false;
-//
-// function connectStomp() {
-//     var sock = new SockJS("/stompTest"); // endpoint
-//     var client = Stomp.over(sock);
-//     isStomp = true;
-//     socket = client;
-//
-//     client.connect({}, function () {
-//         console.log("Connected stompTest!");
-//         // Controller's MessageMapping, header, message(자유형식)
-//         client.send('/TTT', {}, "msg: Haha~~~");
-//
-//         // 해당 토픽을 구독한다!
-//         client.subscribe('/topic/message', function (event) {
-//             console.log("!!!!!!!!!!!!event>>", event)
-//         });
-//     });
-//
-// }
-//
-// function connectSockJS() {
-//     console.log("eeeeeeeeeeeeeeeeeeeee")
-//     var sock = new SockJS("/replyEcho");
-//     socket = sock;
-//     sock.onopen = function () {
-//         console.log('Info: connection opened.');
-//         sock.send("hi~");
-//
-//         sock.onmessage = function (event) {
-//             console.log("ReceivedMessage:", event.data);
-//         };
-//         sock.onclose = function (event) {
-//             console.log('Info: connection closed.');
-//         };
-//     };
-// }
-//
-// // pure web-socket
-// function connectWS() {
-//     console.log("tttttttttttttt")
-//     var ws = new WebSocket("ws://localhost:9090/replyEcho");
-//     socket = ws;
-//
-//     ws.onopen = function () {
-//         console.log('Info: connection opened.');
-//     };
-//
-//     ws.onmessage = function (event) {
-//         console.log("ReceiveMessage:", event.data+'\n');
-//         /* let $socketAlert = $('div#socketAlert');
-//         $socketAlert.html(event.data);
-//         $socketAlert.css('display', 'block'); */
-//
-//         /* setTimeout( function() {
-//             $socketAlert.css('display', 'none');
-//         }, 3000); */
-//     };
-//
-//     ws.onclose = function (event) {
-//         console.log('Info: connection closed.');
-//         //setTimeout( function(){ connect(); }, 1000); // retry connection!!
-//     };
-//     ws.onerror = function (err) { console.log('Error:', err); };
-// }
-//
+
+
+
+
+

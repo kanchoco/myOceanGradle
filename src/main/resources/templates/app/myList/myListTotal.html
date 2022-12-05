@@ -73,7 +73,7 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/fix/header.js"></script>
 <script src="/js/myList/myList.js"></script>
-<script>
+<script th:inline="javascript">
   const $pages = $('a.changePage');
 
   $("#search_input").on("keyup",function(key){
@@ -88,5 +88,31 @@
     $(document.pageForm.page).val($(this).attr("href"));
     document.pageForm.submit();
   });
+
+  // var badge=[[${listTotals}]];
+
+  // console.log(badge);
+
+  for(let i=0;i<10;i++) {
+    var badgeaaa=[[${listTotals}]][i];
+    var badge=[[${listTotals}]][i].communityCategory;
+    console.log(badgeaaa);
+    console.log(badge);
+
+    if (badge == "FREEBOARD") {
+      $("div.my_list").children().attr("class", "badge free");
+    } else if (badge == "COOK") {
+      $("div.my_list").children().attr("class", "badge cook");
+    } else if (badge == "EXERCISE") {
+      $("div.my_list").children().attr("class", "badge exercise");
+    } else if (badge == "MOVIE") {
+      $("div.my_list").children().attr("class", "badge movie");
+    } else if (badge == "BOOK") {
+      $("div.my_list").children().attr("class", "badge book");
+    } else if (badge == "COUNSELING") {
+      $("div.my_list").firstChild.attr("class", "badge counseling");
+    }
+  }
+
 </script>
 </html>

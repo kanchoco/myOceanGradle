@@ -1,5 +1,6 @@
-package com.example.myoceanproject.repository;
+package com.example.myoceanproject.repository.chatting;
 
+import com.example.myoceanproject.domain.ChattingDTO;
 import com.example.myoceanproject.domain.GroupDTO;
 import com.example.myoceanproject.entity.GroupMember;
 import com.querydsl.core.Tuple;
@@ -11,4 +12,10 @@ public interface ChattingCustomRepository {
     List<GroupMember> findByGroupId(Long groupId);
 
     List<GroupDTO> findByUserId(Long userId);
+
+    List<ChattingDTO> findChattingByUserId(Long groupId);
+
+    Long findGroupMemberIdByUserIdAndGroupId(Long userId, Long groupId);
+
+
 }

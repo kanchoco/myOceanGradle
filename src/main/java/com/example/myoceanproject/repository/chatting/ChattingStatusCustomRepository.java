@@ -1,4 +1,4 @@
-package com.example.myoceanproject.repository;
+package com.example.myoceanproject.repository.chatting;
 
 import com.example.myoceanproject.entity.ChattingStatus;
 import com.example.myoceanproject.entity.GroupMember;
