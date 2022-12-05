@@ -139,66 +139,69 @@
 
 <script>
 
-    let status = 'active';
-    let page = 0;
+    let status = 'null';
+    let page = 1;
     let keyword = 'null';
+    let userId = '';
+    let userAccountStatus = '';
     const $pages = $('a.changePage');
+
+
+    function showAll(){
+        getList({
+            page : page,
+            keyword : keyword
+        }, getUser)
+    }
+
+    function modify(){
+        update({
+            userAccountStatus : userAccountStatus,
+            userId : userId
+        })
+    }
+
+    showAll();
 
     function show(){
         getListByKeyword({
             status : status,
             page : page,
-            keyword : 'null'
+            keyword : keyword
         }, getUser)
     }
 
-    function changePage(e, href){
-        e.preventDefault();
-        $(document.pageForm.page).val($(href).attr("href"));
-        page = $(href).attr("href");
+    function changePage(href){
+        page = href;
+        (status === 'null') ? showAll() : show();
     }
-
-    show();
-
 
 
     $("#search_input").on("keyup",function(key){
         if(key.keyCode === 13) {
-            $('.keyword').val($(this).val());
-            getListByKeyword({
-                status : 'active',
-                page : 0,
-                keyword : keyword
-            }, getUser)
+            keyword = ($(this).val());
+            page = 1;
+            (status === 'null') ? showAll() : show();
         }
     });
-
-    function list(userDTO){
-        console.log(userDTO);
-    }
 
     $('.filter').children('span').click(function(){
         $(this).siblings().removeClass('active-filter')
         $(this).addClass('active-filter');
 
-        if($(this).attr('class') == 'active active-filter'){
-            status = 'active';
-            console.log(status);
-
-            getListByKeyword({
-                status : status,
-                page : page,
-                keyword : 'ㅇ'
-            }, getUser)
-        }else{
-            status = 'banned';
-            console.log(status);
-            getListByKeyword({
-                status : status,
-                page : page,
-                keyword : 'ㅇ'
-            }, getUser)
+        switch($(this).attr('class')) {
+            case 'active active-filter':
+                status = 'active';
+                break;
+            case 'banned active-filter':
+                status = 'banned';
+                break;
+            default :
+                status = 'null';
+                break;
         }
+        page = 1;
+        (status === 'null') ? showAll() : show();
     });
 
 
@@ -207,7 +210,7 @@
 
             userDTO.userList.forEach(user => {
                 text += `<tr>`;
-                    text += `<td class="info_td">`+ user.userId +`</td>`;
+                    text += `<td class="info_td userId">`+ user.userId +`</td>`;
                     text += `<td class="info_td" >`+ user.userEmail +`</td>`;
                     text += `<td class="info_td" >`+ user.userNickname +`</td>`;
                     text += `<td class="info_td">`+ user.userPostCount +`</td>`;
@@ -215,7 +218,11 @@
                     text += `<td class="info_td">`+ user.createDate +`</td>`;
                     text += `<td class="info_td">`+ user.userTotalPoint +`</td>`;
                     text += `<td class="info_td">`+ user.userLoginMethod +`</td>`;
-                    text += `<td class="info_td">`+ user.userAccountStatus +`</td>`;
+                    if(user.userAccountStatus === 'ACTIVE'){
+                        text += `<td class="info_td active">정상</td>`;
+                    }else{
+                        text += `<td class="info_td banned">정지</td>`;
+                    }
                     text += `<td class="info_td">`;
                     text += `<button class="more" onClick="updateStatus(this);"><img src="/imgin/more.png" width="15px"></button>`;
                     text += "</td>";
@@ -224,19 +231,17 @@
 
         $('.content').html(text);
         showPage(userDTO.endPage);
-
-        console.log(userDTO.endPage);
     }
 
     function showPage(endPage){
-        let endNumber = Math.ceil(page+1 / 10) * 10;
-        let startNumber = (endNumber - 9 > 0 ? endNumber -9 : 1);
+        let endNumber = Math.ceil(page / 10) * 10;
         let realEnd = endPage;
-
         if(endNumber > realEnd){
 
             endNumber = realEnd == 0 ? '1' : realEnd;
         }
+        let startNumber = (endNumber - 9 > 0 ? endNumber -9 : 1);
+
 
         let prev = startNumber > 1;
         let next = endNumber < realEnd;
@@ -244,25 +249,26 @@
         let text ='';
         text += `<div id="page_changer_wrapper">`;
         text += `<div id="previous_button_wrapper">`;
-        text += `<a class="previous_buttons changePage" href="1" onclick="changePage(e, this)">`;
+        text += `<a class="previous_buttons changePage" onclick="changePage(${startNumber})">`;
         text += `<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">`;
         text += `</a>`;
-        text += `<a class="previous_buttons changePage" href="${page+1}" onclick="changePage(e, this)">`;
+        text += `<a class="previous_buttons changePage" onclick="changePage(${page>1? page-1 : page})">`;
         text += `<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">`;
         text += `</a>`;
         text += `</div>`;
         for (let i=startNumber; i<=endNumber; i++){
-            if(page+1 === i){
+            console.log(i);
+            if(page === i){
                 text += `<a class="page active">${i}</a>`;
                 continue;
             }
-            text += `<a href="${i}" class="page changePage" onclick="changePage(e, this)">${i}</a>`;
+            text += `<a class="page changePage" onclick="changePage(${i})">${i}</a>`;
         }
         text += `<div id="next_button_wrapper">`;
-        text += `<a class="next_buttons changePage" onclick="changePage(${page + 2 > realEnd? realEnd : page+2})">`;
+        text += `<a class="next_buttons changePage" onclick="changePage(${page + 1 > realEnd? realEnd : page+1})">`;
         text += `<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">`;
         text += `</a>`;
-        text += `<a class="next_buttons changePage" href="${endPage}" onclick="changePage(e, this)">`;
+        text += `<a class="next_buttons changePage" onclick="changePage(${endPage})">`;
         text += `<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">`;
         text += `</a>`;
         text += `</div>`;

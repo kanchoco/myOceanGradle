@@ -47,60 +47,50 @@ let $tr = $("#info_table").find('tr');
 let accountCondition = null;
 
 // 관리 버튼을 클릭했을때
-$tr.find('.more').click(function () {
+function updateStatus(user){
+    userId =$(user).closest('tr').children('.userId').text();
     if(temp == 0){
         temp++;
         //    상태의 html을 보고 계정 정지/계정 복구가 결정됨
         //    만약 상태가 정지라면
-        if ($(this).parent().prev().find('.banned').length == 1) {
+        if ($(user).parent().prev().attr('class') === 'info_td banned') {
             //모달창은 계정 복구로 나옴
-            $(this).parent().append("<div class=\"account-modal\">\n" +
+            $(user).parent().append("<div class=\"account-modal\">\n" +
                 "    <button class=\"account-modal-button\">계정 복구</button>\n" +
                 "</div>")
 
-            $(this).next().find('.account-modal-button').click(function () {
-
-                $(this).parent().parent().prev().find('.banned').removeClass('banned').addClass('active');
-                $(this).parent().parent().prev().find('span').text("정상")
-                $(this).closest('.account-modal').remove()
-                $(this).remove()
+            $(user).next().find('.account-modal-button').click(function () {
+                userAccountStatus = 'ACTIVE';
+                update({
+                    userAccountStatus : userAccountStatus,
+                    userId : userId
+                },(status === 'null') ? showAll() : show())
+                $(user).next().remove();
                 temp--;
             })
-        } else if ($(this).parent().prev().find('.banned').length == 0) {
-            $(this).parent().append("<div class=\"account-modal\">\n" +
+        } else{
+            $(user).parent().append("<div class=\"account-modal\">\n" +
                 "    <button class=\"account-modal-button\">계정 정지</button>\n" +
                 "</div>")
-            $(this).next().find('.account-modal-button').click(function () {
-                $(this).parent().parent().prev().find('.active').removeClass('active').addClass('banned');
-                $(this).parent().parent().prev().find('span').text("정지")
-                $(this).closest('.account-modal').remove()
-                $(this).remove()
+            $(user).next().find('.account-modal-button').click(function () {
+                userAccountStatus = 'BANNED';
+                update({
+                    userAccountStatus : userAccountStatus,
+                    userId : userId
+                },(status === 'null') ? showAll() : show());
+                $(user).next().remove();
+                // $(user).remove();
                 temp--;
             })
         }
 
     }
     else{
-        $(this).find('.account-modal-button').remove();
-        $(this).next().remove()
+        $(user).find('.account-modal-button').remove();
+        $(user).next().remove()
         temp--;
     }
-})
-
-// 하나 클릭하면 나머지는 색 없어짐
-// 상단 필터 클릭시 색 변화
-
-// $('.filter').children('span').click(function(){
-//     $(this).siblings().removeClass('active-filter')
-//     $(this).addClass('active-filter');
-//
-//    if($(this).attr('class') == 'active'){
-//        $(document.pageForm.userAccountStatus).val(active);
-//    }else{
-//        $(document.pageForm.userAccountStatus).val(banned);
-//    }
-//     document.pageForm.submit();
-// });
+}
 
 
 function getListByKeyword(param, callback, error) {
@@ -122,7 +112,7 @@ function getListByKeyword(param, callback, error) {
 }
 function getList(param, callback, error){
     $.ajax({
-        url: "/user/" + param.status + "/" + (param.page || 0),
+        url: "/user/" + (param.page || 0) + "/" + param.keyword,
         type: "get",
         success: function(userDTO, status, xhr){
             console.log(userDTO.userList);
@@ -138,6 +128,20 @@ function getList(param, callback, error){
     });
 }
 
+function update(user, callback, error){
+    $.ajax({
+        url: "/user/" + user.userAccountStatus + "/" + user.userId,
+        type: "patch",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(user),
+        success: console.log('성공'),
+        error: function(xhr, status, err){
+            if(error){
+                error(err);
+            }
+        }
+    });
+}
 
 
 

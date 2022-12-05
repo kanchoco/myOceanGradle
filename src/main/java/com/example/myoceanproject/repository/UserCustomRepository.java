@@ -18,5 +18,4 @@ public interface UserCustomRepository {
     public Page<UserDTO> findAllByStatus(Pageable pageable, UserAccountStatus userAccountStatus);
     public Page<UserDTO> findAllByStatus(Pageable pageable, Criteria criteria, UserAccountStatus userAccountStatus);
 
-
 }

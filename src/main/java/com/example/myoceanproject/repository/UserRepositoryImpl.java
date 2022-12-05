@@ -11,6 +11,7 @@ import com.example.myoceanproject.repository.community.reply.CommunityReplyRepos
 import com.example.myoceanproject.type.UserAccountStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.jdbc.support.CustomSQLErrorCodesTranslation;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,6 +28,7 @@ import static com.example.myoceanproject.entity.QUser.user;
 
 @Repository
 @RequiredArgsConstructor
+@Transactional
 public class UserRepositoryImpl implements UserCustomRepository {
     private final JPAQueryFactory queryFactory;
 
@@ -63,7 +66,9 @@ public class UserRepositoryImpl implements UserCustomRepository {
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()).fetch();
 
-        long total = queryFactory.selectFrom(communityPost)
+
+
+        long total = queryFactory.selectFrom(user)
                 .fetch().size();
 
         return new PageImpl<>(users, pageable, total);
@@ -96,7 +101,7 @@ public class UserRepositoryImpl implements UserCustomRepository {
             userDTO.setUserReplyCount(replyRepositoryImpl.countReplyByUser(userDTO.getUserId()));
         });
 
-        long total = queryFactory.selectFrom(communityPost)
+        long total = queryFactory.selectFrom(user)
                 .where(user.userNickname.contains(criteria.getKeyword()))
                 .fetch().size();
 
@@ -130,7 +135,7 @@ public class UserRepositoryImpl implements UserCustomRepository {
             userDTO.setUserReplyCount(replyRepositoryImpl.countReplyByUser(userDTO.getUserId()));
         });
 
-        long total = queryFactory.selectFrom(communityPost)
+        long total = queryFactory.selectFrom(user)
                 .where(user.userAccountStatus.eq(userAccountStatus))
                 .fetch().size();
 
@@ -164,13 +169,12 @@ public class UserRepositoryImpl implements UserCustomRepository {
             userDTO.setUserReplyCount(replyRepositoryImpl.countReplyByUser(userDTO.getUserId()));
         });
 
-        long total = queryFactory.selectFrom(communityPost)
+        long total = queryFactory.selectFrom(user)
                 .where(user.userAccountStatus.eq(userAccountStatus).and(user.userNickname.contains(criteria.getKeyword())))
                 .fetch().size();
 
         return new PageImpl<>(users, pageable, total);
 
     }
-
 
 }

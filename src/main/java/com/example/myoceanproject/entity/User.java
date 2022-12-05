@@ -95,8 +95,8 @@ public class User extends Period {
     public void updatePassword(UserDTO userDTO) {
         this.userPassword = userDTO.getUserPassword();
     }
-    public void updateManager(UserDTO userDTO) {
-        this.userAccountStatus = userDTO.getUserAccountStatus();
+    public void updateManager(UserAccountStatus userAccountStatus) {
+        this.userAccountStatus = userAccountStatus;
     }
 
     public void setUserId(Long userId){
