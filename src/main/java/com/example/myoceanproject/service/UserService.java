@@ -20,6 +20,6 @@ public class UserService {
         return criteria.getKeyword() == null ? userRepositoryImpl.findAll(pageable) : userRepositoryImpl.findAll(pageable, criteria);
     }
     public Page<UserDTO> showUserByStatus(Pageable pageable, UserAccountStatus userAccountStatus, Criteria criteria) {
-        return criteria.getKeyword() == null ? userRepositoryImpl.findAllByStatus(pageable, userAccountStatus) : userRepositoryImpl.findAllByStatus(pageable, criteria, userAccountStatus);
+        return criteria.getKeyword().equals("null") ? userRepositoryImpl.findAllByStatus(pageable, userAccountStatus) : userRepositoryImpl.findAllByStatus(pageable, criteria, userAccountStatus);
     }
 }

@@ -42,6 +42,7 @@ public class UserTest {
 //      포인트 : 회원가입포인트(5000) - 임의로 지정
 
 //      화면에서 이메일, 닉네임, 패스워드를 입력받고 저장하기 위해 DTO객체 생성
+        for (int i = 0; i < 20; i++){
         UserDTO userDTO = new UserDTO();
 
 //      입력받은 패스워드를 암호화하기 위한 과정
@@ -50,7 +51,7 @@ public class UserTest {
 
 //      DTO객체에 화면에서 입력받은 정보와 계정의 추가 상태를 지정한다.
         userDTO.setUserEmail("whei1234@naver.com");
-        userDTO.setUserNickname("notebook");
+        userDTO.setUserNickname("곽두팔");
         userDTO.setUserPassword(encryptPw);
         userDTO.setUserLoginMethod(UserLoginMethod.GENERAL);
         userDTO.setUserAccountStatus(UserAccountStatus.ACTIVE);
@@ -60,7 +61,8 @@ public class UserTest {
         User user=userDTO.toEntity();
 
 //      유저 테이블에 저장
-        userRepository.save(user);
+            userRepository.save(user);
+        }
 
     }
 
@@ -115,56 +117,7 @@ public class UserTest {
         log.info("------------------------------------------------------------");
     }
 
-    @Test
-    public void updateNicknameFileTest(){
-//      시나리오 : 마이페이지에서 회원(3L)의 닉네임, 및 회원 프로필 사진을 수정한다.
 
-//      화면에서 회원의 닉네임 및 프로필 사진을 수정하여 입력받는다.
-        UserDTO userDTO=new UserDTO(null,null,"cutenick",null,"dog.png","/image/",300L,123456L,null,null,0,null,null);
-
-//      화면에 로그인 중인 회원의 회원번호를 넘겨받고 회원 객체를 생성
-        User users=jpaQueryFactory.selectFrom(user).where(user.userId.eq(3L)).fetchOne();
-        users.updateNicknameFile(userDTO);
-    }
-
-    @Test
-    public void updatePasswordTest(){
-//      시나리오 : 마이페이지에서 회원(3L)의 비밀번호 변경 버튼을 클릭해 비밀번호를 수정한다.
-
-//      입력받은 패스워드를 암호화하여 저장하기 위한 과정
-        String pw="23456";
-        String encryptPw=encryption(pw);
-
-//      화면에서 변경된 패스워드를 입력받는다.
-        UserDTO userDTO=new UserDTO(null,encryptPw,null,null,null,null,null,null,null,null,0,null,null);
-
-//      화면에서 로그인 중인 회원의 회원번호를 넘겨받고 객체를 생성
-        User users=jpaQueryFactory.selectFrom(user).where(user.userId.eq(3L)).fetchOne();
-        users.updatePassword(userDTO);
-    }
-
-    @Test
-    public void updateManagerTest(){
-//      시나리오 : 관리자가 회원(3L)의 상태를 계정 정지상태로 변경한다.
-
-//      관리자에 의해 화면에서 회원의 상태가 변경된 값을 입력받는다.
-        UserDTO userDTO=new UserDTO(null,null,null,UserAccountStatus.BANNED,null,null,null,null,null,null,0,null,null);
-
-//      화면에서 로그인 중인 회원의 회원번호를 넘겨받고 객체를 생성
-        User users=jpaQueryFactory.selectFrom(user).where(user.userId.eq(3L)).fetchOne();
-        users.updateManager(userDTO);
-    }
-
-    @Test
-    public void deleteTest(){
-//      시나리오 : 화면에서 사용자(3L)의 번호를 입력받는다.
-
-//      화면에서 사용자가 탈퇴를 클릭하면 해당 사용자의 번호를 입력받는다.
-        User user=userRepository.findById(3L).get();
-
-//      유저 테이블에서 회원의 정보를 삭제
-        userRepository.delete(user);
-    }
 
     public String encryption(String userPassword){
         String alg = "AES/CBC/PKCS5Padding";
