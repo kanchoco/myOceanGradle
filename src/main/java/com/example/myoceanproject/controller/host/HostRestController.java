@@ -121,6 +121,7 @@ public class HostRestController {
         return FileCopyUtils.copyToByteArray(file);
     }
 
+
     @PostMapping("/delete")
     public void delete(String uploadPath, String fileName){
         File file = new File("C:/upload/group", uploadPath + "/" + fileName);

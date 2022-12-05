@@ -812,7 +812,7 @@ $(function() {
             };
             input.click();
         },
-        
+
         // 글 작성 시 hidden input태그에 내용 작성 -> 타임리프로 groupDTO의 contents에 내용 그대로 들어가도록 함
         setup:function(ed) {
             ed.on('change', function(e) {
@@ -821,6 +821,27 @@ $(function() {
                 console.log('the content ', ed.getContent());
 
                 $('input[name=groupContent]').attr('value', ed.getContent());
+            });
+
+            ed.ui.registry.addButton('custom_image', {
+                icon: 'image',
+                tooltip: 'insert Image',
+                onAction: function () {
+                    documentUpload({
+                        multiple: false,
+                        accept: '.jpg, .png',
+                        callback: function (data) {
+                            if (data.rs_st === 0) {
+                                var fileInfo = data.rs_data;
+                                tinymce.execCommand('mceInsertContent', false,
+                                    /**
+                                     "<img src='" + fileInfo.fullPath + "' data-mce-src='" + fileInfo.fullPath + "' data-originalFileName='" + fileInfo.orgFilename + "' >");
+                                     **/
+                                    "<img src='" + fileInfo.thumbnailPath + "' data-mce-src='" + fileInfo.thumbnailPath + "' data-originalFileName='" + fileInfo.orgFilename + "' >");
+                            }
+                        }
+                    });
+                }
             });
         },
         /*** image upload ***/
