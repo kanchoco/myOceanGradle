@@ -22,8 +22,6 @@ import java.util.List;
 @Slf4j
 @RequestMapping("/user/*")
 public class ManageUserController {
-    @Autowired
-    private CommunityReplyService replyService;
 //    브라우저에서 JSON 타입으로 데이터를 전송하고 서버에서는 댓글의 처리 결과에 따라 문자열로 결과를 리턴한다.
 //    consumes : 전달받은 데이터의 타입
 //    produces : 콜백함수로 결과를 전달할 때의 타입

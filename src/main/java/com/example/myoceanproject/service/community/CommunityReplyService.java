@@ -17,11 +17,11 @@ public class CommunityReplyService {
     private CommunityReplyRepository replyRepository;
 
     public Page<CommunityReplyDTO> showReply(Pageable pageable, Criteria criteria){
-        return criteria.getKeyword() == null ? replyRepositoryImpl.findAll(pageable) : replyRepositoryImpl.findAll(pageable,criteria);
+        return criteria.getKeyword().equals("null") ? replyRepositoryImpl.findAll(pageable) : replyRepositoryImpl.findAll(pageable,criteria);
     }
 //    고민상담용
     public Page<CommunityReplyDTO> showReplyByCounseling(Pageable pageable, Criteria criteria){
-        return criteria.getKeyword() == null ? replyRepositoryImpl.findAllByCategory(pageable) : replyRepositoryImpl.findAllByCategory(pageable,criteria);
+        return criteria.getKeyword().equals("null") ? replyRepositoryImpl.findAllByCategory(pageable) : replyRepositoryImpl.findAllByCategory(pageable,criteria);
     }
 
     public void remove(Long communityReplyId){

@@ -4,6 +4,7 @@ package com.example.myoceanproject.controller.manager;
 import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.service.community.CommunityPostService;
+import com.example.myoceanproject.type.CommunityCategory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class ManagePostController {
 //    @RequestBody : 전달받은 데이터를 알맞는 매개변수로 주입
 //    ResponseEntity : 서버의 상태코드, 응답 메세지 등을 담을 수 있는 타입
 
-    @GetMapping("/{page}/{keyword}")
+    @GetMapping("/free/{page}/{keyword}")
     public CommunityPostDTO getFreeBoard(@PathVariable int page, @PathVariable(required = false) String keyword){
         Criteria criteria = new Criteria();
         criteria.setPage(page);
@@ -36,6 +37,30 @@ public class ManagePostController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<CommunityPostDTO> postDTOPage= postService.showPost(pageable, criteria);
+        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
+        if(postDTOPage.getTotalPages() < endPage){
+            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
+        }
+        log.info(endPage + "end");
+
+        CommunityPostDTO postDTO = new CommunityPostDTO();
+
+        postDTO.setPostList(postDTOPage.getContent());
+        postDTO.setEndPage(endPage);
+
+        postDTOPage.getContent().stream().map(CommunityPostDTO::toString).forEach(log::info);
+
+        return postDTO;
+    }
+    @GetMapping("/counseling/{page}/{keyword}")
+    public CommunityPostDTO getCounseling(@PathVariable int page, @PathVariable(required = false) String keyword){
+        Criteria criteria = new Criteria();
+        criteria.setPage(page);
+        criteria.setKeyword(keyword);
+        //        0부터 시작,
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+
+        Page<CommunityPostDTO> postDTOPage= postService.showCounseling(pageable, CommunityCategory.COUNSELING, criteria);
         int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
         if(postDTOPage.getTotalPages() < endPage){
             endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();

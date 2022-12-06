@@ -43,12 +43,12 @@ public class CommunityReplyTest {
 
 //      userRepository 인터페이스 구현체 hibernate의 findById메서드를 이용해서
 //      다른 유저를 검색한다.
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < 0; i++){
         Optional<User> user = userRepository.findById(1L);
 
 //      communityPostRepository 인터페이스 구현체 hibernate의 findById메서드를 이용해서
 //      게시글 번호에 해당하는 게시글 내용 검색한다.
-        Optional<CommunityPost> communityPost = communityPostRepository.findById(123L);
+        Optional<CommunityPost> communityPost = communityPostRepository.findById(43L);
 
 //      화면에서 댓글내용을 입력받기 위해 댓글 DTO 객체 생성
         CommunityReplyDTO communityReplyDTO = new CommunityReplyDTO();

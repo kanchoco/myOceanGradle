@@ -21,7 +21,6 @@ $(document).ready(function () {
 });
 
 $('#search_input').on('focus', function(){
-    console.log('ddd');
     $(this).css('border', 'none');
 });
 
@@ -91,7 +90,7 @@ $('.filter').children('span').click(function(){
 let postService = (function(){
     function getList(param, callback, error){
         $.ajax({
-            url: "/post/" + (param.page || 0) + "/" + param.keyword,
+            url: "/post/free/" + (param.page || 0) + "/" + param.keyword,
             type: "get",
             async : false,
             success: function(postDTO, status, xhr){
@@ -109,7 +108,7 @@ let postService = (function(){
 
     function remove(postNumber, callback, error){
         $.ajax({
-            url: "/post/" + postNumber,
+            url: "/post/free/" + postNumber,
             type: "delete",
             async : false,
             success: function(text){
