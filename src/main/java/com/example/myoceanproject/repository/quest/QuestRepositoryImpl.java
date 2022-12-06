@@ -1,7 +1,10 @@
-package com.example.myoceanproject.repository.community.like;
+package com.example.myoceanproject.repository.quest;
 
+import com.example.myoceanproject.domain.QuestDTO;
 import com.example.myoceanproject.entity.CommunityLike;
 import com.example.myoceanproject.entity.CommunityPost;
+import com.example.myoceanproject.entity.Quest;
+import com.example.myoceanproject.repository.community.like.CommunityLikeCustomRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -12,36 +15,16 @@ import static com.example.myoceanproject.entity.QCommunityLike.communityLike;
 
 @Repository
 @RequiredArgsConstructor
-public class CommunityLikeRepositoryImpl implements CommunityLikeCustomRepository{
+public class QuestRepositoryImpl implements QuestCustomRepository {
 //사용자 지정 레파지토리 Impl(구현)
 
     private final JPAQueryFactory queryFactory;
 
-    //        유저번호와 포스트번호로 라이크여부를 가려주는 메소드
-//        좋아요를 하지 않았으면 true, 좋아요를 했으면 false
     @Override
-    public boolean findByCommunityPostAndUser(Long userId, Long postId ){
-      return queryFactory.selectFrom(communityLike).where(communityLike.communityPost.communityPostId.eq(postId).and(communityLike.userId.eq(userId))).fetchOne() == null;
+    public Quest saveQuest(QuestDTO questDTO){
+        Quest quest = questDTO.toEntity();
+        quest.update(questDTO);
+        return quest;
     }
 
-//
-    //        유저번호와 포스트번호로 라이크를 삭제하는 메소드
-    @Override
-    public void deleteByCommunityPostAndUser(Long userId, Long postId){
-        queryFactory.delete(communityLike).where(communityLike.communityPost.communityPostId.eq(postId).and(communityLike.userId.eq(userId))).execute();
-    }
-
-//    해당포스트의 전체 라이크 삭제
-    @Override
-    public void deleteByCommunityPost(CommunityPost communityPost) {
-        queryFactory.delete(communityLike)
-                .where(communityLike.communityPost.communityPostId.eq(communityPost.getCommunityPostId()))
-                .execute();
-    }
-
-//    해당포스트의 전체 라이크 가져오기
-    @Override
-    public List<CommunityLike> findByCommunityPost(CommunityPost communityPost){
-        return queryFactory.selectFrom(communityLike).where(communityLike.communityPost.communityPostId.eq(communityPost.getCommunityPostId())).fetch();
-    }
 }

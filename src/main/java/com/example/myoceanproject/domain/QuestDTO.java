@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.Embedded;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Component
 @Data
@@ -17,7 +18,8 @@ public class QuestDTO {
     private String questCategory;
     private String questName;
     private String questContent;
-    private LocalDateTime questDeadLine;
+    private String questDeadLine;
+    private int questPoint
 
     private String questFilePath;
     private String questFileName;
@@ -30,7 +32,7 @@ public class QuestDTO {
         this.questCategory = questCategory;
         this.questName = questName;
         this.questContent = questContent;
-        this.questDeadLine = questDeadLine;
+        this.questDeadLine = questDeadLine.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         this.questFilePath = questFilePath;
         this.questFileName = questFileName;
         this.questFileUuid = questFileUuid;
@@ -41,7 +43,7 @@ public class QuestDTO {
         return Quest.builder()
                 .questCategory(questCategory)
                 .questName(questName)
-                .questDeadLine(questDeadLine)
+                .questDeadLine(LocalDateTime.parse(questDeadLine))
                 .questContent(questContent)
                 .questFilePath(questFilePath)
                 .questFileName(questFileName)

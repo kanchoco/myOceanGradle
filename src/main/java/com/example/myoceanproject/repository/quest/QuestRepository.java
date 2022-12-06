@@ -1,4 +1,4 @@
-package com.example.myoceanproject.repository;
+package com.example.myoceanproject.repository.quest;
 
 import com.example.myoceanproject.entity.Quest;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -4,22 +4,18 @@ import com.example.myoceanproject.entity.Quest;
 import com.example.myoceanproject.entity.QuestAchievement;
 import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.repository.QuestAchievementRepository;
-import com.example.myoceanproject.repository.QuestRepository;
+import com.example.myoceanproject.repository.quest.QuestRepository;
 import com.example.myoceanproject.repository.UserRepository;
-import com.mysema.commons.lang.Assert;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
-import static com.example.myoceanproject.entity.QQuestAchievement.questAchievement;
 import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
