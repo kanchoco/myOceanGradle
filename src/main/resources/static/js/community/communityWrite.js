@@ -159,6 +159,8 @@ let communitySave = (function(){
     return {add: add}
 })();
 
+
+
 // 게시글 작성 진행 후 등록 버튼 눌렀을 때
 $(".Button-bqxlp0-0.fFBpBV").on("click", function(e){
     e.preventDefault();
