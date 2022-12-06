@@ -46,22 +46,24 @@ let temp = 0;
 let $tr = $("#info_table").find('tr');
 let accountCondition = null;
 
-$tr.find('.more').click(function () {
+function removeReply(tag){
+    let replyNumber = $(tag).closest('tr').children('.replyId').text();
     if (temp == 1) {
         temp--;
-        $(this).parent().children('.account-modal').remove();
+        $(tag).next().remove();
     } else {
         temp++;
-        $(this).parent().append("<div class=\"account-modal\">\n" +
+        $(tag).parent().append("<div class=\"account-modal\">\n" +
             "    <button class=\"account-modal-button\">삭제</button>\n" +
             "</div>")
-        $(this).next().find('.account-modal-button').click(function () {
-            $(this).closest('.account-modal').remove()
-            $(this).remove()
+        $(tag).next().find('.account-modal-button').click(function () {
+            $(tag).next().remove();
+            replyService.remove(replyNumber,
+                function(){show()});
             temp--;
         })
     }
-})
+}
 
 
 
@@ -71,3 +73,43 @@ $('.filter').children('span').click(function(){
     $(this).siblings().removeClass('active-filter')
     $(this).addClass('active-filter');
 })
+
+//서비스(모듈)
+let replyService = (function(){
+    function getList(param, callback, error){
+        $.ajax({
+            url: "/reply/" + (param.page || 0) + "/" + param.keyword,
+            type: "get",
+            async : false,
+            success: function(replyDTO, status, xhr){
+                if(callback){
+                    callback(replyDTO);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+
+    function remove(replyNumber, callback, error){
+        $.ajax({
+            url: "/reply/" + replyNumber,
+            type: "delete",
+            async : false,
+            success: function(text){
+                if(callback){
+                    callback(text);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+    return {getList: getList,remove: remove}
+}) ();
