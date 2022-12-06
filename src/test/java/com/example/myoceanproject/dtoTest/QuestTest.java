@@ -3,7 +3,7 @@ package com.example.myoceanproject.dtoTest;
 import com.example.myoceanproject.domain.QQuestDTO;
 import com.example.myoceanproject.domain.QuestDTO;
 import com.example.myoceanproject.entity.Quest;
-import com.example.myoceanproject.repository.QuestRepository;
+import com.example.myoceanproject.repository.quest.QuestRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;

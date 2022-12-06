@@ -2,9 +2,11 @@ package com.example.myoceanproject.controller.myList;
 
 import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.domain.Criteria;
+import com.example.myoceanproject.domain.DiaryDTO;
 import com.example.myoceanproject.entity.CommunityPost;
 import com.example.myoceanproject.entity.QCommunityPost;
 import com.example.myoceanproject.repository.community.post.CommunityPostRepository;
+import com.example.myoceanproject.service.DiaryService;
 import com.example.myoceanproject.service.community.CommunityPostService;
 import com.example.myoceanproject.service.community.CommunityReplyService;
 import com.example.myoceanproject.type.CommunityCategory;
@@ -20,6 +22,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -34,8 +38,12 @@ import static com.example.myoceanproject.entity.QCommunityPost.communityPost;
 @Controller
 @RequestMapping("/myList/*")
 public class MyListController {
+
     @Autowired
     private CommunityPostService postService;
+
+    @Autowired
+    private DiaryService diaryService;
 
     @Autowired
     private CommunityPostRepository communityPostRepository;
@@ -45,13 +53,48 @@ public class MyListController {
 
     // 내가 쓴 일기 페이지
     @GetMapping("/myDiary")
-    public String myDiary(){
+    public String myDiary(Model model,Criteria criteria, HttpServletRequest request){
+        HttpSession session=request.getSession();
+
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+
+        Page<DiaryDTO> diaryDTOPage= diaryService.showDiary(pageable,(Long)session.getAttribute("userId"), criteria);
+        int endPage = (int)(Math.ceil(diaryDTOPage.getNumber()+1 / (double)10)) * 10;
+        if(diaryDTOPage.getTotalPages() < endPage) {
+            endPage = diaryDTOPage.getTotalPages() == 0 ? 1 : diaryDTOPage.getTotalPages();
+        }
+        log.info(endPage + "end");
+
+        model.addAttribute("diarys", diaryDTOPage);
+        model.addAttribute("pagination", diaryDTOPage);
+        model.addAttribute("pageable", pageable);
+        model.addAttribute("criteria", criteria);
+        model.addAttribute("endPage", endPage);
+
         return "app/myList/myDiary";
     }
 
     // 내가 보낸 교환일기 페이지
     @GetMapping("/myExchangeDiary")
-    public String myExchangeDiary(){
+    public String myExchangeDiary(Model model, Criteria criteria, HttpServletRequest request){
+
+        HttpSession session=request.getSession();
+
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+
+        Page<DiaryDTO> diaryDTOPage= diaryService.showExchangeDiary(pageable,(Long)session.getAttribute("userId"), criteria);
+        int endPage = (int)(Math.ceil(diaryDTOPage.getNumber()+1 / (double)10)) * 10;
+        if(diaryDTOPage.getTotalPages() < endPage) {
+            endPage = diaryDTOPage.getTotalPages() == 0 ? 1 : diaryDTOPage.getTotalPages();
+        }
+        log.info(endPage + "end");
+
+        model.addAttribute("exchangeDiarys", diaryDTOPage.getContent());
+        model.addAttribute("pagination", diaryDTOPage);
+        model.addAttribute("pageable", pageable);
+        model.addAttribute("criteria", criteria);
+        model.addAttribute("endPage", endPage);
+
         return "app/myList/myExchangeDiary";
     }
 
@@ -209,21 +252,6 @@ public class MyListController {
         List<CommunityPost> posts=jpaQueryFactory.selectFrom(communityPost).orderBy(communityPost.communityPostId.desc()).fetch();
         log.info("posts size:"+posts.size());
         log.info("postDTOpage size:"+postDTOPage.getContent().size());
-        for(int i=0;i<10;i++){
-
-//            try {
-//                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//
-//                // 문자열 -> Date
-//                Date date = formatter.parse(postDTOPage.getContent().get(i).getCreateDate());
-//                LocalDateTime localDateTime= (LocalDateTime)Jsr310Converters.StringToLocalDateTimeConverter.valueOf(postDTOPage.getContent().get(i).getCreateDate());
-//                log.info("date:"+date);
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
-
-        }
-
 
         model.addAttribute("listTotals", postDTOPage.getContent());
         model.addAttribute("pagination", postDTOPage);

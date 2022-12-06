@@ -133,7 +133,7 @@
 
     //ajax 호출
     function show(){
-        postService.getList({
+        counselingPostService.getList({
             page : page,
             keyword : keyword
         }, getList);
@@ -209,6 +209,7 @@
     $("#search_input").on("keyup",function(key){
         if(key.keyCode === 13) {
             keyword = $(this).val();
+            console.log(keyword);
             page = 1;
             show();
         }

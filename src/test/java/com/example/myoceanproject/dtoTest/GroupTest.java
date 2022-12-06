@@ -54,10 +54,10 @@ public class GroupTest {
 
 //      모임 정보 저장
         GroupDTO groupDTO = new GroupDTO();
-        groupDTO.setGroupCategory("잠자기");
-        groupDTO.setGroupContent("같이 잠자요");
+        groupDTO.setGroupCategory("운동하기");
+        groupDTO.setGroupContent("같이 풋살해요");
         groupDTO.setGroupLocation("장소");
-        groupDTO.setGroupName("잠만보들");
+        groupDTO.setGroupName("난 공밖에 몰라");
         groupDTO.setGroupPoint(200);
         groupDTO.setGroupStatus(GroupStatus.WAITING);
         groupDTO.setGroupLocationType(GroupLocationType.ONLINE);

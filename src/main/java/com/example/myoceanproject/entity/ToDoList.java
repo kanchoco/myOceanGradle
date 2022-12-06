@@ -43,6 +43,6 @@ public class ToDoList extends Period{
 //  투두리스트의 내용과 날짜는 변경이 가능
     public void update(ToDoListDTO toDoListDTO) {
         this.toDoListContent = toDoListDTO.getToDoListContent();
-        this.toDoListSelectDate = toDoListDTO.getToDoListSelectDate();
+//        this.toDoListSelectDate = toDoListDTO.getToDoListSelectDate();
     }
 }

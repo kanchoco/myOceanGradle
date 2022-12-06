@@ -15,6 +15,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @RestController
@@ -34,10 +36,10 @@ public class ManageUserController {
     @GetMapping("/{status}/{page}/{keyword}")
 //    public UserDTO list(@RequestBody Criteria criteria){
     public UserDTO list(@PathVariable String status, @PathVariable int page, @PathVariable(required = false) String keyword){
-        log.info("dddd");
+        String decodeKeyword = URLDecoder.decode(keyword, StandardCharsets.UTF_8);
 
         Criteria criteria = new Criteria();
-        criteria.setKeyword(keyword);
+        criteria.setKeyword(decodeKeyword);
         criteria.setPage(page);
         criteria.setStatus(status);
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
@@ -61,9 +63,10 @@ public class ManageUserController {
     }
     @GetMapping("/{page}/{keyword}")
     public UserDTO list(@PathVariable int page, @PathVariable(required = false) String keyword){
+        String decodeKeyword = URLDecoder.decode(keyword, StandardCharsets.UTF_8);
 
         Criteria criteria = new Criteria();
-        criteria.setKeyword(keyword);
+        criteria.setKeyword(decodeKeyword);
         criteria.setPage(page);
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 

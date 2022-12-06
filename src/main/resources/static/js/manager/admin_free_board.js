@@ -90,7 +90,7 @@ $('.filter').children('span').click(function(){
 let postService = (function(){
     function getList(param, callback, error){
         $.ajax({
-            url: "/post/free/" + (param.page || 0) + "/" + param.keyword,
+            url: encodeURI("/post/free/" + (param.page || 0) + "/" + param.keyword),
             type: "get",
             async : false,
             success: function(postDTO, status, xhr){
@@ -108,7 +108,7 @@ let postService = (function(){
 
     function remove(postNumber, callback, error){
         $.ajax({
-            url: "/post/free/" + postNumber,
+            url: "/post/" + postNumber,
             type: "delete",
             async : false,
             success: function(text){

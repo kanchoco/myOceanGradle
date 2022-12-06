@@ -78,7 +78,7 @@ $('.filter').children('span').click(function(){
 let replyService = (function(){
     function getList(param, callback, error){
         $.ajax({
-            url: "/reply/" + (param.page || 0) + "/" + param.keyword,
+            url: encodeURI("/reply/free/" + (param.page || 0) + "/" + param.keyword),
             type: "get",
             async : false,
             success: function(replyDTO, status, xhr){
