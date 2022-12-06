@@ -7,8 +7,8 @@
     <title>커뮤니티 글작성</title>
     <link rel="stylesheet" href="/css/community/community.css">
     <link rel="stylesheet" href="/css/community/community_write2.css">
+    <link rel="stylesheet" href="/css/host/host.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="/css/community/bundle.css">
     <link rel="stylesheet" href="/css/fix/header.css">
     <link rel="stylesheet" href="/css/fix/footer.css">
@@ -31,7 +31,7 @@
 <div th:unless="${session.userId}">
     <header th:replace="/app/fix/headerModify.html:: header"/>
 </div>
-<form onsubmit="return false;">
+<form onsubmit="return false;" th:object="${communityPostDTO}" style="background:white;">
     <div class="SocialFeedPage__Wrapper-ky5ymg-0 fzBbGO">
         <div class="highWrapper">
         <div class="SocialFeedPage__Header-ky5ymg-1 jIjcTX">
@@ -40,9 +40,10 @@
             </div>
         </div>
         <div class="FilterAll__Wrapper-tqa6fq-0 jJIWoq until650px">
-
             <div class="FilterOpenButton__Wrapper-sc-91gci-0 NVKNq">
-                <button height="auto" color="initial" font-size="14px" font-weight="500" class="Button-bqxlp0-0 fFBpBV">등록</button>
+                <form name="communityForm" method="get" th:action="@{/community/index}">
+                    <button height="auto" color="initial" font-size="14px" font-weight="500" class="Button-bqxlp0-0 fFBpBV">등록</button>
+                </form>
             </div>
         </div>
         </div>
@@ -51,12 +52,19 @@
             <div class="filter_wrapper">
                 <div class="selectBox2 post_filter ">
                     <button class="label">요리</button>
-                    <ul class="optionList">
-                        <input name="post_filter_input"  type="hidden" class="post_filter_input" value="요리">
+                    <ul class="optionList" th:switch="${#strings.toString(communityPostDTO.communityCategory)}">
+                        <input th:case="요리" name="post_filter_input"  type="hidden" class="post_filter_input" value="요리">
+                        <input th:case="운동" name="post_filter_input"  type="hidden" class="post_filter_input" value="운동">
+                        <input th:case="영화" name="post_filter_input"  type="hidden" class="post_filter_input" value="영화">
+                        <input th:case="책" name="post_filter_input"  type="hidden" class="post_filter_input" value="책">
+                        <input th:case="고민" name="post_filter_input"  type="hidden" class="post_filter_input" value="고민">
+                        <input th:case="일기" name="post_filter_input"  type="hidden" class="post_filter_input" value="일기">
+                        <input th:case="*" name="post_filter_input"  type="hidden" class="post_filter_input" value="요리">
                         <li class="optionItem">요리</li>
                         <li class="optionItem">운동</li>
                         <li class="optionItem">영화</li>
                         <li class="optionItem">책</li>
+                        <li class="optionItem">고민</li>
                         <li class="optionItem">일기</li>
                     </ul>
                 </div>
@@ -81,14 +89,57 @@
             </div>
             <!-- 글등록 버튼 -->
             <div class="FilterAll__Wrapper-tqa6fq-0 jJIWoq registerBtn_1h">
-
                 <div class="FilterOpenButton__Wrapper-sc-91gci-0 NVKNq">
-                    <button height="auto" color="initial" font-size="14px" font-weight="500" class="Button-bqxlp0-0 fFBpBV">등록</button>
+                    <form name="communityForm" method="get" th:action="@{/community/index}">
+                        <button height="auto" color="initial" font-size="14px" font-weight="500" class="Button-bqxlp0-0 fFBpBV">등록</button>
+                    </form>
                 </div>
             </div>
         </div>
-        <div style="padding: 30px 0">
+        <!--썸네일 이미지 공간-->
+        <div class="px-3">
+            <div class="row my-2">
+                <div class="col-lg-10">
+                    <div>
+                        <div>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-4">
+                                    <div data-v-2ba7cd5f="" data-v-292c0328="" class="card shadow-0">
+                                        <div data-v-2ba7cd5f="" class="">
+                                            <div data-v-292c0328="" class="container imgInputBox">
+                                                <div data-v-292c0328="" style="display: none;" class="image-header">
+                                                    <button data-v-292c0328="" class="removeImg">
+                                                        <img data-v-292c0328="" src="https://frip.host/img/delete-white.d7c8ddda.svg" width="24" height="24">
+                                                    </button>
+                                                    <img data-v-292c0328="" src="https://frip.host/img/bullet-list-text-white.6124978a.svg" width="24" height="24" style="display:hidden;">
+                                                </div>
+                                                <div data-v-292c0328="" class="img-text container" onclick="$('.plusThumb').click()">
+                                                    <div data-v-292c0328="">
+                                                        <div data-v-292c0328="" class="text-center container thumbnailPlus">
+                                                            <img data-v-292c0328="" src="https://frip.host/img/add.85e31315.svg" width="48" height="48">
+                                                            <div data-v-292c0328="">이미지 추가하기</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input class="plusThumb" name="plusThumb" data-v-292c0328="" type="file" accept="image/*">
+                                                <img data-v-292c0328="" src="" class="img-box" style="display: none;">
+                                            </div>
+                                            <div data-v-292c0328="" class="container">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-frip-primary text-sm"> 권장 사이즈: 가로 1000px * 세로 1000px </div>
+                        <div class="text-frip-primary text-sm"> 최소 사이즈: 가로 600px * 세로 600px </div>
+                        <div class="text-frip-primary text-sm"> 용량: 10MB 이하, 파일유형: JPG, PNG, GIF</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div style="padding: 30px 0">
             <div class="editor-landing__demo" data-module="editorLanding">
                 <textarea name="module-settings" hidden="">            {
                         "output_id" : "output",

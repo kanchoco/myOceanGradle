@@ -40,9 +40,6 @@ public class CommunityPost extends Period{
     public void setUser(User user){
         this.user = user;
     }
-    public void setCommunityPostId(Long communityPostId){
-        this.communityPostId = communityPostId;
-    }
 
 
     @Builder
