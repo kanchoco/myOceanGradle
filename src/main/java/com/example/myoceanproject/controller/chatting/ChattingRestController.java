@@ -3,6 +3,7 @@ package com.example.myoceanproject.controller.chatting;
 import com.example.myoceanproject.domain.ChattingDTO;
 import com.example.myoceanproject.service.chattingService.ChattingService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/chatting/*")
@@ -30,9 +33,10 @@ public class ChattingRestController {
     public ResponseEntity<String> write(@RequestBody ChattingDTO chattingDTO, HttpServletRequest request) throws UnsupportedEncodingException {
         HttpSession session=request.getSession();
         Long userId = (Long)session.getAttribute("userId");
+        Long groupId = chattingDTO.getGroupId();
 
+        chattingService.saveMessage(userId, groupId, chattingDTO);
 
-        chattingService.saveMessage(userId, chattingDTO.getGroupId(), chattingDTO);
 
         return new ResponseEntity<>(new String("write success".getBytes(), "UTF-8"), HttpStatus.OK);
     }

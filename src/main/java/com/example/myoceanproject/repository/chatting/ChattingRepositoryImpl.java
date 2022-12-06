@@ -4,9 +4,8 @@ import com.example.myoceanproject.domain.ChattingDTO;
 import com.example.myoceanproject.domain.GroupDTO;
 import com.example.myoceanproject.domain.QChattingDTO;
 import com.example.myoceanproject.domain.QGroupDTO;
+import com.example.myoceanproject.entity.Chatting;
 import com.example.myoceanproject.entity.GroupMember;
-import com.example.myoceanproject.entity.QGroupMember;
-import com.example.myoceanproject.repository.chatting.ChattingCustomRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -23,13 +22,13 @@ public class ChattingRepositoryImpl implements ChattingCustomRepository {
 
     private final JPAQueryFactory queryFactory;
 
-    @Override
-    public List<GroupMember> findByGroupId(Long groupId) {
-        return queryFactory.select(groupMember)
-                .from(groupMember)
-                .where(groupMember.group.groupId.eq(groupId))
-                .fetch();
-    }
+//    @Override
+//    public List<GroupMember> findByGroupId(Long groupId) {
+//        return queryFactory.select(groupMember)
+//                .from(groupMember)
+//                .where(groupMember.group.groupId.eq(groupId))
+//                .fetch();
+//    }
 
     //    유저 아이디를 받아서 받은 유저 정보와 그룹 멤버 테이블의 유저 정보가 일치할 경우 그룹 아이디를 가지고 옴
     @Override
@@ -82,7 +81,7 @@ public class ChattingRepositoryImpl implements ChattingCustomRepository {
                 chatting.senderGroupMember.groupMemberId,
                 chatting.chattingContent,
                 chatting.createDate
-        )).from(chatting).where(chatting.group.groupId.eq(groupId)).orderBy(chatting.createDate.asc()).fetch();
+        )).from(chatting).where(chatting.group.groupId.eq(groupId)).fetch();
     }
 
 //    public GroupDTO findGroupByGroupMemberId(Long groupMemberId){
@@ -114,6 +113,7 @@ public class ChattingRepositoryImpl implements ChattingCustomRepository {
                         .and(groupMember.user.userId.eq(userId)))
                 .fetchOne();
     }
+
 
 
 }
