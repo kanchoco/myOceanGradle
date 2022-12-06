@@ -52,7 +52,7 @@ $exchangeFilterLi.click(function () {
 checkMedia()
 $(window).resize(function(){
     if(window.innerWidth<650){
-      $(".registerBtn_1h").hide()
+        $(".registerBtn_1h").hide()
         $(".until650px").show()
     } else{
         $(".registerBtn_1h").show()
@@ -167,22 +167,22 @@ $(".Button-bqxlp0-0.fFBpBV").on("click", function(e){
     let category = $("input[name='post_filter_input']").val();
     switch(category) {
 
-    case "영화":
+        case "영화":
             category="MOVIE";
             break;
-    case "요리":
+        case "요리":
             category="COOK";
             break;
-    case "책":
+        case "책":
             category="BOOK";
             break;
-    case "고민":
+        case "고민":
             category="COUNSELING";
             break;
-    case "영화":
+        case "영화":
             category="MOVIE";
             break;
-    case "운동":
+        case "운동":
             category="EXERCISE";
             break;
     }

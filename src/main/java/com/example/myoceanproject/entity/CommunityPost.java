@@ -30,9 +30,14 @@ public class CommunityPost extends Period{
     private String communityContent;
     private int communityViewNumber;
 
-//  커뮤니티 파일 테이블 양방향
-    @OneToMany(fetch = LAZY, mappedBy = "communityPost")
-    private List<CommunityFile> communityFiles;
+    @NotNull
+    private String communityFilePath;
+    @NotNull
+    private String communityFileName;
+    @NotNull
+    private String communityFileUuid;
+    @NotNull
+    private Long communityFileSize;
 
     private int communityLikeNumber;
 
@@ -41,14 +46,19 @@ public class CommunityPost extends Period{
         this.user = user;
     }
 
-
     @Builder
-    public CommunityPost(Long communityPostId, CommunityCategory communityCategory, String communityTitle, String communityContent, int communityViewNumber) {
+    public CommunityPost(Long communityPostId, User user, CommunityCategory communityCategory, String communityTitle, String communityContent, int communityViewNumber, String communityFilePath, String communityFileName, String communityFileUuid, Long communityFileSize, int communityLikeNumber) {
         this.communityPostId = communityPostId;
+        this.user = user;
         this.communityCategory = communityCategory;
         this.communityTitle = communityTitle;
         this.communityContent = communityContent;
         this.communityViewNumber = communityViewNumber;
+        this.communityFilePath = communityFilePath;
+        this.communityFileName = communityFileName;
+        this.communityFileUuid = communityFileUuid;
+        this.communityFileSize = communityFileSize;
+        this.communityLikeNumber = communityLikeNumber;
     }
 
 //  커뮤니티 게시글은 카테고리와 제목, 내용이 수정 가능하고
@@ -58,6 +68,10 @@ public class CommunityPost extends Period{
         this.communityTitle = communityPostDTO.getCommunityTitle();
         this.communityContent = communityPostDTO.getCommunityContent();
         this.communityViewNumber = communityPostDTO.getCommunityViewNumber();
+        this.communityFilePath = communityPostDTO.getCommunityFilePath();
+        this.communityFileName = communityPostDTO.getCommunityFileName();
+        this.communityFileUuid = communityPostDTO.getCommunityFileUuid();
+        this.communityFileSize = communityPostDTO.getCommunityFileSize();
     }
 
 //    변경을 자동감지해서 업데이트되므로,

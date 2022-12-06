@@ -43,7 +43,7 @@ public class GroupDTO {
     private String groupFileUuid;
     private Long groupFileSize;
 
-//    임베드 타입
+//    임베드 타입 가져옴(이렇게 가져오는 것이 맞는지는 불확실함. 생성자와 toEntity에도 추가함)
     private Integer maxMember;
     private Integer minMember;
 

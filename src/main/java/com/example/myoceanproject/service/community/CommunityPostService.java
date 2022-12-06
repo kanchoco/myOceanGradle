@@ -48,7 +48,7 @@ public class CommunityPostService implements CommunityService {
         postRepository.delete(post);
     }
 
-//  게시글 등록
+    //  게시글 등록
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void add(CommunityPostDTO communityPostDTO) {
