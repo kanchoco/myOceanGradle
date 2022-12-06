@@ -1,12 +1,22 @@
 package com.example.myoceanproject.controller.communtiy;
 
+import com.example.myoceanproject.domain.CommunityPostDTO;
+import com.example.myoceanproject.service.community.CommunityPostService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+@Slf4j
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/community/*")
 public class CommunityController {
+
+    private final CommunityPostService communityPostService;
+
     // 커뮤니티 페이지
     @GetMapping("/index")
     public String Community(){
@@ -21,7 +31,8 @@ public class CommunityController {
 
     // 커뮤니티 글쓰기 페이지
     @GetMapping("/register")
-    public String register(){
+    public String register(Model model){
+        model.addAttribute("communityPostDTO", new CommunityPostDTO());
         return "app/community/community_register";
     }
 

@@ -16,6 +16,7 @@ html, body {
     word-break: normal;
     overflow-wrap: break-word;
     line-height: 1.5;
+    background:white;
 }
 
 h2.title{
@@ -147,7 +148,7 @@ html,body{
 }
 
 
-   .selectBox2 .optionList::-webkit-scrollbar {width: 6px;}
+.selectBox2 .optionList::-webkit-scrollbar {width: 6px;}
 .selectBox2 .optionList::-webkit-scrollbar-track {background: transparent; }
 .selectBox2 .optionList::-webkit-scrollbar-thumb {background: #303030; border-radius: 45px;}
 .selectBox2 .optionList::-webkit-scrollbar-thumb:hover {background: #303030;}
@@ -194,3 +195,4 @@ html,body{
 .exchange_filter_1h{
     display: none;
 }
+
