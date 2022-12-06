@@ -15,10 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -121,7 +120,6 @@ public class HostRestController {
         return FileCopyUtils.copyToByteArray(file);
     }
 
-
     @PostMapping("/delete")
     public void delete(String uploadPath, String fileName){
         File file = new File("C:/upload/group", uploadPath + "/" + fileName);
@@ -138,5 +136,27 @@ public class HostRestController {
 
     public boolean checkImageType(File file) throws IOException{
         return Files.probeContentType(file.toPath()).startsWith("image");
+    }
+
+
+    //썸머노트
+    @ResponseBody
+    @PostMapping("/summernote")
+    public void summerImage(MultipartFile file, HttpServletRequest request,
+                             HttpServletResponse response) throws Exception {
+
+        response.setContentType("text/html;charset=utf-8");
+        String uploadPath = "C:/upload/groupUpload/";
+
+        PrintWriter out = response.getWriter();
+        String originalFileExtension = file.getOriginalFilename();
+        String storedFileName = UUID.randomUUID().toString().replaceAll("-", "");// + originalFileExtension
+        log.info("storedFileName : " + storedFileName);
+        log.info("originalFileExtension : " + originalFileExtension);
+        log.info(file.toString());
+        log.info(uploadPath+storedFileName);
+        file.transferTo(new File(uploadPath + storedFileName + originalFileExtension));
+        out.println("/upload/groupUpload/"+storedFileName + originalFileExtension);
+        out.close();
     }
 }

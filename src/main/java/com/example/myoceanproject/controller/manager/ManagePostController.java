@@ -1,14 +1,16 @@
 package com.example.myoceanproject.controller.manager;
 
 
+import com.example.myoceanproject.domain.CommunityPostDTO;
+import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.service.community.CommunityPostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 
@@ -24,6 +26,31 @@ public class ManagePostController {
 //    produces : 콜백함수로 결과를 전달할 때의 타입
 //    @RequestBody : 전달받은 데이터를 알맞는 매개변수로 주입
 //    ResponseEntity : 서버의 상태코드, 응답 메세지 등을 담을 수 있는 타입
+
+    @GetMapping("/{page}/{keyword}")
+    public CommunityPostDTO getFreeBoard(@PathVariable int page, @PathVariable(required = false) String keyword){
+        Criteria criteria = new Criteria();
+        criteria.setPage(page);
+        criteria.setKeyword(keyword);
+        //        0부터 시작,
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+
+        Page<CommunityPostDTO> postDTOPage= postService.showPost(pageable, criteria);
+        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
+        if(postDTOPage.getTotalPages() < endPage){
+            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
+        }
+        log.info(endPage + "end");
+
+        CommunityPostDTO postDTO = new CommunityPostDTO();
+
+        postDTO.setPostList(postDTOPage.getContent());
+        postDTO.setEndPage(endPage);
+
+        postDTOPage.getContent().stream().map(CommunityPostDTO::toString).forEach(log::info);
+
+        return postDTO;
+    }
 
     @Transactional
     @DeleteMapping("/{postNumber}")

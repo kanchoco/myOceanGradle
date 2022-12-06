@@ -10,10 +10,16 @@
     <link rel="stylesheet" href="/css/community/bundle.css">
     <link rel="stylesheet" href="/css/fix/header.css">
     <link rel="stylesheet" href="/css/fix/footer.css">
+    <link rel="stylesheet" href="/css/summernote/summernote-lite.css">
     <script charset="utf-8" src="https://codex.so/public/build/editor.bundle.js?h=223d8eb43073a38b4278"></script>
 </head>
 <body>
-<header th:replace="/app/fix/header.html :: header"></header>
+<div th:if="${session.userId}">
+    <header th:replace="/app/fix/header.html :: header"/>
+</div>
+<div th:unless="${session.userId}">
+    <header th:replace="/app/fix/headerModify.html:: header"/>
+</div>
 <form onsubmit="return false;">
     <div class="SocialFeedPage__Wrapper-ky5ymg-0 fzBbGO">
         <div class="SocialFeedPage__Header-ky5ymg-1 jIjcTX">
@@ -26,7 +32,7 @@
             <div class="selectBox2 post_filter ">
                 <button class="label">요리</button>
                 <ul class="optionList">
-                    <input type="hidden" class="post_filter_input" value="요리">
+                    <input type="hidden" name="post_filter_input" class="post_filter_input" value="요리">
                     <li class="optionItem">요리</li>
                     <li class="optionItem">운동</li>
                     <li class="optionItem">영화</li>
@@ -38,7 +44,7 @@
             <div class="selectBox2 diary_filter_1h ">
                 <button class="label">공개</button>
                 <ul class="optionList">
-                    <input type="hidden" class="diary_filter_input" value="공개">
+                    <input type="hidden" name="diary_filter_input" class="diary_filter_input" value="공개">
                     <li class="optionItem">공개</li>
                     <li class="optionItem">비공개</li>
                 </ul>
@@ -46,7 +52,7 @@
             <div class="selectBox2 exchange_filter_1h ">
                 <button class="label">교환 일기</button>
                 <ul class="optionList">
-                    <input type="hidden" class="exchange_filter_input" value="교환 일기">
+                    <input type="hidden" name="exchange_filter_input" class="exchange_filter_input" value="교환 일기">
                     <li class="optionItem">교환 일기</li>
                     <li class="optionItem">나의 일기</li>
                 </ul>
@@ -68,9 +74,7 @@
                 </textarea>
 
             <div class="editor-landing__demo-inner">
-                <div id="editorjs">
-
-                </div>
+                <div id="summernote"></div>
             </div>
 
         </div>
@@ -97,5 +101,7 @@
         }
     })
 </script>
+<script src="/js/summernote/summernote-lite.js"></script>
+<script src="/js/summernote/lang/summernote-ko-KR.js"></script>
 <script src="/js/community/communityWrite.js"></script>
 </html>

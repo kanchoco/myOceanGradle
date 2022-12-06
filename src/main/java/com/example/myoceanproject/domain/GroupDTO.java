@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
-import static com.example.myoceanproject.embeddable.QGroupTime.groupTime;
 
 @Component
 @Data

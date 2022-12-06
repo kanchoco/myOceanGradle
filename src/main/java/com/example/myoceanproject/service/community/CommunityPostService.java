@@ -25,7 +25,7 @@ public class CommunityPostService {
     }
 
     public Page<CommunityPostDTO> showPost(Pageable pageable, Criteria criteria){
-        return criteria.getKeyword() == null ? postRepositoryImpl.findAll(pageable) : postRepositoryImpl.findAll(pageable,criteria);
+        return criteria.getKeyword().equals("null") ? postRepositoryImpl.findAll(pageable) : postRepositoryImpl.findAll(pageable,criteria);
     }
     public void remove(Long communityPostId){
         CommunityPost post = postRepository.findById(communityPostId).get();
