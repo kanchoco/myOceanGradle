@@ -11,16 +11,6 @@ const $exchangeFilterLi = $(".exchange_filter_1h li");
 
 let text ="";
 
-// editor js에 작성된 글들 저장하는 끔찍한 방법
-$(".Button-bqxlp0-0.fFBpBV").click(function(){
-    for(let i = 0; i<$(".cdx-block").length;i++){
-        text += "<p>" + $(".cdx-block").eq(i).html()+"</p>";
-    }
-    console.log(text);
-    $(".cdx-block").html(text);
-})
-
-
 $postFilterLi.click(function () {
     var text = $(this).text();
     $(this).parent().find(".post_filter_input").val(text);
@@ -62,7 +52,7 @@ $exchangeFilterLi.click(function () {
 checkMedia()
 $(window).resize(function(){
     if(window.innerWidth<650){
-      $(".registerBtn_1h").hide()
+        $(".registerBtn_1h").hide()
         $(".until650px").show()
     } else{
         $(".registerBtn_1h").show()
@@ -99,6 +89,7 @@ $(document).ready(function() {
             contentType : false,
             processData : false,
             success: function(image){
+                /*컨트롤러를 통해 절대경로로 이미지가 저장되면, 서머노트에 해당 이미지가 출력된다.*/
                 $('#summernote').summernote('insertImage',image);
             },
             error: function(e){console.log(e);}
@@ -125,16 +116,84 @@ $(document).ready(function() {
         focus:true,
         lang : "ko-KR",
         callbacks: {
+            /*이미지가 업로드될 때 sendFile 함수를 실행한다.*/
             onImageUpload : function(files){
                 sendFile(files[0]);
             }
         }
     });
 
-    /*$('#summernote').summernote('insertText', $('input[name=groupContent]').val());*/
+    /*서머노트 api가 켜지면 생기는 클래스*/
     $(".note-editable").html($('input[name=groupContent]').val());
 
+    /*서머노트에 작성된 값이 변할 때*/
     $('#summernote').on('summernote.change', function(we, contents, $editable) {
         $('input[name=groupContent]').attr('value', $(".note-editable").html());
     });
 }); //ready
+
+
+let communitySave = (function(){
+    function add(communityContents, callback, error){
+        $.ajax({
+            url: "/community/index",
+            async: false,
+            type: "post",
+            data: JSON.stringify(communityContents),
+            contentType: "application/json; charset=utf-8",
+            success: function(result, status, xhr){
+                if(callback){
+                    callback(result);
+                }
+                alert("등록 완료되었습니다.");
+                location.href="/community/index";
+            },
+            error: function(xhr, status, err)
+            {
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+    return {add: add}
+})();
+
+// 게시글 작성 진행 후 등록 버튼 눌렀을 때
+$(".Button-bqxlp0-0.fFBpBV").on("click", function(e){
+    e.preventDefault();
+
+    // 카테고리 설정
+    let category = $("input[name='post_filter_input']").val();
+    switch(category) {
+
+        case "영화":
+            category="MOVIE";
+            break;
+        case "요리":
+            category="COOK";
+            break;
+        case "책":
+            category="BOOK";
+            break;
+        case "고민":
+            category="COUNSELING";
+            break;
+        case "영화":
+            category="MOVIE";
+            break;
+        case "운동":
+            category="EXERCISE";
+            break;
+    }
+
+    /*작성 내용*/
+    if(category != "DIARY"){
+        communitySave.add({
+            communityCategory : category,
+            communityContent : $(".note-editable").html(),
+            communityTitle: $(".SocialFeedPage__Title-ky5ymg-2.gVPyuz").val()
+        })
+    }
+
+});

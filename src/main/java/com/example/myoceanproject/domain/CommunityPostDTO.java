@@ -81,6 +81,10 @@ public class CommunityPostDTO {
                 .communityTitle(communityTitle)
                 .communityCategory(communityCategory)
                 .communityContent(communityContent)
+                .communityFileName(communityFileName)
+                .communityFilePath(communityFilePath)
+                .communityFileUuid(communityFileUuid)
+                .communityFileSize(communityFileSize)
                 .build();
     }
 }
