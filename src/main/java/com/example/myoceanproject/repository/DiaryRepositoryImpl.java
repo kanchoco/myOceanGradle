@@ -25,9 +25,10 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
                 diary.user.userId,
                 diary.diaryTitle,
                 diary.diaryContent,
-                diary.receiverUser.userId,
-                diary.createDate,
-                diary.updatedDate
+                diary.receiverUser.userId
+//                ,
+//                diary.createDate,
+//                diary.updatedDate
         ))
                 .from(diary)
                 .where(diary.user.userId.eq(userId).and(diary.receiverUser.userId.isNull()))
@@ -49,9 +50,10 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
                 diary.user.userId,
                 diary.diaryTitle,
                 diary.diaryContent,
-                diary.receiverUser.userId,
-                diary.createDate,
-                diary.updatedDate
+                diary.receiverUser.userId
+//                ,
+//                diary.createDate,
+//                diary.updatedDate
         ))
                 .from(diary)
                 .where(diary.user.userId.eq(userId).and(diary.receiverUser.userId.isNull()))
@@ -73,9 +75,10 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
                 diary.user.userId,
                 diary.diaryTitle,
                 diary.diaryContent,
-                diary.receiverUser.userId,
-                diary.createDate,
-                diary.updatedDate
+                diary.receiverUser.userId
+//                ,
+//                diary.createDate,
+//                diary.updatedDate
         ))
                 .from(diary)
                 .where(diary.user.userId.eq(userId).and(diary.receiverUser.userId.isNotNull()))
@@ -97,9 +100,10 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
                 diary.user.userId,
                 diary.diaryTitle,
                 diary.diaryContent,
-                diary.receiverUser.userId,
-                diary.createDate,
-                diary.updatedDate
+                diary.receiverUser.userId
+//                ,
+//                diary.createDate,
+//                diary.updatedDate
         ))
                 .from(diary)
                 .where(diary.user.userId.eq(userId).and(diary.receiverUser.userId.isNotNull()))
