@@ -8,13 +8,20 @@ import com.example.myoceanproject.entity.Period;
 import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.type.GroupLocationType;
 import com.example.myoceanproject.type.GroupStatus;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 
 @Component
@@ -100,5 +107,23 @@ public class GroupDTO {
                 .groupFileUuid(groupFileUuid)
                 .groupFileSize(groupFileSize)
                 .build();
+    }
+
+    private Set<WebSocketSession> sessions = new HashSet<>();
+
+
+    public void handleMessage(WebSocketSession session, ChattingDTO chattingDTO,
+                              ObjectMapper objectMapper) throws IOException {
+            sessions.add(session);
+
+        send(chattingDTO,objectMapper);
+    }
+
+    private void send( ChattingDTO chattingDTO, ObjectMapper objectMapper) throws IOException {
+        TextMessage textMessage = new TextMessage(objectMapper.
+                writeValueAsString(chattingDTO.getChattingContent()));
+        for(WebSocketSession sess : sessions){
+            sess.sendMessage(textMessage);
+        }
     }
 }
