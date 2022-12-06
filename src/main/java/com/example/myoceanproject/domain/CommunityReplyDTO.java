@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Component
 @Data
@@ -35,6 +36,10 @@ public class CommunityReplyDTO {
     private String createDate;
 
     private String updatedDate;
+
+    private List<CommunityReplyDTO> replyList;
+
+    private int endPage;
 
 
     @QueryProjection

@@ -21,7 +21,7 @@ public class CommunityPostService {
     private CommunityPostRepository postRepository;
 
     public Page<CommunityPostDTO> showCounseling(Pageable pageable, CommunityCategory communityCategory, Criteria criteria){
-        return criteria.getKeyword() == null ? postRepositoryImpl.findAllByCategory(pageable, communityCategory) : postRepositoryImpl.findAllByCategory(pageable, communityCategory,criteria);
+        return criteria.getKeyword().equals("null") ? postRepositoryImpl.findAllByCategory(pageable, communityCategory) : postRepositoryImpl.findAllByCategory(pageable, communityCategory,criteria);
     }
 
     public Page<CommunityPostDTO> showPost(Pageable pageable, Criteria criteria){

@@ -3,7 +3,6 @@ package com.example.myoceanproject.repository.community.post;
 import com.example.myoceanproject.domain.*;
 import com.example.myoceanproject.entity.CommunityLike;
 import com.example.myoceanproject.entity.CommunityPost;
-import com.example.myoceanproject.repository.community.file.CommunityFileRepositoryImpl;
 import com.example.myoceanproject.repository.community.like.CommunityLikeRepositoryImpl;
 import com.example.myoceanproject.repository.community.reply.CommunityReplyRepositoryImpl;
 import com.example.myoceanproject.type.CommunityCategory;
@@ -25,8 +24,6 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
     @Autowired
     private CommunityReplyRepositoryImpl replyRepositoryImpl ;
     @Autowired
-    private CommunityFileRepositoryImpl fileRepositoryImpl ;
-    @Autowired
     private CommunityLikeRepositoryImpl likeRepositoryImpl ;
 
     @Autowired
@@ -46,6 +43,10 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
                         communityPost.communityCategory,
                         communityPost.communityTitle,
                         communityPost.communityContent,
+                        communityPost.communityFilePath,
+                        communityPost.communityFileName,
+                        communityPost.communityFileUuid,
+                        communityPost.communityFileSize,
                         communityPost.communityViewNumber,
                         communityPost.createDate,
                         communityPost.updatedDate
@@ -78,6 +79,10 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
                         communityPost.communityCategory,
                         communityPost.communityTitle,
                         communityPost.communityContent,
+                        communityPost.communityFilePath,
+                        communityPost.communityFileName,
+                        communityPost.communityFileUuid,
+                        communityPost.communityFileSize,
                         communityPost.communityViewNumber,
                         communityPost.createDate,
                         communityPost.updatedDate
@@ -111,6 +116,10 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
                         communityPost.communityCategory,
                         communityPost.communityTitle,
                         communityPost.communityContent,
+                        communityPost.communityFilePath,
+                        communityPost.communityFileName,
+                        communityPost.communityFileUuid,
+                        communityPost.communityFileSize,
                         communityPost.communityViewNumber,
                         communityPost.createDate,
                         communityPost.updatedDate
@@ -144,6 +153,10 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
                         communityPost.communityCategory,
                         communityPost.communityTitle,
                         communityPost.communityContent,
+                        communityPost.communityFilePath,
+                        communityPost.communityFileName,
+                        communityPost.communityFileUuid,
+                        communityPost.communityFileSize,
                         communityPost.communityViewNumber,
                         communityPost.createDate,
                         communityPost.updatedDate
@@ -167,14 +180,9 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
     @Override
     public void deleteByPost(CommunityPost post){
 //        삭제는 어짜피 entity로 진행되기 때문
-        List<CommunityFileDTO> postFiles = fileRepositoryImpl.findByCommunityPost(post);
         List<CommunityLike> likes = likeRepositoryImpl.findByCommunityPost(post);
         List<CommunityReplyDTO> replies = replyRepositoryImpl.findByCommunityPost(post);
 
-        if(!postFiles.isEmpty()) {
-//        전체 삭제 메소드를 실행하여 포스트와 관련된 파일을 전체 삭제한다.
-            fileRepositoryImpl.deleteByCommunityPost(post);
-        }
 //        만약 포스트객체에 라이크가 있다면?
         if(!likes.isEmpty()) {
 //        전체 삭제 메소드를 실행하여 포스트와 관련된 파일을 전체 삭제한다.

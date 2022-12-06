@@ -5,6 +5,7 @@ import com.example.myoceanproject.entity.Period;
 import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.type.CommunityCategory;
 import com.querydsl.core.annotations.QueryProjection;
+import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -32,6 +33,14 @@ public class CommunityPostDTO {
 
     private Long communityPostId;
 
+    private String communityFilePath;
+
+    private String communityFileName;
+
+    private String communityFileUuid;
+
+    private Long communityFileSize;
+
     private int communityReplyCount;
 
     private String createDate;
@@ -39,11 +48,11 @@ public class CommunityPostDTO {
     private String updatedDate;
 
     private List<CommunityPostDTO> postList;
+
     private int endPage;
 
-
     @QueryProjection
-    public CommunityPostDTO(Long communityPostId, Long userId, String userNickName, String userFileName, String userFilePath, Long userFileSize, String userFileUuid, CommunityCategory communityCategory, String communityTitle, String communityContent, int communityViewNumber, LocalDateTime createDate, LocalDateTime updatedDate) {
+    public CommunityPostDTO(Long communityPostId, Long userId, String userNickName, String userFileName, String userFilePath, Long userFileSize, String userFileUuid, CommunityCategory communityCategory, String communityTitle, String communityContent, String communityFilePath, String communityFileName, String communityFileUuid, Long communityFileSize, int communityViewNumber, LocalDateTime createDate, LocalDateTime updatedDate) {
         this.communityPostId = communityPostId;
         this.userId = userId;
         this.userNickName = userNickName;
@@ -54,6 +63,10 @@ public class CommunityPostDTO {
         this.communityCategory = communityCategory;
         this.communityTitle = communityTitle;
         this.communityContent = communityContent;
+        this.communityFilePath = communityFilePath;
+        this.communityFileName = communityFileName;
+        this.communityFileUuid = communityFileUuid;
+        this.communityFileSize = communityFileSize;
         this.communityViewNumber = communityViewNumber;
         this.createDate = createDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         this.updatedDate = updatedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));

@@ -47,17 +47,19 @@ let $tr = $("#info_table").find('tr');
 let accountCondition = null;
 
 function removePost(tag){
+    let postNumber = $(tag).closest('tr').children('.postId').text();
     if (temp == 1) {
         temp--;
-        $(tag).parent().children('.account-modal').remove();
+        $(tag).next().remove();
     } else {
         temp++;
         $(tag).parent().append("<div class=\"account-modal\">\n" +
             "    <button class=\"account-modal-button\">삭제</button>\n" +
             "</div>")
         $(tag).next().find('.account-modal-button').click(function () {
-            $(tag).closest('.account-modal').remove()
-            $(tag).remove()
+            $(tag).next().remove();
+            postService.remove(postNumber,
+                function(){show()});
             temp--;
         })
     }
@@ -70,4 +72,43 @@ function removePost(tag){
 $('.filter').children('span').click(function(){
     $(this).siblings().removeClass('active-filter')
     $(this).addClass('active-filter');
-})
+});
+
+let counselingPostService = (function(){
+    function getList(param, callback, error){
+        $.ajax({
+            url: "/post/counseling/" + (param.page || 0) + "/" + param.keyword,
+            type: "get",
+            async : false,
+            success: function(postDTO, status, xhr){
+                if(callback){
+                    callback(postDTO);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+
+    function remove(postNumber, callback, error){
+        $.ajax({
+            url: "/post/counseling/" + postNumber,
+            type: "delete",
+            async : false,
+            success: function(text){
+                if(callback){
+                    callback(text);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+    return {getList: getList,remove: remove}
+}) ();
