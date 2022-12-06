@@ -4,8 +4,6 @@ import com.example.myoceanproject.domain.ChattingDTO;
 import com.example.myoceanproject.domain.GroupDTO;
 import com.example.myoceanproject.domain.QChattingDTO;
 import com.example.myoceanproject.domain.QGroupDTO;
-import com.example.myoceanproject.entity.Chatting;
-import com.example.myoceanproject.entity.GroupMember;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -81,7 +79,7 @@ public class ChattingRepositoryImpl implements ChattingCustomRepository {
                 chatting.senderGroupMember.groupMemberId,
                 chatting.chattingContent,
                 chatting.createDate
-        )).from(chatting).where(chatting.group.groupId.eq(groupId)).fetch();
+        )).from(chatting).where(chatting.group.groupId.eq(groupId)).orderBy(chatting.createDate.asc()).fetch();
     }
 
 //    public GroupDTO findGroupByGroupMemberId(Long groupMemberId){

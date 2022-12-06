@@ -46,7 +46,5 @@ public class ChattingService {
         chatting.setSenderGroupMember(groupMemberRepository.findById(groupMemberId).get());
         chattingRepository.save(chatting);
         System.out.println(chatting);
-
-
     }
 }
