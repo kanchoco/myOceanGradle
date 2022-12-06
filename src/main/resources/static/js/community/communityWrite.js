@@ -192,8 +192,79 @@ $(".Button-bqxlp0-0.fFBpBV").on("click", function(e){
         communitySave.add({
             communityCategory : category,
             communityContent : $(".note-editable").html(),
-            communityTitle: $(".SocialFeedPage__Title-ky5ymg-2.gVPyuz").val()
+            communityTitle: $(".SocialFeedPage__Title-ky5ymg-2.gVPyuz").val(),
+            communityFileName: $("input[name=communityFileName]").val(),
+            communityFileUuid: $("input[name=communityFileUuid]").val(),
+            communityFileSize: $("input[name=communityFileSize]").val(),
+            communityFilePath: $("input[name=communityFilePath]").val()
         })
     }
+});
 
+
+//썸네일 이미지
+$(".plusThumb").on("change", function(){
+    let arrayFile =[];
+
+    let formData = new FormData();
+    let $inputFile = $("input[name='plusThumb']");
+    let files = $inputFile[0].files;
+
+    Array.from(files).forEach(file => arrayFile.push(file));
+    const dataTransfer = new DataTransfer();
+
+    arrayFile.forEach(file => dataTransfer.items.add(file));
+    $(this)[0].files = dataTransfer.files;
+
+    $(files).each(function(i, file){
+        formData.append("upload", file);
+    });
+
+    $.ajax({
+        url: "/community/thumbnail",
+        type: "post",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(result) {
+            console.log(Object.values(result[0]));
+            $('input[name=communityFileName]').attr('value', Object.values(result[0])[12]);
+            $('input[name=communityFilePath]').attr('value', Object.values(result[0])[11]);
+            $('input[name=communityFileSize]').attr('value', Object.values(result[0])[14]);
+            $('input[name=communityFileUuid]').attr('value', Object.values(result[0])[13]);
+            let imageSrc = "/community/display?fileName=" + Object.values(result[0])[11] + "/" + Object.values(result[0])[13] + "_" + Object.values(result[0])[12];
+            console.log(Object.values(result));
+            console.log(imageSrc);
+            $('.image-header').show();
+            $('.img-box').show();
+
+            let text = "";
+            text += `<li id="thumbnailImage" data-file-size="` + Object.values(result[0])[14] + `" data-file-name="` + Object.values(result[0])[12] + `" data-file-upload-path="` + Object.values(result[0])[11] + `" data-file-uuid="` + Object.values(result[0])[13] + `" style="list-style: none;width:100%;">`;
+            text += `<img src=` + imageSrc + ` style="width:100%;" height="auto">`;
+            text += `</li>`;
+
+            $(".imgInputBox").append(text);
+
+            $(".text-center.container.thumbnailPlus").hide();
+        }
+    });
+});
+
+
+//썸네일 삭제
+$('.removeImg').on('click', function(){
+    $('.image-header').hide();
+    $('.img-box').attr('src', '');
+    let uploadPath = $("#thumbnailImage").data("file-upload-path");
+    let fileName = $("#thumbnailImage").data("file-uuid") + "_" + $("#thumbnailImage").data("file-name");
+
+    $.ajax({
+        url: "/community/delete",
+        type: "post",
+        data: {uploadPath: uploadPath, fileName: fileName},
+        success: function(){
+            $("#thumbnailImage").remove();
+            $(".text-center.container.thumbnailPlus").show();
+        }
+    });
 });

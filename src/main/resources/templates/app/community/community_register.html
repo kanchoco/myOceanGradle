@@ -32,6 +32,16 @@
     <header th:replace="/app/fix/headerModify.html:: header"/>
 </div>
 <form onsubmit="return false;" th:object="${communityPostDTO}" style="background:white;">
+    <!--파일 이름-->
+    <input data-v-72dffd28="" th:field="*{communityFileName}" name="communityFileName" type="text" maxlength="40" class="form-control groupFileName" style="display:none;">
+    <!--파일 경로-->
+    <input data-v-72dffd28="" th:field="*{communityFilePath}" name="communityFilePath" type="text" maxlength="40" class="form-control groupFilePath" style="display:none;">
+    <!--파일 크기-->
+    <input data-v-72dffd28="" th:field="*{communityFileSize}" name="communityFileSize" type="text" maxlength="40" class="form-control groupFileSize" style="display:none;">
+    <!--파일 UUID-->
+    <input data-v-72dffd28="" th:field="*{communityFileUuid}" name="communityFileUuid" type="text" maxlength="40" class="form-control groupFileUuid" style="display:none;">
+    <!--파일 ID-->
+    <!--<input data-v-72dffd28="" th:field="*{communityId}" name="communityId" type="text" maxlength="40" class="form-control groupFileUuid" style="display:none;">-->
     <div class="SocialFeedPage__Wrapper-ky5ymg-0 fzBbGO">
         <div class="highWrapper">
             <div class="SocialFeedPage__Header-ky5ymg-1 jIjcTX">
