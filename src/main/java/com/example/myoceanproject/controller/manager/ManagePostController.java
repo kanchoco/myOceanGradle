@@ -14,6 +14,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,9 +33,11 @@ public class ManagePostController {
 
     @GetMapping("/free/{page}/{keyword}")
     public CommunityPostDTO getFreeBoard(@PathVariable int page, @PathVariable(required = false) String keyword){
+        String decodeKeyword = URLDecoder.decode(keyword, StandardCharsets.UTF_8);
+
         Criteria criteria = new Criteria();
         criteria.setPage(page);
-        criteria.setKeyword(keyword);
+        criteria.setKeyword(decodeKeyword);
         //        0부터 시작,
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
@@ -53,10 +58,12 @@ public class ManagePostController {
         return postDTO;
     }
     @GetMapping("/counseling/{page}/{keyword}")
-    public CommunityPostDTO getCounseling(@PathVariable int page, @PathVariable(required = false) String keyword){
+    public CommunityPostDTO getCounseling(@PathVariable int page, @PathVariable(required = false) String keyword) throws UnsupportedEncodingException {
+        String decodeKeyword = URLDecoder.decode(keyword, StandardCharsets.UTF_8);
+
         Criteria criteria = new Criteria();
         criteria.setPage(page);
-        criteria.setKeyword(keyword);
+        criteria.setKeyword(decodeKeyword);
         //        0부터 시작,
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 

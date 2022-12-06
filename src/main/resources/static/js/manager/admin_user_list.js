@@ -81,7 +81,6 @@ function updateStatus(user){
                  (status === 'null') ? showAll() : show();
                 })
                 $(user).next().remove();
-                // $(user).remove();
                 temp--;
             })
         }
@@ -97,7 +96,7 @@ function updateStatus(user){
 
 function getListByKeyword(param, callback, error) {
     $.ajax({
-        url: "/user/" + param.status + "/" + (param.page || 0) + "/" + param.keyword,
+        url: encodeURI("/user/" + param.status + "/" + (param.page || 0) + "/" + param.keyword),
         type: "get",
         async : false,
         success: function (userDTO, status, xhr) {

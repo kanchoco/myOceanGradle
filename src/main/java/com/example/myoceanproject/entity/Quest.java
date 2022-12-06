@@ -22,6 +22,8 @@ public class Quest extends Period{
     private String questName;
     @NotNull
     private String questContent;
+    @NotNull
+    private String questPoint;
     private LocalDateTime questDeadLine;
     private String questFileName;
     private String questFilePath;
@@ -29,10 +31,11 @@ public class Quest extends Period{
     private Long questFileSize;
 
     @Builder
-    public Quest(String questCategory, String questName, String questContent, LocalDateTime questDeadLine, String questFileName, String questFilePath, Long questFileSize, String questFileUuid) {
+    public Quest(String questCategory, String questName, String questContent,int questPoint, LocalDateTime questDeadLine, String questFileName, String questFilePath, Long questFileSize, String questFileUuid) {
         this.questCategory = questCategory;
         this.questName = questName;
         this.questContent = questContent;
+        this.questPoint = questPoint;
         this.questDeadLine = questDeadLine;
         this.questFileName = questFileName;
         this.questFilePath = questFilePath;
@@ -43,6 +46,6 @@ public class Quest extends Period{
         this.questCategory = questDTO.getQuestCategory();
         this.questName = questDTO.getQuestName();
         this.questContent = questDTO.getQuestContent();
-        this.questDeadLine = questDTO.getQuestDeadLine();
+        this.questDeadLine = LocalDateTime.parse(questDTO.getQuestDeadLine());
     }
 }
