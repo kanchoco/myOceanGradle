@@ -9,13 +9,15 @@ import java.util.List;
 
 public interface ChattingCustomRepository {
 
-    List<GroupMember> findByGroupId(Long groupId);
+//    List<GroupMember> findByGroupId(Long groupId);
 
     List<GroupDTO> findByUserId(Long userId);
 
     List<ChattingDTO> findChattingByUserId(Long groupId);
 
     Long findGroupMemberIdByUserIdAndGroupId(Long userId, Long groupId);
+
+
 
 
 }

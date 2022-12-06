@@ -230,9 +230,8 @@ $("li.active").on("click", function (e) {
     $("#sendButton").on("click", function(){
         add({
             chattingContent: $("#msg").val(),
-            senderUserId: $("input[name='replyWriter']").val(),
             groupId : groupId
-        }, getChattingContentList);
+        }, getList);
     });
 
 
@@ -290,6 +289,7 @@ function getChattingContentList(chattingDTOList) {
 }
 
 function add(chatting, callback, error){
+    console.log("ajax 들어옴")
     $.ajax({
         url: "/chatting/new",
         type: "post",
