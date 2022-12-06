@@ -68,6 +68,10 @@ public class CommunityPost extends Period{
         this.communityTitle = communityPostDTO.getCommunityTitle();
         this.communityContent = communityPostDTO.getCommunityContent();
         this.communityViewNumber = communityPostDTO.getCommunityViewNumber();
+        this.communityFilePath = communityPostDTO.getCommunityFilePath();
+        this.communityFileName = communityPostDTO.getCommunityFileName();
+        this.communityFileUuid = communityPostDTO.getCommunityFileUuid();
+        this.communityFileSize = communityPostDTO.getCommunityFileSize();
     }
 
 //    변경을 자동감지해서 업데이트되므로,

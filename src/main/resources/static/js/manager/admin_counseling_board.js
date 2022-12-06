@@ -58,7 +58,7 @@ function removePost(tag){
             "</div>")
         $(tag).next().find('.account-modal-button').click(function () {
             $(tag).next().remove();
-            postService.remove(postNumber,
+            counselingPostService.remove(postNumber,
                 function(){show()});
             temp--;
         })
@@ -77,7 +77,7 @@ $('.filter').children('span').click(function(){
 let counselingPostService = (function(){
     function getList(param, callback, error){
         $.ajax({
-            url: "/post/counseling/" + (param.page || 0) + "/" + param.keyword,
+            url: encodeURI("/post/counseling/" + (param.page || 0) + "/" + param.keyword),
             type: "get",
             async : false,
             success: function(postDTO, status, xhr){
@@ -95,7 +95,7 @@ let counselingPostService = (function(){
 
     function remove(postNumber, callback, error){
         $.ajax({
-            url: "/post/counseling/" + postNumber,
+            url: "/post/" + postNumber,
             type: "delete",
             async : false,
             success: function(text){

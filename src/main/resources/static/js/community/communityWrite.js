@@ -11,16 +11,6 @@ const $exchangeFilterLi = $(".exchange_filter_1h li");
 
 let text ="";
 
-// editor js에 작성된 글들 저장하는 끔찍한 방법
-$(".Button-bqxlp0-0.fFBpBV").click(function(){
-    for(let i = 0; i<$(".cdx-block").length;i++){
-        text += "<p>" + $(".cdx-block").eq(i).html()+"</p>";
-    }
-    console.log(text);
-    $(".cdx-block").html(text);
-})
-
-
 $postFilterLi.click(function () {
     var text = $(this).text();
     $(this).parent().find(".post_filter_input").val(text);
@@ -62,7 +52,7 @@ $exchangeFilterLi.click(function () {
 checkMedia()
 $(window).resize(function(){
     if(window.innerWidth<650){
-      $(".registerBtn_1h").hide()
+        $(".registerBtn_1h").hide()
         $(".until650px").show()
     } else{
         $(".registerBtn_1h").show()
@@ -99,6 +89,7 @@ $(document).ready(function() {
             contentType : false,
             processData : false,
             success: function(image){
+                /*컨트롤러를 통해 절대경로로 이미지가 저장되면, 서머노트에 해당 이미지가 출력된다.*/
                 $('#summernote').summernote('insertImage',image);
             },
             error: function(e){console.log(e);}
@@ -125,16 +116,155 @@ $(document).ready(function() {
         focus:true,
         lang : "ko-KR",
         callbacks: {
+            /*이미지가 업로드될 때 sendFile 함수를 실행한다.*/
             onImageUpload : function(files){
                 sendFile(files[0]);
             }
         }
     });
 
-    /*$('#summernote').summernote('insertText', $('input[name=groupContent]').val());*/
+    /*서머노트 api가 켜지면 생기는 클래스*/
     $(".note-editable").html($('input[name=groupContent]').val());
 
+    /*서머노트에 작성된 값이 변할 때*/
     $('#summernote').on('summernote.change', function(we, contents, $editable) {
         $('input[name=groupContent]').attr('value', $(".note-editable").html());
     });
 }); //ready
+
+
+let communitySave = (function(){
+    function add(communityContents, callback, error){
+        $.ajax({
+            url: "/community/index",
+            async: false,
+            type: "post",
+            data: JSON.stringify(communityContents),
+            contentType: "application/json; charset=utf-8",
+            success: function(result, status, xhr){
+                if(callback){
+                    callback(result);
+                }
+                alert("등록 완료되었습니다.");
+                location.href="/community/index";
+            },
+            error: function(xhr, status, err)
+            {
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+    return {add: add}
+})();
+
+// 게시글 작성 진행 후 등록 버튼 눌렀을 때
+$(".Button-bqxlp0-0.fFBpBV").on("click", function(e){
+    e.preventDefault();
+
+    // 카테고리 설정
+    let category = $("input[name='post_filter_input']").val();
+    switch(category) {
+
+        case "영화":
+            category="MOVIE";
+            break;
+        case "요리":
+            category="COOK";
+            break;
+        case "책":
+            category="BOOK";
+            break;
+        case "고민":
+            category="COUNSELING";
+            break;
+        case "영화":
+            category="MOVIE";
+            break;
+        case "운동":
+            category="EXERCISE";
+            break;
+    }
+
+    /*작성 내용*/
+    if(category != "DIARY"){
+        communitySave.add({
+            communityCategory : category,
+            communityContent : $(".note-editable").html(),
+            communityTitle: $(".SocialFeedPage__Title-ky5ymg-2.gVPyuz").val(),
+            communityFileName: $("input[name=communityFileName]").val(),
+            communityFileUuid: $("input[name=communityFileUuid]").val(),
+            communityFileSize: $("input[name=communityFileSize]").val(),
+            communityFilePath: $("input[name=communityFilePath]").val()
+        })
+    }
+});
+
+
+//썸네일 이미지
+$(".plusThumb").on("change", function(){
+    let arrayFile =[];
+
+    let formData = new FormData();
+    let $inputFile = $("input[name='plusThumb']");
+    let files = $inputFile[0].files;
+
+    Array.from(files).forEach(file => arrayFile.push(file));
+    const dataTransfer = new DataTransfer();
+
+    arrayFile.forEach(file => dataTransfer.items.add(file));
+    $(this)[0].files = dataTransfer.files;
+
+    $(files).each(function(i, file){
+        formData.append("upload", file);
+    });
+
+    $.ajax({
+        url: "/community/thumbnail",
+        type: "post",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(result) {
+            console.log(Object.values(result[0]));
+            $('input[name=communityFileName]').attr('value', Object.values(result[0])[12]);
+            $('input[name=communityFilePath]').attr('value', Object.values(result[0])[11]);
+            $('input[name=communityFileSize]').attr('value', Object.values(result[0])[14]);
+            $('input[name=communityFileUuid]').attr('value', Object.values(result[0])[13]);
+            let imageSrc = "/community/display?fileName=" + Object.values(result[0])[11] + "/" + Object.values(result[0])[13] + "_" + Object.values(result[0])[12];
+            console.log(Object.values(result));
+            console.log(imageSrc);
+            $('.image-header').show();
+            $('.img-box').show();
+
+            let text = "";
+            text += `<li id="thumbnailImage" data-file-size="` + Object.values(result[0])[14] + `" data-file-name="` + Object.values(result[0])[12] + `" data-file-upload-path="` + Object.values(result[0])[11] + `" data-file-uuid="` + Object.values(result[0])[13] + `" style="list-style: none;width:100%;">`;
+            text += `<img src=` + imageSrc + ` style="width:100%;" height="auto">`;
+            text += `</li>`;
+
+            $(".imgInputBox").append(text);
+
+            $(".text-center.container.thumbnailPlus").hide();
+        }
+    });
+});
+
+
+//썸네일 삭제
+$('.removeImg').on('click', function(){
+    $('.image-header').hide();
+    $('.img-box').attr('src', '');
+    let uploadPath = $("#thumbnailImage").data("file-upload-path");
+    let fileName = $("#thumbnailImage").data("file-uuid") + "_" + $("#thumbnailImage").data("file-name");
+
+    $.ajax({
+        url: "/community/delete",
+        type: "post",
+        data: {uploadPath: uploadPath, fileName: fileName},
+        success: function(){
+            $("#thumbnailImage").remove();
+            $(".text-center.container.thumbnailPlus").show();
+        }
+    });
+});

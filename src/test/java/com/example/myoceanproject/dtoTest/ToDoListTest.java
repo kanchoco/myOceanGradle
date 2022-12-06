@@ -4,6 +4,7 @@ import com.example.myoceanproject.domain.QToDoListDTO;
 import com.example.myoceanproject.domain.ToDoListDTO;
 import com.example.myoceanproject.entity.ToDoList;
 import com.example.myoceanproject.entity.User;
+import com.example.myoceanproject.repository.TodoListCustomRepository;
 import com.example.myoceanproject.repository.TodoListRepository;
 import com.example.myoceanproject.repository.UserRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -33,6 +34,9 @@ public class ToDoListTest {
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
 
+    @Autowired
+    TodoListCustomRepository todoListCustomRepository;
+
     @Test
     public void saveTest(){
 //        시나리오 : 유저가 투두리스트를 작성하면 작성한 유저의 아이디와 투두리스트 내용, 어떤 날짜에 해야하는 일인지가 db에 들어간다.
@@ -57,6 +61,7 @@ public class ToDoListTest {
     @Test
     public void findAllTest(){
         List<ToDoListDTO> lists = jpaQueryFactory.select(new QToDoListDTO(
+                toDoList.toDoListId,
                 toDoList.user.userId,
                 toDoList.toDoListContent,
                 toDoList.toDoListSelectDate
@@ -71,6 +76,7 @@ public class ToDoListTest {
     @Test
     public void findById(){
         List<ToDoListDTO> lists = jpaQueryFactory.select(new QToDoListDTO(
+                toDoList.toDoListId,
                 toDoList.user.userId,
                 toDoList.toDoListContent,
                 toDoList.toDoListSelectDate
@@ -104,5 +110,10 @@ public class ToDoListTest {
     public void deleteTest(){
         ToDoList toDoList = todoListRepository.findById(6L).get();
         todoListRepository.delete(toDoList);
+    }
+
+    @Test
+    public void todoListTesT(){
+        todoListCustomRepository.findAllByToday().stream().map(ToDoListDTO::toString).forEach(log::info);
     }
 }
