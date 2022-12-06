@@ -13,6 +13,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -28,9 +31,11 @@ public class ManageReplyController {
 
     @GetMapping("/free/{page}/{keyword}")
     public CommunityReplyDTO getFreeBoardReply(@PathVariable int page, @PathVariable(required = false) String keyword){
+        String decodeKeyword = URLDecoder.decode(keyword, StandardCharsets.UTF_8);
+
         Criteria criteria = new Criteria();
         criteria.setPage(page);
-        criteria.setKeyword(keyword);
+        criteria.setKeyword(decodeKeyword);
         //        0부터 시작,
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
@@ -52,9 +57,15 @@ public class ManageReplyController {
     }
     @GetMapping("/counseling/{page}/{keyword}")
     public CommunityReplyDTO getCounselingReply(@PathVariable int page, @PathVariable(required = false) String keyword){
+        String decodeKeyword = URLDecoder.decode(keyword, StandardCharsets.UTF_8);
+
         Criteria criteria = new Criteria();
         criteria.setPage(page);
-        criteria.setKeyword(keyword);
+        criteria.setKeyword(decodeKeyword);
+
+        log.info("-----------------------------------------------");
+        log.info(keyword);
+        log.info("-----------------------------------------------");
         //        0부터 시작,
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
