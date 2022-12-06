@@ -27,7 +27,6 @@ public class GroupMember extends Period{
 
     public void setUser(User user){
         this.user = user;
-
     }
 
     public void setGroup(Group group){

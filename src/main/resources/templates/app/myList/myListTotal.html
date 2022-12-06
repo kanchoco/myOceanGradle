@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgIpFwCZ0TNWjZV_oDbG6PttZ-tGS9m-HZRULv9iAT-pEn-hzV88sokgdWw2U_65MkBTbheiqaax2nlIOZkjLm3md7vpmpdVpre9YlzA4iQ7zi4WL7YDXP36A28XAkwZWcYGeq7v7UJ1GHyXVOMvzQxc0LH7Spqe7Ybl31dUqjgDh7oz63ZRaowjl2Mzw/s1600/myoceanlogo.png">
-  <title>내가 쓴 게시글(전체)</title>
+  <title>내가 쓴 게시글(전체) - 나의 바다(MyOcean)</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
         rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -23,16 +23,22 @@
   <div th:replace="/app/myList/myList.html :: myListCategory"></div>
   <div id="table_wrapper">
     <th:block th:each="listTotal:${listTotals}">
-    <ul th:object="${listTotal}">
-      <li>
-        <div class="my_list">
-<!--          th:text="${#dates.format(user.createDt, 'yyyy-MM-dd HH:mm')}"-->
-          <div class="badge free" th:text="*{communityCategory}"></div>
-          <div class="list_title" th:text="*{communityTitle}"></div>
-          <div class="list_date" th:text="*{createDate}"></div>
-        </div>
-      </li>
-    </ul>
+      <ul th:object="${listTotal}">
+        <li>
+          <div class="my_list" th:switch="${#strings.toString(listTotal.communityCategory)}">
+            <!--          th:text="${#dates.format(user.createDt, 'yyyy-MM-dd HH:mm')}"-->
+            <div th:case="자유" class="badge free" th:text="*{communityCategory}"/>
+            <div th:case="요리" class="badge cook" th:text="*{communityCategory}"/>
+            <div th:case="운동" class="badge exercise" th:text="*{communityCategory}"/>
+            <div th:case="영화" class="badge movie" th:text="*{communityCategory}"/>
+            <div th:case="책" class="badge book" th:text="*{communityCategory}"/>
+            <div th:case="고민" class="badge counseling" th:text="*{communityCategory}"/>
+            <div th:case="*" class="badge cook" th:text="*{communityCategory}"/>
+            <div class="list_title" th:text="*{communityTitle}"></div>
+            <div class="list_date" th:text="*{createDate}"></div>
+          </div>
+        </li>
+      </ul>
     </th:block>
 
     <div id = "page_changer_wrapper" th:object="${pagination}">
@@ -73,7 +79,7 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/fix/header.js"></script>
 <script src="/js/myList/myList.js"></script>
-<script th:inline="javascript">
+<script>
   const $pages = $('a.changePage');
 
   $("#search_input").on("keyup",function(key){
@@ -88,31 +94,6 @@
     $(document.pageForm.page).val($(this).attr("href"));
     document.pageForm.submit();
   });
-
-  // var badge=[[${listTotals}]];
-
-  // console.log(badge);
-
-  for(let i=0;i<10;i++) {
-    var badgeaaa=[[${listTotals}]][i];
-    var badge=[[${listTotals}]][i].communityCategory;
-    console.log(badgeaaa);
-    console.log(badge);
-
-    if (badge == "FREEBOARD") {
-      $("div.my_list").children().attr("class", "badge free");
-    } else if (badge == "COOK") {
-      $("div.my_list").children().attr("class", "badge cook");
-    } else if (badge == "EXERCISE") {
-      $("div.my_list").children().attr("class", "badge exercise");
-    } else if (badge == "MOVIE") {
-      $("div.my_list").children().attr("class", "badge movie");
-    } else if (badge == "BOOK") {
-      $("div.my_list").children().attr("class", "badge book");
-    } else if (badge == "COUNSELING") {
-      $("div.my_list").firstChild.attr("class", "badge counseling");
-    }
-  }
 
 </script>
 </html>

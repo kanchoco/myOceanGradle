@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgIpFwCZ0TNWjZV_oDbG6PttZ-tGS9m-HZRULv9iAT-pEn-hzV88sokgdWw2U_65MkBTbheiqaax2nlIOZkjLm3md7vpmpdVpre9YlzA4iQ7zi4WL7YDXP36A28XAkwZWcYGeq7v7UJ1GHyXVOMvzQxc0LH7Spqe7Ybl31dUqjgDh7oz63ZRaowjl2Mzw/s1600/myoceanlogo.png">
-  <title>영화이야기</title>
+  <title>영화 이야기 - 나의 바다(MyOcean)</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
         rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -23,15 +23,15 @@
   <div th:replace="/app/myList/myList.html :: myListCategory"></div>
   <div id="table_wrapper">
     <th:block th:each="movie:${movies}">
-    <ul th:object="${movie}">
-      <li>
-        <div class="my_list">
-          <div class="badge movie" th:text="*{communityCategory}"></div>
-          <div class="list_title" th:text="*{communityTitle}"></div>
-          <div class="list_date" th:text="*{createDate}"></div>
-        </div>
-      </li>
-    </ul>
+      <ul th:object="${movie}">
+        <li>
+          <div class="my_list">
+            <div class="badge movie" th:text="*{communityCategory}"></div>
+            <div class="list_title" th:text="*{communityTitle}"></div>
+            <div class="list_date" th:text="*{createDate}"></div>
+          </div>
+        </li>
+      </ul>
     </th:block>
 
     <div id = "page_changer_wrapper" th:object="${pagination}">
