@@ -6,7 +6,7 @@ spring:
   main:
     allow-circular-references: true
   mustache:
-      suffix: .html
+    suffix: .html
   devtools:
     livereload:
       enabled: true
@@ -22,11 +22,10 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.Oracle10gDialect
     hibernate:
-      ddl-auto: create
-#      ddl-auto: create-drop
-#      ddl-auto: update
-#      ddl-auto: validate
-
+      #      ddl-auto: create
+      #      ddl-auto: create-drop
+      ddl-auto: update
+    #          ddl-auto: validate
     properties:
       hibernate:
         format_sql: true
@@ -39,3 +38,5 @@ spring:
       max-request-size: 40MB
       max-file-size: 40MB
       file-size-threshold: 100MB
+    session:
+      tracking-modes: cookie

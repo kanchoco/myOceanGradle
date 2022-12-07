@@ -4,6 +4,7 @@ import com.example.myoceanproject.domain.QUserDTO;
 import com.example.myoceanproject.domain.UserDTO;
 import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.repository.UserRepository;
+import com.example.myoceanproject.service.oAuth.KakaoJoinService;
 import com.example.myoceanproject.type.UserAccountStatus;
 import com.example.myoceanproject.type.UserLoginMethod;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -12,21 +13,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.swing.*;
 import java.util.Base64;
 import java.util.List;
 
-import static com.example.myoceanproject.entity.QCommunityPost.communityPost;
 import static com.example.myoceanproject.entity.QUser.user;
 
 @Controller
 @Slf4j
 @RequestMapping("/join/*")
 public class JoinController {
+
+
+    @Autowired
+    private KakaoJoinService kakaoJoinService;
 
     @Autowired
     private UserRepository userRepository;
@@ -113,6 +119,24 @@ public class JoinController {
         return "redirect:/main/index";
     }
 
+    //    @ResponseBody
+    @GetMapping("/kakaoJoin")
+    public String  kakaoCallback(@RequestParam String code, HttpSession session, HttpServletRequest request) throws Exception {
+        log.info("code:"+code);
+
+        String token = kakaoJoinService.getKaKaoAccessToken(code);
+        session.setAttribute("token", token);
+        int exist=kakaoJoinService.getKakaoInfo(token);
+
+        if(exist==0){
+            session.invalidate();
+            return "redirect:/main/index?join=1";
+        }
+        else{
+            return "redirect:/login/index?login=1";
+        }
+    }
+
     public String encryption(String userPassword){
         String alg = "AES/CBC/PKCS5Padding";
         //키
@@ -152,7 +176,7 @@ public class JoinController {
         //---------------------------------------------------------------------------
         return encPw;
     }
-    
+
     public String decryption(String userPassword) {
         String alg = "AES/CBC/PKCS5Padding";
         //키
@@ -165,7 +189,7 @@ public class JoinController {
 
         //복호화된 유저 패스워드
         String decPw = "";
-        
+
         //----암호화 해석 코드 **********[복호화]**********
         try {
             Cipher cipher = Cipher.getInstance(alg);
