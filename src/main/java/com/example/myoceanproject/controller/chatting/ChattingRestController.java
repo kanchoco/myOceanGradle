@@ -1,11 +1,14 @@
 package com.example.myoceanproject.controller.chatting;
 
 import com.example.myoceanproject.domain.ChattingDTO;
+import com.example.myoceanproject.domain.GroupDTO;
+import com.example.myoceanproject.repository.GroupRepositoryImpl;
 import com.example.myoceanproject.service.chattingService.ChattingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,11 +24,14 @@ public class ChattingRestController {
 
 
     private final ChattingService chattingService;
+    private final GroupRepositoryImpl groupRepositoryImpl;
 
     @GetMapping("/groupId/{groupId}")
-    public List<ChattingDTO> list(@PathVariable("groupId") Long groupId){
+    public List<ChattingDTO> list(@PathVariable("groupId") Long groupId, Model model){
 
         List<ChattingDTO> chattingDTOList= chattingService.showChatting(groupId);
+        GroupDTO groupDTO =groupRepositoryImpl.findGroupByGroupId(groupId);
+        model.addAttribute("room",groupDTO);
         return chattingDTOList;
     }
 

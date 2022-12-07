@@ -3,6 +3,7 @@ package com.example.myoceanproject.domain;
 import com.example.myoceanproject.entity.Chatting;
 import com.example.myoceanproject.entity.Period;
 import com.example.myoceanproject.entity.User;
+import com.example.myoceanproject.type.MessageType;
 import com.example.myoceanproject.type.ReadStatus;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
@@ -44,9 +45,11 @@ public class ChattingDTO {
     private String chattingCreateTime;
     private String chattingCreateDate;
 
+    private MessageType messageType;
+
 
     @QueryProjection
-    public ChattingDTO(Long chattingId, Long senderUserId, String senderUserNickName, String senderUserFileName, String senderUserFilePath, Long senderUserFileSize, String senderUserFileUuid, Long groupId, String groupName, String groupFilePath, String groupFileName, String groupFileUuid, Long groupFileSize, Long senderGroupMemberId, String chattingContent, LocalDateTime createDate) {
+    public ChattingDTO(Long chattingId, Long senderUserId, String senderUserNickName, String senderUserFileName, String senderUserFilePath, Long senderUserFileSize, String senderUserFileUuid, Long groupId, String groupName, String groupFilePath, String groupFileName, String groupFileUuid, Long groupFileSize, Long senderGroupMemberId, String chattingContent, LocalDateTime createDate, MessageType messageType) {
         this.chattingId = chattingId;
         this.senderUserId = senderUserId;
         this.senderUserNickName = senderUserNickName;
@@ -64,6 +67,8 @@ public class ChattingDTO {
         this.chattingContent = chattingContent;
         this.chattingCreateDate = createDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         this.chattingCreateTime = createDate.format(DateTimeFormatter.ofPattern("HH:mm"));
+        this.messageType = messageType;
+
     }
 
 
@@ -73,6 +78,7 @@ public class ChattingDTO {
     public Chatting toEntity(){
         return Chatting.builder()
                 .chattingContent(chattingContent)
+                .messageType(messageType)
                 .build();
     }
 }

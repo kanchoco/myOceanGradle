@@ -78,7 +78,8 @@ public class ChattingRepositoryImpl implements ChattingCustomRepository {
                 chatting.senderGroupMember.group.groupFileSize,
                 chatting.senderGroupMember.groupMemberId,
                 chatting.chattingContent,
-                chatting.createDate
+                chatting.createDate,
+                chatting.messageType
         )).from(chatting).where(chatting.group.groupId.eq(groupId)).orderBy(chatting.createDate.asc()).fetch();
     }
 
