@@ -1,5 +1,6 @@
 package com.example.myoceanproject.entity;
 
+import com.example.myoceanproject.type.MessageType;
 import com.sun.istack.NotNull;
 import lombok.*;
 
@@ -32,6 +33,7 @@ public class Chatting extends Period{
 
     @NotNull
     private String chattingContent;
+
 
 
 

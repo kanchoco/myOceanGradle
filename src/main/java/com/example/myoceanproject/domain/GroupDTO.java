@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
@@ -23,7 +24,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-
+@Slf4j
 @Component
 @Data
 @NoArgsConstructor
@@ -114,14 +115,18 @@ public class GroupDTO {
 
     public void handleMessage(WebSocketSession session, ChattingDTO chattingDTO,
                               ObjectMapper objectMapper) throws IOException {
-            sessions.add(session);
-
+        log.info("==============================================================");
+        log.info("groupDTO HANDLE MESSAGE 들어옴");
+        log.info("==============================================================");
+        sessions.add(session);
         send(chattingDTO,objectMapper);
     }
 
     private void send( ChattingDTO chattingDTO, ObjectMapper objectMapper) throws IOException {
+        log.info("send 들어옴");
         TextMessage textMessage = new TextMessage(objectMapper.
                 writeValueAsString(chattingDTO.getChattingContent()));
+        log.info(textMessage.toString());
         for(WebSocketSession sess : sessions){
             sess.sendMessage(textMessage);
         }
