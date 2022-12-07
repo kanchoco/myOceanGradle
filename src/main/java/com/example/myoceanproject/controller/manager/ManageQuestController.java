@@ -1,21 +1,30 @@
 package com.example.myoceanproject.controller.manager;
+import com.example.myoceanproject.domain.CommunityPostDTO;
+import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.domain.QuestDTO;
-import com.example.myoceanproject.repository.quest.QuestRepository;
 import com.example.myoceanproject.service.QuestService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.UnsupportedEncodingException;
+import java.io.File;
+import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 @RequestMapping("/quest/*")
 public class ManageQuestController {
 
@@ -28,9 +37,80 @@ public class ManageQuestController {
 //    @RequestBody : 전달받은 데이터를 알맞는 매개변수로 주입
 //    ResponseEntity : 서버의 상태코드, 응답 메세지 등을 담을 수 있는 타입
 
-    @PostMapping(value = "/new", consumes = "application/json", produces = "text/plain; charset=utf-8")
-    public ResponseEntity<String> addQuest(@RequestBody QuestDTO questDTO) throws UnsupportedEncodingException {
+    @PostMapping(value = "/upload", consumes = "application/json", produces = "text/plain; charset=utf-8")
+    public String addQuest(@RequestBody QuestDTO questDTO) throws IOException {
         questService.addQuest(questDTO);
-        return new ResponseEntity<>(new String("write success".getBytes(), "UTF-8"), HttpStatus.OK);
+        return "dd";
+    }
+    @PostMapping("/uploadFile")
+    public QuestDTO upload(MultipartFile upload) throws IOException {
+        String rootPath = "C:/upload/quest";
+        String uploadFileName = null;
+
+        File uploadPath = new File(rootPath, createDirectoryByNow());
+        if(!uploadPath.exists()){
+            uploadPath.mkdirs();
+        }
+
+            QuestDTO questDTO = new QuestDTO();
+            UUID uuid = UUID.randomUUID();
+            String fileName = upload.getOriginalFilename();
+            String fileUuid = uuid.toString();
+            String groupFilePath = createDirectoryByNow();
+            Long groupFileSize = upload.getSize();
+            uploadFileName = uuid.toString() + "_" + fileName;
+
+            questDTO.setQuestFileName(fileName);
+            questDTO.setQuestFileUuid(fileUuid);
+            questDTO.setQuestFileSize(upload.getSize());
+            questDTO.setQuestFilePath(groupFilePath);
+
+            try{
+                File saveQuestFile = new File(uploadPath, uploadFileName);
+                upload.transferTo(saveQuestFile);
+            } catch(Exception e){
+                log.error(e.getMessage());
+            }
+        return questDTO;
+    }
+
+    @GetMapping("/{page}/{keyword}")
+    public QuestDTO getQuest(@PathVariable int page, @PathVariable(required = false) String keyword){
+        String decodeKeyword = URLDecoder.decode(keyword, StandardCharsets.UTF_8);
+
+        Criteria criteria = new Criteria();
+        criteria.setPage(page);
+        criteria.setKeyword(decodeKeyword);
+        //        0부터 시작,
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+
+        Page<QuestDTO> questDTOPage= questService.showPost(pageable, criteria);
+        int endPage = (int)(Math.ceil(questDTOPage.getNumber()+1 / (double)10)) * 10;
+        if(questDTOPage.getTotalPages() < endPage){
+            endPage = questDTOPage.getTotalPages() == 0 ? 1 : questDTOPage.getTotalPages();
+        }
+        log.info(endPage + "end");
+
+        QuestDTO questDTO = new QuestDTO();
+
+        questDTO.setQuestList(questDTOPage.getContent());
+        questDTO.setEndPage(endPage);
+
+        questDTOPage.getContent().stream().map(QuestDTO::toString).forEach(log::info);
+
+        return questDTO;
+    }
+
+    @GetMapping("/display")
+    public byte[] display(String fileName) throws IOException{
+        File file = new File("C:/upload/quest", fileName);
+        return FileCopyUtils.copyToByteArray(file);
+    }
+
+
+    public String createDirectoryByNow(){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+        Date now = new Date();
+        return format.format(now);
     }
 }
