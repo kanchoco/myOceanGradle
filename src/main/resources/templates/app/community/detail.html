@@ -60,7 +60,7 @@
                                 <div class="BasicInfoSection__Row-sc-1f238bn-1 lgXxUu">
                                     <hgroup class="BasicInfoSection__TitleContainer-sc-1f238bn-3 rUBYB">
                                         <!--제목-->
-                                        <h1 th:text="*{communityTitle}" class="BasicInfoSection__Title-sc-1f238bn-5 cWsrnE" style="margin-bottom:5px;">헨리가 나혼자 탄 한강 카약</h1>
+                                        <h1 th:text="*{communityTitle}" class="BasicInfoSection__Title-sc-1f238bn-5 cWsrnE" style="margin-bottom:5px;"></h1>
                                     </hgroup>
                                     <div class="BasicInfoSection__ActionButtonContainer-sc-1f238bn-6 fOXNjA">
                                         <!--게시글 작성 당사자일 경우에만 상단 도시락 버튼이 나옴-->
@@ -74,10 +74,10 @@
                                             <ul class="optionList">
                                                 <input type="hidden" class="exchange_filter_input" value="교환 일기">
                                                 <li class="optionItem" style="border-bottom: 1px solid rgb(220 215 215);">
-                                                    <a class="goUpdate" th:href="*{communityPostId}">수정</a>
+                                                    <a class="goUpdateCommunity" th:href="*{communityPostId}">수정</a>
                                                 </li>
                                                 <li class="optionItem">
-                                                    <a class="goDelete" th:href="*{communityPostId}">삭제</a>
+                                                    <a class="goDeleteCommunity" th:href="*{communityPostId}">삭제</a>
                                                 </li>
                                             </ul>
                                         </div>

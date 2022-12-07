@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Slf4j
 @Controller
@@ -30,9 +31,18 @@ public class CommunityController {
         return "app/community/detail";
     }
 
+    // 게시글 수정하기
+    @GetMapping("update")
+    public String update(Long communityPostId, Model model){
+        model.addAttribute("communityPostDTO", communityPostService.find(communityPostId));
+        log.info(model.toString());
+        return "app/community/community_register";
+    }
+
     // 커뮤니티 댓글 페이지
-    @GetMapping("/comment")
-    public String comment(){
+    @GetMapping("/reply")
+    public String comment(Long communityPostId, Model model){
+        model.addAttribute("communityPostDTO", communityPostService.find(communityPostId));
         return "app/community/community_comment";
     }
 
@@ -43,15 +53,11 @@ public class CommunityController {
         return "app/community/community_register";
     }
 
-/*    @GetMapping("/write")
-    public String write(){
-        return "app/community/community_write";
-    }*/
-
-    // 커뮤니티 상세보기 페이지
-    @GetMapping("/detail")
-    public String detail(){
-        return "app/community/detail";
+    // 게시글 삭제하기
+    @GetMapping("/deleteBoard")
+    public RedirectView delete(Long communityPostId){
+        communityPostService.delete(communityPostId);
+        return new RedirectView("/community/index");
     }
 
     /* 고민상담 게시판 */

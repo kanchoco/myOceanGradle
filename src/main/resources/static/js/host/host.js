@@ -788,8 +788,6 @@ $(".py-2.px-0.container.ex").on("click", function(){
             $(".text-center.container.thumbnailPlus").hide();
         }
     }
-
-
 })
 
 

@@ -2,7 +2,13 @@ package com.example.myoceanproject.controller.communtiy;
 
 import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.domain.Criteria;
+import com.example.myoceanproject.domain.GroupDTO;
+import com.example.myoceanproject.entity.CommunityPost;
+import com.example.myoceanproject.entity.Group;
+import com.example.myoceanproject.repository.GroupRepository;
+import com.example.myoceanproject.repository.community.post.CommunityPostRepository;
 import com.example.myoceanproject.service.community.CommunityPostService;
+import com.example.myoceanproject.type.GroupStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -10,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,29 +39,19 @@ import java.util.UUID;
 public class CommunityRestController {
 
     private final CommunityPostService communityPostService;
+    private final CommunityPostRepository communityPostRepository;
 
     //  리스트 출력
-    @GetMapping("/list/{page}")
-    public CommunityPostDTO getCommunity(@PathVariable int page, @PathVariable(required = false) String keyword){
-        Criteria criteria = new Criteria();
-        criteria.setPage(page);
-        criteria.setKeyword("null");
-        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+    @GetMapping("/list")
+    public List<CommunityPostDTO> getCommunity(){
+        List<CommunityPostDTO> communityPostDTO= communityPostService.findAllByList();
+        return communityPostDTO;
+    }
 
-        Page<CommunityPostDTO> postDTOPage= communityPostService.showPost(pageable, criteria);
-        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
-        if(postDTOPage.getTotalPages() < endPage){
-            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
-        }
-
-        CommunityPostDTO postDTO = new CommunityPostDTO();
-
-        postDTO.setPostList(postDTOPage.getContent());
-        postDTO.setEndPage(endPage);
-
-        postDTOPage.getContent().stream().map(CommunityPostDTO::toString).forEach(log::info);
-
-        return postDTO;
+    //무한스크롤
+    @GetMapping("/scroll/{page}")
+    public List<CommunityPostDTO> infiniteScroll(@PathVariable int page){
+        return communityPostService.selectScrollBoards(page);
     }
 
     // 게시글 작성 후 커뮤니티 페이지로 이동
@@ -71,7 +68,7 @@ public class CommunityRestController {
     }
 
 
-//  커뮤니티 게시글 작성 시 썸네일 띄우기
+//  커뮤니티 게시글 작성 시 썸네일 저장
     @PostMapping("/thumbnail")
     public List<CommunityPostDTO> upload(List<MultipartFile> upload) throws IOException {
         String rootPath = "C:/upload/community";
@@ -119,12 +116,33 @@ public class CommunityRestController {
         return files;
     }
 
+//  썸네일 출력   
     @GetMapping("/display")
     public byte[] display(String fileName) throws IOException{
         File file = new File("C:/upload/community", fileName);
         return FileCopyUtils.copyToByteArray(file);
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    @PostMapping(value="/update", consumes = "application/json", produces = "text/plain; charset=utf-8")
+    public ResponseEntity<String> communityUpdate(@RequestBody CommunityPostDTO communityPostDTO, HttpServletRequest request) throws UnsupportedEncodingException {
+
+        System.out.println("업데이트 컨트롤러로 들어옴");
+        HttpSession session=request.getSession();
+        Long userId = (Long)session.getAttribute("userId");
+        communityPostDTO.setUserId(userId);
+        log.info(communityPostDTO.toString());
+        /*groupDTO로 받아온 값의 communityPostId를 엔티티화하여 communityPost를 찾는다.*/
+        CommunityPost communityPost = communityPostRepository.findById(communityPostDTO.getCommunityPostId()).get();
+        log.info(communityPostDTO.toString());
+        /*그룹 안에 선언한 update메소드를 통해 communityPostDTO로 받아온 값으로 값을 수정한다.*/
+        communityPost.update(communityPostDTO);
+        log.info(communityPost.toString());
+
+        return new ResponseEntity<>(new String("register success".getBytes(), "UTF-8"), HttpStatus.OK);
+    }
+
+//  썸네일 취소 시 파일 자동 삭제
     @PostMapping("/delete")
     public void delete(String uploadPath, String fileName){
         File file = new File("C:/upload/community", uploadPath + "/" + fileName);
@@ -133,13 +151,11 @@ public class CommunityRestController {
         }
     }
 
+//  이미지 경로로 오늘의 날짜 지정
     public String createDirectoryByNow(){
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
         Date now = new Date();
         return format.format(now);
     }
-
-
-//  리스트 출력
 
 }
