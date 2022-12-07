@@ -47,7 +47,8 @@ $('#quest-register-wrapper').hide()
 $('.filter span').click(function (){
     if(temp === 0) {
         temp++;
-        $('#quest-register-wrapper').show()
+        $('#quest-register-wrapper').show();
+        checkModifying = false;
     }else{
         temp--;
         $('#quest-register-wrapper').hide();
@@ -61,38 +62,40 @@ let $tr = $(".info_table").find('tr');
 console.log($tr)
 console.log($tr.find('.more'))
 
-$tr.find('.more').click(function () {
+function modifyQuest(tag){
     if (moreButtonTemp === 1) {
         moreButtonTemp--;
-        $(this).parent().children('.account-modal').remove();
+        $(tag).next().remove();
     } else {
+        checkModifying = true;
+        checkUpload = false;
         moreButtonTemp++;
         //수정 모달 버튼 띄우기
-        $(this).parent().append("<div class=\"account-modal\">\n" +
+        $(tag).parent().append("<div class=\"account-modal\">\n" +
             "    <button class=\"account-modal-button\">수정</button>\n" +
             "</div>")
 
         //수정 모달 버튼 클릭시
-        $(this).next().find('.account-modal-button').click(function () {
+        $(tag).next().find('.account-modal-button').click(function () {
             //상단에 수정창 만들기
             $('#quest-register-wrapper').show();
             //수정창에 수정할 정보 넣기
             // $('.register td:nth-child(1)').attr("value", $(this).closest('tr').children('td:eq(1)').text())
-            console.log($(this).closest('tr').children('td:eq(1)').text())
-            $('.register td:nth-child(1) input').val($(this).closest('tr').children('td:eq(1)').text())
-            $('.register td:nth-child(2) input').val($(this).closest('tr').children('td:eq(2)').text())
-            $('.register td:nth-child(3) input').val($(this).closest('tr').children('td:eq(3)').text())
-            $('.register td:nth-child(4) input').val($(this).closest('tr').children('td:eq(4)').text())
-            $('.register td:nth-child(5) input').val($(this).closest('tr').children('td:eq(5)').text())
-            $('#preview').attr('src', $(this).closest('tr').children('td:eq(6)').find('img').attr('src'))
+            questId = $(tag).closest('tr').children('.questId').text();
+            $('.register td:nth-child(1) input').val($(tag).closest('tr').children('td:eq(1)').text())
+            $('.register td:nth-child(2) input').val($(tag).closest('tr').children('td:eq(2)').text())
+            $('.register td:nth-child(3) input').val($(tag).closest('tr').children('td:eq(3)').text())
+            $('.register td:nth-child(4) input').val($(tag).closest('tr').children('td:eq(4)').text())
+            $('.register td:nth-child(5) input').val($(tag).closest('tr').children('td:eq(5)').text())
+            $('.register td:nth-child(6) input').val($(tag).closest('tr').children('td:eq(6)').text())
+            $('#preview').attr('src', $(this).closest('tr').children('td:eq(7)').find('img').attr('src'))
             //수정 모달창과 버튼 삭제
-            $(this).closest('.account-modal').remove()
-            $(this).remove()
+            $(tag).next().remove();
             moreButtonTemp--;
 
         })
     }
-})
+}
 
 $('.close').click(function (){
     $('#quest-register-wrapper').hide();
@@ -119,11 +122,13 @@ let questFileName;
 let questFilePath;
 let questFileUuid;
 let questFileSize;
+let questId;
+let checkUpload = false;
+let checkModifying = false;
 
 
 $('.regist').click(function (){
     alert("퀘스트가 등록됐습니다.");
-
     questName = $('.register td:nth-child(1) input').val();
     questCategory = $('.register td:nth-child(2) input').val();
     switch($('.register td:nth-child(3) input').val()){
@@ -141,18 +146,36 @@ $('.regist').click(function (){
     questContent = $('.register td:nth-child(5) input').val();
     questPoint = $('.register td:nth-child(6) input').val();
 
-    questService.add({
-        questName : questName,
-        questCategory : questCategory,
-        questType : questType,
-        questDeadLine : questDeadLine,
-        questContent : questContent,
-        questPoint : questPoint,
-        questFileName : questFileName,
-        questFilePath : questFilePath,
-        questFileUuid : questFileUuid,
-        questFileSize : questFileSize
-    }, function (){show();});
+    console.log(checkModifying);
+    if(!checkModifying){
+        questService.add({
+            questName : questName,
+            questCategory : questCategory,
+            questType : questType,
+            questDeadLine : questDeadLine,
+            questContent : questContent,
+            questPoint : questPoint,
+            questFileName : questFileName,
+            questFilePath : questFilePath,
+            questFileUuid : questFileUuid,
+            questFileSize : questFileSize
+        }, function (){show();});
+    }else{
+        console.log("eeeeeeeeeeeee");
+        questService.update({
+            questId : questId,
+            questName : questName,
+            questCategory : questCategory,
+            questType : questType,
+            questDeadLine : questDeadLine,
+            questContent : questContent,
+            questPoint : questPoint,
+            questFileName : questFileName,
+            questFilePath : questFilePath,
+            questFileUuid : questFileUuid,
+            questFileSize : questFileSize
+        }, function (){show();});
+    }
 
     $('#quest-register-wrapper').hide();
     $('.register td:nth-child(1) input').val('');
@@ -221,6 +244,7 @@ $(".badge").on("change", function(event) {
             console.log(questFileSize);
 
             $("#preview").attr("src", imageSrc);
+            checkUpload = true;
         }
     });
 
@@ -247,10 +271,12 @@ let questService = (function(){
         });
     }
 
-    function update(postNumber, callback, error){
+    function update(quest, callback, error){
         $.ajax({
-            url: "/post/" + postNumber,
-            type: "delete",
+            url: "/quest/update",
+            type: "patch",
+            data: JSON.stringify(quest),
+            contentType: "application/json; charset=utf-8",
             async : false,
             success: function(text){
                 if(callback){

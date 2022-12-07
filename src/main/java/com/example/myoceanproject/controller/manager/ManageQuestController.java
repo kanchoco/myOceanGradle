@@ -2,7 +2,9 @@ package com.example.myoceanproject.controller.manager;
 import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.domain.QuestDTO;
+import com.example.myoceanproject.domain.UserDTO;
 import com.example.myoceanproject.service.QuestService;
+import com.example.myoceanproject.type.UserAccountStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -38,10 +40,20 @@ public class ManageQuestController {
 //    ResponseEntity : 서버의 상태코드, 응답 메세지 등을 담을 수 있는 타입
 
     @PostMapping(value = "/upload", consumes = "application/json", produces = "text/plain; charset=utf-8")
-    public String addQuest(@RequestBody QuestDTO questDTO) throws IOException {
+    public String addQuest(@RequestBody QuestDTO questDTO) {
         questService.addQuest(questDTO);
         return "dd";
     }
+    @PatchMapping (value = "/update", consumes = "application/json", produces = "text/plain; charset=utf-8")
+    public String updateQuest(@RequestBody QuestDTO questDTO){
+        log.info("-----------------------------------------------------");
+        log.info("업데이트");
+        log.info("-----------------------------------------------------");
+        questService.modify(questDTO);
+
+        return "update success";
+    }
+
     @PostMapping("/uploadFile")
     public QuestDTO upload(MultipartFile upload) throws IOException {
         String rootPath = "C:/upload/quest";
