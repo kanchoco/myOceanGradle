@@ -55,4 +55,11 @@ public class Quest extends Period{
         this.questDeadLine = questDTO.getQuestDeadLine();
         this.questPoint = questDTO.getQuestPoint();
     }
+    public void updateFile(QuestDTO questDTO) {
+        this.questFileName = questDTO.getQuestFileName();
+        this.questFilePath = questDTO.getQuestFilePath();
+        this.questFileSize = questDTO.getQuestFileSize();
+        this.questFileUuid = questDTO.getQuestFileUuid();
+    }
+
 }

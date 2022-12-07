@@ -98,7 +98,6 @@
                     <table class="info_table register">
                         <thead>
                         <tr>
-                            <th class="thead" style="width:5%;">번호</th>
                             <th class="thead" style="width:10%;">이름</th>
                             <th class="thead" style="width:10%;">카테고리</th>
                             <th class="thead" style="width:10%;">유형</th>
@@ -129,6 +128,7 @@
                     <table class="info_table">
                         <thead>
                         <tr>
+                            <th class="thead">번호</th>
                             <th class="thead">이름</th>
                             <th class="thead">카테고리</th>
                             <th class="thead">유형</th>
@@ -188,16 +188,16 @@
         questDTO.questList.forEach(quest => {
             text += `<tr>`;
             text += `<td class="info_td questId">`+ quest.questId +`</td>`;
-            text += `<td class="info_td">`+ quest.questCategory +`</td>`;
-            text += `<td class="info_td">`+ quest.questType +`</td>`;
+            text += `<td class="info_td">`+ quest.questName+`</td>`;
+            text += `<td class="info_td">`+ quest.questCategory+`</td>`;
+            text += `<td class="info_td">`+ quest.questType.toString() +`</td>`;
             text += `<td class="info_td">`+ quest.questDeadLine +`</td>`;
             text += `<td class="info_td">`+ quest.questContent +`</td>`;
             text += `<td class="info_td">`+ quest.questPoint +`</td>`;
-            text += `<td class="info_td">`+ quest.questContent +`</td>`;
-            text += `<td class="info_td"><span><img src="/quest/display?fileName=` + quest.questFilePath + `/` + quest.questFileUuid + `_` + quest.questFileName + `width="30px"></span></td>`;
+            text += `<td class="info_td"><span><img src="/quest/display?fileName=` + quest.questFilePath + `/` + quest.questFileUuid + `_` + quest.questFileName + `" ` + `width="30px"></span></td>`;
             text += `<td class="info_td">`+ quest.createDate +`</td>`;
             text += `<td class="info_td">`;
-            text += `<button class="more" onclick="removePost(this);"><img src="/imgin/more.png" width="15px"></button>`;
+            text += `<button class="more" onclick="modifyQuest(this);"><img src="/imgin/more.png" width="15px"></button>`;
             text += `</td>`;
             text += `</tr>`;
         });
