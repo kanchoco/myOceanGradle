@@ -47,5 +47,6 @@ public class Quest extends Period{
         this.questName = questDTO.getQuestName();
         this.questContent = questDTO.getQuestContent();
         this.questDeadLine = LocalDateTime.parse(questDTO.getQuestDeadLine());
+        this.questPoint = questDTO.getQuestPoint();
     }
 }
