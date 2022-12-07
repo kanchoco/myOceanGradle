@@ -23,7 +23,7 @@ public class Quest extends Period{
     @NotNull
     private String questContent;
     @NotNull
-    private String questPoint;
+    private int questPoint;
     private LocalDateTime questDeadLine;
     private String questFileName;
     private String questFilePath;

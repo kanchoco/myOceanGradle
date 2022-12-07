@@ -19,7 +19,7 @@ public class QuestDTO {
     private String questName;
     private String questContent;
     private String questDeadLine;
-    private int questPoint
+    private int questPoint;
 
     private String questFilePath;
     private String questFileName;
