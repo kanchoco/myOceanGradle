@@ -57,8 +57,8 @@ public class CommunityPostTest {
 
 //      userRepository 인터페이스 구현체 hibernate의 findById메서드를 이용해서
 //      커뮤니티 게시글의 작성자를 추가하기위해 검색
-        for (int k = 0; k < 30; k++) {
-            Optional<User> user = userRepository.findById(2L);
+        for (int k = 0; k < 40; k++) {
+            Optional<User> user = userRepository.findById(8L);
 
 //      화면에서 입력받는 값들을 위해 게시판,파일 DTO 객체 선언
             CommunityPostDTO communityPostDTO = new CommunityPostDTO();

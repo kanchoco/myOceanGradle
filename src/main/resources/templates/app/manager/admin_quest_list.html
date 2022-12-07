@@ -98,25 +98,26 @@
                     <table class="info_table register">
                         <thead>
                         <tr>
-                            <th class="thead">이름</th>
-                            <th class="thead">카테고리</th>
-                            <th class="thead">지급날짜</th>
-                            <th class="thead">내용</th>
-                            <th class="thead">포인트</th>
-                            <th class="thead">뱃지</th>
+                            <th class="thead" style="width:5%;">번호</th>
+                            <th class="thead" style="width:10%;">이름</th>
+                            <th class="thead" style="width:10%;">카테고리</th>
+                            <th class="thead" style="width:10%;">유형</th>
+                            <th class="thead" style="width:15%;">지급날짜</th>
+                            <th class="thead" style="width:35%;">내용</th>
+                            <th class="thead" style="width:10%;">포인트</th>
+                            <th class="thead" style="width:10%;">뱃지</th>
                         </tr>
                         </thead>
                         <tr>
-                            <form action="" method="post">
-                                <td class="info_td questName"><input type="text"></td>
-                                <td class="info_td questCategory"><input type="text"></td>
-                                <td class="info_td questDeadLine"><input type="text"></td>
-                                <td class="info_td questContent"><input type="text"></td>
-                                <td class="info_td questPoint"><input type="text"></td>
-                                <td class="info_td">
-                                    <input class = "badge" type="file">
-                                    <img id = "preview" src="/imgin/admin_file.png" onclick ="onClickUpload()" style="width:30px;" ></td>
-                            </form>
+                            <td class="info_td"><input type="text"></td>
+                            <td class="info_td"><input type="text"></td>
+                            <td class="info_td"><input type="text"></td>
+                            <td class="info_td"><input type="text"></td>
+                            <td class="info_td"><input type="text"></td>
+                            <td class="info_td"><input type="text"></td>
+                            <td class="info_td">
+                                <img id = "preview" src="/imgin/admin_file.png" onclick ="onClickUpload()" style="width:30px;" >
+                            </td>
                         </tr>
                     </table>
                     <div class = "register-button-wrapper">
@@ -128,9 +129,9 @@
                     <table class="info_table">
                         <thead>
                         <tr>
-                            <th class="thead"></th>
                             <th class="thead">이름</th>
                             <th class="thead">카테고리</th>
+                            <th class="thead">유형</th>
                             <th class="thead">지급날짜</th>
                             <th class="thead">내용</th>
                             <th class="thead">포인트</th>
@@ -139,144 +140,127 @@
                             <th class="thead">관리</th>
                         </tr>
                         </thead>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">회원가입 퀘스트</td>
-                            <td class="info_td">활동</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">회원가입을 하면 포인트와 뱃지가 제공됨</td>
-                            <td class="info_td">203</td>
-                            <td class="info_td"><span><img src="/imgin/admin_badge_1.png" width="30px"></span></td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">회원가입 퀘스트</td>
-                            <td class="info_td">활동</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">회원가입을 하면 포인트와 뱃지가 제공됨</td>
-                            <td class="info_td">103</td>
-                            <td class="info_td"><span><img src="/imgin/admin_badge_1.png" width="30px"></span></td>
-                            <td class="info_td">2022-10-11</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">회원가입 퀘스트</td>
-                            <td class="info_td">활동</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">회원가입을 하면 포인트와 뱃지가 제공됨</td>
-                            <td class="info_td">183</td>
-                            <td class="info_td"><span><img src="/imgin/admin_badge_1.png" width="30px"></span></td>
-                            <td class="info_td">2022-10-10</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">회원가입 퀘스트</td>
-                            <td class="info_td">활동</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">회원가입을 하면 포인트와 뱃지가 제공됨</td>
-                            <td class="info_td">203</td>
-                            <td class="info_td"><span><img src="/imgin/admin_badge_1.png" width="30px"></span></td>
-                            <td class="info_td">2022-10-19</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">회원가입 퀘스트</td>
-                            <td class="info_td">활동</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">회원가입을 하면 포인트와 뱃지가 제공됨</td>
-                            <td class="info_td">203</td>
-                            <td class="info_td"><span><img src="/imgin/admin_badge_1.png" width="30px"></span></td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">회원가입 퀘스트</td>
-                            <td class="info_td">활동</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">회원가입을 하면 포인트와 뱃지가 제공됨</td>
-                            <td class="info_td">203</td>
-                            <td class="info_td"><span><img src="/imgin/admin_badge_1.png" width="30px"></span></td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="info_td">1</td>
-                            <td class="info_td">회원가입 퀘스트</td>
-                            <td class="info_td">활동</td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">회원가입을 하면 포인트와 뱃지가 제공됨</td>
-                            <td class="info_td">203</td>
-                            <td class="info_td"><span><img src="/imgin/admin_badge_1.png" width="30px"></span></td>
-                            <td class="info_td">2022-10-12</td>
-                            <td class="info_td">
-                                <button class="more"><img src="/imgin/more.png" width="15px"></button>
-                            </td>
-                        </tr>
-
+                        <tbody class="content"></tbody>
 
 
 
                     </table>
                 </div>
-                <div id="page_changer_wrapper">
-                    <div id="previous_button_wrapper">
-                        <button class="previous_buttons">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-                                 class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
-                        </button>
-                        <button class="previous_buttons">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-                                 class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
-                        </button>
-                    </div>
-                    <button class="page">1</button>
-                    <button class="page">2</button>
-                    <button class="page">3</button>
-                    <button class="page">4</button>
-                    <button class="page">5</button>
-                    <button class="page">6</button>
-                    <button class="page">7</button>
-                    <button class="page">8</button>
-                    <button class="page">9</button>
-                    <div id="next_button_wrapper">
-                        <button class="next_buttons">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-                                 class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
-                        </button>
-                        <button class="next_buttons">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-                                 class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
-                        </button>
-                    </div>
-                </div>
+                    <div class="pageBody"></div>
             </div>
         </div>
     </div>
 </div>
+<form id="uploadQuest" enctype="multipart/form-data">
+    <input class="questName" type="hidden">
+    <input class="questCategory" type="hidden">
+    <input class="questType" type="hidden">
+    <input class="questDeadLine" type="hidden">
+    <input class="questContent" type="hidden">
+    <input class="questPoint" type="hidden">
+    <input class = "badge" type="file">
+</form>
 
 </div>
 </body>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/js/manager/admin_quest_list.js"></script>
 <script>
+    let page = 1;
+    let keyword = 'null';
+    const $pages = $('a.changePage');
+
+    //ajax 호출
+    function show(){
+        questService.getList({
+            page : page,
+            keyword : keyword
+        }, getList);
+    }
+
+    //    페이지를 들어올 때, ajax로 restController의 데이터를 가져온다
+    show();
+
+    //    리스트 뽑기
+    function getList(questDTO){
+        let text = '';
+
+        questDTO.questList.forEach(quest => {
+            text += `<tr>`;
+            text += `<td class="info_td questId">`+ quest.questId +`</td>`;
+            text += `<td class="info_td">`+ quest.questCategory +`</td>`;
+            text += `<td class="info_td">`+ quest.questType +`</td>`;
+            text += `<td class="info_td">`+ quest.questDeadLine +`</td>`;
+            text += `<td class="info_td">`+ quest.questContent +`</td>`;
+            text += `<td class="info_td">`+ quest.questPoint +`</td>`;
+            text += `<td class="info_td">`+ quest.questContent +`</td>`;
+            text += `<td class="info_td"><span><img src="/quest/display?fileName=` + quest.questFilePath + `/` + quest.questFileUuid + `_` + quest.questFileName + `width="30px"></span></td>`;
+            text += `<td class="info_td">`+ quest.createDate +`</td>`;
+            text += `<td class="info_td">`;
+            text += `<button class="more" onclick="removePost(this);"><img src="/imgin/more.png" width="15px"></button>`;
+            text += `</td>`;
+            text += `</tr>`;
+        });
+
+        $(".content").html(text);
+
+        showPage(questDTO.endPage);
+    }
+    //페이징
+    function showPage(endPage){
+        let endNumber = Math.ceil(page / 10) * 10;
+        let realEnd = endPage;
+        let startNumber = endNumber -9;
+        if(endNumber > realEnd){
+
+            endNumber = realEnd == 0 ? '1' : realEnd;
+        }
+
+
+        let text ='';
+        text += `<div id="page_changer_wrapper">`;
+        text += `<div id="previous_button_wrapper">`;
+        text += `<a class="previous_buttons changePage" onclick="changePage(${startNumber})">`;
+        text += `<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">`;
+        text += `</a>`;
+        text += `<a class="previous_buttons changePage" onclick="changePage(${page>1? page-1 : page})">`;
+        text += `<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">`;
+        text += `</a>`;
+        text += `</div>`;
+        for (let i=startNumber; i<=endNumber; i++){
+            if(page === i){
+                text += `<a class="page active">${i}</a>`;
+                continue;
+            }
+            text += `<a class="page changePage" onclick="changePage(${i})">${i}</a>`;
+        }
+        text += `<div id="next_button_wrapper">`;
+        text += `<a class="next_buttons changePage" onclick="changePage(${page + 1 > realEnd? realEnd : page+1})">`;
+        text += `<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">`;
+        text += `</a>`;
+        text += `<a class="next_buttons changePage" onclick="changePage(${endPage})">`;
+        text += `<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">`;
+        text += `</a>`;
+        text += `</div>`;
+
+        $('.pageBody').html(text);
+    }
+
+    //검색
+    $("#search_input").on("keyup",function(key){
+        if(key.keyCode === 13) {
+            keyword = $(this).val();
+            page = 1;
+            show();
+        }
+    });
+
+    //페이지버튼 클릭 시
+    function changePage(href){
+        page = href;
+        show();
+    }
+
 
 
 </script>
