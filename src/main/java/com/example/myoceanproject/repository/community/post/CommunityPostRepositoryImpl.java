@@ -142,6 +142,42 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
 
         return new PageImpl<>(posts, pageable, total);
     }
+
+
+//  리스트로 게시글 출력하기
+@Override
+public List<CommunityPostDTO> findAllByList(){
+    List<CommunityPostDTO> posts = jpaQueryFactory.select(new QCommunityPostDTO(
+                    communityPost.communityPostId,
+                    communityPost.user.userId,
+                    communityPost.user.userNickname,
+                    communityPost.user.userFileName,
+                    communityPost.user.userFilePath,
+                    communityPost.user.userFileSize,
+                    communityPost.user.userFileUuid,
+                    communityPost.communityCategory,
+                    communityPost.communityTitle,
+                    communityPost.communityContent,
+                    communityPost.communityFilePath,
+                    communityPost.communityFileName,
+                    communityPost.communityFileUuid,
+                    communityPost.communityFileSize,
+                    communityPost.communityViewNumber,
+                    communityPost.communityLikeNumber,
+                    communityPost.createDate,
+                    communityPost.updatedDate
+            ))
+            .from(communityPost)
+            .orderBy(communityPost.createDate.desc())
+            .limit(10)
+            .fetch();
+
+    posts.stream().forEach(communityPostDTO -> {
+        communityPostDTO.setCommunityReplyCount(replyRepositoryImpl.countReplyByCommunityPost(communityPostDTO.getCommunityPostId()));
+    });
+
+    return posts;
+}
     @Override
     public Page<CommunityPostDTO> findAll(Pageable pageable, Criteria criteria){
 //        검색어가 있는 경우
@@ -232,4 +268,34 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
     }
 
 
+    // 무한스크롤
+    // 처음에 10개를 뿌려주고, 스크롤이 맨 끝 단에 닿으면 다음의 10개가 뿌려짐
+    public List<CommunityPostDTO> selectScrollBoards(int page){
+        List<CommunityPostDTO> boards = jpaQueryFactory.select(new QCommunityPostDTO(
+                        communityPost.communityPostId,
+                        communityPost.user.userId,
+                        communityPost.user.userNickname,
+                        communityPost.user.userFileName,
+                        communityPost.user.userFilePath,
+                        communityPost.user.userFileSize,
+                        communityPost.user.userFileUuid,
+                        communityPost.communityCategory,
+                        communityPost.communityTitle,
+                        communityPost.communityContent,
+                        communityPost.communityFilePath,
+                        communityPost.communityFileName,
+                        communityPost.communityFileUuid,
+                        communityPost.communityFileSize,
+                        communityPost.communityViewNumber,
+                        communityPost.communityLikeNumber,
+                        communityPost.createDate,
+                        communityPost.updatedDate
+                ))
+                .from(communityPost)
+                .orderBy(communityPost.createDate.desc())
+                .offset(page * 10)
+                .limit(10)
+                .fetch();
+        return boards;
+    }
 }

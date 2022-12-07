@@ -45,3 +45,18 @@ $(".recommendDetail").on("click", function(e){
     e.preventDefault();
     location.href = "/host/read?groupId=" + $(this).attr("href");
 })
+
+
+// 커뮤니티 페이지 수정
+$(".goUpdateCommunity").on("click", function(e){
+    e.preventDefault();
+    location.href = "/community/update?communityPostId=" + $(this).attr("href");
+})
+
+let thumbnailCheck = 0;
+
+// 커뮤니티 페이지 삭제
+$(".goDeleteCommunity").on("click", function(e){
+    e.preventDefault();
+    location.href ="/community/deleteBoard?communityPostId=" + $(this).attr("href");
+})

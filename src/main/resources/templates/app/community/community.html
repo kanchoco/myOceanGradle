@@ -16,7 +16,12 @@
     }
 </style>
 <body>
-<header th:replace="/app/fix/header.html :: header"></header>
+<div th:if="${session.userId}">
+    <header th:replace="/app/fix/header.html :: header"/>
+</div>
+<div th:unless="${session.userId}">
+    <header th:replace="/app/fix/headerModify.html:: header"/>
+</div>
 <div class="SocialFeedPage__Wrapper-ky5ymg-0 fzBbGO">
     <div class="SocialFeedPage__Header-ky5ymg-1 jIjcTX">
         <div style="padding-left: 20px; padding-right: 20px;">
@@ -160,6 +165,11 @@
         </div>
     </div>
 </div>
+
+<!--로딩중-->
+<div class="back-drop" style="display:none;">
+    <img src="./svg/spinner-solid.svg"/>
+</div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/community/community.js"></script>
@@ -170,9 +180,6 @@
     $wrapper.next().css("overflow-x","unset");
     // $(".writeBtn").css("right","30.4%");
 
-    /*화면 출력*/
-    let page = 1;
-    let pages= 0;
 
     // 화면 출력 함수 호출
     function show() {
@@ -189,7 +196,7 @@
     function getList(communityPostDTO){
         let text ="";
         console.log(communityPostDTO);
-        communityPostDTO.postList.forEach(post => {
+        communityPostDTO.forEach(post => {
             let imageSrc = "/community/display?fileName=" + post.communityFilePath + "/" + post.communityFileUuid + "_" + post.communityFileName;
             // 작성자 프로필 사진, 닉네임
             text +=`<div><div class="Profile__Wrapper-sc-14xkqhl-0 ePpOcl CardFeed__StyledProfile-sc-1hnsnr8-0 kHXXhk">`;
@@ -239,13 +246,18 @@
             // 좋아요 개수
             text+= post.communityLikeNumber;
             text+=`</span></button>`;
-            text+=`<a class="ActionGroup__ReplyLink-sg91np-2 grCiwo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='18' viewBox='0 0 21 18'%3E %3Cpath fill='none' stroke='%234E5968' stroke-width='1.5' d='M20.25.75H.75v11.818h3.842v4.015l5.9-4.015h9.758V.75z'/%3E %3C/svg%3E" alt="댓글">`;
+            text+=`<a class="goReplyBoard" style="display: flex;margin-top: 1px;" href=`;
+            text+=post.communityPostId;
+            text+=`>`;
+            text+=`<img class="ActionGroup__ReplyLink-sg91np-2 grCiwo" src="`;
+            text+=`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='18' viewBox='0 0 21 18'%3E %3Cpath fill='none' stroke='%234E5968' stroke-width='1.5' d='M20.25.75H.75v11.818h3.842v4.015l5.9-4.015h9.758V.75z'/%3E %3C/svg%3E`;
+            text+=`" alt="댓글">`;
             text+=`<span>`;
             // 댓글
             text+=`0`;
-            text+=`</span></a></div></div>`;
+            text+=`</span></img></a></div></div>`;
         })
-        $(".view__FeedListWrapper-sc-1fff32g-0.ciajVR").html(text);
+        $(".view__FeedListWrapper-sc-1fff32g-0.ciajVR").append(text);
     }
 
 </script>

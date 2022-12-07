@@ -150,15 +150,9 @@ $modalCancelBtn.click(function () {
     $modal.css("display","none");
 })
 
-let modalCheck = true;
 function modalOpen(){
-    if(modalCheck){
-        $("#modal-root").css("display","block");
-        modalCheck = false;
-    } else{
-        $modal.css("display","none");
-        modalCheck = true;
-    }
+    $("#modal-root").css("display","block");
+    modalCheck = false;
 }
 
 //페이지 소개 모달
@@ -179,7 +173,10 @@ $(".pageIntroduce_modalContainer_1h").click(function (e) {
 
 
 // 반응형
-checkMedia()
+$(document).ready(function(){
+    checkMedia();
+})
+
 $(window).resize(function(){
     if(window.innerWidth<785){
         $(".view__FeedListWrapper-sc-1fff32g-0").attr("class", "view__FeedListWrapper-sc-1fff32g-0 media");
@@ -244,8 +241,9 @@ function checkMedia(){
 
 let communityService = (function() {
     function getList(param, callback, error) {
+        console.log(param);
         $.ajax({
-            url: "/community/list/" + (param.page || 0),
+            url: "/community/list/",
             type: "get",
             async: false,
             success: function (communityPostDTO, status, xhr) {
@@ -260,17 +258,43 @@ let communityService = (function() {
             }
         });
     }
-    return {getList: getList}
+
+    function infiniteScroll(page, callback, error){
+        $.ajax({
+            url: "/community/scroll/" + page,
+            type: "get",
+            success: function(boards, status, xhr){
+                if(callback){
+                    callback(boards);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+
+    return {getList: getList, infiniteScroll: infiniteScroll}
 })();
 
 
 
-// 세부 게시글로 들어가기
-// $(".view__FeedListWrapper-sc-1fff32g-0.ciajVR").on("click", $(".goCommunity"), function(e){
-//     e.preventDefault();
-//     console.log($(this));
-//     // location.href = "/community/read?communityPostId=" + $(this).attr("href");
-// })
+let page = 1;
+
+$(window).scroll(function(){
+    if($(window).scrollTop() * 1.001 >= $(document).height() - $(window).height()){
+        communityService.infiniteScroll(page, getList);
+        page++;
+    }
+});
 
 
-
+/*댓글 창 이동하기*/
+$(document).ready(function(){
+    $(".goReplyBoard").on("click", function(e){
+        e.preventDefault();
+        location.href = "/community/reply?communityPostId=" + $(this).attr("href");
+    })
+})

@@ -41,12 +41,12 @@
     <!--파일 UUID-->
     <input data-v-72dffd28="" th:field="*{communityFileUuid}" name="communityFileUuid" type="text" maxlength="40" class="form-control groupFileUuid" style="display:none;">
     <!--파일 ID-->
-    <!--<input data-v-72dffd28="" th:field="*{communityId}" name="communityId" type="text" maxlength="40" class="form-control groupFileUuid" style="display:none;">-->
+    <input th:if="*{communityPostId}" th:field="*{communityPostId}" type="text" name="updateCheck" style="display:none;">
     <div class="SocialFeedPage__Wrapper-ky5ymg-0 fzBbGO">
         <div class="highWrapper">
             <div class="SocialFeedPage__Header-ky5ymg-1 jIjcTX">
                 <div style="padding-left: 20px; padding-right: 20px;">
-                    <input type="text" class="SocialFeedPage__Title-ky5ymg-2 gVPyuz" placeholder="제목을 작성해 주세요" style="border: none">
+                    <input th:value="*{communityTitle}" type="text" class="SocialFeedPage__Title-ky5ymg-2 gVPyuz" placeholder="제목을 작성해 주세요" style="border: none">
                 </div>
             </div>
             <div class="FilterAll__Wrapper-tqa6fq-0 jJIWoq until650px">
@@ -158,7 +158,7 @@
                 </textarea>
 
                 <div class="editor-landing__demo-inner">
-                    <div id="summernote"></div>
+                    <div id="summernote" th:utext="*{communityContent}"></div>
                 </div>
 
             </div>

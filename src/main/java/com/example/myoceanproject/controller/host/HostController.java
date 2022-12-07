@@ -68,6 +68,4 @@ public class HostController {
         groupService.delete(groupId);
         return new RedirectView("/host/group-list");
     }
-
-
 }

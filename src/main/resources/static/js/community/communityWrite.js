@@ -156,7 +156,30 @@ let communitySave = (function(){
             }
         });
     }
-    return {add: add}
+    function update(communityContents, callback, error){
+
+        $.ajax({
+            url: "/community/update",
+            async: false,
+            type: "post",
+            data: JSON.stringify(communityContents),
+            contentType: "application/json; charset=utf-8",
+            success: function(result, status, xhr) {
+                if (callback) {
+                    callback(result);
+                }
+                alert("수정 완료되었습니다.");
+                location.href="/community/index";
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+
+    return {add: add, update: update}
 })();
 
 // 게시글 작성 진행 후 등록 버튼 눌렀을 때
@@ -188,8 +211,11 @@ $(".Button-bqxlp0-0.fFBpBV").on("click", function(e){
     }
 
     /*작성 내용*/
-    if(category != "DIARY"){
-        communitySave.add({
+    /*업데이트 체크*/
+    if($('input[name=communityPostId]').val()){
+        /*업데이트*/
+        communitySave.update({
+            communityPostId : $('input[name=communityPostId]').val(),
             communityCategory : category,
             communityContent : $(".note-editable").html(),
             communityTitle: $(".SocialFeedPage__Title-ky5ymg-2.gVPyuz").val(),
@@ -198,6 +224,21 @@ $(".Button-bqxlp0-0.fFBpBV").on("click", function(e){
             communityFileSize: $("input[name=communityFileSize]").val(),
             communityFilePath: $("input[name=communityFilePath]").val()
         })
+    }
+
+    else{
+        /*추가*/
+        if(category != "DIARY"){
+            communitySave.add({
+                communityCategory : category,
+                communityContent : $(".note-editable").html(),
+                communityTitle: $(".SocialFeedPage__Title-ky5ymg-2.gVPyuz").val(),
+                communityFileName: $("input[name=communityFileName]").val(),
+                communityFileUuid: $("input[name=communityFileUuid]").val(),
+                communityFileSize: $("input[name=communityFileSize]").val(),
+                communityFilePath: $("input[name=communityFilePath]").val()
+            })
+        }
     }
 });
 
@@ -268,3 +309,24 @@ $('.removeImg').on('click', function(){
         }
     });
 });
+
+let thumbnailCheck = 0;
+
+$(document).ready(function(){
+    if($('input[name=communityFilePath]').val()){
+        thumbnailCheck++;
+        if(thumbnailCheck<=1){
+            let imageSrc = "/community/display?fileName=" + $('input[name=communityFilePath]').val() + "/" + $('input[name=communityFileUuid]').val() + "_" + $('input[name=communityFileName]').val();
+
+            $('.image-header').show();
+            $('.img-box').show();
+            let text = "";
+            text += `<li id="thumbnailImage" data-file-size="` + $('input[name=communityFileSize]').val() + `" data-file-name="` + $('input[name=communityFileName]').val() + `" data-file-upload-path="` +$('input[name=communityFilePath]').val() + `" data-file-uuid="` + $('input[name=communityFileUuid]').val() + `" style="list-style: none;width:100%;">`;
+            text += `<img src=` + imageSrc + ` style="width:100%;" height="auto">`;
+            text += `</li>`;
+
+            $(".imgInputBox").append(text);
+            $(".text-center.container.thumbnailPlus").hide();
+        }
+    }
+})

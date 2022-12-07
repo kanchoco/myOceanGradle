@@ -13,6 +13,9 @@ public interface CommunityService {
     //  게시글 목록
     public List<CommunityPostDTO> showCommunity();
 
+    // 게시글 목록 처음에 다 나오게 하기
+    public List<CommunityPostDTO> findAllByList();
+
     //  게시글 조회
     public CommunityPostDTO find(Long communityPostId);
 
@@ -21,4 +24,7 @@ public interface CommunityService {
 
     //  게시글 삭제
     public void delete(Long communityPostId);
+
+    // 무한스크롤
+    public List<CommunityPostDTO> selectScrollBoards(int page);
 }
