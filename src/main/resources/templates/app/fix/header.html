@@ -21,10 +21,16 @@
             </div>
             <div class="GlobalNavigationBar__TopNavMenuNodeListWrapper-og74wb-3 dlTKtS">
                 <a class="withLink__StyledLink-zuberk-0 lQqkn" href="http://localhost:15000/myPage/index">
-                    <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk"th:if="${session.userId}"><span th:text="${session.userNickname}"></span>님
+                    <!--                    <th:if="${not #strings.isEmpty(session.userId)}">-->
+                    <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk" th:if="${session.userId}"><span th:text="${session.userNickname}"></span>님
                     </div>
                 </a>
-                <button type="button" class="GlobalNavigationBar__LogoutButton-og74wb-5 jfHerU" onclick="location.href='http://localhost:15000/login/logout'">로그아웃</button>
+                <div th:switch="${#strings.toString(session.userLoginMethod)}">
+                    <button type="button" class="GlobalNavigationBar__LogoutButton-og74wb-5 jfHerU" th:case="일반" onclick="location.href='/login/generalLogout'">로그아웃</button>
+                    <button type="button" class="GlobalNavigationBar__LogoutButton-og74wb-5 jfHerU" th:case="카카오" onclick="location.href='https://kauth.kakao.com/oauth/logout?client_id=e95b1771a295ce3312e3c0ef9a45a424&logout_redirect_uri=http://localhost:15000/login/kakaoLogout'">로그아웃</button>
+                    <button type="button" class="GlobalNavigationBar__LogoutButton-og74wb-5 jfHerU" th:case="구글" onclick="location.href='/login/googleLogout'">로그아웃</button>
+                    <button type="button" class="GlobalNavigationBar__LogoutButton-og74wb-5 jfHerU" th:case="네이버" onclick="location.href='/login/naverLogout'">로그아웃</button>
+                </div>
                 <a class="withLink__StyledLink-zuberk-0 lQqkn" href="http://localhost:15000/questionBoard/index">
                     <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk">자주 묻는 질문</div>
                 </a><a class="withLink__StyledLink-zuberk-0 lQqkn" href="/notices">

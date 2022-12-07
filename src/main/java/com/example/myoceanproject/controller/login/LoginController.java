@@ -8,6 +8,8 @@ import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.entity.UserFind;
 import com.example.myoceanproject.repository.UserFindRepository;
 import com.example.myoceanproject.repository.UserRepository;
+import com.example.myoceanproject.service.oAuth.KakaoJoinService;
+import com.example.myoceanproject.service.oAuth.KakaoLoginService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.querydsl.core.BooleanBuilder;
@@ -46,8 +48,8 @@ public class LoginController {
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
 
-//    @Autowired
-//    private UserRepository userRepository;
+    @Autowired
+    private KakaoLoginService kakaoLoginService;
 
     @Autowired
     private UserFindRepository userFindRepository;
@@ -102,7 +104,7 @@ public class LoginController {
         }else{return "notmember";}
     }
 
-    //  로그인 버튼 클릭 시 세션 생성 및 세션에 데이터 저장
+    //  로그인 버튼 클릭 시 세션 생성 및 세션에 데이터 저장(일반계정)
     @PostMapping("/loginOk")
     public String afterLogin(UserDTO userDTO, HttpServletRequest request){
 
@@ -135,21 +137,32 @@ public class LoginController {
         session.setAttribute("userId",loginUser.getUserId());
         session.setAttribute("userEmail",loginUser.getUserEmail());
         session.setAttribute("userNickname",loginUser.getUserNickname());
+        session.setAttribute("userLoginMethod",loginUser.getUserLoginMethod());
+
+        log.info("userId:"+session.getAttribute("userId"));
+        log.info("userEmail:"+session.getAttribute("userEmail"));
+        log.info("userNickname:"+session.getAttribute("userNickname"));
+        log.info("userLoginMethod:"+session.getAttribute("userLoginMethod"));
 
 //      메인으로 이동
         return "redirect:/main/index";
     }
 
-    //  로그아웃 버튼 클릭 시 세션에 저장된 내용 삭제
-    @GetMapping("/logout")
+    //  로그아웃 버튼 클릭 시 세션에 저장된 내용 삭제(일반계정)
+    @GetMapping("/generalLogout")
     public String logout(HttpServletRequest request,SessionStatus status){
         HttpSession session=request.getSession();
         session.removeAttribute("userId");
         session.removeAttribute("userEmail");
         session.removeAttribute("userNickname");
+        session.removeAttribute("userLoginMethod");
+
         status.setComplete();
         return "redirect:/main/index";
     }
+
+
+
     // 비밀번호 찾기 페이지
     @GetMapping("/findPw")
     public String findPw(){
@@ -276,6 +289,53 @@ public class LoginController {
     public String changePwComplete(){
         return "app/login/changePwComplete";
     }
+
+    //    @ResponseBody
+    @GetMapping("/kakaoLogin")
+    public String  kakaoCallback(@RequestParam String code, HttpSession session, HttpServletRequest request) throws Exception {
+        log.info("code:"+code);
+
+        User user=new User();
+
+        String token = kakaoLoginService.getKaKaoAccessToken(code);
+        session.setAttribute("token", token);
+        user=kakaoLoginService.getKakaoInfo(token);
+
+        log.info("user:"+user);
+        if(user.getUserId()==null){
+            return "redirect:/main/index?kakaonotjoin=1";
+        }
+        else{
+            session.setAttribute("userId",user.getUserId());
+            session.setAttribute("userNickname",user.getUserNickname());
+            session.setAttribute("userEmail",user.getUserEmail());
+            session.setAttribute("userLoginMethod",user.getUserLoginMethod());
+
+            log.info("userId:"+session.getAttribute("userId"));
+            log.info("userEmail:"+session.getAttribute("userEmail"));
+            log.info("userNickname:"+session.getAttribute("userNickname"));
+            log.info("userLoginMethod:"+session.getAttribute("userLoginMethod"));
+
+            return "redirect:/main/index";
+        }
+    }
+
+    @GetMapping("/kakaoLogout")
+    public String kakaoLogout(HttpSession session,HttpServletRequest request,SessionStatus status){
+        log.info("logout");
+        kakaoLoginService.logoutKakao((String)session.getAttribute("token"));
+        session=request.getSession();
+
+        session.removeAttribute("userId");
+        session.removeAttribute("userEmail");
+        session.removeAttribute("userNickname");
+        session.removeAttribute("userLoginMethod");
+
+        status.setComplete();
+        return "redirect:/main/index";
+    }
+
+
 
     public String encryption(String userPassword){
         String alg = "AES/CBC/PKCS5Padding";

@@ -28,9 +28,12 @@
     <th:block th:each="openGroup:${openGroups}">
       <ul th:object="${openGroup}">
         <li>
-          <div class="my_list">
+          <div class="my_list" th:switch="${#strings.toString(openGroup.groupStatus)}">
             <div class="list_title" th:text="*{groupName}"></div>
-            <div class="list_date" th:text="*{groupStatus}"></div>
+            <div th:case="승인대기" class="groupStatus readyGroup" th:text="*{groupStatus}"></div>
+            <div th:case="승인완료" class="groupStatus completeGroup" th:text="*{groupStatus}"></div>
+            <div th:case="승인거절" class="groupStatus denyGroup" th:text="*{groupStatus}"></div>
+            <div th:case="*" class="groupStatus" th:text="*{groupStatus}"></div>
           </div>
         </li>
       </ul>
