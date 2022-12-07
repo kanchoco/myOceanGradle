@@ -100,19 +100,68 @@ $('.close').click(function (){
     $('.register td:nth-child(2) input').val('')
     $('.register td:nth-child(3) input').val('')
     $('.register td:nth-child(4) input').val('')
+    $('.register td:nth-child(5) input').val('')
+    $('.register td:nth-child(6) input').val('')
     $('#preview').attr('src', '/imgin/admin_file.png')
     if(temp === 1){
         temp--;}else if (moreButtonTemp === 1){
         moreButtonTemp--;
     }
 })
+
+let questName = $('.questName').val();
+let questCategory = $('.questCategory').val();
+let questType = $('.questType').val();
+let questDeadLine = $('.questDeadLine').val();
+let questContent = $('.questContent').val();
+let questPoint = $('.questPoint').val();
+let questFileName;
+let questFilePath;
+let questFileUuid;
+let questFileSize;
+
+
 $('.regist').click(function (){
-    alert("퀘스트가 등록됐습니다.")
+    alert("퀘스트가 등록됐습니다.");
+
+    questName = $('.register td:nth-child(1) input').val();
+    questCategory = $('.register td:nth-child(2) input').val();
+    switch($('.register td:nth-child(3) input').val()){
+        case '오늘의 퀘스트':
+            questType = 'TODAY';
+            break;
+        case '이벤트':
+            questType = 'EVENT';
+            break;
+        default :
+            questType = 'BASIC';
+            break;
+    }
+    questDeadLine = $('.register td:nth-child(4) input').val();
+    questContent = $('.register td:nth-child(5) input').val();
+    questPoint = $('.register td:nth-child(6) input').val();
+
+    questService.add({
+        questName : questName,
+        questCategory : questCategory,
+        questType : questType,
+        questDeadLine : questDeadLine,
+        questContent : questContent,
+        questPoint : questPoint,
+        questFileName : questFileName,
+        questFilePath : questFilePath,
+        questFileUuid : questFileUuid,
+        questFileSize : questFileSize
+    }, function (){show();});
+
     $('#quest-register-wrapper').hide();
-    $('.register td:nth-child(1) input').val('')
-    $('.register td:nth-child(2) input').val('')
-    $('.register td:nth-child(3) input').val('')
-    $('.register td:nth-child(4) input').val('')
+    $('.register td:nth-child(1) input').val('');
+    $('.register td:nth-child(2) input').val('');
+    $('.register td:nth-child(3) input').val('');
+    $('.register td:nth-child(4) input').val('');
+    $('.register td:nth-child(5) input').val('');
+    $('.register td:nth-child(6) input').val('');
+
     $('#preview').attr('src', '/imgin/admin_file.png')
     if(temp === 1){
         temp--;}else if (moreButtonTemp === 1){
@@ -125,15 +174,114 @@ $('.regist').click(function (){
 function onClickUpload(){
     let fileInput = $('input[type = file]')
     fileInput.click();
+
 }
 
 
 // 뱃지 이미지 썸네일 띄우기
 $(".badge").on("change", function(event) {
-    let file = event.target.files[0];
-    let reader = new FileReader();
-    reader.onload = function(e) {
-        $("#preview").attr("src", e.target.result);
-    }
-    reader.readAsDataURL(file);
+    // let file = event.target.files[0];
+    // let reader = new FileReader();
+    // reader.onload = function(e) {
+    //     $("#preview").attr("src", e.target.result);
+    // }
+    // reader.readAsDataURL(file);
+    let arrayFile =[];
+
+    let formData = new FormData();
+    let $inputFile = $('input[type = file]');
+    let files = $inputFile[0].files;
+
+    Array.from(files).forEach(file => arrayFile.push(file));
+    const dataTransfer = new DataTransfer();
+
+    arrayFile.forEach(file => dataTransfer.items.add(file));
+    $(this)[0].files = dataTransfer.files;
+
+    $(files).each(function(i, file){
+        formData.append("upload", file);
+    });
+
+    $.ajax({
+        url: "/quest/uploadFile",
+        type: "post",
+        data: formData,
+        processData : false,
+        contentType: false,
+        async : false,
+        success: function(questDTO){
+            questFileName = questDTO.questFileName;
+            questFilePath = questDTO.questFilePath;
+            questFileUuid = questDTO.questFileUuid;
+            questFileSize = questDTO.questFileSize;
+            let imageSrc = "/quest/display?fileName=" + questFilePath + "/" + questFileUuid + "_" + questFileName;
+            console.log(questFileName);
+            console.log(questFilePath);
+            console.log(questFileUuid);
+            console.log(questFileSize);
+
+            $("#preview").attr("src", imageSrc);
+        }
+    });
+
+
 });
+
+//모듈
+let questService = (function(){
+    function getList(param, callback, error){
+        $.ajax({
+            url: encodeURI("/quest/" + (param.page || 0) + "/" + param.keyword),
+            type: "get",
+            async : false,
+            success: function(questDTO, status, xhr){
+                if(callback){
+                    callback(questDTO);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+
+    function update(postNumber, callback, error){
+        $.ajax({
+            url: "/post/" + postNumber,
+            type: "delete",
+            async : false,
+            success: function(text){
+                if(callback){
+                    callback(text);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+
+    function add(quest,callback, error){
+        $.ajax({
+            url: "/quest/upload",
+            type: "post",
+            data: JSON.stringify(quest),
+            contentType: "application/json; charset=utf-8",
+            success: function(result, status, xhr){
+                if(result){
+                    callback(result);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+    return {getList: getList,update: update, add : add}
+}) ();

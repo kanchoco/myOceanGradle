@@ -195,9 +195,18 @@ $(".mentions__control").on("keyup", function (key) {
 /*==============================================================================================================================================*/
 /*==============================================================================================================================================*/
 /*==============================================================================================================================================*/
+let webSocket;
+function connect(){
+    webSocket = new WebSocket("ws://localhost:15000/chatts");
+    webSocket.onopen = onOpen;
+    webSocket.onclose = onClose;
+    webSocket.onmessage = onMessage;
+    console.log(webSocket.readyState === webSocket.OPEN);
+}
 
-connect();
-let groupId;
+
+let myGroupId;
+let userNickname;
 //db에서 해당 그룹의 채팅 내용을 모두 가져온다.
 function getList(param, callback, error) {
     $.ajax({
@@ -227,24 +236,30 @@ function show(id) {
 
 /* 왼쪽 대화목록에서 선택될 때마다 css 바꾸는 부분 */
 $("li.active").on("click", function (e) {
+    connect();
     e.preventDefault()
     $("li.active").removeClass("select");
     $(this).addClass("select");
-    groupId = $(this).attr("href");
-    show(groupId)
+    myGroupId = $(this).attr("href");
+    show(myGroupId)
+
 })
 
 $("#sendButton").on("click", function(){
     add({
         chattingContent: $("#msg").val(),
-        groupId : groupId
-    }, function(){send()});
+        groupId : myGroupId
+    })
+    console.log(myGroupId);
+    send();
+
 });
 
 function getChattingContentList(chattingDTOList) {
     let text = "";
     var time;
     chattingDTOList.forEach(chatting => {
+        userNickname = chatting.senderUserNickName;
         if (chatting.chattingCreateDate !== time) {
             time = chatting.chattingCreateDate
             text += "<div class=\"dayInfo\">"
@@ -292,16 +307,15 @@ function getChattingContentList(chattingDTOList) {
 
 }
 
-function add(chatting, callback, error){
+function add(chatting, error){
     $.ajax({
         url: "/chatting/new",
         type: "post",
         data: JSON.stringify(chatting),
+        async:false,
         contentType: "application/json; charset=utf-8",
         success: function(result, status, xhr){
-            if(callback){
-                callback(result);
-            }
+            console.log("add 성공")
         },
         error: function(xhr, status, err){
             if(error){
@@ -313,51 +327,47 @@ function add(chatting, callback, error){
 
 
 
-var webSocket;
-var nickname = $(".userId chattingRoomName").innerHTML;
 
 
 
-function connect(){
-    console.log("커넥트됨")
-    webSocket = new WebSocket("ws://localhost:15000/chatting");
-    webSocket.onopen = onOpen;
-    // webSocket.onclose = onClose;
-    webSocket.onmessage = onMessage;
-}
+
 function disconnect(){
-    webSocket.send(JSON.stringify({groupId : groupId,writer:nickname}));
+    webSocket.send(JSON.stringify({groupId : myGroupId, senderUserNickName:userNickname}));
     webSocket.close();
 }
 function send(){
-    console.log("send 됨")
-    msg = $("#msg").val();
-    webSocket.send(JSON.stringify({groupId : groupId,writer:nickname,message : msg}));
+    let msg = $("#msg").val();
+    console.log(msg);
+
+    webSocket.send(JSON.stringify({groupId : myGroupId, senderUserNickName:userNickname,chattingContent : msg}));
     document.getElementById("msg").value='';
 }
 function onOpen(){
-    webSocket.send(JSON.stringify({groupId : groupId, writer:nickname}));
+    // webSocket.send(JSON.stringify({groupId : myGroupId,senderUserNickName:userNickname}));
 }
 function onMessage(e){
     data = e.data;
 
-    text += "<div class=\"opponent\">";
-    text += "<div class=\"thumb\">"
-    text += "<a href=\"/people/ROSA\" target=\"_blank\">"
-    text += "<img src=\"/imgin/chat/logo.png\" alt=\"chat_image\"></a>"
-    text += "</div>"
-    text += "<div class=\"userIdChatTxt\">"
-    text += "<span class=\"userId\">" + nickname + "</span>"
-    text += "<div class=\"chatTxt\">"
-    text += "<span class=\"chatTxtContents\">"
-    text += "<a style=\"color: rgb(51, 51, 51);\">" + data + "</a>"
-    text += "</span>"
-    text += "<div class=\"timeWrap\">"
-    text += "<span class=\"time\">" +  + "</span>"
-    text += "</div>"
-    text += "</div>"
-    text += "</div>"
-    text += "</div>"
+    let nowtext="";
+    console.log("=======================onmessage 내 콘솔 출력===========================")
+
+    nowtext += "<div class=\"opponent\">";
+    nowtext += "<div class=\"thumb\">"
+    nowtext += "<a href=\"/people/ROSA\" target=\"_blank\">"
+    nowtext += "<img src=\"/imgin/chat/logo.png\" alt=\"chat_image\"></a>"
+    nowtext += "</div>"
+    nowtext += "<div class=\"userIdChatTxt\">"
+    nowtext += "<span class=\"userId\">" + userNickname + "</span>"
+    nowtext += "<div class=\"chatTxt\">"
+    nowtext += "<span class=\"chatTxtContents\">"
+    nowtext += "<a style=\"color: rgb(51, 51, 51);\">" + data + "</a>"
+    nowtext += "</span>"
+    nowtext += "<div class=\"timeWrap\">"
+    nowtext += "<span class=\"time\">" + Date.now() + "</span>"
+    nowtext += "</div>"
+    nowtext += "</div>"
+    nowtext += "</div>"
+    nowtext += "</div>"
 }
 function onClose(){
     disconnect();
