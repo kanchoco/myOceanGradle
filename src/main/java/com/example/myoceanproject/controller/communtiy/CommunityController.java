@@ -19,8 +19,15 @@ public class CommunityController {
 
     // 커뮤니티 페이지
     @GetMapping("/index")
-    public String Community(){
+    public String community(){
         return "app/community/community";
+    }
+
+    // 커뮤니티 상세 페이지
+    @GetMapping("/read")
+    public String communityDetail(Long communityPostId, Model model){
+        model.addAttribute("communityPostDTO", communityPostService.find(communityPostId));
+        return "app/community/detail";
     }
 
     // 커뮤니티 댓글 페이지

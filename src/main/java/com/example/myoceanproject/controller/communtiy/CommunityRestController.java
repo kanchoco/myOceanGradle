@@ -1,9 +1,13 @@
 package com.example.myoceanproject.controller.communtiy;
 
 import com.example.myoceanproject.domain.CommunityPostDTO;
+import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.service.community.CommunityPostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
@@ -28,6 +32,30 @@ import java.util.UUID;
 public class CommunityRestController {
 
     private final CommunityPostService communityPostService;
+
+    //  리스트 출력
+    @GetMapping("/list/{page}")
+    public CommunityPostDTO getCommunity(@PathVariable int page, @PathVariable(required = false) String keyword){
+        Criteria criteria = new Criteria();
+        criteria.setPage(page);
+        criteria.setKeyword("null");
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+
+        Page<CommunityPostDTO> postDTOPage= communityPostService.showPost(pageable, criteria);
+        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
+        if(postDTOPage.getTotalPages() < endPage){
+            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
+        }
+
+        CommunityPostDTO postDTO = new CommunityPostDTO();
+
+        postDTO.setPostList(postDTOPage.getContent());
+        postDTO.setEndPage(endPage);
+
+        postDTOPage.getContent().stream().map(CommunityPostDTO::toString).forEach(log::info);
+
+        return postDTO;
+    }
 
     // 게시글 작성 후 커뮤니티 페이지로 이동
     @PostMapping(value="/index", consumes = "application/json", produces = "text/plain; charset=utf-8")

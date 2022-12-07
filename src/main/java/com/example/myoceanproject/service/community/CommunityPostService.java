@@ -2,6 +2,7 @@ package com.example.myoceanproject.service.community;
 
 import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.domain.Criteria;
+import com.example.myoceanproject.domain.GroupDTO;
 import com.example.myoceanproject.entity.CommunityPost;
 import com.example.myoceanproject.repository.UserRepository;
 import com.example.myoceanproject.repository.community.post.CommunityPostRepository;
@@ -42,6 +43,8 @@ public class CommunityPostService implements CommunityService {
     public Page<CommunityPostDTO> showPost(Pageable pageable, Criteria criteria){
         return criteria.getKeyword().equals("null") ? postRepositoryImpl.findAll(pageable) : postRepositoryImpl.findAll(pageable,criteria);
     }
+
+
     public void remove(Long communityPostId){
         CommunityPost post = postRepository.findById(communityPostId).get();
         postRepositoryImpl.deleteByPost(post);
@@ -64,7 +67,8 @@ public class CommunityPostService implements CommunityService {
 
     @Override
     public CommunityPostDTO find(Long communityPostId) {
-        return null;
+        CommunityPostDTO communityPostDTO = postRepositoryImpl.findByCommunityId(communityPostId);
+        return communityPostDTO;
     }
 
     @Override
