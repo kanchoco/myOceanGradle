@@ -167,11 +167,10 @@
     function showPage(endPage){
         let endNumber = Math.ceil(page / 10) * 10;
         let realEnd = endPage;
+        let startNumber = endNumber -9;
         if(endNumber > realEnd){
-
             endNumber = realEnd == 0 ? '1' : realEnd;
         }
-        let startNumber = (endNumber - 9 > 0 ? endNumber -9 : 1);
 
 
         let text ='';

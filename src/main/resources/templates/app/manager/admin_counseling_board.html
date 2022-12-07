@@ -168,12 +168,13 @@
     //페이징
     function showPage(endPage){
         let endNumber = Math.ceil(page / 10) * 10;
+        let startNumber = endNumber -9;
         let realEnd = endPage;
         if(endNumber > realEnd){
 
             endNumber = realEnd == 0 ? '1' : realEnd;
         }
-        let startNumber = (endNumber - 9 > 0 ? endNumber -9 : 1);
+        // let startNumber = (endNumber - 9 > 0 ? endNumber -9 : 1);
 
 
         let text ='';
