@@ -150,6 +150,16 @@ $modalCancelBtn.click(function () {
     $modal.css("display","none");
 })
 
+let modalCheck = true;
+function modalOpen(){
+    if(modalCheck){
+        $("#modal-root").css("display","block");
+        modalCheck = false;
+    } else{
+        $modal.css("display","none");
+        modalCheck = true;
+    }
+}
 
 //페이지 소개 모달
 
@@ -230,3 +240,37 @@ function checkMedia(){
         // $(".writeBtn").parent().css("position", "absolute");
     }
 }
+
+
+let communityService = (function() {
+    function getList(param, callback, error) {
+        $.ajax({
+            url: "/community/list/" + (param.page || 0),
+            type: "get",
+            async: false,
+            success: function (communityPostDTO, status, xhr) {
+                if (callback) {
+                    callback(communityPostDTO);
+                }
+            },
+            error: function (xhr, status, err) {
+                if (error) {
+                    error(err);
+                }
+            }
+        });
+    }
+    return {getList: getList}
+})();
+
+
+
+// 세부 게시글로 들어가기
+// $(".view__FeedListWrapper-sc-1fff32g-0.ciajVR").on("click", $(".goCommunity"), function(e){
+//     e.preventDefault();
+//     console.log($(this));
+//     // location.href = "/community/read?communityPostId=" + $(this).attr("href");
+// })
+
+
+

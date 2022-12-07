@@ -48,6 +48,7 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
                         communityPost.communityFileUuid,
                         communityPost.communityFileSize,
                         communityPost.communityViewNumber,
+                        communityPost.communityLikeNumber,
                         communityPost.createDate,
                         communityPost.updatedDate
                 ))
@@ -84,6 +85,7 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
                         communityPost.communityFileUuid,
                         communityPost.communityFileSize,
                         communityPost.communityViewNumber,
+                        communityPost.communityLikeNumber,
                         communityPost.createDate,
                         communityPost.updatedDate
                 ))
@@ -121,6 +123,7 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
                         communityPost.communityFileUuid,
                         communityPost.communityFileSize,
                         communityPost.communityViewNumber,
+                        communityPost.communityLikeNumber,
                         communityPost.createDate,
                         communityPost.updatedDate
                 ))
@@ -158,6 +161,7 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
                         communityPost.communityFileUuid,
                         communityPost.communityFileSize,
                         communityPost.communityViewNumber,
+                        communityPost.communityLikeNumber,
                         communityPost.createDate,
                         communityPost.updatedDate
                 ))
@@ -202,6 +206,29 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
                 .from(communityPost)
                 .where(communityPost.user.userId.eq(userId))
                 .fetchFirst());
+    }
+
+    public CommunityPostDTO findByCommunityId(Long communityPostId){
+        return jpaQueryFactory.select(new QCommunityPostDTO(
+                communityPost.communityPostId,
+                communityPost.user.userId,
+                communityPost.user.userNickname,
+                communityPost.user.userFileName,
+                communityPost.user.userFilePath,
+                communityPost.user.userFileSize,
+                communityPost.user.userFileUuid,
+                communityPost.communityCategory,
+                communityPost.communityTitle,
+                communityPost.communityContent,
+                communityPost.communityFilePath,
+                communityPost.communityFileName,
+                communityPost.communityFileUuid,
+                communityPost.communityFileSize,
+                communityPost.communityViewNumber,
+                communityPost.communityLikeNumber,
+                communityPost.createDate,
+                communityPost.updatedDate
+        )).from(communityPost).where(communityPost.communityPostId.eq(communityPostId)).fetchOne();
     }
 
 

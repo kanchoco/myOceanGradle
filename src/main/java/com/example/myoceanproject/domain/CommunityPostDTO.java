@@ -43,6 +43,8 @@ public class CommunityPostDTO {
 
     private int communityReplyCount;
 
+    private int communityLikeNumber;
+
     private String createDate;
 
     private String updatedDate;
@@ -52,7 +54,7 @@ public class CommunityPostDTO {
     private int endPage;
 
     @QueryProjection
-    public CommunityPostDTO(Long communityPostId, Long userId, String userNickName, String userFileName, String userFilePath, Long userFileSize, String userFileUuid, CommunityCategory communityCategory, String communityTitle, String communityContent, String communityFilePath, String communityFileName, String communityFileUuid, Long communityFileSize, int communityViewNumber, LocalDateTime createDate, LocalDateTime updatedDate) {
+    public CommunityPostDTO(Long communityPostId, Long userId, String userNickName, String userFileName, String userFilePath, Long userFileSize, String userFileUuid, CommunityCategory communityCategory, String communityTitle, String communityContent, String communityFilePath, String communityFileName, String communityFileUuid, Long communityFileSize, int communityViewNumber, int communityLikeNumber, LocalDateTime createDate, LocalDateTime updatedDate) {
         this.communityPostId = communityPostId;
         this.userId = userId;
         this.userNickName = userNickName;
@@ -68,6 +70,7 @@ public class CommunityPostDTO {
         this.communityFileUuid = communityFileUuid;
         this.communityFileSize = communityFileSize;
         this.communityViewNumber = communityViewNumber;
+        this.communityLikeNumber = communityLikeNumber;
         this.createDate = createDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         this.updatedDate = updatedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
