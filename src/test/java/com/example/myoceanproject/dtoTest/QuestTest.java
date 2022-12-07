@@ -37,7 +37,7 @@ public class QuestTest {
         questDTO.setQuestCategory("활동2");
         questDTO.setQuestContent("회원가입시 지급2");
         questDTO.setQuestName("회원가입뱃지2");
-        questDTO.setQuestDeadLine(LocalDateTime.now());
+        questDTO.setQuestDeadLine(String.valueOf(LocalDateTime.now()));
         questDTO.setQuestFilePath("FilePath");
         questDTO.setQuestFileSize(392847L);
         questDTO.setQuestFileName("FileName");
@@ -54,6 +54,7 @@ public class QuestTest {
                 quest.questName,
                 quest.questContent,
                 quest.questDeadLine,
+                quest.questPoint,
                 quest.questFilePath,
                 quest.questFileName,
                 quest.questFileUuid,
@@ -71,6 +72,7 @@ public class QuestTest {
                 quest.questName,
                 quest.questContent,
                 quest.questDeadLine,
+                quest.questPoint,
                 quest.questFilePath,
                 quest.questFileName,
                 quest.questFileUuid,
@@ -91,7 +93,7 @@ public class QuestTest {
         questDTO.setQuestCategory("활동2 수정");
         questDTO.setQuestContent("회원가입시 지급2 수정");
         questDTO.setQuestName("회원가입뱃지2 수정");
-        questDTO.setQuestDeadLine(LocalDateTime.now());
+        questDTO.setQuestDeadLine(String.valueOf(LocalDateTime.now()));
         questDTO.setQuestFilePath("FilePath");
         questDTO.setQuestFileSize(392847L);
         questDTO.setQuestFileName("FileName");

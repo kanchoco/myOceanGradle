@@ -469,7 +469,7 @@ input#search_input:focus {
 }
 
 
-a.previous_buttons {
+.previous_buttons {
     transform: scaleX(-1);
     width: 40px;
     height: 40px;
@@ -519,7 +519,7 @@ a.previous_buttons {
 }
 
 
-button.next_buttons {
+.next_buttons {
     width: 40px;
     height: 40px;
     line-height: normal;

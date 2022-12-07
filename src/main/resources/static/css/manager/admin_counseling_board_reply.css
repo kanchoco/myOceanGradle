@@ -519,7 +519,7 @@ a.previous_buttons {
 }
 
 
-button.next_buttons {
+.next_buttons {
     width: 40px;
     height: 40px;
     line-height: normal;
