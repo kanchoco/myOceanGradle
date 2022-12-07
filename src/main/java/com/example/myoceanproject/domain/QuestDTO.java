@@ -19,7 +19,7 @@ public class QuestDTO {
     private String questName;
     private String questContent;
     private String questDeadLine;
-    private int questPoint
+    private int questPoint;
 
     private String questFilePath;
     private String questFileName;
@@ -28,11 +28,12 @@ public class QuestDTO {
     private Long questFileSize;
 
     @QueryProjection
-    public QuestDTO(String questCategory, String questName, String questContent, LocalDateTime questDeadLine, String questFilePath, String questFileName, String questFileUuid, Long questFileSize) {
+    public QuestDTO(String questCategory, String questName, String questContent, LocalDateTime questDeadLine, int questPoint, String questFilePath, String questFileName, String questFileUuid, Long questFileSize) {
         this.questCategory = questCategory;
         this.questName = questName;
         this.questContent = questContent;
         this.questDeadLine = questDeadLine.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        this.questPoint = questPoint;
         this.questFilePath = questFilePath;
         this.questFileName = questFileName;
         this.questFileUuid = questFileUuid;
@@ -45,7 +46,8 @@ public class QuestDTO {
                 .questName(questName)
                 .questDeadLine(LocalDateTime.parse(questDeadLine))
                 .questContent(questContent)
-                .questFilePath(questFilePath)
+                .questContent(questContent)
+                .questPoint(questPoint)
                 .questFileName(questFileName)
                 .questFileUuid(questFileUuid)
                 .questFileSize(questFileSize)
