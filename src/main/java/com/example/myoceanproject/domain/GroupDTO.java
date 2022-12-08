@@ -120,14 +120,17 @@ public class GroupDTO {
                               ObjectMapper objectMapper) throws IOException {
         log.info("chatRoom handleMessage 들어옴");
         sessions.add(session);
+        log.info(chattingDTO.toString());
         chattingDTO.setChattingContent(chattingDTO.getChattingContent());
         send(chattingDTO,objectMapper);
     }
 
     private void send(ChattingDTO chattingDTO, ObjectMapper objectMapper) throws IOException {
         log.info("send 들어옴");
+        log.info(chattingDTO.toString());
         TextMessage textMessage = new TextMessage(objectMapper.
                 writeValueAsString(chattingDTO.getChattingContent()));
+        log.info(textMessage.toString());
         for(WebSocketSession sess : sessions){
             sess.sendMessage(textMessage);
         }

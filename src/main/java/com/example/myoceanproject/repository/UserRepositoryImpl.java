@@ -177,4 +177,27 @@ public class UserRepositoryImpl implements UserCustomRepository {
 
     }
 
+    @Override
+    public UserDTO findUserById(Long userId){
+        UserDTO userDTO = queryFactory.select(new QUserDTO(
+                        user.userId,
+                        user.userPassword,
+                        user.userNickname,
+                        user.userAccountStatus,
+                        user.userFileName,
+                        user.userFilePath,
+                        user.userFileSize,
+                        user.userFileUuid,
+                        user.userEmail,
+                        user.userLoginMethod,
+                        user.userTotalPoint,
+                        user.createDate,
+                        user.updatedDate
+                ))
+                .from(user)
+                .where(user.userId.eq(userId))
+                .fetchOne();
+        return userDTO;
+    }
+
 }
