@@ -190,7 +190,18 @@
             text += `<td class="info_td questId">`+ quest.questId +`</td>`;
             text += `<td class="info_td">`+ quest.questName+`</td>`;
             text += `<td class="info_td">`+ quest.questCategory+`</td>`;
-            text += `<td class="info_td">`+ quest.questType.toString() +`</td>`;
+            switch(quest.questType){
+                case 'EVENT' :
+                    text += `<td class="info_td"> 이벤트 </td>`;
+                    break;
+                case 'TODAY' :
+                    text += `<td class="info_td"> 오늘의 퀘스트 </td>`;
+                    break;
+                default :
+                    text += `<td class="info_td"> 일반 </td>`;
+                    break;
+
+            }
             text += `<td class="info_td">`+ quest.questDeadLine +`</td>`;
             text += `<td class="info_td">`+ quest.questContent +`</td>`;
             text += `<td class="info_td">`+ quest.questPoint +`</td>`;

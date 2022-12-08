@@ -1,9 +1,7 @@
 package com.example.myoceanproject.service.community;
 
-import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.domain.CommunityReplyDTO;
 import com.example.myoceanproject.domain.Criteria;
-import com.example.myoceanproject.entity.CommunityPost;
 import com.example.myoceanproject.entity.CommunityReply;
 import com.example.myoceanproject.repository.UserRepository;
 import com.example.myoceanproject.repository.community.post.CommunityPostRepository;
@@ -40,7 +38,7 @@ public class CommunityReplyService {
 
 //  커뮤니티 아이디로 해당 글 정보 출력
     public Page<CommunityReplyDTO> showReply(Pageable pageable, Criteria criteria){
-        return criteria.getKeyword().equals("null") ? replyRepositoryImpl.findAll(pageable) : replyRepositoryImpl.findAll(pageable,criteria);
+        return criteria.getKeyword().equals("null") ? replyRepositoryImpl.findAllFree(pageable) : replyRepositoryImpl.findAllFree(pageable,criteria);
     }
 //    고민상담용
     public Page<CommunityReplyDTO> showReplyByCounseling(Pageable pageable, Criteria criteria){

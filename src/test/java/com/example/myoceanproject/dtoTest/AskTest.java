@@ -41,31 +41,32 @@ public class AskTest {
     private UserRepository userRepository;
 
     @Test
-    public void saveAskTest(){
+    public void saveAskTest() {
 //      시나리오: 해당 유저(3L)가 문의하기 내용을 남긴다.
 
-
+        for (int i = 0; i < 30; i++) {
 //      userRepository 인터페이스 구현체 hibernate의 findById메서드를 이용해서
 //      다른 유저를 검색한다.
-        Optional<User> user = userRepository.findById(2L);
+            Optional<User> user = userRepository.findById(2L);
 
 //      화면에서 문의하기 작성내용을 입력받기 위해 AskDTO 객체 생성
-        AskDTO askDTO = new AskDTO();
+            AskDTO askDTO = new AskDTO();
 
 //      화면에서 문의하기 작성 내용을 입력받는다.
-        askDTO.setAskCategory(AskCategory.QUESTINFO);
-        askDTO.setAskStatus(AskStatus.WAITING);
-        askDTO.setAskTitle("퀘스트 문의하기 제목");
-        askDTO.setAskContent("퀘스트 문의하기 내용");
+            askDTO.setAskCategory(AskCategory.QUESTINFO);
+            askDTO.setAskStatus(AskStatus.COMPLETE);
+            askDTO.setAskTitle("퀘스트 문의하기 제목");
+            askDTO.setAskContent("퀘스트 문의하기 내용");
 
 //      추가 저장을 위해 toentity메서드를 통해 Ask객체에 저장
-        Ask ask1 = askDTO.toEntity();
+            Ask ask1 = askDTO.toEntity();
 
 //      userRepository 인터페이스 구현체 hibernate의 findbyid메서드로 유저를 검색후 추가
-        ask1.changeUser(user.get());
+            ask1.changeUser(user.get());
 
 //      문의하기 테이블에 해당 내용 저장
-        askRepository.save(ask1);
+            askRepository.save(ask1);
+        }
     }
 
     @Test

@@ -1,6 +1,5 @@
 package com.example.myoceanproject.repository.community.reply;
 
-import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.domain.CommunityReplyDTO;
 import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.entity.CommunityPost;
@@ -24,10 +23,10 @@ public interface CommunityReplyCustomRepository {
     public List<CommunityReplyDTO> findAll(Long communityPostId);
 
     //  전체 댓글 불러오기
-    public Page<CommunityReplyDTO> findAll(Pageable pageable);
+    public Page<CommunityReplyDTO> findAllFree(Pageable pageable);
 
     //  전체 댓글 불러오기, 검색어
-    public Page<CommunityReplyDTO> findAll(Pageable pageable, Criteria criteria);
+    public Page<CommunityReplyDTO> findAllFree(Pageable pageable, Criteria criteria);
 
     //    고민상담 댓글 전체
     public Page<CommunityReplyDTO> findAllByCategory(Pageable pageable);
@@ -36,4 +35,6 @@ public interface CommunityReplyCustomRepository {
     public Page<CommunityReplyDTO> findAllByCategory(Pageable pageable, Criteria criteria);
 
     public Integer countReplyByUser(Long userId);
+
+    public CommunityReplyDTO findAllByDashboard();
 }
