@@ -39,12 +39,6 @@ public class CommunityController {
         return "app/community/community_register";
     }
 
-    // 커뮤니티 댓글 페이지
-    @GetMapping("/reply")
-    public String comment(Long communityPostId, Model model){
-        model.addAttribute("communityPostDTO", communityPostService.find(communityPostId));
-        return "app/community/community_comment";
-    }
 
     // 커뮤니티 글쓰기 페이지
     @GetMapping("/register")
@@ -67,6 +61,5 @@ public class CommunityController {
     /* 모임 목록 */
     @GetMapping("/bulletin")
     public String bulletin(){ return "app/bulletin_board/bulletin_board"; }
-
 
 }

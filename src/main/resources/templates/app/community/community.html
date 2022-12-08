@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>h.hyeoniya_커뮤니티게시판</title>
+    <title>커뮤니티게시판</title>
     <link rel="stylesheet" href="/css/community/community.css">
     <link rel="stylesheet" href="/css/fix/header.css">
     <link rel="stylesheet" href="/css/fix/footer.css">
@@ -223,7 +223,7 @@
             text+=`</div></div></div><button class="Profile__MoreButton-sc-14xkqhl-6 lbwitP" onclick="modalOpen()">`;
             <!--도시락 버튼 + 신고 버튼-->
             text+=`<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='17' viewBox='0 0 4 17'%3E %3Cpath fill='%23999' fill-rule='evenodd' d='M1.57 14a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-7a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-7a1.5 1.5 0 110 3 1.5 1.5 0 010-3z'/%3E %3C/svg%3E" alt=""></button></div>`;
-            text+=`<a class="goCommunity" href="`+ "/community/read?communityPostId=" + post.communityPostId +`">`; // 상세페이지로 가는 메소드인데 아직 없음
+            text+=`<a class="goCommunity" href="`+ "/community/read?communityPostId=" + post.communityPostId +`">`;
             text+=`<div class="Ratio ImageBanner__Wrapper-dpw3a4-0 jZxoCa" style="display: block;">`;
             text+=`<div className = "Ratio-ratio " style = "height: 0px; position: relative; width: 100%; padding-top: 100%;">`;
             text+=`<div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">`
@@ -254,7 +254,7 @@
             text+=`" alt="댓글">`;
             text+=`<span>`;
             // 댓글
-            text+=`0`;
+            text+=post.communityReplyCount;
             text+=`</span></img></a></div></div>`;
         })
         $(".view__FeedListWrapper-sc-1fff32g-0.ciajVR").append(text);

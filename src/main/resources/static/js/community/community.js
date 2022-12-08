@@ -295,6 +295,6 @@ $(window).scroll(function(){
 $(document).ready(function(){
     $(".goReplyBoard").on("click", function(e){
         e.preventDefault();
-        location.href = "/community/reply?communityPostId=" + $(this).attr("href");
+        location.href = "/reply/index?communityPostId=" + $(this).attr("href");
     })
 })

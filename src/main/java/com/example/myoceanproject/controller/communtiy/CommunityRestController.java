@@ -1,6 +1,7 @@
 package com.example.myoceanproject.controller.communtiy;
 
 import com.example.myoceanproject.domain.CommunityPostDTO;
+import com.example.myoceanproject.domain.CommunityReplyDTO;
 import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.domain.GroupDTO;
 import com.example.myoceanproject.entity.CommunityPost;
@@ -8,6 +9,7 @@ import com.example.myoceanproject.entity.Group;
 import com.example.myoceanproject.repository.GroupRepository;
 import com.example.myoceanproject.repository.community.post.CommunityPostRepository;
 import com.example.myoceanproject.service.community.CommunityPostService;
+import com.example.myoceanproject.service.community.CommunityReplyService;
 import com.example.myoceanproject.type.GroupStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
