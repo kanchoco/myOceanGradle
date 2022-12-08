@@ -36,8 +36,6 @@ public class CommunityPostService implements CommunityService {
     private UserRepository userRepository;
 
 //  게시글 등록
-
-
     public Page<CommunityPostDTO> showCounseling(Pageable pageable, CommunityCategory communityCategory, Criteria criteria) {
         return criteria.getKeyword().equals("null") ? postRepositoryImpl.findAllByCategory(pageable, communityCategory) : postRepositoryImpl.findAllByCategory(pageable, communityCategory, criteria);
     }
@@ -67,6 +65,7 @@ public class CommunityPostService implements CommunityService {
         return null;
     }
 
+//    게시글 출력
     @Override
     public List<CommunityPostDTO> findAllByList() {
         List<CommunityPostDTO> communityPostDTO = postRepositoryImpl.findAllByList();
@@ -91,6 +90,7 @@ public class CommunityPostService implements CommunityService {
         postRepository.deleteById(communityPostId);
     }
 
+//  무한스크롤
     @Override
     public List<CommunityPostDTO> selectScrollBoards(int page) {
         List<CommunityPostDTO> communityPostDTO = postRepositoryImpl.selectScrollBoards(page);

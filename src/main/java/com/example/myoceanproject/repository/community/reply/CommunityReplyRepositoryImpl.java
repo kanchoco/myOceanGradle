@@ -10,8 +10,10 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import static com.example.myoceanproject.entity.QCommunityPost.communityPost;
 import static com.example.myoceanproject.entity.QCommunityReply.communityReply;
 
 @Repository
@@ -21,6 +23,30 @@ public class CommunityReplyRepositoryImpl implements CommunityReplyCustomReposit
 
     private final JPAQueryFactory queryFactory;
 
+
+
+//    전체 출력
+    @Override
+    public List<CommunityReplyDTO> findAllById(Long communityPostId){
+        List<CommunityReplyDTO> replies = queryFactory.select(new QCommunityReplyDTO(
+                communityReply.user.userId,
+                communityReply.user.userNickname,
+                communityReply.user.userFileName,
+                communityReply.user.userFilePath,
+                communityReply.user.userFileSize,
+                communityReply.user.userFileUuid,
+                communityReply.communityPost.communityPostId,
+                communityReply.communityPost.communityTitle,
+                communityReply.communityReplyId,
+                communityReply.communityReplyContent,
+                communityReply.createDate,
+                communityReply.updatedDate
+        )).from(communityReply)
+                .where(communityPost.communityPostId.eq(communityPostId))
+                .orderBy(communityReply.createDate.desc()).fetch();
+
+        return replies;
+    }
 
 
 //    해당포스트의 전체 댓글 삭제
@@ -38,6 +64,7 @@ public class CommunityReplyRepositoryImpl implements CommunityReplyCustomReposit
                 .where(communityReply.communityPost.communityPostId.eq(communityPostId))
                 .fetchFirst());
     }
+    
     @Override
     public Integer countReplyByUser(Long userId){
         return Math.toIntExact(queryFactory.select(communityReply.communityReplyId.count())
@@ -66,6 +93,26 @@ public class CommunityReplyRepositoryImpl implements CommunityReplyCustomReposit
                 .where(communityReply.communityPost.communityPostId.eq(communityPost.getCommunityPostId()))
                 .orderBy(communityReply.communityReplyId.desc()).fetch();
     }
+
+    @Override
+    public List<CommunityReplyDTO> findAll(Long communityPostId){
+        List<CommunityReplyDTO> replies = queryFactory.select(new QCommunityReplyDTO(
+                communityReply.user.userId,
+                communityReply.user.userNickname,
+                communityReply.user.userFileName,
+                communityReply.user.userFilePath,
+                communityReply.user.userFileSize,
+                communityReply.user.userFileUuid,
+                communityReply.communityPost.communityPostId,
+                communityReply.communityPost.communityTitle,
+                communityReply.communityReplyId,
+                communityReply.communityReplyContent,
+                communityReply.createDate,
+                communityReply.updatedDate
+        )).from(communityReply).orderBy(communityReply.createDate.desc()).fetch();
+        return replies;
+    }
+
 
     @Override
     public Page<CommunityReplyDTO> findAll(Pageable pageable){

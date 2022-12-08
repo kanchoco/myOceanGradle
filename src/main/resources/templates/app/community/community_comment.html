@@ -45,45 +45,16 @@
 </div>
 
 
-    <div class="PageWrapper-sc-1w87j10-0 SocialFeedReplyPage__Wrapper-sc-71bads-0 bQxaVM">
+    <div th:object="${communityPostDTO}" class="PageWrapper-sc-1w87j10-0 SocialFeedReplyPage__Wrapper-sc-71bads-0 bQxaVM">
         <div class="Center__Wrapper-sc-19p29je-0 hcLOFI">
             <h3>댓글</h3>
         </div>
         <!--댓글창 전체 wrap-->
+        <input th:field="*{userId}" name="userId" type="text" class="userId" style="display:none;">
+        <input th:field="*{communityPostId}" name="communityPostId" type="text" class="communityPostId" style="display:none;">
         <div class="SocialFeedReplyList__Wrapper-sc-1vuk2zv-0 eKpsNP">
             <!--댓글 한 개 wrap-->
-            <div class="replyWrap">
-                <div class="FeedReplyCard__Wrapper-sc-1wg24nj-0 kDLQhH">
-                    <div class="FeedReplyCard__Profile-sc-1wg24nj-1 fcEtFP">
-                        <div class="Image__Wrapper-v97gyx-0 gDuKGF"><img
-                                class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36"
-                                src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">
-                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
-                                <div class="Ratio " style="display: block;">
-                                    <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
-                                        <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
-                                            <!--유저 프로필 사진-->
-                                            <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36" src="https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="FeedReplyCard__Container-sc-1wg24nj-2 hjlSSA">
-                        <!--작성자 닉네임-->
-                        <div class="FeedReplyCard__Name-sc-1wg24nj-3 bUesVF">h.hyeoniya</div>
-                        <!--댓글 작성 내용-->
-                        <p class="FeedReplyCard__Contents-sc-1wg24nj-4 gDMyOG">CSS 너무 재미있네요..</p>
-                        <section class="ActionMenu__Section-s8lvsh-0 gzpaSl">
-                            <!--작성 시간-->
-                            <p class="ActionMenu__Time-s8lvsh-1 gwAsrs">방금전</p>
-                            <!--삭제 버튼-->
-                            <button class="ActionMenu__TextButton-s8lvsh-2 kosXvh">삭제</button>
-                        </section>
-                    </div>
-                </div>
-            </div>
+            <div class="replyWrap"></div>
         </div>
 
 
@@ -112,14 +83,28 @@
             </div>
         </div>
     </div>
+
 </body>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-<script src="/js/fix/header.js"></script>
 <script src="/js/community/comment.js"></script>
+<script src="/js/fix/header.js"></script>
 <script>
-    function getList(communityReplyDTO){
+    let postUserId = $("input[name='userId']").val();
+
+    // 화면 출력 함수 호출
+    function show(){
+        console.log(replyService)
+        replyService.getReplyList({
+            communityPostId: $("input[name='communityPostId']").val()
+        }, getReplyList);
+    }
+
+    show();
+
+    function getReplyList(communityReplyDTO){
         let text ="";
         communityReplyDTO.forEach(reply => {
+            console.log(communityReplyDTO);
             text +=`<div><div class="FeedReplyCard__Wrapper-sc-1wg24nj-0 kDLQhH"><div class="FeedReplyCard__Profile-sc-1wg24nj-1 fcEtFP">`;
             text +=`<div class="Image__Wrapper-v97gyx-0 gDuKGF">`;
             text +=`<div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">`;
@@ -133,24 +118,29 @@
             text +=`</div></div></div></div></div>`;
             text +=`<div class="FeedReplyCard__Container-sc-1wg24nj-2 hjlSSA"><div class="FeedReplyCard__Name-sc-1wg24nj-3 bUesVF">`;
             // 작성자 닉네임
-            text +=`h.hyeoniya`;
+            if(postUserId == reply.userId){
+                text += reply.userNickName + "     (작성자)";
+            } else{
+                text +=reply.userNickName;
+            }
             text +=`</div>`;
             text +=`<p class="FeedReplyCard__Contents-sc-1wg24nj-4 gDMyOG">`;
             <!--댓글 작성 내용-->
-            text +=`CSS 너무 재미있네요..`;
+            text +=reply.communityReplyContent;
             text +=`</p><section class="ActionMenu__Section-s8lvsh-0 gzpaSl">`;
             text +=`<p class="ActionMenu__Time-s8lvsh-1 gwAsrs">`;
             <!--작성 시간-->
-            text +=`방금전`;
+            text +=reply.updatedDate;
             text +=``;
             <!--삭제 버튼-->
-            text +=`</p><button class="ActionMenu__TextButton-s8lvsh-2 kosXvh">삭제</button>`;
+            text +=`</p>`
+            if(postUserId == reply.userId){
+                text +=`<a class="deleteReply" onclick="return false" href=` + reply.communityReplyId;
+                text +=` class="ActionMenu__TextButton-s8lvsh-2 kosXvh goDelete">삭제</a>`;
+            }
             text +=`</section></div></div></div></div>`;
         })
         $(".replyWrap").html(text);
     }
-
-
-
 </script>
 </html>

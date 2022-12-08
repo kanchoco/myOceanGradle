@@ -1,5 +1,6 @@
 package com.example.myoceanproject.repository.community.reply;
 
+import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.domain.CommunityReplyDTO;
 import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.entity.CommunityPost;
@@ -15,19 +16,23 @@ public interface CommunityReplyCustomRepository {
     public void deleteByCommunityPost(CommunityPost communityPost);
 
     public List<CommunityReplyDTO> findByCommunityPost(CommunityPost communityPost);
-//   게시글 전체 댓글 갯수
+    //   게시글 전체 댓글 갯수
     public Integer countReplyByCommunityPost(Long communityPostId);
 
-//  전체 댓글 불러오기
+    public List<CommunityReplyDTO> findAllById(Long communityPostId);
+
+    public List<CommunityReplyDTO> findAll(Long communityPostId);
+
+    //  전체 댓글 불러오기
     public Page<CommunityReplyDTO> findAll(Pageable pageable);
 
-//  전체 댓글 불러오기, 검색어
+    //  전체 댓글 불러오기, 검색어
     public Page<CommunityReplyDTO> findAll(Pageable pageable, Criteria criteria);
 
-//    고민상담 댓글 전체
+    //    고민상담 댓글 전체
     public Page<CommunityReplyDTO> findAllByCategory(Pageable pageable);
 
-//    고민상담 댓글 전체, 검색어
+    //    고민상담 댓글 전체, 검색어
     public Page<CommunityReplyDTO> findAllByCategory(Pageable pageable, Criteria criteria);
 
     public Integer countReplyByUser(Long userId);

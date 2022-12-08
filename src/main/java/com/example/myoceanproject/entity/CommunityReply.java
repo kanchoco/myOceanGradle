@@ -31,9 +31,6 @@ public class CommunityReply extends Period{
     public void setCommunityPost(CommunityPost communityPost){
         this.communityPost = communityPost;
     }
-    public void setCommunityReplyId(Long communityReplyId){
-        this.communityReplyId = communityReplyId;
-    }
     public void setUser(User user){
         this.user = user;
     }

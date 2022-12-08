@@ -100,12 +100,6 @@ public class HostRestController {
             try{
                 File saveGroupFile = new File(uploadPath, uploadFileName);
                 multipartFile.transferTo(saveGroupFile);
-
-//                if(checkImageType(saveGroupFile)){
-//                    FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
-//                    Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100);
-//                    thumbnail.close();
-//                }
             } catch(Exception e){
                 log.error(e.getMessage());
             }
