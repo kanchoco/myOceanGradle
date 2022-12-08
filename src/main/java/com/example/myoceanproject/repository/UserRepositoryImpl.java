@@ -8,6 +8,7 @@ import com.example.myoceanproject.entity.QUser;
 import com.example.myoceanproject.entity.QUserFind;
 import com.example.myoceanproject.repository.community.post.CommunityPostRepositoryImpl;
 import com.example.myoceanproject.repository.community.reply.CommunityReplyRepositoryImpl;
+import com.example.myoceanproject.repository.quest.QuestRepositoryImpl;
 import com.example.myoceanproject.type.UserAccountStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -33,11 +34,11 @@ import static com.example.myoceanproject.entity.QUser.user;
 public class UserRepositoryImpl implements UserCustomRepository {
     private final JPAQueryFactory queryFactory;
 
-    @Autowired
-    private CommunityPostRepositoryImpl postRepositoryImpl;
+    private final CommunityPostRepositoryImpl postRepositoryImpl;
 
-    @Autowired
-    private CommunityReplyRepositoryImpl replyRepositoryImpl;
+    private final CommunityReplyRepositoryImpl replyRepositoryImpl;
+
+    private final QuestRepositoryImpl questRepositoryImpl;
 
     @Override
     public int findCountByemail(String email) {
@@ -201,6 +202,41 @@ public class UserRepositoryImpl implements UserCustomRepository {
                 .from(user)
                 .where(user.userId.eq(userId))
                 .fetchOne();
+        return userDTO;
+    }
+
+    @Override
+    public UserDTO findAllByDashboard(){
+        List<UserDTO> users = queryFactory.select(new QUserDTO(
+                user.userId,
+                user.userPassword,
+                user.userNickname,
+                user.userAccountStatus,
+                user.userFileName,
+                user.userFilePath,
+                user.userFileSize,
+                user.userFileUuid,
+                user.userEmail,
+                user.userLoginMethod,
+                user.userTotalPoint,
+                user.createDate,
+                user.updatedDate,
+                user.userOauthId
+        ))
+        .from(user)
+        .orderBy(user.updatedDate.desc())
+        .offset(0)
+        .limit(7).fetch();
+
+        users.stream().forEach(userDTO -> {
+            userDTO.setUserPostCount(postRepositoryImpl.countPostByUser(userDTO.getUserId()));
+            userDTO.setUserReplyCount(replyRepositoryImpl.countReplyByUser(userDTO.getUserId()));
+            userDTO.setBadgeCount(questRepositoryImpl.countQuestByUser(userDTO.getUserId()));
+        });
+
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserList(users);
+
         return userDTO;
     }
 

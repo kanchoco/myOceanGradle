@@ -29,6 +29,8 @@ public class UserService {
         return criteria.getKeyword().equals("null") ? userRepositoryImpl.findAllByStatus(pageable, userAccountStatus) : userRepositoryImpl.findAllByStatus(pageable, criteria, userAccountStatus);
     }
     public void modify(UserDTO userDTO){
-        userRepository.findById(userDTO.getUserId()).get().updateManager(userDTO.getUserAccountStatus());
+        userRepository.findById(userDTO.getUserId()).get().updateManager(UserAccountStatus.valueOf(userDTO.getUserAccountStatus()));
     }
+
+
 }

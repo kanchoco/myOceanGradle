@@ -26,9 +26,9 @@ public class UserDTO {
     private String userPassword;
     private String userNickname;
 
-    private UserAccountStatus userAccountStatus;
+    private String userAccountStatus;
 
-    private UserLoginMethod userLoginMethod;
+    private String userLoginMethod;
     //    private int totalPoint;
     private int userTotalPoint;
     private String userFileName;
@@ -43,6 +43,7 @@ public class UserDTO {
 
     private int userPostCount;
     private int userReplyCount;
+    private int badgeCount;
 
     private List<UserDTO> userList;
     private int endPage;
@@ -53,13 +54,13 @@ public class UserDTO {
         this.userId = userId;
         this.userPassword = userPassword;
         this.userNickname = userNickname;
-        this.userAccountStatus = userAccountStatus;
+        this.userAccountStatus = userAccountStatus.toString();
         this.userFileName=userFileName;
         this.userFilePath=userFilePath;
         this.userFileSize=userFileSize;
         this.userFileUuid=userFileUuid;
         this.userEmail=userEmail;
-        this.userLoginMethod=userLoginMethod;
+        this.userLoginMethod=userLoginMethod.toString();
         this.userTotalPoint=userTotalPoint;
         this.createDate = createDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         this.updatedDate = updatedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -71,8 +72,8 @@ public class UserDTO {
                 .userPassword(userPassword)
                 .userNickname(userNickname)
                 .userEmail(userEmail)
-                .userLoginMethod(userLoginMethod)
-                .userAccountStatus(userAccountStatus)
+                .userLoginMethod(UserLoginMethod.valueOf(userLoginMethod))
+                .userAccountStatus(UserAccountStatus.valueOf(userAccountStatus))
                 .userTotalPoint(userTotalPoint)
                 .userOauthId(userOauthId)
                 .build();

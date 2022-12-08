@@ -90,7 +90,7 @@ public class ManageUserController {
         UserAccountStatus userStatus = status.equals("ACTIVE") ? UserAccountStatus.ACTIVE : UserAccountStatus.BANNED;
         log.info(userStatus + "status");
 
-        userDTO.setUserAccountStatus(userStatus);
+        userDTO.setUserAccountStatus(String.valueOf(userStatus));
         userDTO.setUserId(userId);
 
         userService.modify(userDTO);

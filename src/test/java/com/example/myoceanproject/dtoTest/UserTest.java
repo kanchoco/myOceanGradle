@@ -35,85 +35,85 @@ public class UserTest {
 
 
     @Test
-    public void saveUserTest(){
+    public void saveUserTest() {
 //      시나리오 : 회워가입 1,2페이지를 통해 누적된 회원의 정보를 회원 테이블에 등록하게된다.
 //      정보 : 이메일,닉네임,패스워드
 //      타입 : 회원가입은 일반(UserLoginMethod.GENERAL), 활성화(UserAccountStatus.ACTIVE)
 //      포인트 : 회원가입포인트(5000) - 임의로 지정
-
+        for (int i = 0; i < 20; i++) {
 //      화면에서 이메일, 닉네임, 패스워드를 입력받고 저장하기 위해 DTO객체 생성
-        UserDTO userDTO = new UserDTO();
+            UserDTO userDTO = new UserDTO();
 
 //      입력받은 패스워드를 암호화하기 위한 과정
-        String pw="qweQWE123!@#";
-        String encryptPw=encryption(pw);
+            String pw = "qweQWE123!@#";
+            String encryptPw = encryption(pw);
 
 //      DTO객체에 화면에서 입력받은 정보와 계정의 추가 상태를 지정한다.
-        userDTO.setUserEmail("whei1234@naver.com");
-        userDTO.setUserNickname("곽두팔");
-        userDTO.setUserPassword(encryptPw);
-        userDTO.setUserLoginMethod(UserLoginMethod.NAVER);
-        userDTO.setUserAccountStatus(UserAccountStatus.BANNED);
-        userDTO.setUserTotalPoint(5000);
+            userDTO.setUserEmail("whei1234@naver.com");
+            userDTO.setUserNickname("곽두팔");
+            userDTO.setUserPassword(encryptPw);
+            userDTO.setUserLoginMethod(UserLoginMethod.NAVER);
+            userDTO.setUserAccountStatus(UserAccountStatus.BANNED);
+            userDTO.setUserTotalPoint(5000);
 
 //      toEntity메서드로 User타입의 엔티티에 저장
-        User user=userDTO.toEntity();
+            User user = userDTO.toEntity();
 
 //      유저 테이블에 저장
             userRepository.save(user);
 
+        }
     }
 
-
-    @Test
-    public void findAllTest(){
-//      시나리오 : 사용자의 전체 정보를 조회한다.
-        List<UserDTO> users=jpaQueryFactory.select(new QUserDTO(
-                user.userId,
-                user.userPassword,
-                user.userNickname,
-                user.userAccountStatus,
-                user.userFileName,
-                user.userFilePath,
-                user.userFileSize,
-                user.userFileUuid,
-                user.userEmail,
-                user.userLoginMethod,
-                user.userTotalPoint,
-                user.createDate,
-                user.updatedDate
-        )).from(user).fetch();
-
-        log.info("------------------------------------------------------------");
-        users.stream().map(UserDTO::toString).forEach(log::info);
-        log.info("------------------------------------------------------------");
-    }
-
-
-    @Test
-    public void findById(){
-
-//      시나리오 : 사용자(3L)의 정보를 조회한다.
-        List<UserDTO> users=jpaQueryFactory.select(new QUserDTO(
-                user.userId,
-                user.userPassword,
-                user.userNickname,
-                user.userAccountStatus,
-                user.userFileName,
-                user.userFilePath,
-                user.userFileSize,
-                user.userFileUuid,
-                user.userEmail,
-                user.userLoginMethod,
-                user.userTotalPoint,
-                user.createDate,
-                user.updatedDate
-        )).from(user).where(user.userId.eq(3L)).fetch();
-
-        log.info("------------------------------------------------------------");
-        users.stream().map(UserDTO::toString).forEach(log::info);
-        log.info("------------------------------------------------------------");
-    }
+//    @Test
+//    public void findAllTest(){
+////      시나리오 : 사용자의 전체 정보를 조회한다.
+//        List<UserDTO> users=jpaQueryFactory.select(new QUserDTO(
+//                user.userId,
+//                user.userPassword,
+//                user.userNickname,
+//                user.userAccountStatus,
+//                user.userFileName,
+//                user.userFilePath,
+//                user.userFileSize,
+//                user.userFileUuid,
+//                user.userEmail,
+//                user.userLoginMethod,
+//                user.userTotalPoint,
+//                user.createDate,
+//                user.updatedDate
+//        )).from(user).fetch();
+//
+//        log.info("------------------------------------------------------------");
+//        users.stream().map(UserDTO::toString).forEach(log::info);
+//        log.info("------------------------------------------------------------");
+//    }
+//
+//
+//    @Test
+//    public void findById(){
+//
+////      시나리오 : 사용자(3L)의 정보를 조회한다.
+//        List<UserDTO> users=jpaQueryFactory.select(new QUserDTO(
+//                user.userId,
+//                user.userPassword,
+//                user.userNickname,
+//                user.userAccountStatus,
+//                user.userFileName,
+//                user.userFilePath,
+//                user.userFileSize,
+//                user.userFileUuid,
+//                user.userEmail,
+//                user.userLoginMethod,
+//                user.userTotalPoint,
+//                user.createDate,
+//                user.updatedDate
+//        )).from(user).where(user.userId.eq(3L)).fetch();
+//
+//        log.info("------------------------------------------------------------");
+//        users.stream().map(UserDTO::toString).forEach(log::info);
+//        log.info("------------------------------------------------------------");
+//    }
 
 
 

@@ -117,8 +117,8 @@ public class JoinController {
     public String joinOk(UserDTO userDTO){
         userDTO.setUserPassword(encryption(userDTO.getUserPassword()));
         userDTO.setUserTotalPoint(5000);
-        userDTO.setUserAccountStatus(UserAccountStatus.ACTIVE);
-        userDTO.setUserLoginMethod(UserLoginMethod.GENERAL);
+        userDTO.setUserAccountStatus(String.valueOf(UserAccountStatus.ACTIVE));
+        userDTO.setUserLoginMethod(String.valueOf(UserLoginMethod.GENERAL));
         User user=userDTO.toEntity();
         userRepository.save(user);
         return "redirect:/main/index";

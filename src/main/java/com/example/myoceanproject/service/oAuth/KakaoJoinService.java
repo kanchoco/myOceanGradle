@@ -153,8 +153,8 @@ public class KakaoJoinService {
                 log.info("no join user");
                 userDTO.setUserNickname(nickname);
                 userDTO.setUserEmail(email);
-                userDTO.setUserLoginMethod(UserLoginMethod.KAKAO);
-                userDTO.setUserAccountStatus(UserAccountStatus.ACTIVE);
+                userDTO.setUserLoginMethod(String.valueOf(UserLoginMethod.KAKAO));
+                userDTO.setUserAccountStatus(String.valueOf(UserAccountStatus.ACTIVE));
                 userDTO.setUserTotalPoint(5000);
                 userDTO.setUserFilePath(userImage);
                 userDTO.setUserOauthId(userOauthId);

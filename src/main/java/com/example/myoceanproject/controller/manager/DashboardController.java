@@ -1,10 +1,7 @@
 package com.example.myoceanproject.controller.manager;
 
 
-import com.example.myoceanproject.domain.AskDTO;
-import com.example.myoceanproject.domain.CommunityPostDTO;
-import com.example.myoceanproject.domain.CommunityReplyDTO;
-import com.example.myoceanproject.domain.Criteria;
+import com.example.myoceanproject.domain.*;
 import com.example.myoceanproject.service.DashBoardService;
 import com.example.myoceanproject.service.community.CommunityReplyService;
 import lombok.RequiredArgsConstructor;
@@ -46,10 +43,10 @@ public class DashboardController {
     }
 
 
-//    @GetMapping("/user")
-//    public AskDTO getAsk(){
-//        return dashBoardService.showAsk();
-//    }
+    @GetMapping("/user")
+    public UserDTO getUser(){
+        return dashBoardService.showUser();
+    }
 
 
 

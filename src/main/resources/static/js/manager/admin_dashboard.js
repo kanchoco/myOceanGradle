@@ -70,4 +70,76 @@ $tr.find('.more').click(function () {
 $('.filter').children('span').click(function () {
     $(this).siblings().removeClass('active-filter')
     $(this).addClass('active-filter');
-})
+});
+
+let dashBoardService = (function(){
+    function getUserList(callback, error){
+        $.ajax({
+            url: "/dashBoard/user",
+            type: "get",
+            success: function(userDTO, status, xhr){
+                if(callback){
+                    callback(userDTO);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+    function getAskList(callback, error){
+        $.ajax({
+            url: "/dashBoard/ask",
+            type: "get",
+            async : false,
+            success: function(AskDTO, status, xhr){
+                if(callback){
+                    callback(AskDTO);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+    function getReplyList(callback, error){
+        $.ajax({
+            url: "/dashBoard/reply",
+            type: "get",
+            async : false,
+            success: function(replyDTO, status, xhr){
+                if(callback){
+                    callback(replyDTO);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+    function getPostList(callback, error){
+        $.ajax({
+            url: "/dashBoard/post",
+            type: "get",
+            async : false,
+            success: function(postDTO, status, xhr){
+                if(callback){
+                    callback(postDTO);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+
+    return {getUserList: getUserList, getAskList : getAskList, getReplyList : getReplyList, getPostList : getPostList }
+}) ();

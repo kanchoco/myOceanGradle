@@ -11,4 +11,6 @@ public interface QuestCustomRepository {
     public Quest saveQuest(QuestDTO questDTO);
     public Page<QuestDTO> findAll(Pageable pageable);
     public Page<QuestDTO> findAll(Pageable pageable, Criteria criteria);
+
+    public Integer countQuestByUser(Long userId);
 }
