@@ -203,9 +203,9 @@ function connect(){
     webSocket.onmessage = onMessage;
 }
 
-
+let userNickName = document.getElementById("userId").innerText;
+let userId = document.getElementById("userId").getAttribute("href");
 let myGroupId;
-let userNickname;
 let msg;
 //db에서 해당 그룹의 채팅 내용을 모두 가져온다.
 function getList(param, callback, error) {
@@ -242,7 +242,6 @@ $("li.active").on("click", function (e) {
     myGroupId = $(this).attr("href");
     show(myGroupId)
     connect();
-
 })
 
 $("#sendButton").on("click", function(){
@@ -257,7 +256,6 @@ function getChattingContentList(chattingDTOList) {
     let text = "";
     var time;
     chattingDTOList.forEach(chatting => {
-        userNickname = chatting.senderUserNickName;
         if (chatting.chattingCreateDate !== time) {
             time = chatting.chattingCreateDate
             text += "<div class=\"dayInfo\">"
@@ -330,22 +328,25 @@ function add(chatting, error){
 
 
 function disconnect(){
-    webSocket.send(JSON.stringify({groupId : myGroupId, type:'LEAVE',senderUserNickName:userNickname}));
+    webSocket.send(JSON.stringify({groupId : myGroupId, messageType:'LEAVE',senderUserNickName:userNickName,  senderUserId : userId,}));
     webSocket.close();
 }
 function send(){
+    console.log(userNickName);
+    console.log(userId);
     msg = document.getElementById("msg").value;
         webSocket.send(JSON.stringify({
             groupId : myGroupId,
-            type:'CHAT',
-            senderUserNickName:userNickname,
-            chattingContent : msg
+            messageType:'CHAT',
+            senderUserNickName:userNickName,
+            chattingContent : msg,
+            senderUserId : userId,
         }))
 
         document.getElementById("msg").value='';
 }
 function onOpen(){
-    webSocket.send(JSON.stringify({groupId : myGroupId, type:'ENTER',senderUserNickName:userNickname}));
+    webSocket.send(JSON.stringify({groupId : myGroupId, messageType:'ENTER',senderUserNickName:userNickName, senderUserId : userId}));
 }
 function onMessage(e){
     chatdata = e.data;
@@ -357,13 +358,13 @@ function onMessage(e){
      + "<img src=\"/imgin/chat/logo.png\" alt=\"chat_image\"></a>"
      + "</div>"
      + "<div class=\"userIdChatTxt\">"
-     + "<span class=\"userId\">" + userNickname + "</span>"
+     + "<span class=\"userId\">" + userNickName + "</span>"
      + "<div class=\"chatTxt\">"
      + "<span class=\"chatTxtContents\">"
      + "<a style=\"color: rgb(51, 51, 51);\">" + chatdata + "</a>"
      + "</span>"
      + "<div class=\"timeWrap\">"
-     + "<span class=\"time\">" + "싫어" + "</span>"
+     + "<span class=\"time\">" + new Date().getHours()+new Date().getMinutes() + "</span>"
      + "</div>"
      + "</div>"
      + "</div>"

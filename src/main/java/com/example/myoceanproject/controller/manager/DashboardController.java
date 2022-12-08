@@ -35,6 +35,7 @@ public class DashboardController {
         return dashBoardService.showReply();
     }
 
+
     @GetMapping("/post")
     public CommunityPostDTO getPost(){
         return dashBoardService.showPost();
@@ -43,6 +44,7 @@ public class DashboardController {
     public AskDTO getAsk(){
         return dashBoardService.showAsk();
     }
+
 
 //    @GetMapping("/user")
 //    public AskDTO getAsk(){
