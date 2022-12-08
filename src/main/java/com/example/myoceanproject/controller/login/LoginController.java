@@ -7,16 +7,12 @@ import com.example.myoceanproject.domain.UserFindDTO;
 import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.entity.UserFind;
 import com.example.myoceanproject.repository.UserFindRepository;
-import com.example.myoceanproject.repository.UserRepository;
-import com.example.myoceanproject.service.oAuth.KakaoJoinService;
+import com.example.myoceanproject.service.oAuth.GoogleLoginService;
 import com.example.myoceanproject.service.oAuth.KakaoLoginService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Controller;
@@ -24,17 +20,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.context.annotation.SessionScope;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
-import java.util.UUID;
 
 import static com.example.myoceanproject.entity.QUser.user;
 import static com.example.myoceanproject.entity.QUserFind.userFind;
@@ -50,6 +44,9 @@ public class LoginController {
 
     @Autowired
     private KakaoLoginService kakaoLoginService;
+
+    @Autowired
+    private GoogleLoginService googleLoginService;
 
     @Autowired
     private UserFindRepository userFindRepository;
@@ -335,6 +332,44 @@ public class LoginController {
         return "redirect:/main/index";
     }
 
+    @GetMapping("/googleLogin")
+    public String googleCallback(Model model, @RequestParam(value = "code") String authCode,HttpSession session) throws Exception{
+
+
+        User user=googleLoginService.getGoogleAccessTokenInfo(authCode);
+
+        if(user.getUserId()==null){
+            return "redirect:/main/index?googlenotjoin=1";
+        }
+        else{
+            session.setAttribute("userId",user.getUserId());
+            session.setAttribute("userNickname",user.getUserNickname());
+            session.setAttribute("userEmail",user.getUserEmail());
+            session.setAttribute("userLoginMethod",user.getUserLoginMethod());
+
+            log.info("userId:"+session.getAttribute("userId"));
+            log.info("userEmail:"+session.getAttribute("userEmail"));
+            log.info("userNickname:"+session.getAttribute("userNickname"));
+            log.info("userLoginMethod:"+session.getAttribute("userLoginMethod"));
+
+            return "redirect:/main/index";
+        }
+    }
+
+    @GetMapping("/googleLogout")
+    public String googleLogout(HttpSession session,HttpServletRequest request,SessionStatus status){
+        log.info("logout");
+//        googleLoginService.logoutGoogle((String)session.getAttribute("token"));
+        session=request.getSession();
+
+        session.removeAttribute("userId");
+        session.removeAttribute("userEmail");
+        session.removeAttribute("userNickname");
+        session.removeAttribute("userLoginMethod");
+
+        status.setComplete();
+        return "redirect:/main/index";
+    }
 
 
     public String encryption(String userPassword){

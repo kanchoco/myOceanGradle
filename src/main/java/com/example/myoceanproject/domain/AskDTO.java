@@ -11,6 +11,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Component
 @Data
 @NoArgsConstructor
@@ -23,13 +26,18 @@ public class AskDTO {
     private String askContent;
     private AskCategory askCategory;
 
+    private String createDate;
+    private String updateDate;
+
     @QueryProjection
-    public AskDTO(Long userId,AskStatus askStatus, String askTitle, String askContent, AskCategory askCategory) {
+    public AskDTO(Long userId, AskStatus askStatus, String askTitle, String askContent, AskCategory askCategory,LocalDateTime createDate, LocalDateTime updateDate) {
         this.userId=userId;
         this.askStatus = askStatus;
         this.askTitle = askTitle;
         this.askContent = askContent;
         this.askCategory = askCategory;
+        this.createDate=createDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        this.updateDate=updateDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
     //  문의사항 작성 시 작성한 유저의 정보, 문의글 제목, 내용, 질문 카테고리가 처음으로 저장된다.

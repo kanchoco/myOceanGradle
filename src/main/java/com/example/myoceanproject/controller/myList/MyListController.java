@@ -268,7 +268,6 @@ public class MyListController {
     @GetMapping("/myListTotal")
     public String myListTotal(Model model, Criteria criteria, HttpServletRequest request){
         //        0부터 시작,
-
         HttpSession session=request.getSession();
 
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
