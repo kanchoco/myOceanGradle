@@ -1,6 +1,7 @@
 package com.example.myoceanproject.controller.manager;
 
 
+import com.example.myoceanproject.domain.AskDTO;
 import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.domain.CommunityReplyDTO;
 import com.example.myoceanproject.domain.Criteria;
@@ -35,10 +36,19 @@ public class DashboardController {
     }
 
     @GetMapping("/post")
-    public CommunityPostDTO getCounselingReply(){
-
-        return ;
+    public CommunityPostDTO getPost(){
+        return dashBoardService.showPost();
     }
+    @GetMapping("/ask")
+    public AskDTO getAsk(){
+        return dashBoardService.showAsk();
+    }
+
+//    @GetMapping("/user")
+//    public AskDTO getAsk(){
+//        return dashBoardService.showAsk();
+//    }
+
 
 
 }

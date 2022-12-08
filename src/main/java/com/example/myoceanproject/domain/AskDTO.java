@@ -13,28 +13,37 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Component
 @Data
 @NoArgsConstructor
 public class AskDTO {
     private Long userId;//유저가 null일 경우 자주 묻는 질문
+    private String userNickname;//유저가 null일 경우 자주 묻는 질문
 
-
+    private Long askId;
     private AskStatus askStatus;
     private String askTitle;
     private String askContent;
+    private String answer;
     private AskCategory askCategory;
 
     private String createDate;
     private String updateDate;
 
+    private List<AskDTO> askList;
+    private int endPage;
+
     @QueryProjection
-    public AskDTO(Long userId, AskStatus askStatus, String askTitle, String askContent, AskCategory askCategory,LocalDateTime createDate, LocalDateTime updateDate) {
-        this.userId=userId;
+    public AskDTO(Long askId, Long userId, String userNickname, AskStatus askStatus, String askTitle, String askContent, String answer,  AskCategory askCategory,LocalDateTime createDate, LocalDateTime updateDate) {
+        this.askId = askId;
+        this.userId = userId;
+        this.userNickname = userNickname;
         this.askStatus = askStatus;
         this.askTitle = askTitle;
         this.askContent = askContent;
+        this.answer = answer;
         this.askCategory = askCategory;
         this.createDate=createDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         this.updateDate=updateDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
@@ -47,6 +56,7 @@ public class AskDTO {
                 .askStatus(askStatus)
                 .askTitle(askTitle)
                 .askContent(askContent)
+                .answer(answer)
                 .askCategory(askCategory)
                 .build();
     }

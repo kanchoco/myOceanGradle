@@ -1,4 +1,4 @@
-package com.example.myoceanproject.repository;
+package com.example.myoceanproject.repository.ask;
 
 import com.example.myoceanproject.entity.Ask;
 import com.example.myoceanproject.type.AskCategory;

@@ -18,4 +18,6 @@ public interface CommunityPostCustomRepository {
 
     public Integer countPostByUser(Long userId);
     public List<CommunityPostDTO> findAllByList();
+
+    public CommunityPostDTO findAllByDashboard();
 }

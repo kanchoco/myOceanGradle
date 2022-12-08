@@ -46,4 +46,51 @@ setInterval(clock, 1000); // 1초마다
 $('.filter').children('span').click(function(){
     $(this).siblings().removeClass('active-filter')
     $(this).addClass('active-filter');
+
+    if($(this).attr('class') == 'waiting'){
+        status = 'waiting';
+    }else {
+        status = 'null'
+    }
+    page = 1;
+    (status === 'null') ? showAll() : show();
+
 })
+
+let askService = (function(){
+    function getList(param, callback, error){
+        $.ajax({
+            url: encodeURI("/ask/" + (param.page || 0) + "/" + param.keyword),
+            type: "get",
+            async : false,
+            success: function(askDTO, status, xhr){
+                if(callback){
+                    callback(askDTO);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+    function getStatusList(param, callback, error){
+        $.ajax({
+            url: encodeURI("/ask/"+ param.status + "/" + (param.page || 0) + "/" + param.keyword),
+            type: "get",
+            async : false,
+            success: function(askDTO, status, xhr){
+                if(callback){
+                    callback(askDTO);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+    return {getList: getList, getStatusList : getStatusList}
+}) ();
