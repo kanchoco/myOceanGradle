@@ -450,7 +450,7 @@ div#page_changer_wrapper {
 }
 
 
-button.previous_buttons {
+.previous_buttons {
     transform: scaleX(-1);
     width: 40px;
     height: 40px;
@@ -458,7 +458,7 @@ button.previous_buttons {
     padding: 0px;
     background-color: white;
     text-align: center;
-    cursor: not-allowed;
+    cursor: pointer;
     border-radius: 50%;
     font-size: 18px;
     display: flex;
@@ -470,7 +470,7 @@ button.previous_buttons {
     border: none;
 }
 
-button.page {
+.page {
     font: inherit;
     width: 40px;
     height: 40px;
@@ -480,7 +480,7 @@ button.page {
     text-align: center;
     cursor: pointer;
     border-radius: 50%;
-    color: black;
+    color: #c4bec9;
     font-size: 18px;
     font-weight: normal;
     display: flex;
@@ -491,21 +491,23 @@ button.page {
     outline: none;
     border: none;
 }
-
+.page.active{
+    color: black;
+}
 #next_button_wrapper {
     display: flex;
     margin-right: 10px;
 }
 
 
-button.next_buttons {
+.next_buttons {
     width: 40px;
     height: 40px;
     line-height: normal;
     padding: 0px;
     background-color: white;
     text-align: center;
-    cursor: not-allowed;
+    cursor: pointer;
     border-radius: 50%;
     font-size: 18px;
     display: flex;

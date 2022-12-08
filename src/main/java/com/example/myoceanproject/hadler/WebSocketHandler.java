@@ -9,6 +9,7 @@ import com.example.myoceanproject.repository.GroupMemberRepository;
 import com.example.myoceanproject.repository.GroupRepositoryImpl;
 import com.example.myoceanproject.repository.UserRepositoryImpl;
 import com.example.myoceanproject.repository.chatting.ChattingRepositoryImpl;
+import com.example.myoceanproject.service.chattingService.ChattingService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,8 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +37,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
     private final UserRepositoryImpl userRepositoryImple;
     private final GroupMemberRepository groupMemberRepository;
+    private final ChattingService chattingService;
 
 //    @Override
 //    public void afterConnectionEstablished(WebSocketSession session) {
@@ -49,11 +53,23 @@ public class WebSocketHandler extends TextWebSocketHandler {
         GroupDTO groupDTO = groupRepositoryImpl.findGroupByGroupId(chattingDTO.getGroupId());
         UserDTO userDTO = userRepositoryImple.findUserById(chattingDTO.getSenderUserId());
         Long groupMemberId =chattingRepository.findGroupMemberIdByUserIdAndGroupId(chattingDTO.getSenderUserId(), chattingDTO.getGroupId());
-        chattingDTO.setSenderUserFileSize(userDTO.getUserFileSize());
+        chattingDTO.setSenderUserFileSize(234342L);
         chattingDTO.setSenderUserFilePath(userDTO.getUserFilePath());
-        chattingDTO.setSenderUserFileName(userDTO.getUserFileName());
-        chattingDTO.setSenderUserFileUuid(userDTO.getUserFileUuid());
+        chattingDTO.setSenderUserFileName("userFileName");
+        chattingDTO.setSenderUserFileUuid("kjsdahgalsdkj");
         chattingDTO.setSenderGroupMemberId(groupMemberId);
+        chattingDTO.setGroupId(groupDTO.getGroupId());
+        chattingDTO.setGroupName(groupDTO.getGroupName());
+        chattingDTO.setReceiverGroupMemberId(1L);
+        chattingDTO.setChattingCreateDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        chattingDTO.setChattingCreateTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
+
+        Long userId = chattingDTO.getSenderUserId();
+        Long groupId = chattingDTO.getGroupId();
+
+        chattingService.saveMessage(userId, groupId, chattingDTO);
+
+
         log.info(chattingDTO.toString());
         groupDTO.handleMessage(session,chattingDTO,objectMapper);
 

@@ -26,6 +26,7 @@ public class Quest extends Period{
     @NotNull
     private int questPoint;
 
+    @Enumerated(EnumType.STRING)
     private QuestType questType;
 
     private String questDeadLine;

@@ -30,6 +30,8 @@ public class Ask extends Period{
     @Enumerated(EnumType.STRING)
     private AskCategory askCategory;
 
+    private String answer;
+
 
     //  양방향
     public void changeUser(User user){
@@ -37,25 +39,25 @@ public class Ask extends Period{
         user.getAsks().add(this);
     }
 
-    public void setAskId(Long askId){
-        this.askId=askId;
-    }
-
     @Builder
-    public Ask(String askTitle, String askContent, AskStatus askStatus, AskCategory askCategory) {
+    public Ask(String askTitle, String askContent, AskStatus askStatus, AskCategory askCategory, String answer) {
         this.askTitle = askTitle;
         this.askContent = askContent;
         this.askStatus = askStatus;
         this.askCategory = askCategory;
+        this.answer = answer;
     }
 
     //  관리자 답변이 발송되면 askStatus의 값이 변하므로 update
-    public void update(AskDTO askDTO){
-        this.askStatus = askDTO.getAskStatus();
+    public void updateStatus(AskStatus status){
+        this.askStatus = status;
     }
     //  작성 후 문의하기 제목, 내용을 수정할때 update
-    public void modifyupdate(AskDTO askDTO){
+    public void update(AskDTO askDTO){
         this.askTitle=askDTO.getAskTitle();
         this.askContent=askDTO.getAskContent();
+    }
+    public void updateAnswer(String answer){
+        this.answer = answer;
     }
 }

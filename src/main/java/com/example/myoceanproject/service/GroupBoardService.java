@@ -25,4 +25,6 @@ public interface GroupBoardService {
     //  게시글 삭제
     public void delete(Long GroupId);
 
+
+
 }
