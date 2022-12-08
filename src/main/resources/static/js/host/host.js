@@ -268,6 +268,11 @@ function closeModal(){
 
 // 진행 장소 추가 버튼 클릭 -> 모달창 열기
 function findPlace(){
+    if($("input[name='groupName']").val()=="" || $("input[name='groupCategory']").val()==""){
+        alert("모임명과 카테고리를 먼저 입력해주세요.");
+        return;
+    }
+
     $('#__BVID__287___BV_modal_outer_').show();
     $('#__BVID__287___BV_modal_content_').show();
     $('#__BVID__1216___BV_modal_content_').hide();
@@ -468,6 +473,8 @@ $('.col-lg-5.selectBox').on('click', function(){
 
 //썸네일 이미지
 $(".plusThumb").on("change", function(){
+
+
     let arrayFile =[];
 
     let formData = new FormData();
@@ -491,20 +498,25 @@ $(".plusThumb").on("change", function(){
         contentType: false,
         processData: false,
         success: function(result) {
-            $('input[name=groupFileName]').attr('value', Object.values(result[0])[16]);
-            $('input[name=groupFilePath]').attr('value', Object.values(result[0])[15]);
-            $('input[name=groupFileSize]').attr('value', Object.values(result[0])[18]);
-            $('input[name=groupFileUuid]').attr('value', Object.values(result[0])[17]);
-            let imageSrc = "/host/display?fileName=" + Object.values(result[0])[15] + "/" + Object.values(result[0])[17] + "_" + Object.values(result[0])[16];
-            console.log(result[0]);
-            console.log(Object.values(result));
+            $('input[name=groupFileName]').attr('value', Object.values(result[0])[20]);
+            $('input[name=groupFilePath]').attr('value', Object.values(result[0])[19]);
+            $('input[name=groupFileSize]').attr('value', Object.values(result[0])[22]);
+            $('input[name=groupFileUuid]').attr('value', Object.values(result[0])[21]);
+            let imageSrc = "/host/display?fileName=" + Object.values(result[0])[19] + "/" + Object.values(result[0])[21] + "_" + Object.values(result[0])[20];
+            console.log(result[0].groupFilePath);
+            console.log(Object.values(result[0]));
             console.log(imageSrc);
+
+            if($('input[name=groupFileSize]').val()>100000){
+                alert("파일 사이즈는 10MB 이하여야합니다.");
+                return;
+            }
+
             $('.image-header').show();
             $('.img-box').show();
 
-
             let text = "";
-            text += `<li id="thumbnailImage" data-file-size="` + Object.values(result[0])[18] + `" data-file-name="` + Object.values(result[0])[16] + `" data-file-upload-path="` + Object.values(result[0])[15] + `" data-file-uuid="` + Object.values(result[0])[17] + `" style="list-style: none;width:100%;">`;
+            text += `<li id="thumbnailImage" data-file-size="` + Object.values(result[0])[22] + `" data-file-name="` + Object.values(result[0])[20] + `" data-file-upload-path="` + Object.values(result[0])[19] + `" data-file-uuid="` + Object.values(result[0])[21] + `" style="list-style: none;width:100%;">`;
             text += `<img src=` + imageSrc + ` style="width:100%;" height="auto">`;
             text += `</li>`;
 
@@ -548,31 +560,31 @@ $('.fixed-bottom .frip-button').on('click', function(){
 $('.checkRequest').on('click', function (){
 
     if($('.image-header').css('display') == 'none'){
-        alert('이미지를 등록해주세요')
+        alert('이미지를 등록해주세요');
         $('#__BVID__287___BV_modal_outer_').hide();
         return;
     }
 
-    if(tinymce.activeEditor.getContent() === ''){
-        alert('모임 설명을 확인해주세요')
+    if($('input[name=groupContent]').val() === ''){
+        alert('모임 설명을 확인해주세요');
         $('#__BVID__287___BV_modal_outer_').hide();
         return;
     }
 
     if($('.cancelRecruitment').css('display') == 'none'){
-        alert('좌측 저장버튼을 먼저 눌러주세요')
+        alert('좌측 저장버튼을 먼저 눌러주세요');
         $('#__BVID__287___BV_modal_outer_').hide();
         return;
     }
 
     if($('input[type=text].form-control').get(0).value == '' || $('input[type=text].form-control').get(1).value == '' || $('input[type=text].form-control').get(2).value == ''){
-        alert('필수입력 항목을 확인해주세요')
+        alert('필수입력 항목을 확인해주세요');
         $('#__BVID__287___BV_modal_outer_').hide();
         return;
     }
 
     if($('.number1').val() == '' || $('.number2').val() == '' || $('.recruitment').next().css('display') != 'none'){
-        alert('모집인원 항목을 확인해주세요')
+        alert('모집인원 항목을 확인해주세요');
         $('#__BVID__287___BV_modal_outer_').hide();
         return;
     }
@@ -653,7 +665,6 @@ $('.saveRecruitment').on('click', function (){
     $('#__BVID__1216___BV_modal_content_').hide();
     $('#__BVID__123___BV_modal_content_').show();
 
-
 });
 
 /*그룹 아이디값 지정*/
@@ -697,6 +708,11 @@ $('.saveRequest').on('click', function (e){
     //  실제 작성한 내용
     let content = $(".note-editable").html();
     $('input[name=groupContent]').attr('value', content);
+
+    if($(".note-editable").text().length>255){
+        alert("글자는 255자 이내로 작성 가능합니다.");
+        return;
+    }
 
     if($('input[name=groupId]').val()=="신규등록"){
         // 컨트롤러로 해당 내용 모두 전송
