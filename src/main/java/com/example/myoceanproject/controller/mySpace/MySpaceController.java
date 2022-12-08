@@ -5,10 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDate;
@@ -30,14 +27,14 @@ public class MySpaceController {
 
         model.addAttribute("noticeDayWrap",mySpaceService.returnToday());
         model.addAttribute("nowTime",mySpaceService.returnToday());
-        model.addAttribute("todayList",mySpaceService.showAllByToday());
+//        model.addAttribute("todayList",mySpaceService.showAllByToday());
         return "app/mySpace/mySpace";
     }
 
     @PostMapping("/index")
-    public RedirectView mySpaceResister(String toDoListContent, String toDoListSelectDate) {
+    public RedirectView mySpaceResister(String toDoListContent, String toDoListSelectDate, Long userId) {
 
-        mySpaceService.post(toDoListContent,toDoListSelectDate);
+        mySpaceService.post(toDoListContent,toDoListSelectDate,userId);
         return new RedirectView("/myspace/index"); }
 
 

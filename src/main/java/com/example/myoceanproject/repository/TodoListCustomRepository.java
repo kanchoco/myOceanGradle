@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface TodoListCustomRepository {
 
-    public List<ToDoListDTO> findAllTodoList();
+    public List<ToDoListDTO> findAllTodoList(Long userId);
 
-    public List<ToDoListDTO> findAllByToday();
+    public List<ToDoListDTO> findAllByToday(Long userId);
 
-    public List<ToDoListDTO> findAllByMonth(LocalDateTime toDoListSelectDate);
+    public List<ToDoListDTO> findAllByMonth(LocalDateTime toDoListSelectDate,Long userId);
 
     public ToDoListDTO findById(Long id);
 

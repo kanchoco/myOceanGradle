@@ -44,13 +44,13 @@ public class GroupTest {
 //        유저가 db에 없을 경우를 대비해서 유저 먼저 db에 저장해줬다. db에 유저가 있다면 findById를 사용하여 찾아오기만 하면 된다.
 
 //      유저 db에 저장
-        UserDTO userDTO = new UserDTO();
-        userDTO.setUserEmail("akjhdgaiafd");
-        userDTO.setUserNickname("dlsdud");
-        userDTO.setUserPassword("qakjghlig");
-        userDTO.setUserLoginMethod(UserLoginMethod.GENERAL);
-        userDTO.setUserAccountStatus(UserAccountStatus.ACTIVE);
-        userRepository.save(userDTO.toEntity());
+//        UserDTO userDTO = new UserDTO();
+//        userDTO.setUserEmail("akjhdgaiafd");
+//        userDTO.setUserNickname("dlsdud");
+//        userDTO.setUserPassword("qakjghlig");
+//        userDTO.setUserLoginMethod(UserLoginMethod.GENERAL);
+//        userDTO.setUserAccountStatus(UserAccountStatus.ACTIVE);
+//        userRepository.save(userDTO.toEntity());
 
 //      모임 정보 저장
         GroupDTO groupDTO = new GroupDTO();
@@ -63,22 +63,20 @@ public class GroupTest {
         groupDTO.setGroupLocationType(GroupLocationType.ONLINE);
         groupDTO.setGroupFileSize(10L);
 
-        groupDTO.setGroupFilePath("filePath");
+        groupDTO.setGroupFilePath("https://letspl.s3.ap-northeast-2.amazonaws.com/images/project_thumb_20.png");
         groupDTO.setGroupFileName("groupName");
-        groupDTO.setGroupLocation("장소는 이러쿵저러쿵");
+        groupDTO.setGroupLocation("서울 강남");
         groupDTO.setGroupLocationDetail("sdkshgkh");
         groupDTO.setGroupParkingAvailable("dsafhdsakdfh");
         groupDTO.setGroupOverSea("해외");
-        groupDTO.setGroupLocationName("장소이름입니다");
+        groupDTO.setGroupLocationName("서울 강남");
         groupDTO.setGroupMoreInformation("장소의 더보기");
-        
-
 //        임베드 타입 set해줌
         groupDTO.setMaxMember(10);
         groupDTO.setMinMember(2);
 //        DTO를 엔티티로 바꿔서 저장해줌
         Group group1 = groupDTO.toEntity();
-        group1.setUser(userRepository.findById(2L).get());
+        group1.setUser(userRepository.findById(1L).get());
         groupRepository.save(group1);
 
     }

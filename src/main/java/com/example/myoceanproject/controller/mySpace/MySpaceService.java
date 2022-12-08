@@ -27,7 +27,7 @@ public class MySpaceService {
     private final TodoListCustomRepository todoListCustomRepository;
 
     //투두 리스트 작성
-    public void post(String toDoListContent, String toDoListSelectDate){
+    public void post(String toDoListContent, String toDoListSelectDate, Long userId){
         ToDoListDTO toDoListDTO = new ToDoListDTO();
 
         //회원가입된 유저 찾기
@@ -44,7 +44,7 @@ public class MySpaceService {
 
 
         ToDoList toDoList = toDoListDTO.toEntity();
-        toDoList.setUser(userRepository.findById(1l).get());
+        toDoList.setUser(userRepository.findById(userId).get());
 
         todoListRepository.save(toDoList);
 
@@ -59,26 +59,27 @@ public class MySpaceService {
 
 
     //    전체날짜 출력
-    public List<ToDoListDTO> showAll(){
-        return todoListCustomRepository.findAllTodoList();
+    public List<ToDoListDTO> showAll(Long userId){
+        return todoListCustomRepository.findAllTodoList(userId);
     }
 
     //    오늘 날짜로 출력
-    public List<ToDoListDTO> showAllByToday(){
-        return todoListCustomRepository.findAllByToday();
+    public List<ToDoListDTO> showAllByToday(Long userId){
+        return todoListCustomRepository.findAllByToday(userId);
     }
 
     //    선택 월로 출력
-    public List<ToDoListDTO> showAllByMonth(LocalDateTime time) {
-        return todoListCustomRepository.findAllByMonth(time);
+    public List<ToDoListDTO> showAllByMonth(LocalDateTime time,Long userId) {
+        return todoListCustomRepository.findAllByMonth(time,userId);
     }
 
 
     @Transactional
     public ToDoListDTO update(ToDoListDTO toDoListDTO){
         Long id = toDoListDTO.getToDoListId();
-        ToDoList toDoList = todoListRepository.findById(toDoListDTO.getToDoListId()).get();
+        ToDoList toDoList = todoListRepository.findById(id).get();
         toDoList.update(toDoListDTO);
+
         return todoListCustomRepository.findById(id);
     }
 
