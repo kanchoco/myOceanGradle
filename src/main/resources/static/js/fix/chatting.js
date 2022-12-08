@@ -199,14 +199,16 @@ let webSocket;
 function connect(){
     webSocket = new WebSocket("ws://localhost:15000/chatts");
     webSocket.onopen = onOpen;
-    webSocket.onclose = onClose;
     webSocket.onmessage = onMessage;
+    webSocket.onclose = onClose;
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    console.log('새로운 클라이언트 접속 ip : ', ip);
 }
 
 let userNickName = document.getElementById("userId").innerText;
 let userId = document.getElementById("userId").getAttribute("href");
 let myGroupId;
-let msg;
+
 //db에서 해당 그룹의 채팅 내용을 모두 가져온다.
 function getList(param, callback, error) {
     $.ajax({
@@ -244,13 +246,23 @@ $("li.active").on("click", function (e) {
     connect();
 })
 
-$("#sendButton").on("click", function(){
+$("#sendButton").on("click", function(e){
+    console.log(myGroupId);
+    console.log()
+    let chat = document.getElementById("msg").value;
     send();
+    e.data = chat;
+    webSocket.onmessage(e);
     add({
-        chattingContent: msg,
-        groupId : myGroupId
+        chattingContent: chat,
+        groupId : myGroupId,
+        senderUserId : userId
     })
 });
+
+document.getElementById("sendButton").addEventListener("click",function(){
+    send();
+})
 
 function getChattingContentList(chattingDTOList) {
     let text = "";
@@ -303,15 +315,14 @@ function getChattingContentList(chattingDTOList) {
 
 }
 
-function add(chatting, error){
+function add(chatting, callback, error){
     $.ajax({
         url: "/chatting/new",
         type: "post",
         data: JSON.stringify(chatting),
-        async:false,
         contentType: "application/json; charset=utf-8",
-        success: function(result, status, xhr){
-            console.log("add 성공")
+        success: function (result, status, xhr) {
+            document.getElementById("msg").value = '';
         },
         error: function(xhr, status, err){
             if(error){
@@ -328,28 +339,33 @@ function add(chatting, error){
 
 
 function disconnect(){
-    webSocket.send(JSON.stringify({groupId : myGroupId, messageType:'LEAVE',senderUserNickName:userNickName,  senderUserId : userId,}));
+    webSocket.send(JSON.stringify({groupId : myGroupId, messageType:'LEAVE',senderUserNickName:userNickName,senderUserId : userId}));
     webSocket.close();
 }
 function send(){
+    console.log("=============================자바스크립트 send들어옴======================================")
     console.log(userNickName);
     console.log(userId);
-    msg = document.getElementById("msg").value;
+    console.log(webSocket.readyState === webSocket.OPEN);
+    let msg = document.getElementById("msg").value;
         webSocket.send(JSON.stringify({
             groupId : myGroupId,
             messageType:'CHAT',
             senderUserNickName:userNickName,
-            chattingContent : msg,
             senderUserId : userId,
+            chattingContent : msg
         }))
-
-        document.getElementById("msg").value='';
 }
 function onOpen(){
+    console.log("=============================자바스크립트 onOpen들어옴======================================")
     webSocket.send(JSON.stringify({groupId : myGroupId, messageType:'ENTER',senderUserNickName:userNickName, senderUserId : userId}));
 }
 function onMessage(e){
+    console.log("=============================자바스크립트 onMessage들어옴======================================")
+    console.log(new Date().getHours()+"/"+new Date().getMinutes()+"/"+new Date().getSeconds()+"/"+new Date().getMilliseconds());
     chatdata = e.data;
+    chatContent = document.getElementById("msg").value;
+    console.log(e)
     chattingRoom =document.getElementById("chattingRoom");
     chattingRoom.innerHTML =chattingRoom.innerHTML
      + "<div class=\"opponent\">"
@@ -364,7 +380,7 @@ function onMessage(e){
      + "<a style=\"color: rgb(51, 51, 51);\">" + chatdata + "</a>"
      + "</span>"
      + "<div class=\"timeWrap\">"
-     + "<span class=\"time\">" + new Date().getHours()+new Date().getMinutes() + "</span>"
+     + "<span class=\"time\">" + new Date().getHours()+":"+new Date().getMinutes() + "</span>"
      + "</div>"
      + "</div>"
      + "</div>"
