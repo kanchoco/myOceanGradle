@@ -42,7 +42,7 @@ public class MyPageController {
         return "app/myPage/myPage";
     }
 
-//  마이페이지에서 변경 버튼 클릭시 정보 저장하는 비동기 요청
+    //  마이페이지에서 변경 버튼 클릭시 정보 저장하는 비동기 요청
     @RequestMapping("/changeInfo")
     @ResponseBody
     @Transactional
@@ -67,7 +67,7 @@ public class MyPageController {
         return "app/myPage/passwordChange";
     }
 
-//  입력된 비밀번호와 데이터베이스에 있는 비밀번호 비교를 위한 비동기 요청
+    //  입력된 비밀번호와 데이터베이스에 있는 비밀번호 비교를 위한 비동기 요청
     @RequestMapping("/confrimPassword")
     @ResponseBody
     public String confrimPassword(@RequestBody String oldPassword, HttpServletRequest request){
@@ -88,7 +88,8 @@ public class MyPageController {
                 user.userLoginMethod,
                 user.userTotalPoint,
                 user.createDate,
-                user.updatedDate
+                user.updatedDate,
+                user.userOauthId
         )).from(user).where(user.userId.eq(userIds)).fetchOne();
 
         log.info("dbpassword"+users.getUserPassword());
@@ -103,7 +104,7 @@ public class MyPageController {
         }
     }
 
-//  비밀번호 변경하기 위한 비동기 요청
+    //  비밀번호 변경하기 위한 비동기 요청
     @RequestMapping("/changePassword")
     @ResponseBody
     @Transactional

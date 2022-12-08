@@ -72,7 +72,8 @@ public class JoinController {
                 user.userLoginMethod,
                 user.userTotalPoint,
                 user.createDate,
-                user.updatedDate
+                user.updatedDate,
+                user.userOauthId
         )).from(user).where(user.userEmail.eq(email)).fetch();
         log.info("users size:"+users.size());
         if(users.size()>=1){
@@ -91,18 +92,19 @@ public class JoinController {
     public String checkNickname(@RequestBody String nickname){
         List<UserDTO> users=jpaQueryFactory.select(new QUserDTO(
                 user.userId,
-                user.userEmail,
+                user.userPassword,
                 user.userNickname,
                 user.userAccountStatus,
                 user.userFileName,
                 user.userFilePath,
                 user.userFileSize,
                 user.userFileUuid,
-                user.userPassword,
+                user.userEmail,
                 user.userLoginMethod,
                 user.userTotalPoint,
                 user.createDate,
-                user.updatedDate
+                user.updatedDate,
+                user.userOauthId
         )).from(user).where(user.userNickname.eq(nickname)).fetch();
 
         if(users.size()>=1){

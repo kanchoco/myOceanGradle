@@ -119,6 +119,7 @@ public class KakaoJoinService {
             boolean hasEmail = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("has_email").getAsBoolean();
             String nickname=element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("profile").getAsJsonObject().get("nickname").getAsString();
             String userImage=element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("profile").getAsJsonObject().get("profile_image_url").getAsString();
+            Long userOauthId=element.getAsJsonObject().get("id").getAsLong();
 
             String email = "";
 
@@ -143,7 +144,8 @@ public class KakaoJoinService {
                     user.userLoginMethod,
                     user.userTotalPoint,
                     user.createDate,
-                    user.updatedDate
+                    user.updatedDate,
+                    user.userOauthId
             )).from(user).where(user.userEmail.eq(email)).fetch();
 
             UserDTO userDTO=new UserDTO();
@@ -155,6 +157,7 @@ public class KakaoJoinService {
                 userDTO.setUserAccountStatus(UserAccountStatus.ACTIVE);
                 userDTO.setUserTotalPoint(5000);
                 userDTO.setUserFilePath(userImage);
+                userDTO.setUserOauthId(userOauthId);
                 User user=userDTO.toEntity();
                 user.updateNicknameFile(userDTO);
                 userRepository.save(user);

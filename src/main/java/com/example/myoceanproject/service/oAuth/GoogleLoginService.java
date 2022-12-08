@@ -113,7 +113,8 @@ public class GoogleLoginService {
                 user.userLoginMethod,
                 user.userTotalPoint,
                 user.createDate,
-                user.updatedDate
+                user.updatedDate,
+                user.userOauthId
         )).from(user).where(user.userEmail.eq(email)).fetch();
 
         UserDTO userDTO=new UserDTO();
