@@ -135,7 +135,8 @@
                                                             <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
                                                                 <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
                                                                     <!--유저 프로필 사진--> <!--사진 없을 때 들어갈 디폴트 이미지도 있어야함-->
-                                                                    <img alt="호스트 프로필 이미지" class="Image__StyledImage-v97gyx-1 VUNpu" width="56" height="56" src="https://res.cloudinary.com/frientrip/image/upload/ar_1:1,c_fill,dpr_2,f_auto,q_auto,w_56/mosawXKomb_1559867469010">
+                                                                    <img th:if="*{userFileName}" th:src="{/host/display(fileName=${groupDTO.userFilePath} + '/' + ${groupDTO.userFileUuid} + '_' + ${groupDTO.userFileName})}" class="Image__StyledImage-v97gyx-1 VUNpu" width="56" height="56">
+                                                                    <img th:unless="*{userFileName}" th:src="@{/imgin/user.png}" class="Image__StyledImage-v97gyx-1 VUNpu" width="56" height="56">
                                                                 </div>
                                                             </div>
                                                         </div>
