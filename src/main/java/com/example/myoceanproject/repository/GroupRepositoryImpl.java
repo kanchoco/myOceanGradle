@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
+import static com.example.myoceanproject.entity.QCommunityReply.communityReply;
 import static com.example.myoceanproject.entity.QGroup.group;
 
 
@@ -30,6 +31,10 @@ public class GroupRepositoryImpl implements GroupCustomRepository{
         return queryFactory.select(new QGroupDTO(
                 group.groupId,
                 group.user.userId,
+                group.user.userFileName,
+                group.user.userFilePath,
+                group.user.userFileSize,
+                group.user.userFileUuid,
                 group.user.userNickname,
                 group.groupName,
                 group.groupCategory,
@@ -57,6 +62,10 @@ public class GroupRepositoryImpl implements GroupCustomRepository{
         return queryFactory.select(new QGroupDTO(
                 group.groupId,
                 group.user.userId,
+                group.user.userFileName,
+                group.user.userFilePath,
+                group.user.userFileSize,
+                group.user.userFileUuid,
                 group.user.userNickname,
                 group.groupName,
                 group.groupCategory,
@@ -84,6 +93,10 @@ public class GroupRepositoryImpl implements GroupCustomRepository{
         return queryFactory.select(new QGroupDTO(
                 group.groupId,
                 group.user.userId,
+                group.user.userFileName,
+                group.user.userFilePath,
+                group.user.userFileSize,
+                group.user.userFileUuid,
                 group.user.userNickname,
                 group.groupName,
                 group.groupCategory,

@@ -68,7 +68,8 @@
                                 <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
                                     <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
                                         <!--댓글 작성자 이미지-->
-                                        <img alt="profile-image" class="Image__StyledImage-v97gyx-1 VUNpu" width="45" height="45" src="https://res.cloudinary.com/frientrip/image/fetch/ar_1:1,dpr_2,f_auto,q_auto,w_64/https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg">
+                                        <img th:if="*{userFileName}" th:src="@{/community/display(fileName=${communityPostDTO.userFilePath} + '/' + ${communityPostDTO.userFileUuid} + '_' + ${communityPostDTO.userFileName})}" alt="profile-image" class="Image__StyledImage-v97gyx-1 VUNpu" width="45" height="45">
+                                        <img th:unless="*{userFileName}" th:src="@{/imgin/user.png}" alt="profile-image" class="Image__StyledImage-v97gyx-1 VUNpu" width="45" height="45">
                                     </div>
                                 </div>
                             </div>
@@ -104,6 +105,7 @@
     function getReplyList(communityReplyDTO){
         let text ="";
         communityReplyDTO.forEach(reply => {
+            let userImageSrc = "/community/display?fileName=" + reply.userFilePath + "/" + reply.userFileUuid + "_" + reply.userFileName;
             console.log(communityReplyDTO);
             text +=`<div><div class="FeedReplyCard__Wrapper-sc-1wg24nj-0 kDLQhH"><div class="FeedReplyCard__Profile-sc-1wg24nj-1 fcEtFP">`;
             text +=`<div class="Image__Wrapper-v97gyx-0 gDuKGF">`;
@@ -113,7 +115,11 @@
             text +=`<div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">`;
             text +=`<img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36" src="`;
             // 유저 이미지 사진
-            text +=`https://k.kakaocdn.net/dn/bl4Tcw/btrP7Tj3kh6/PKqkuz3LlNKUWdmS7wR03K/img_110x110.jpg`;
+            if(reply.userFileName){
+                text+=userImageSrc;
+            } else{
+                text +=`/imgin/user.png`;
+            }
             text +=`"></div>`;
             text +=`</div></div></div></div></div>`;
             text +=`<div class="FeedReplyCard__Container-sc-1wg24nj-2 hjlSSA"><div class="FeedReplyCard__Name-sc-1wg24nj-3 bUesVF">`;

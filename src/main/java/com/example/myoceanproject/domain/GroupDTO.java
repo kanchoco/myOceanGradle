@@ -28,6 +28,10 @@ public class GroupDTO {
     private Long groupId;
     private Long userId;
     private String userNickName;
+    private String userFileName;
+    private String userFilePath;
+    private Long userFileSize;
+    private String userFileUuid;
     private String groupName;
     private String groupCategory;
     private String groupContent;
@@ -52,10 +56,14 @@ public class GroupDTO {
 
 
     @QueryProjection
-    public GroupDTO(Long groupId, Long userId, String userNickName, String groupName, String groupCategory, String groupContent, int groupPoint, String groupOverSea, String groupLocationName, String groupLocation, String groupLocationDetail, String groupParkingAvailable, String groupMoreInformation, GroupLocationType groupLocationType, GroupStatus groupStatus, String groupFilePath, String groupFileName, String groupFileUuid, Long groupFileSize, Integer maxMember, Integer minMember) {
+    public GroupDTO(Long groupId, Long userId, String userFileName, String userFilePath, Long userFileSize, String userFileUuid, String userNickName, String groupName, String groupCategory, String groupContent, int groupPoint, String groupOverSea, String groupLocationName, String groupLocation, String groupLocationDetail, String groupParkingAvailable, String groupMoreInformation, GroupLocationType groupLocationType, GroupStatus groupStatus, String groupFilePath, String groupFileName, String groupFileUuid, Long groupFileSize, Integer maxMember, Integer minMember) {
         this.groupId = groupId;
         this.userId = userId;
         this.userNickName = userNickName;
+        this.userFileName = userFileName;
+        this.userFilePath = userFilePath;
+        this.userFileSize = userFileSize;
+        this.userFileUuid = userFileUuid;
         this.groupName = groupName;
         this.groupCategory = groupCategory;
         this.groupContent = groupContent;

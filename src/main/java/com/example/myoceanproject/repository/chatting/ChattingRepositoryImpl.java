@@ -34,6 +34,10 @@ public class ChattingRepositoryImpl implements ChattingCustomRepository {
         return queryFactory.select(new QGroupDTO(
                 group.groupId,
                 group.user.userId,
+                group.user.userFileName,
+                group.user.userFilePath,
+                group.user.userFileSize,
+                group.user.userFileUuid,
                 group.user.userNickname,
                 group.groupName,
                 group.groupCategory,
