@@ -363,7 +363,7 @@ function onMessage(e){
      + "<a style=\"color: rgb(51, 51, 51);\">" + chatdata + "</a>"
      + "</span>"
      + "<div class=\"timeWrap\">"
-     + "<span class=\"time\">" + Date.now() + "</span>"
+     + "<span class=\"time\">" + "싫어" + "</span>"
      + "</div>"
      + "</div>"
      + "</div>"
