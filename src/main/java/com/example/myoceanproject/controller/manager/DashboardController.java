@@ -34,11 +34,11 @@ public class DashboardController {
         return dashBoardService.showReply();
     }
 
-    @GetMapping("/post")
-    public CommunityPostDTO getCounselingReply(){
-
-        return ;
-    }
+//    @GetMapping("/post")
+//    public CommunityPostDTO getCounselingReply(){
+//
+//        return ;
+//    }
 
 
 }
