@@ -1,4 +1,4 @@
-package com.example.myoceanproject.controller.category;
+package com.example.myoceanproject.controller.login.category;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
