@@ -64,7 +64,7 @@ public class CommunityPost extends Period{
 //  커뮤니티 게시글은 카테고리와 제목, 내용이 수정 가능하고
 //  조회수는 유저가 조회할 경우 계속 업데이트가 된다.
     public void update(CommunityPostDTO communityPostDTO){
-        this.communityCategory = communityPostDTO.getCommunityCategory();
+        this.communityCategory = CommunityCategory.valueOf(communityPostDTO.getCommunityCategory());
         this.communityTitle = communityPostDTO.getCommunityTitle();
         this.communityContent = communityPostDTO.getCommunityContent();
         this.communityViewNumber = communityPostDTO.getCommunityViewNumber();
@@ -79,7 +79,11 @@ public class CommunityPost extends Period{
     public void updateReadCount(){
         this.communityViewNumber++;
     }
-    public void updateLikeCount(){
+    public void updateLikePlusCount(){
         this.communityLikeNumber++;
+    }
+
+    public void updateLikeMinusCount(){
+        this.communityLikeNumber--;
     }
 }

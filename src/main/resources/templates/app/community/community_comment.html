@@ -44,7 +44,7 @@
     </div>
 </div>
 
-
+    <input th:value="${session.userId}" style="display:none;" name="myId">
     <div th:object="${communityPostDTO}" class="PageWrapper-sc-1w87j10-0 SocialFeedReplyPage__Wrapper-sc-71bads-0 bQxaVM">
         <div class="Center__Wrapper-sc-19p29je-0 hcLOFI">
             <h3>댓글</h3>
@@ -124,6 +124,9 @@
             text +=`</div></div></div></div></div>`;
             text +=`<div class="FeedReplyCard__Container-sc-1wg24nj-2 hjlSSA"><div class="FeedReplyCard__Name-sc-1wg24nj-3 bUesVF">`;
             // 작성자 닉네임
+            console.log(postUserId);
+            console.log(reply.userId);
+            let myId = $("input[name='myId']").val();
             if(postUserId == reply.userId){
                 text += reply.userNickName + "     (작성자)";
             } else{

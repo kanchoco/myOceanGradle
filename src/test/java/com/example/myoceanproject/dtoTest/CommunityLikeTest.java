@@ -71,7 +71,7 @@ public class CommunityLikeTest {
         communityLikeRepository.save(communityLike);
 
 //        update 메서드, 실행하면 라이크 카운트 1증가
-        communityPost.updateLikeCount();
+        communityPost.updateLikePlusCount();
 
     }
 

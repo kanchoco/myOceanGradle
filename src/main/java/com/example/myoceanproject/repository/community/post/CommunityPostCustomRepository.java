@@ -17,7 +17,8 @@ public interface CommunityPostCustomRepository {
     public void deleteByPost(CommunityPost post);
 
     public Integer countPostByUser(Long userId);
-    public List<CommunityPostDTO> findAllByList();
+
+    public List<CommunityPostDTO> findAllByList(Long userId);
 
     public CommunityPostDTO findAllByDashboard();
 }

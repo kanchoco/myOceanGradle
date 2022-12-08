@@ -14,7 +14,7 @@ public interface CommunityService {
     public List<CommunityPostDTO> showCommunity();
 
     // 게시글 목록 처음에 다 나오게 하기
-    public List<CommunityPostDTO> findAllByList();
+    public List<CommunityPostDTO> findAllByList(Long userId);
 
     //  게시글 조회
     public CommunityPostDTO find(Long communityPostId);

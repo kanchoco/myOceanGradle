@@ -2,8 +2,6 @@ package com.example.myoceanproject.service.community;
 
 import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.domain.Criteria;
-import com.example.myoceanproject.domain.GroupDTO;
-import com.example.myoceanproject.domain.QCommunityPostDTO;
 import com.example.myoceanproject.entity.CommunityPost;
 import com.example.myoceanproject.repository.UserRepository;
 import com.example.myoceanproject.repository.community.post.CommunityPostRepository;
@@ -15,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,8 +64,18 @@ public class CommunityPostService implements CommunityService {
 
 //    게시글 출력
     @Override
+    public List<CommunityPostDTO> findAllByList(Long userId) {
+        List<CommunityPostDTO> communityPostDTO = postRepositoryImpl.findAllByList(userId);
+        return communityPostDTO;
+    }
+
     public List<CommunityPostDTO> findAllByList() {
-        List<CommunityPostDTO> communityPostDTO = postRepositoryImpl.findAllByList();
+        List<CommunityPostDTO> communityPostDTO = postRepositoryImpl.findAllByListWithoutLogin();
+        return communityPostDTO;
+    }
+
+    public List<CommunityPostDTO> findBoardByCategory(List<String> communityCategories){
+        List<CommunityPostDTO> communityPostDTO = postRepositoryImpl.filterCommunityBoard(communityCategories);
         return communityPostDTO;
     }
 
@@ -97,6 +104,4 @@ public class CommunityPostService implements CommunityService {
         return communityPostDTO;
     }
 }
-
-
 

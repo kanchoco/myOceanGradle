@@ -26,7 +26,7 @@ public class CommunityPostDTO {
     private String userFileUuid;
 
 
-    private CommunityCategory communityCategory;
+    private String communityCategory;
     private String communityTitle;
     private String communityContent;
     private int communityViewNumber;
@@ -53,6 +53,8 @@ public class CommunityPostDTO {
 
     private int endPage;
 
+    private boolean checkLike;
+
     @QueryProjection
     public CommunityPostDTO(Long communityPostId, Long userId, String userNickName, String userFileName, String userFilePath, Long userFileSize, String userFileUuid, CommunityCategory communityCategory, String communityTitle, String communityContent, String communityFilePath, String communityFileName, String communityFileUuid, Long communityFileSize, int communityViewNumber, int communityLikeNumber, LocalDateTime createDate, LocalDateTime updatedDate) {
         this.communityPostId = communityPostId;
@@ -62,7 +64,7 @@ public class CommunityPostDTO {
         this.userFilePath = userFilePath;
         this.userFileSize = userFileSize;
         this.userFileUuid = userFileUuid;
-        this.communityCategory = communityCategory;
+        this.communityCategory = communityCategory.toString();
         this.communityTitle = communityTitle;
         this.communityContent = communityContent;
         this.communityFilePath = communityFilePath;
@@ -82,7 +84,7 @@ public class CommunityPostDTO {
     public CommunityPost toEntity(){
         return CommunityPost.builder()
                 .communityTitle(communityTitle)
-                .communityCategory(communityCategory)
+                .communityCategory(CommunityCategory.valueOf(communityCategory))
                 .communityContent(communityContent)
                 .communityFileName(communityFileName)
                 .communityFilePath(communityFilePath)
