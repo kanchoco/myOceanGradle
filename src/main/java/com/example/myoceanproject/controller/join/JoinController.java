@@ -4,6 +4,7 @@ import com.example.myoceanproject.domain.QUserDTO;
 import com.example.myoceanproject.domain.UserDTO;
 import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.repository.UserRepository;
+import com.example.myoceanproject.service.oAuth.GoogleJoinService;
 import com.example.myoceanproject.service.oAuth.KakaoJoinService;
 import com.example.myoceanproject.type.UserAccountStatus;
 import com.example.myoceanproject.type.UserLoginMethod;
@@ -19,7 +20,6 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.swing.*;
 import java.util.Base64;
 import java.util.List;
 
@@ -39,6 +39,9 @@ public class JoinController {
 
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
+
+    @Autowired
+    private GoogleJoinService googleJoinService;
 
     // 첫번째 회원가입 페이지
     @GetMapping("/joinOne")
@@ -127,6 +130,20 @@ public class JoinController {
         String token = kakaoJoinService.getKaKaoAccessToken(code);
         session.setAttribute("token", token);
         int exist=kakaoJoinService.getKakaoInfo(token);
+
+        if(exist==0){
+            session.invalidate();
+            return "redirect:/main/index?join=1";
+        }
+        else{
+            return "redirect:/login/index?login=1";
+        }
+    }
+
+    @GetMapping("/googleJoin")
+    public String googleCallback(Model model, @RequestParam(value = "code") String authCode,HttpSession session) throws Exception{
+
+        int exist=googleJoinService.getGoogleAccessTokenInfo(authCode);
 
         if(exist==0){
             session.invalidate();
