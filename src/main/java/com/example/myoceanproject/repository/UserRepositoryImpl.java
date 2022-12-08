@@ -21,6 +21,7 @@ import org.springframework.jdbc.support.CustomSQLErrorCodesTranslation;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static com.example.myoceanproject.entity.QCommunityPost.communityPost;
@@ -59,14 +60,13 @@ public class UserRepositoryImpl implements UserCustomRepository {
                     user.userLoginMethod,
                     user.userTotalPoint,
                     user.createDate,
-                    user.updatedDate
+                    user.updatedDate,
+                    user.userOauthId
                 ))
                 .from(user)
                 .orderBy(user.userId.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()).fetch();
-
-
 
         long total = queryFactory.selectFrom(user)
                 .fetch().size();
@@ -76,19 +76,20 @@ public class UserRepositoryImpl implements UserCustomRepository {
     @Override
     public Page<UserDTO> findAll(Pageable pageable, Criteria criteria) {
         List<UserDTO> users = queryFactory.select(new QUserDTO(
-                        user.userId,
-                        user.userPassword,
-                        user.userNickname,
-                        user.userAccountStatus,
-                        user.userFileName,
-                        user.userFilePath,
-                        user.userFileSize,
-                        user.userFileUuid,
-                        user.userEmail,
-                        user.userLoginMethod,
-                        user.userTotalPoint,
-                        user.createDate,
-                        user.updatedDate
+                user.userId,
+                user.userPassword,
+                user.userNickname,
+                user.userAccountStatus,
+                user.userFileName,
+                user.userFilePath,
+                user.userFileSize,
+                user.userFileUuid,
+                user.userEmail,
+                user.userLoginMethod,
+                user.userTotalPoint,
+                user.createDate,
+                user.updatedDate,
+                user.userOauthId
                 ))
                 .from(user)
                 .where(user.userNickname.contains(criteria.getKeyword()))
@@ -110,19 +111,20 @@ public class UserRepositoryImpl implements UserCustomRepository {
 
     public Page<UserDTO> findAllByStatus(Pageable pageable, UserAccountStatus userAccountStatus){
         List<UserDTO> users = queryFactory.select(new QUserDTO(
-                        user.userId,
-                        user.userPassword,
-                        user.userNickname,
-                        user.userAccountStatus,
-                        user.userFileName,
-                        user.userFilePath,
-                        user.userFileSize,
-                        user.userFileUuid,
-                        user.userEmail,
-                        user.userLoginMethod,
-                        user.userTotalPoint,
-                        user.createDate,
-                        user.updatedDate
+                user.userId,
+                user.userPassword,
+                user.userNickname,
+                user.userAccountStatus,
+                user.userFileName,
+                user.userFilePath,
+                user.userFileSize,
+                user.userFileUuid,
+                user.userEmail,
+                user.userLoginMethod,
+                user.userTotalPoint,
+                user.createDate,
+                user.updatedDate,
+                user.userOauthId
                 ))
                 .from(user)
                 .where(user.userAccountStatus.eq(userAccountStatus))
@@ -144,19 +146,20 @@ public class UserRepositoryImpl implements UserCustomRepository {
     }
     public Page<UserDTO> findAllByStatus(Pageable pageable, Criteria criteria, UserAccountStatus userAccountStatus){
         List<UserDTO> users = queryFactory.select(new QUserDTO(
-                        user.userId,
-                        user.userPassword,
-                        user.userNickname,
-                        user.userAccountStatus,
-                        user.userFileName,
-                        user.userFilePath,
-                        user.userFileSize,
-                        user.userFileUuid,
-                        user.userEmail,
-                        user.userLoginMethod,
-                        user.userTotalPoint,
-                        user.createDate,
-                        user.updatedDate
+                user.userId,
+                user.userPassword,
+                user.userNickname,
+                user.userAccountStatus,
+                user.userFileName,
+                user.userFilePath,
+                user.userFileSize,
+                user.userFileUuid,
+                user.userEmail,
+                user.userLoginMethod,
+                user.userTotalPoint,
+                user.createDate,
+                user.updatedDate,
+                user.userOauthId
                 ))
                 .from(user)
                 .where(user.userAccountStatus.eq(userAccountStatus).and(user.userNickname.contains(criteria.getKeyword())))
@@ -180,19 +183,20 @@ public class UserRepositoryImpl implements UserCustomRepository {
     @Override
     public UserDTO findUserById(Long userId){
         UserDTO userDTO = queryFactory.select(new QUserDTO(
-                        user.userId,
-                        user.userPassword,
-                        user.userNickname,
-                        user.userAccountStatus,
-                        user.userFileName,
-                        user.userFilePath,
-                        user.userFileSize,
-                        user.userFileUuid,
-                        user.userEmail,
-                        user.userLoginMethod,
-                        user.userTotalPoint,
-                        user.createDate,
-                        user.updatedDate
+                user.userId,
+                user.userPassword,
+                user.userNickname,
+                user.userAccountStatus,
+                user.userFileName,
+                user.userFilePath,
+                user.userFileSize,
+                user.userFileUuid,
+                user.userEmail,
+                user.userLoginMethod,
+                user.userTotalPoint,
+                user.createDate,
+                user.updatedDate,
+                user.userOauthId
                 ))
                 .from(user)
                 .where(user.userId.eq(userId))

@@ -29,7 +29,7 @@ public class UserDTO {
     private UserAccountStatus userAccountStatus;
 
     private UserLoginMethod userLoginMethod;
-//    private int totalPoint;
+    //    private int totalPoint;
     private int userTotalPoint;
     private String userFileName;
     private String userFilePath;
@@ -46,9 +46,10 @@ public class UserDTO {
 
     private List<UserDTO> userList;
     private int endPage;
+    private Long userOauthId;
 
     @QueryProjection
-    public UserDTO(Long userId, String userPassword, String userNickname, UserAccountStatus userAccountStatus, String userFileName, String userFilePath, Long userFileSize, String userFileUuid, String userEmail, UserLoginMethod userLoginMethod, int userTotalPoint, LocalDateTime createDate, LocalDateTime updatedDate) {
+    public UserDTO(Long userId, String userPassword, String userNickname, UserAccountStatus userAccountStatus, String userFileName, String userFilePath, Long userFileSize, String userFileUuid, String userEmail, UserLoginMethod userLoginMethod, int userTotalPoint, LocalDateTime createDate, LocalDateTime updatedDate,Long userOauthId) {
         this.userId = userId;
         this.userPassword = userPassword;
         this.userNickname = userNickname;
@@ -62,6 +63,7 @@ public class UserDTO {
         this.userTotalPoint=userTotalPoint;
         this.createDate = createDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         this.updatedDate = updatedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.userOauthId=userOauthId;
     }
 
     public User toEntity(){
@@ -72,6 +74,7 @@ public class UserDTO {
                 .userLoginMethod(userLoginMethod)
                 .userAccountStatus(userAccountStatus)
                 .userTotalPoint(userTotalPoint)
+                .userOauthId(userOauthId)
                 .build();
     }
 

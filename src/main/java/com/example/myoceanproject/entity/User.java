@@ -41,6 +41,8 @@ public class User extends Period {
     private Long userFileSize;
     private String userFileUuid;
 
+    private Long userOauthId;
+
     //    그룹 테이블 양방향
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Group> groups;
@@ -70,7 +72,7 @@ public class User extends Period {
     private List<Alarm> alarms;
 
     @Builder
-    public User(String userPassword, String userNickname, String userEmail,UserAccountStatus userAccountStatus,UserLoginMethod userLoginMethod, int userTotalPoint, String userFileName, String userFilePath, Long userFileSize, String userFileUuid) {
+    public User(String userPassword, String userNickname, String userEmail,UserAccountStatus userAccountStatus,UserLoginMethod userLoginMethod, int userTotalPoint, String userFileName, String userFilePath, Long userFileSize, String userFileUuid,Long userOauthId) {
         this.userPassword = userPassword;
         this.userNickname = userNickname;
         this.userEmail = userEmail;
@@ -81,6 +83,7 @@ public class User extends Period {
         this.userFileName = userFileName;
         this.userFilePath = userFilePath;
         this.userFileSize = userFileSize;
+        this.userOauthId=userOauthId;
     }
 
 //  가입 후 유저 비밀번호와 닉네임, 유저 포인트 변경 및 업데이트가 가능하다.
