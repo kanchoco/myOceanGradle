@@ -70,7 +70,7 @@ public class ChattingDTO {
     public Chatting toEntity(){
         return Chatting.builder()
                 .chattingContent(chattingContent)
-                .messageType(messageType)
+                .messageType(MessageType.CHAT)
                 .build();
     }
 }

@@ -28,6 +28,7 @@ public class ChattingRestController {
 
     @GetMapping("/groupId/{groupId}")
     public List<ChattingDTO> list(@PathVariable("groupId") Long groupId, Model model){
+        log.info("===================================컨트롤러 list들어옴============================================");
 
         List<ChattingDTO> chattingDTOList= chattingService.showChatting(groupId);
         GroupDTO groupDTO =groupRepositoryImpl.findGroupByGroupId(groupId);
@@ -36,9 +37,10 @@ public class ChattingRestController {
     }
 
     @PostMapping(value = "/new", consumes = "application/json", produces = "text/plain; charset=utf-8")
-    public ResponseEntity<String> write(@RequestBody ChattingDTO chattingDTO, HttpServletRequest request) throws UnsupportedEncodingException {
-        HttpSession session=request.getSession();
-        Long userId = (Long)session.getAttribute("userId");
+    public ResponseEntity<String> write(@RequestBody ChattingDTO chattingDTO) throws UnsupportedEncodingException {
+        log.info("===================================컨트롤러 add들어옴============================================");
+
+        Long userId = chattingDTO.getSenderUserId();
         Long groupId = chattingDTO.getGroupId();
 
         chattingService.saveMessage(userId, groupId, chattingDTO);
