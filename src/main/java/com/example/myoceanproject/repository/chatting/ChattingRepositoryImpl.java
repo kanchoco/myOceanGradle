@@ -56,7 +56,10 @@ public class ChattingRepositoryImpl implements ChattingCustomRepository {
                 group.groupFileUuid,
                 group.groupFileSize,
                 group.groupMemberLimit.maxMember,
-                group.groupMemberLimit.minMember
+                group.groupMemberLimit.minMember,
+                group.createDate,
+                group.updatedDate,
+                group.reason
         )).from(group)
                 .join(groupMember)
                 .on(groupMember.group.groupId.eq(group.groupId))

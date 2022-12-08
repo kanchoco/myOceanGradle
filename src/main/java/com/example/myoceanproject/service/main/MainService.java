@@ -28,7 +28,7 @@ public class MainService {
         List<GroupDTO> list = jpaQueryFactory.select(new QGroupDTO(group.groupId,group.user.userId,group.user.userFileName,group.user.userFilePath,group.user.userFileSize,group.user.userFileUuid,group.user.userNickname,group.groupName,group.groupCategory
         ,group.groupContent,group.groupPoint,group.groupOverSea,group.groupLocationName,group.groupLocation,group.groupLocationDetail,group.groupParkingAvailable,
                 group.groupMoreInformation,group.groupLocationType,group.groupStatus,group.groupFilePath,group.groupFileName,group.groupFileUuid,group.groupFileSize
-                ,group.groupMemberLimit.maxMember,group.groupMemberLimit.minMember
+                ,group.groupMemberLimit.maxMember,group.groupMemberLimit.minMember,group. createDate,group. updatedDate,group.reason
         )).from(group).orderBy(group.groupId.desc()).limit(4l).fetch();
         return list;
     }
