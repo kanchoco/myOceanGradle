@@ -4,6 +4,7 @@ import com.example.myoceanproject.entity.CommunityPost;
 import com.example.myoceanproject.entity.CommunityReply;
 import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.repository.UserRepository;
+import com.example.myoceanproject.type.CommunityCategory;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;
 import lombok.Data;
@@ -29,6 +30,8 @@ public class CommunityReplyDTO {
     private Long communityPostId;
 
     private String communityPostTitle;
+
+    private CommunityCategory communityCategory;
 
     private Long communityReplyId;
     private String communityReplyContent;
@@ -56,6 +59,22 @@ public class CommunityReplyDTO {
         this.communityReplyContent = communityReplyContent;
         this.createDate = createDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         this.updatedDate = updatedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    }
+    @QueryProjection
+    public CommunityReplyDTO(Long userId, String userNickName, String userFileName, String userFilePath, Long userFileSize, String userFileUuid, Long communityPostId, String communityPostTitle, Long communityReplyId ,String communityReplyContent, LocalDateTime createDate, LocalDateTime updatedDate, CommunityCategory communityCategory) {
+        this.userId = userId;
+        this.userNickName = userNickName;
+        this.userFileName = userFileName;
+        this.userFilePath = userFilePath;
+        this.userFileSize = userFileSize;
+        this.userFileUuid = userFileUuid;
+        this.communityPostId = communityPostId;
+        this.communityPostTitle = communityPostTitle;
+        this.communityReplyId = communityReplyId;
+        this.communityReplyContent = communityReplyContent;
+        this.createDate = createDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.updatedDate = updatedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.communityCategory = communityCategory;
     }
 
     public CommunityReply toEntity(){
