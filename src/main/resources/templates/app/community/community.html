@@ -22,6 +22,7 @@
 <div th:unless="${session.userId}">
     <header th:replace="/app/fix/headerModify.html:: header"/>
 </div>
+<input style="display:none;" th:value="${session.userId}" name="userId">
 <div class="SocialFeedPage__Wrapper-ky5ymg-0 fzBbGO">
     <div class="SocialFeedPage__Header-ky5ymg-1 jIjcTX">
         <div style="padding-left: 20px; padding-right: 20px;">
@@ -180,6 +181,16 @@
     $wrapper.next().css("overflow-x","unset");
     // $(".writeBtn").css("right","30.4%");
 
+    checkUser();
+
+    function checkUser(){
+        if($("input[name='userId']").val()==""){
+            showWithOutUser();
+        }
+        else{
+            show();
+        }
+    }
 
     // 화면 출력 함수 호출
     function show() {
@@ -189,7 +200,14 @@
         }, getList);
     }
 
-    show();
+    function showWithOutUser() {
+        console.log(communityService);
+        communityService.getListNotUser({
+            page: page
+        }, getList);
+    }
+
+
 
 
     /*화면 출력*/
@@ -197,6 +215,7 @@
         let text ="";
         console.log(communityPostDTO);
         communityPostDTO.forEach(post => {
+
             let imageSrc = "/community/display?fileName=" + post.communityFilePath + "/" + post.communityFileUuid + "_" + post.communityFileName;
             let userImageSrc = "/community/display?fileName=" + post.userFilePath + "/" + post.userFileUuid + "_" + post.userFileName;
             // 작성자 프로필 사진, 닉네임
@@ -211,7 +230,7 @@
             text +=`<div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">`;
             text+=`<div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">`;
             text +=`<img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36" src="`;
-            // 프로필 사진 이미지 부분(나중에 교체)
+            // 프로필 사진 이미지 부분
             if(post.userFileName){
                 text+=userImageSrc;
             } else{
@@ -239,21 +258,29 @@
             text+=`"></div></div></div></div></div></div>`;
             <!--본문 내용-->
 
-            text+=`<div class="Description__Wrapper-ogh69p-0 lhIpIh CardFeed__StyledDescription-sc-1hnsnr8-2 eOhuaj">`;
+            text+=`<div class="Description__Wrapper-ogh69p-0 lhIpIh CardFeed__StyledDescription-sc-1hnsnr8-2 eOhuaj" style="margin-top:10px;">`;
             text+=`<span class="SpanLineClamp-my36n9-0 Description__StyledSpanLineClamp-ogh69p-2 dwGwRt">`;
             // 본문 텍스트
             text+=post.communityTitle;
             text+=`</span><button class="Description__ExpandButton-ogh69p-1 djffyn"></button></div></a>`;
             // 좋아요, 댓글
             text+=`<div class="ActionGroup__Wrapper-sg91np-0 cXiDYn">`;
-            text+=`<button type="button" class="ActionGroup__LikeButton-sg91np-1 jxmvcs">`;
+            text+=`<a class="ActionGroup__LikeButton-sg91np-1 jxmvcs" href="`;
+            text+=post.communityPostId + `">`;
             // 좋아요 눌렀을 때 이미지
-            // text+=`<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='18' viewBox='0 0 21 18'%3E %3Cpath fill='%23F32D2D' d='M19.437 1.589C18.427.564 17.085 0 15.657 0s-2.77.564-3.78 1.589L10.5 2.986 9.124 1.59C8.114.564 6.77 0 5.344 0c-1.429 0-2.771.564-3.78 1.589-2.085 2.115-2.085 5.557 0 7.673l8.379 8.504c.148.15.348.234.557.234.209 0 .41-.084.557-.234l8.38-8.504c2.084-2.116 2.084-5.558 0-7.673z'/%3E %3C/svg%3E" alt="좋아요~"><span>`;
-            // 좋아요 안눌었을 때 이미지
-            text+=`<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='18' viewBox='0 0 21 18'%3E %3Cpath fill='none' stroke='%234E5968' stroke-width='1.5' d='M15.657.75c-1.226 0-2.379.485-3.246 1.365l-1.91 1.94-1.912-1.94C7.722 1.235 6.57.75 5.343.75s-2.378.485-3.245 1.365C1.198 3.028.75 4.227.75 5.425c0 1.199.448 2.398 1.348 3.31l8.425 8.504 8.379-8.504c.9-.912 1.348-2.111 1.348-3.31 0-1.198-.448-2.397-1.347-3.31-.867-.88-2.02-1.365-3.246-1.365z'/%3E %3C/svg%3E" alt="좋아요~"><span></span>`;
+            if($("input[name='userId']").val()==""){
+                text+=`<img class="checkLike likePlus" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='18' viewBox='0 0 21 18'%3E %3Cpath fill='none' stroke='%234E5968' stroke-width='1.5' d='M15.657.75c-1.226 0-2.379.485-3.246 1.365l-1.91 1.94-1.912-1.94C7.722 1.235 6.57.75 5.343.75s-2.378.485-3.245 1.365C1.198 3.028.75 4.227.75 5.425c0 1.199.448 2.398 1.348 3.31l8.425 8.504 8.379-8.504c.9-.912 1.348-2.111 1.348-3.31 0-1.198-.448-2.397-1.347-3.31-.867-.88-2.02-1.365-3.246-1.365z'/%3E %3C/svg%3E" alt="좋아요~"><span class="likeNumber">`;
+            }
+            else if(!post.checkLike){
+                text+=`<img class="checkLike likeCancel" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='18' viewBox='0 0 21 18'%3E %3Cpath fill='%23F32D2D' d='M19.437 1.589C18.427.564 17.085 0 15.657 0s-2.77.564-3.78 1.589L10.5 2.986 9.124 1.59C8.114.564 6.77 0 5.344 0c-1.429 0-2.771.564-3.78 1.589-2.085 2.115-2.085 5.557 0 7.673l8.379 8.504c.148.15.348.234.557.234.209 0 .41-.084.557-.234l8.38-8.504c2.084-2.116 2.084-5.558 0-7.673z'/%3E %3C/svg%3E" alt="좋아요~"><span>`;
+            }
+            else{
+                // 좋아요 안눌었을 때 이미지
+                text+=`<img class="checkLike likePlus" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='18' viewBox='0 0 21 18'%3E %3Cpath fill='none' stroke='%234E5968' stroke-width='1.5' d='M15.657.75c-1.226 0-2.379.485-3.246 1.365l-1.91 1.94-1.912-1.94C7.722 1.235 6.57.75 5.343.75s-2.378.485-3.245 1.365C1.198 3.028.75 4.227.75 5.425c0 1.199.448 2.398 1.348 3.31l8.425 8.504 8.379-8.504c.9-.912 1.348-2.111 1.348-3.31 0-1.198-.448-2.397-1.347-3.31-.867-.88-2.02-1.365-3.246-1.365z'/%3E %3C/svg%3E" alt="좋아요~"><span class="likeNumber">`;
+            }
             // 좋아요 개수
             text+= post.communityLikeNumber;
-            text+=`</span></button>`;
+            text+=`</span></a>`;
             text+=`<a class="goReplyBoard" style="display: flex;margin-top: 1px;" href=`;
             text+=post.communityPostId;
             text+=`>`;
@@ -267,6 +294,5 @@
         })
         $(".view__FeedListWrapper-sc-1fff32g-0.ciajVR").append(text);
     }
-
 </script>
 </html>

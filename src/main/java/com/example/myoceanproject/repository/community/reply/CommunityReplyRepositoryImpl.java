@@ -48,6 +48,8 @@ public class CommunityReplyRepositoryImpl implements CommunityReplyCustomReposit
     }
 
 
+
+
 //    해당포스트의 전체 댓글 삭제
     @Override
     public void deleteByCommunityPost(CommunityPost communityPost) {

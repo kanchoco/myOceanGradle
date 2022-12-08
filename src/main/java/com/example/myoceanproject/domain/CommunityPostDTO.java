@@ -53,6 +53,8 @@ public class CommunityPostDTO {
 
     private int endPage;
 
+    private boolean checkLike;
+
     @QueryProjection
     public CommunityPostDTO(Long communityPostId, Long userId, String userNickName, String userFileName, String userFilePath, Long userFileSize, String userFileUuid, CommunityCategory communityCategory, String communityTitle, String communityContent, String communityFilePath, String communityFileName, String communityFileUuid, Long communityFileSize, int communityViewNumber, int communityLikeNumber, LocalDateTime createDate, LocalDateTime updatedDate) {
         this.communityPostId = communityPostId;

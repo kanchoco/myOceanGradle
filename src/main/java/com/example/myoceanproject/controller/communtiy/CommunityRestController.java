@@ -45,6 +45,18 @@ public class CommunityRestController {
 
     //  리스트 출력
     @GetMapping("/list")
+    public List<CommunityPostDTO> getCommunity(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute("userId");
+
+        List<CommunityPostDTO> communityPostDTO= communityPostService.findAllByList(userId);
+
+
+        return communityPostDTO;
+    }
+
+    //  비회원 전용 리스트 출력
+    @GetMapping("/list-not-user")
     public List<CommunityPostDTO> getCommunity(){
         List<CommunityPostDTO> communityPostDTO= communityPostService.findAllByList();
         return communityPostDTO;
@@ -133,10 +145,8 @@ public class CommunityRestController {
         HttpSession session=request.getSession();
         Long userId = (Long)session.getAttribute("userId");
         communityPostDTO.setUserId(userId);
-        log.info(communityPostDTO.toString());
         /*groupDTO로 받아온 값의 communityPostId를 엔티티화하여 communityPost를 찾는다.*/
         CommunityPost communityPost = communityPostRepository.findById(communityPostDTO.getCommunityPostId()).get();
-        log.info(communityPostDTO.toString());
         /*그룹 안에 선언한 update메소드를 통해 communityPostDTO로 받아온 값으로 값을 수정한다.*/
         communityPost.update(communityPostDTO);
         log.info(communityPost.toString());
@@ -159,5 +169,4 @@ public class CommunityRestController {
         Date now = new Date();
         return format.format(now);
     }
-
 }

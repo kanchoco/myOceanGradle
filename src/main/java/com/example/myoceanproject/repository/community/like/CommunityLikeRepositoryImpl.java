@@ -18,13 +18,12 @@ public class CommunityLikeRepositoryImpl implements CommunityLikeCustomRepositor
     private final JPAQueryFactory queryFactory;
 
     //        유저번호와 포스트번호로 라이크여부를 가려주는 메소드
-//        좋아요를 하지 않았으면 true, 좋아요를 했으면 false
+    //        좋아요를 하지 않았으면 true, 좋아요를 했으면 false
     @Override
     public boolean findByCommunityPostAndUser(Long userId, Long postId ){
       return queryFactory.selectFrom(communityLike).where(communityLike.communityPost.communityPostId.eq(postId).and(communityLike.userId.eq(userId))).fetchOne() == null;
     }
 
-//
     //        유저번호와 포스트번호로 라이크를 삭제하는 메소드
     @Override
     public void deleteByCommunityPostAndUser(Long userId, Long postId){

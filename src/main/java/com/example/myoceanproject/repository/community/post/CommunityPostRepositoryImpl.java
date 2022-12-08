@@ -146,7 +146,43 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
 
 //  리스트로 게시글 출력하기
 @Override
-public List<CommunityPostDTO> findAllByList(){
+public List<CommunityPostDTO> findAllByList(Long userId){
+    List<CommunityPostDTO> posts = jpaQueryFactory.select(new QCommunityPostDTO(
+                    communityPost.communityPostId,
+                    communityPost.user.userId,
+                    communityPost.user.userNickname,
+                    communityPost.user.userFileName,
+                    communityPost.user.userFilePath,
+                    communityPost.user.userFileSize,
+                    communityPost.user.userFileUuid,
+                    communityPost.communityCategory,
+                    communityPost.communityTitle,
+                    communityPost.communityContent,
+                    communityPost.communityFilePath,
+                    communityPost.communityFileName,
+                    communityPost.communityFileUuid,
+                    communityPost.communityFileSize,
+                    communityPost.communityViewNumber,
+                    communityPost.communityLikeNumber,
+                    communityPost.createDate,
+                    communityPost.updatedDate
+            ))
+            .from(communityPost)
+            .orderBy(communityPost.createDate.desc())
+            .limit(10)
+            .fetch();
+
+    posts.stream().forEach(communityPostDTO -> {
+        communityPostDTO.setCommunityReplyCount(replyRepositoryImpl.countReplyByCommunityPost(communityPostDTO.getCommunityPostId()));
+        communityPostDTO.setCheckLike(likeRepositoryImpl.findByCommunityPostAndUser(userId,communityPostDTO.getCommunityPostId()));
+    });
+
+    return posts;
+}
+
+
+//  로그인 안 한 유저를 위한 것
+public List<CommunityPostDTO> findAllByListWithoutLogin(){
     List<CommunityPostDTO> posts = jpaQueryFactory.select(new QCommunityPostDTO(
                     communityPost.communityPostId,
                     communityPost.user.userId,
@@ -178,6 +214,7 @@ public List<CommunityPostDTO> findAllByList(){
 
     return posts;
 }
+
     @Override
     public Page<CommunityPostDTO> findAll(Pageable pageable, Criteria criteria){
 //        검색어가 있는 경우

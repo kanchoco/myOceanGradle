@@ -79,7 +79,11 @@ public class CommunityPost extends Period{
     public void updateReadCount(){
         this.communityViewNumber++;
     }
-    public void updateLikeCount(){
+    public void updateLikePlusCount(){
         this.communityLikeNumber++;
+    }
+
+    public void updateLikeMinusCount(){
+        this.communityLikeNumber--;
     }
 }

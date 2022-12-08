@@ -102,10 +102,15 @@ let replyService = (function() {
 
 // 추가
 $(".TextAreaSection__SubmitButton-h0o51s-5.fWXEgN").on("click", function(){
+    if($("input[name='myId']").val()==""){
+        alert("로그인 후 이용하실 수 있습니다.");
+        return;
+    }
+
     replyService.add({
         communityReplyContent: $(".TextAreaSection__Textarea-h0o51s-4.iHQYSd").val(),
         communityPostId: $("input[name='communityPostId']").val(),
-        userId: $("input[name='userId']").val()
+        userId: $("input[name='myId']").val()
     }, function(){
         $(".TextAreaSection__Textarea-h0o51s-4.iHQYSd").val('');
         show();
