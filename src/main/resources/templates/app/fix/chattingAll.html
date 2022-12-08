@@ -25,7 +25,7 @@
                         </div>
                     </div>
                     <div class="userIdAndTimeInfo">
-                        <p class="userId chattingRoomName" th:text="${session.userNickname}"></p>
+                        <p class="userId chattingRoomName" id = "userId" th:href="${session.userId}" th:text="${session.userNickname}"></p>
                         <div class="morAndFoldBtnWrap">
                             <!--                            <div class="moreBtn"></div>-->
                             <div class="foldChatBtn"></div>
