@@ -32,6 +32,7 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
 
     @Override
     public Page<CommunityPostDTO> findAllByCategory(Pageable pageable, CommunityCategory communityCategory){
+
         List<CommunityPostDTO> posts = jpaQueryFactory.select(new QCommunityPostDTO(
                         communityPost.communityPostId,
                         communityPost.user.userId,
@@ -297,5 +298,37 @@ public List<CommunityPostDTO> findAllByList(){
                 .limit(10)
                 .fetch();
         return boards;
+    }
+
+    public CommunityPostDTO findAllByDashboard(){
+        List<CommunityPostDTO> posts = jpaQueryFactory.select(new QCommunityPostDTO(
+                        communityPost.communityPostId,
+                        communityPost.user.userId,
+                        communityPost.user.userNickname,
+                        communityPost.user.userFileName,
+                        communityPost.user.userFilePath,
+                        communityPost.user.userFileSize,
+                        communityPost.user.userFileUuid,
+                        communityPost.communityCategory,
+                        communityPost.communityTitle,
+                        communityPost.communityContent,
+                        communityPost.communityFilePath,
+                        communityPost.communityFileName,
+                        communityPost.communityFileUuid,
+                        communityPost.communityFileSize,
+                        communityPost.communityViewNumber,
+                        communityPost.communityLikeNumber,
+                        communityPost.createDate,
+                        communityPost.updatedDate
+                ))
+                .from(communityPost)
+                .orderBy(communityPost.createDate.desc())
+                .offset(0)
+                .limit(7)
+                .fetch();
+
+        CommunityPostDTO postDTO = new CommunityPostDTO();
+        postDTO.setPostList(posts);
+        return postDTO;
     }
 }
