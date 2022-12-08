@@ -50,4 +50,75 @@ let accountCondition = null;
 $('.filter').children('span').click(function(){
     $(this).siblings().removeClass('active-filter')
     $(this).addClass('active-filter');
-})
+
+    switch($(this).attr('class')) {
+        case 'waiting active-filter':
+            status = 'waiting';
+            break;
+        case 'approved active-filter':
+            status = 'approved';
+            break;
+        default :
+            status = 'null';
+            break;
+    }
+    page = 1;
+    (status === 'null') ? showAll() : show();
+});
+
+
+let groupService = (function(){
+    function getList(param, callback, error){
+        $.ajax({
+            url: encodeURI("/group/" + (param.page || 0) + "/" + param.keyword),
+            type: "get",
+            async : false,
+            success: function(groupDTO, status, xhr){
+                if(callback){
+                    callback(groupDTO);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+    function getListByStatus(param, callback, error){
+        $.ajax({
+            url: encodeURI("/group/" + (param.page || 0) + "/" + param.keyword) + "/" + param.status,
+            type: "get",
+            async : false,
+            success: function(groupDTO, status, xhr){
+                if(callback){
+                    callback(groupDTO);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+
+    // function remove(postNumber, callback, error){
+    //     $.ajax({
+    //         url: "/post/" + postNumber,
+    //         type: "delete",
+    //         async : false,
+    //         success: function(text){
+    //             if(callback){
+    //                 callback(text);
+    //             }
+    //         },
+    //         error: function(xhr, status, err){
+    //             if(error){
+    //                 error(err);
+    //             }
+    //         }
+    //     });
+    // }
+    return {getList: getList,getListByStatus: getListByStatus}
+}) ();

@@ -53,6 +53,8 @@ public class Group extends Period{
     @Enumerated(EnumType.STRING)
     private GroupStatus groupStatus; // Enum
 
+    private String reason;
+
 
     @Embedded
     private GroupMemberLimit groupMemberLimit;
@@ -63,7 +65,7 @@ public class Group extends Period{
     }
 
     @Builder
-    public Group(User user, String groupName, String groupCategory, String groupContent, int groupPoint, String groupOverSea, String groupLocationName, String groupLocation, String groupLocationDetail, String groupParkingAvailable, String groupMoreInformation, GroupLocationType groupLocationType, GroupStatus groupStatus, GroupMemberLimit groupMemberLimit, String groupFileName, String groupFilePath, Long groupFileSize, String groupFileUuid) {
+    public Group(User user, String groupName, String groupCategory, String groupContent, int groupPoint, String groupOverSea, String groupLocationName, String groupLocation, String groupLocationDetail, String groupParkingAvailable, String groupMoreInformation, GroupLocationType groupLocationType, GroupStatus groupStatus, GroupMemberLimit groupMemberLimit, String groupFileName, String groupFilePath, Long groupFileSize, String groupFileUuid, String reason) {
         this.user = user;
         this.groupName = groupName;
         this.groupCategory = groupCategory;
@@ -82,6 +84,7 @@ public class Group extends Period{
         this.groupFilePath = groupFilePath;
         this.groupFileUuid = groupFileUuid;
         this.groupFileSize = groupFileSize;
+        this.reason = reason;
     }
 
 //  모임의 경우 모든 내용을 수정할 수 있기 때문에 Builder와 동일하게 update가 들어간다.
@@ -105,6 +108,6 @@ public class Group extends Period{
         this.groupFileName = groupDTO.getGroupFileName();
         this.groupFilePath = groupDTO.getGroupFilePath();
         this.groupFileUuid = groupDTO.getGroupFileUuid();
-        this.groupMemberLimit = groupMemberLimit;
+        this.reason = groupDTO.getReason();
     }
 }
