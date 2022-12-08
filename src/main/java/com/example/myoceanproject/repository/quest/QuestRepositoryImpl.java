@@ -17,7 +17,9 @@ import java.util.List;
 
 import static com.example.myoceanproject.entity.QCommunityLike.communityLike;
 import static com.example.myoceanproject.entity.QCommunityPost.communityPost;
+import static com.example.myoceanproject.entity.QCommunityReply.communityReply;
 import static com.example.myoceanproject.entity.QQuest.quest;
+import static com.example.myoceanproject.entity.QQuestAchievement.questAchievement;
 
 @Repository
 @RequiredArgsConstructor
@@ -85,6 +87,14 @@ public class QuestRepositoryImpl implements QuestCustomRepository {
                 .fetch().size();
 
         return new PageImpl<>(quests, pageable, total);
+    }
+
+    @Override
+    public Integer countQuestByUser(Long userId){
+        return Math.toIntExact(jpaQueryFactory.select(questAchievement.questAchievementId.count())
+                .from(questAchievement)
+                .where(questAchievement.user.userId.eq(userId))
+                .fetchFirst());
     }
 
 }

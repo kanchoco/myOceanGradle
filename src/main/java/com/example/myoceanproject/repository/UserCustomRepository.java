@@ -19,4 +19,6 @@ public interface UserCustomRepository {
     public Page<UserDTO> findAllByStatus(Pageable pageable, Criteria criteria, UserAccountStatus userAccountStatus);
 
     public UserDTO findUserById(Long userId);
+
+    public UserDTO findAllByDashboard();
 }

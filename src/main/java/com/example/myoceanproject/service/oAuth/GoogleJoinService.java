@@ -125,8 +125,8 @@ public class GoogleJoinService {
             log.info("no join user");
             userDTO.setUserNickname(nickname);
             userDTO.setUserEmail(email);
-            userDTO.setUserLoginMethod(UserLoginMethod.GOOGLE);
-            userDTO.setUserAccountStatus(UserAccountStatus.ACTIVE);
+            userDTO.setUserLoginMethod(String.valueOf(UserLoginMethod.GOOGLE));
+            userDTO.setUserAccountStatus(String.valueOf(UserAccountStatus.ACTIVE));
             userDTO.setUserTotalPoint(5000);
             userDTO.setUserFilePath(userImage);
             User user=userDTO.toEntity();

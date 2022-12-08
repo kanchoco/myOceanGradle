@@ -242,7 +242,7 @@ public class CommunityReplyRepositoryImpl implements CommunityReplyCustomReposit
                         communityPost.communityCategory
                 ))
                 .from(communityReply)
-                .join(communityPost)
+                .join(communityReply.communityPost, communityPost)
                 .orderBy(communityReply.communityPost.createDate.desc())
                 .offset(0)
                 .limit(7).fetch();

@@ -40,7 +40,7 @@ public class AskTest {
         for (int i = 0; i < 30; i++) {
 //      userRepository 인터페이스 구현체 hibernate의 findById메서드를 이용해서
 //      다른 유저를 검색한다.
-            Optional<User> user = userRepository.findById(2L);
+            Optional<User> user = userRepository.findById(26L);
 
 //      화면에서 문의하기 작성내용을 입력받기 위해 AskDTO 객체 생성
             AskDTO askDTO = new AskDTO();
