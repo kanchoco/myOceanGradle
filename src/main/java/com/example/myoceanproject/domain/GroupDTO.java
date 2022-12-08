@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -18,6 +19,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+@Slf4j
 @Component
 @Data
 @NoArgsConstructor
@@ -116,26 +118,17 @@ public class GroupDTO {
 
     public void handleMessage(WebSocketSession session, ChattingDTO chattingDTO,
                               ObjectMapper objectMapper) throws IOException {
-        if(chattingDTO.getMessageType() == MessageType.ENTER){
-            sessions.add(session);
-            chattingDTO.setChattingContent(chattingDTO.getSenderUserNickName() + "님이 입장하셨습니다.");
-        }
-        else if(chattingDTO.getMessageType() == MessageType.LEAVE){
-            sessions.remove(session);
-            chattingDTO.setChattingContent(chattingDTO.getSenderUserNickName() + "님이 퇴장하셨습니다.");
-        }
-        else{
-            String var10001 = chattingDTO.getSenderUserNickName();
-            chattingDTO.setChattingContent(chattingDTO.getChattingContent());        }
+        log.info("chatRoom handleMessage 들어옴");
+        sessions.add(session);
+        chattingDTO.setChattingContent(chattingDTO.getChattingContent());
         send(chattingDTO,objectMapper);
     }
 
     private void send(ChattingDTO chattingDTO, ObjectMapper objectMapper) throws IOException {
-        TextMessage textMessage = new TextMessage(objectMapper.writeValueAsString(chattingDTO.getChattingContent()));
-        Iterator var4 = this.sessions.iterator();
-
-        while(var4.hasNext()) {
-            WebSocketSession sess = (WebSocketSession)var4.next();
+        log.info("send 들어옴");
+        TextMessage textMessage = new TextMessage(objectMapper.
+                writeValueAsString(chattingDTO.getChattingContent()));
+        for(WebSocketSession sess : sessions){
             sess.sendMessage(textMessage);
         }
     }
