@@ -47,7 +47,10 @@ public class MyGroupRepositoryImpl implements MyGroupCustomRepository{
                 group.groupFileUuid,
                 group.groupFileSize,
                 group.groupMemberLimit.maxMember,
-                group.groupMemberLimit.minMember
+                group.groupMemberLimit.minMember,
+                group.createDate,
+                group.updatedDate,
+                group.reason
         ))
                 .from(group)
                 .join(groupMember)
@@ -91,7 +94,10 @@ public class MyGroupRepositoryImpl implements MyGroupCustomRepository{
                 group.groupFileUuid,
                 group.groupFileSize,
                 group.groupMemberLimit.maxMember,
-                group.groupMemberLimit.minMember
+                group.groupMemberLimit.minMember,
+                group.createDate,
+                group.updatedDate,
+                group.reason
         ))
                 .from(group)
                 .join(groupMember)
@@ -135,7 +141,10 @@ public class MyGroupRepositoryImpl implements MyGroupCustomRepository{
                 group.groupFileUuid,
                 group.groupFileSize,
                 group.groupMemberLimit.maxMember,
-                group.groupMemberLimit.minMember
+                group.groupMemberLimit.minMember,
+                group.createDate,
+                group.updatedDate,
+                group.reason
         ))
                 .from(group)
                 .where(group.user.userId.eq(userId))
@@ -177,7 +186,10 @@ public class MyGroupRepositoryImpl implements MyGroupCustomRepository{
                 group.groupFileUuid,
                 group.groupFileSize,
                 group.groupMemberLimit.maxMember,
-                group.groupMemberLimit.minMember
+                group.groupMemberLimit.minMember,
+                group.createDate,
+                group.updatedDate,
+                group.reason
         ))
                 .from(group)
                 .where(group.user.userId.eq(userId))
