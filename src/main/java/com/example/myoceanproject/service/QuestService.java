@@ -3,6 +3,8 @@ package com.example.myoceanproject.service;
 import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.domain.QuestDTO;
+import com.example.myoceanproject.domain.UserDTO;
+import com.example.myoceanproject.entity.Quest;
 import com.example.myoceanproject.repository.quest.QuestRepository;
 import com.example.myoceanproject.repository.quest.QuestRepositoryImpl;
 import lombok.RequiredArgsConstructor;
@@ -28,4 +30,11 @@ public class QuestService {
     public Page<QuestDTO> showPost(Pageable pageable, Criteria criteria){
         return criteria.getKeyword().equals("null") ? questRepositoryImpl.findAll(pageable) : questRepositoryImpl.findAll(pageable,criteria);
     }
+    public void modify(QuestDTO questDTO){
+        questRepository.findById(questDTO.getQuestId()).get().update(questDTO);
+        if(questDTO.getQuestFileName() != null){
+        questRepository.findById(questDTO.getQuestId()).get().updateFile(questDTO);
+        }
+    }
+
 }

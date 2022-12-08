@@ -201,12 +201,12 @@ function connect(){
     webSocket.onopen = onOpen;
     webSocket.onclose = onClose;
     webSocket.onmessage = onMessage;
-    console.log(webSocket.readyState === webSocket.OPEN);
 }
 
 
 let myGroupId;
 let userNickname;
+let msg;
 //db에서 해당 그룹의 채팅 내용을 모두 가져온다.
 function getList(param, callback, error) {
     $.ajax({
@@ -236,23 +236,21 @@ function show(id) {
 
 /* 왼쪽 대화목록에서 선택될 때마다 css 바꾸는 부분 */
 $("li.active").on("click", function (e) {
-    connect();
     e.preventDefault()
     $("li.active").removeClass("select");
     $(this).addClass("select");
     myGroupId = $(this).attr("href");
     show(myGroupId)
+    connect();
 
 })
 
 $("#sendButton").on("click", function(){
+    send();
     add({
-        chattingContent: $("#msg").val(),
+        chattingContent: msg,
         groupId : myGroupId
     })
-    console.log(myGroupId);
-    send();
-
 });
 
 function getChattingContentList(chattingDTOList) {
@@ -332,42 +330,44 @@ function add(chatting, error){
 
 
 function disconnect(){
-    webSocket.send(JSON.stringify({groupId : myGroupId, senderUserNickName:userNickname}));
+    webSocket.send(JSON.stringify({groupId : myGroupId, type:'LEAVE',senderUserNickName:userNickname}));
     webSocket.close();
 }
 function send(){
-    let msg = $("#msg").val();
-    console.log(msg);
+    msg = document.getElementById("msg").value;
+        webSocket.send(JSON.stringify({
+            groupId : myGroupId,
+            type:'CHAT',
+            senderUserNickName:userNickname,
+            chattingContent : msg
+        }))
 
-    webSocket.send(JSON.stringify({groupId : myGroupId, senderUserNickName:userNickname,chattingContent : msg}));
-    document.getElementById("msg").value='';
+        document.getElementById("msg").value='';
 }
 function onOpen(){
-    // webSocket.send(JSON.stringify({groupId : myGroupId,senderUserNickName:userNickname}));
+    webSocket.send(JSON.stringify({groupId : myGroupId, type:'ENTER',senderUserNickName:userNickname}));
 }
 function onMessage(e){
-    data = e.data;
-
-    let nowtext="";
-    console.log("=======================onmessage 내 콘솔 출력===========================")
-
-    nowtext += "<div class=\"opponent\">";
-    nowtext += "<div class=\"thumb\">"
-    nowtext += "<a href=\"/people/ROSA\" target=\"_blank\">"
-    nowtext += "<img src=\"/imgin/chat/logo.png\" alt=\"chat_image\"></a>"
-    nowtext += "</div>"
-    nowtext += "<div class=\"userIdChatTxt\">"
-    nowtext += "<span class=\"userId\">" + userNickname + "</span>"
-    nowtext += "<div class=\"chatTxt\">"
-    nowtext += "<span class=\"chatTxtContents\">"
-    nowtext += "<a style=\"color: rgb(51, 51, 51);\">" + data + "</a>"
-    nowtext += "</span>"
-    nowtext += "<div class=\"timeWrap\">"
-    nowtext += "<span class=\"time\">" + Date.now() + "</span>"
-    nowtext += "</div>"
-    nowtext += "</div>"
-    nowtext += "</div>"
-    nowtext += "</div>"
+    chatdata = e.data;
+    chattingRoom =document.getElementById("chattingRoom");
+    chattingRoom.innerHTML =chattingRoom.innerHTML
+     + "<div class=\"opponent\">"
+     + "<div class=\"thumb\">"
+     + "<a href=\"/people/ROSA\" target=\"_blank\">"
+     + "<img src=\"/imgin/chat/logo.png\" alt=\"chat_image\"></a>"
+     + "</div>"
+     + "<div class=\"userIdChatTxt\">"
+     + "<span class=\"userId\">" + userNickname + "</span>"
+     + "<div class=\"chatTxt\">"
+     + "<span class=\"chatTxtContents\">"
+     + "<a style=\"color: rgb(51, 51, 51);\">" + chatdata + "</a>"
+     + "</span>"
+     + "<div class=\"timeWrap\">"
+     + "<span class=\"time\">" + Date.now() + "</span>"
+     + "</div>"
+     + "</div>"
+     + "</div>"
+     + "</div>"
 }
 function onClose(){
     disconnect();

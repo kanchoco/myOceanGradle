@@ -46,7 +46,8 @@
                 <p class="IntroPage__Description-sc-2ms2nt-3 fCOzti">
                     가입하면 바로 쓸 수 있는 웰컴 쿠폰을 드려요!<br>오늘부터 #나의바다 하자
                 </p>
-                <button class="Button-bqxlp0-0 WideTextButton__KakaoButton-sc-1o3i5qv-0 fgMqqR" width="100%" height="48px" font-size="16px" font-weight="500" color="#333" onclick="kakaoLogin();">카카오톡으로 시작</button>
+                <a href="https://kauth.kakao.com/oauth/authorize?client_id=e95b1771a295ce3312e3c0ef9a45a424&redirect_uri=
+http://localhost:15000/join/kakaoJoin&response_type=code" class="Button-bqxlp0-0 WideTextButton__KakaoButton-sc-1o3i5qv-0 fgMqqR">카카오톡으로 시작</a>
                 <div class="IntroPage__SubButtonWrapper-sc-2ms2nt-4 fyOiRy">
                     <!--회원가입 2페이지로 이동-->
                     <a href="/join/joinTwo">
@@ -99,4 +100,10 @@
 <script src="/js/fix/header.js"></script>
 <script src="/js/fix/fix.js"></script>
 <script src="/js/Join/before_join.js"></script>
+<script>
+    var notjoinFlag=new URL(location.href).searchParams.get("kakaonotjoin");
+    if(notjoinFlag){
+        alert("카카오 회원가입을 진행해주십시오.");
+    }
+</script>
 </html>

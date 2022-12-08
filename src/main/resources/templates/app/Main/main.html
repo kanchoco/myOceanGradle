@@ -1185,6 +1185,12 @@
     });
 </script>
 
-<script ></script>
+<script>
+    var joinFlag=new URL(location.href).searchParams.get("join");
+    console.log(joinFlag);
+    if(joinFlag==true){
+        alert("회원가입이 완료되었습니다.");
+    }
+</script>
 
 </body></html>
