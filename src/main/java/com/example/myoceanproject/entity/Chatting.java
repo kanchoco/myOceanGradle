@@ -34,6 +34,10 @@ public class Chatting extends Period{
     @NotNull
     private String chattingContent;
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private MessageType messageType;
+
 
 
 
@@ -49,9 +53,10 @@ public class Chatting extends Period{
 
     //  group이 생성되고 chatting이 생성되기 때문에 Builder에는 group을 넣지 않는다.
     @Builder
-    public Chatting(java.util.List<ChattingStatus> chattingStatusList, String chattingContent) {
+    public Chatting(java.util.List<ChattingStatus> chattingStatusList, String chattingContent, MessageType messageType) {
         this.chattingStatusList = chattingStatusList;
         this.chattingContent = chattingContent;
+        this.messageType = messageType;
     }
 
 

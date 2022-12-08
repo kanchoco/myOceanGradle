@@ -1,7 +1,17 @@
 package com.example.myoceanproject.type;
 
 public enum GroupStatus {
-//    승인, 승인 거절, 승인 대기
-    APPROVED,DISAPPROVED, WAITING,
+    //    승인, 승인 거절, 승인 대기
+    APPROVED("승인완료"),DISAPPROVED("승인거절"), WAITING("승인대기");
 
+    private String value;
+    private GroupStatus(String value)
+    {
+        this.value = value;
+    }
+
+    public String toString()
+    {
+        return this.value; //will return , or ' instead of COMMA or APOSTROPHE
+    }
 }
