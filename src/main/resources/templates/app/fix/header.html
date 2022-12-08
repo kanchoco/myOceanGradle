@@ -28,7 +28,7 @@
                 <div th:switch="${#strings.toString(session.userLoginMethod)}">
                     <button type="button" class="GlobalNavigationBar__LogoutButton-og74wb-5 jfHerU" th:case="일반" onclick="location.href='/login/generalLogout'">로그아웃</button>
                     <button type="button" class="GlobalNavigationBar__LogoutButton-og74wb-5 jfHerU" th:case="카카오" onclick="location.href='https://kauth.kakao.com/oauth/logout?client_id=e95b1771a295ce3312e3c0ef9a45a424&logout_redirect_uri=http://localhost:15000/login/kakaoLogout'">로그아웃</button>
-                    <button type="button" class="GlobalNavigationBar__LogoutButton-og74wb-5 jfHerU" th:case="구글" onclick="location.href='/login/googleLogout'">로그아웃</button>
+                    <button type="button" class="GlobalNavigationBar__LogoutButton-og74wb-5 jfHerU" th:case="구글" onclick="location.href='https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:15000/login/googleLogout'">로그아웃</button>
                     <button type="button" class="GlobalNavigationBar__LogoutButton-og74wb-5 jfHerU" th:case="네이버" onclick="location.href='/login/naverLogout'">로그아웃</button>
                 </div>
                 <a class="withLink__StyledLink-zuberk-0 lQqkn" href="http://localhost:15000/questionBoard/index">

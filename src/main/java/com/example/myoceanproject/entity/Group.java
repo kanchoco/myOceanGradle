@@ -63,7 +63,8 @@ public class Group extends Period{
     }
 
     @Builder
-    public Group(String groupName, String groupCategory, String groupContent, int groupPoint, String groupOverSea, String groupLocationName, String groupLocation, String groupLocationDetail, String groupParkingAvailable, String groupMoreInformation, GroupLocationType groupLocationType, GroupStatus groupStatus, GroupMemberLimit groupMemberLimit, String groupFileName, String groupFilePath, Long groupFileSize, String groupFileUuid) {
+    public Group(User user, String groupName, String groupCategory, String groupContent, int groupPoint, String groupOverSea, String groupLocationName, String groupLocation, String groupLocationDetail, String groupParkingAvailable, String groupMoreInformation, GroupLocationType groupLocationType, GroupStatus groupStatus, GroupMemberLimit groupMemberLimit, String groupFileName, String groupFilePath, Long groupFileSize, String groupFileUuid) {
+        this.user = user;
         this.groupName = groupName;
         this.groupCategory = groupCategory;
         this.groupContent = groupContent;

@@ -25,6 +25,10 @@ public class MyGroupRepositoryImpl implements MyGroupCustomRepository{
         List<GroupDTO> myGroups = jpaQueryFactory.select(new QGroupDTO(
                 group.groupId,
                 group.user.userId,
+                group.user.userFileName,
+                group.user.userFilePath,
+                group.user.userFileSize,
+                group.user.userFileUuid,
                 group.user.userNickname,
                 group.groupName,
                 group.groupCategory,
@@ -65,6 +69,10 @@ public class MyGroupRepositoryImpl implements MyGroupCustomRepository{
         List<GroupDTO> myGroups = jpaQueryFactory.select(new QGroupDTO(
                 group.groupId,
                 group.user.userId,
+                group.user.userFileName,
+                group.user.userFilePath,
+                group.user.userFileSize,
+                group.user.userFileUuid,
                 group.user.userNickname,
                 group.groupName,
                 group.groupCategory,
@@ -105,6 +113,10 @@ public class MyGroupRepositoryImpl implements MyGroupCustomRepository{
         List<GroupDTO> myGroups = jpaQueryFactory.select(new QGroupDTO(
                 group.groupId,
                 group.user.userId,
+                group.user.userFileName,
+                group.user.userFilePath,
+                group.user.userFileSize,
+                group.user.userFileUuid,
                 group.user.userNickname,
                 group.groupName,
                 group.groupCategory,
@@ -143,6 +155,10 @@ public class MyGroupRepositoryImpl implements MyGroupCustomRepository{
         List<GroupDTO> myGroups = jpaQueryFactory.select(new QGroupDTO(
                 group.groupId,
                 group.user.userId,
+                group.user.userFileName,
+                group.user.userFilePath,
+                group.user.userFileSize,
+                group.user.userFileUuid,
                 group.user.userNickname,
                 group.groupName,
                 group.groupCategory,

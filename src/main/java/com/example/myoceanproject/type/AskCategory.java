@@ -1,6 +1,16 @@
 package com.example.myoceanproject.type;
 
-
 public enum AskCategory {
-    USINGINFO, ACCOUNTINFO, POINTINFO, QUESTINFO
+    USINGINFO("이용"), ACCOUNTINFO("회원"), POINTINFO("포인트"), QUESTINFO("퀘스트");
+
+    private String value;
+    private AskCategory(String value)
+    {
+        this.value = value;
+    }
+
+    public String toString()
+    {
+        return this.value; //will return , or ' instead of COMMA or APOSTROPHE
+    }
 }

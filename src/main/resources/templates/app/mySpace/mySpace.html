@@ -9,8 +9,20 @@
     <link rel="stylesheet" href="/css/fix/header.css">
     <link rel="stylesheet" href="/css/fix/footer.css">
 </head>
+<style>
+    body{
+        margin: 0;
+    }
+</style>
 <body class="fontLoaded">
 <header th:replace="/app/fix/header.html :: header"></header>
+<script th:inline="javascript">
+    let userId = [[${session.userId}]];
+    if(!userId){
+        alert("로그인 후 이용가능한 서비스입니다!")
+        location.href="/main/index";
+    }
+</script>
 <div id="app">
     <div class="MySpacePage__Wrapper fzBbGO">
         <div class="MySpacePage__Header jIjcTX">
@@ -21,6 +33,7 @@
         <!-- 등록 form -->
         <form method="post" name="todoForm" th:action="@{/myspace/index}" style="display: flex;">
             <div style="width:88%" class="inputWrap" >
+                <input type="hidden" name="userId" th:value="${session.userId}">
                 <!-- 연도-월-일 input -->
                 <input style="display: block;margin-bottom: 8px;" id = "toDoListSelectDateInput_1h" name="toDoListSelectDate" class="toInput" type="date" th:value="${nowTime}" >
                 <!-- 투두리스트 입력 input -->
@@ -53,29 +66,29 @@
                         <ul class="noticeListTimeLine">
                             <!-- li 1-> noticeDayWrap -->
                             <li class="noticeDayWrap">
-                                <span class="day todayList_1h" th:text="${noticeDayWrap}"></span>
+                                <span class="day todayList_1h"></span>
                                 <!-- ul>li 리스트목록-->
                                 <ul>
                                     <!-- li 리스트1 noticeContentWrap-->
                                     <!--                                    반복문을 사용할때는 th:block 태그를 연다-->
                                     <!--                                    th:each는 빠른 for문과 같다.-->
-                                    <th:block th:each="list : ${todayList}">
-                                        <li class="noticeContentWrap">
-                                            <input type="hidden" name="toDoListId" th:value="${list.toDoListId}">
-                                            <input type="hidden" name = "toDoListSelectDate" th:value="${list.toDoListSelectDate}">
-                                            <input type="hidden" name = "userId" th:value="${list.userId}">
-                                            <div class="left">
-                                                <p class="categoryAndDate">
-                                                    <span th:text="${list.toDoListContent}"></span>
-                                                </p>
-                                            </div>
-                                            <div class="btnWrap right">
-                                                <a href="javascript:;" onclick="modifying(this)">수정</a>
-                                                <a href="javascript:;" id="todoDeleteBtn_1h">삭제</a>
-                                            </div>
-                                        </li>
+<!--                                    <th:block th:each="list : ${todayList}">-->
+<!--                                        <li class="noticeContentWrap">-->
+<!--                                            <input type="hidden" name="toDoListId" th:value="${list.toDoListId}">-->
+<!--                                            <input type="hidden" name = "toDoListSelectDate" th:value="${list.toDoListSelectDate}">-->
+<!--                                            <input type="hidden" name = "userId" th:value="${list.userId}">-->
+<!--                                            <div class="left">-->
+<!--                                                <p class="categoryAndDate">-->
+<!--                                                    <span th:text="${list.toDoListContent}"></span>-->
+<!--                                                </p>-->
+<!--                                            </div>-->
+<!--                                            <div class="btnWrap right">-->
+<!--                                                <a href="javascript:;" onclick="modifying(this)">수정</a>-->
+<!--                                                <a href="javascript:;" id="todoDeleteBtn_1h">삭제</a>-->
+<!--                                            </div>-->
+<!--                                        </li>-->
 
-                                    </th:block>
+<!--                                    </th:block>-->
                                     <!--                                    <li class="noticeContentWrap">-->
                                     <!--                                        <div class="left">-->
                                     <!--                                            <p class="categoryAndDate">-->
@@ -271,7 +284,8 @@
             </div>
             <!-- 오늘의 일기 -->
             <div class="MySpace__DiaryContainer jBoTV">
-                <button class="Diary__Container juuNtL" th:onclick="|location.href='@{/myList/myDiary}'|">
+                <a th:href="@{/myList/myDiary}">
+                <button class="Diary__Container juuNtL">
                     <div class="Diary__Mark eYNaUp">
                         <img src="data:image/svg+xml,%3Csvg width='12' height='16' viewBox='0 0 12 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M7.66667 8.39317L8.08667 10.2132C8.15333 10.4998 7.84 10.7265 7.58667 10.5732L6 9.61317L4.40667 10.5732C4.15333 10.7265 3.84 10.4998 3.90667 10.2132L4.33333 8.39984L2.93333 7.19317C2.70667 6.99984 2.82667 6.63317 3.12 6.6065L4.97333 6.4465L5.69333 4.73984C5.80667 4.4665 6.19333 4.4665 6.30667 4.73984L7.02667 6.43984L8.88 6.59984C9.17333 6.6265 9.29333 6.99317 9.06667 7.1865L7.66667 8.39317ZM0.793333 2.97984C0.313333 3.19317 0 3.67317 0 4.19984V7.33317C0 11.0332 2.56 14.4932 6 15.3332C9.44 14.4932 12 11.0332 12 7.33317V4.19984C12 3.67317 11.6867 3.19317 11.2067 2.97984L6.54 0.906504C6.19333 0.753171 5.8 0.753171 5.46 0.906504L0.793333 2.97984Z' fill='white'/%3E %3C/svg%3E" alt="badge icon">
                         <strong class="Diary__DiaryTitle ibIiPD">나의 바다</strong>
@@ -285,6 +299,7 @@
                     </div>
                     <img class="Diary__diaryImage fSDzSK" src="https://res.cloudinary.com/frientrip/image/upload/q_auto/11%E1%84%8B%E1%85%AF%E1%86%AF%20%E1%84%87%E1%85%A2%E1%84%8C%E1%85%B5_%E1%84%92%E1%85%B3%E1%86%A8%E1%84%87%E1%85%A2%E1%86%A8_42e6afd5ce1bc133fe3be64da971ce514ff84ff104829898157b9a7aa13f5026" alt="일기">
                 </button>
+                </a>
             </div>
         </div>
     </div>
@@ -396,10 +411,10 @@
     }
     //수정
     $(".Fade__Wrapper").on("click","#todoUpdateBtn_1h",function () {
-        const $btnWrap = $(this).closest('.btnWrap');
+        // const $btnWrap = $(this).closest('.btnWrap');
         let bno = $(this).closest(".noticeContentWrap").find("input[name=toDoListId]").val();
         let toDoListContent = $("#content_1h").val();
-        if(!$("#content_1h").val()){
+        if(!toDoListContent){
             alert("변경할 내용이 없습니다.")
             return;
         }
@@ -422,7 +437,7 @@
 
         })
     })
-
+    updateShow()
     function updateShow(){
         $.ajax({
             url: "/month/now",
@@ -455,7 +470,6 @@
     }
 
     //    삭제
-
     $(".Fade__Wrapper").on("click","#todoDeleteBtn_1h",function () {
 
         let bno = $(this).closest(".noticeContentWrap").find("input[name=toDoListId]").val();
@@ -470,10 +484,21 @@
                     updateShow()
                 }
             }
-
         })
-
     })
+
+    getToday();
+    function getToday(){
+        $.ajax({
+            url:"/month/now",
+            type:"patch",
+            success:function(result){
+                var today = result;
+                $(".todayList_1h").html(today);
+            }
+        })
+    }
+
 
 
 </script>
