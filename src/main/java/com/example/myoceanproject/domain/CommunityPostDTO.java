@@ -26,7 +26,7 @@ public class CommunityPostDTO {
     private String userFileUuid;
 
 
-    private CommunityCategory communityCategory;
+    private String communityCategory;
     private String communityTitle;
     private String communityContent;
     private int communityViewNumber;
@@ -64,7 +64,7 @@ public class CommunityPostDTO {
         this.userFilePath = userFilePath;
         this.userFileSize = userFileSize;
         this.userFileUuid = userFileUuid;
-        this.communityCategory = communityCategory;
+        this.communityCategory = communityCategory.toString();
         this.communityTitle = communityTitle;
         this.communityContent = communityContent;
         this.communityFilePath = communityFilePath;
@@ -84,7 +84,7 @@ public class CommunityPostDTO {
     public CommunityPost toEntity(){
         return CommunityPost.builder()
                 .communityTitle(communityTitle)
-                .communityCategory(communityCategory)
+                .communityCategory(CommunityCategory.valueOf(communityCategory))
                 .communityContent(communityContent)
                 .communityFileName(communityFileName)
                 .communityFilePath(communityFilePath)

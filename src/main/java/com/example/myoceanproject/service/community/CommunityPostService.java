@@ -74,6 +74,11 @@ public class CommunityPostService implements CommunityService {
         return communityPostDTO;
     }
 
+    public List<CommunityPostDTO> findBoardByCategory(List<String> communityCategories){
+        List<CommunityPostDTO> communityPostDTO = postRepositoryImpl.filterCommunityBoard(communityCategories);
+        return communityPostDTO;
+    }
+
 
     @Override
     public CommunityPostDTO find(Long communityPostId) {

@@ -8,52 +8,62 @@ const $movie = $(".movieFilter")
 const $book = $(".bookFilter")
 const $diary = $(".diaryFilter")
 
+let communityAr = new Array();
+let communities = ['EXERCISE', 'COOK', 'MOVIE', 'BOOK', 'COUNSELING'];
+
+
 //요리
 $cook.on("click",function () {
     if($(this).find("button").hasClass("fFBpBV")){
         $(this).find("button").removeClass('fFBpBV').addClass("kJEnf");
-        $(this).find(".gRNDCb").show()
+        $(this).find(".gRNDCb").show();
+        communityAr.push("COOK");
     }else{
         $(this).find("button").removeClass('kJEnf').addClass("fFBpBV");
         $(this).find(".gRNDCb").hide()
+        communityAr = communityAr.filter((element) => element !=="COOK");
     }
 
     if($filterBtn.find(".kJEnf").length==10){
-        allCheck()
+        allCheck();
     }else{
-        allCheckCancel()
-    }
-})
-
-//운동
-$movie.on("click",function () {
-    if($(this).find("button").hasClass("fFBpBV")){
-        $(this).find("button").removeClass('fFBpBV').addClass("kJEnf");
-        $(this).find(".gRNDCb").show()
-    }else{
-        $(this).find("button").removeClass('kJEnf').addClass("fFBpBV");
-        $(this).find(".gRNDCb").hide()
-    }
-    if($filterBtn.find(".kJEnf").length==10){
-        allCheck()
-    }else{
-        allCheckCancel()
+        allCheckCancel();
     }
 })
 
 //영화
+$movie.on("click",function () {
+    if($(this).find("button").hasClass("fFBpBV")){
+        $(this).find("button").removeClass('fFBpBV').addClass("kJEnf");
+        $(this).find(".gRNDCb").show();
+        communityAr.push("MOVIE");
+    }else{
+        $(this).find("button").removeClass('kJEnf').addClass("fFBpBV");
+        $(this).find(".gRNDCb").hide();
+        communityAr = communityAr.filter((element) => element !=="MOVIE");
+    }
+    if($filterBtn.find(".kJEnf").length==10){
+        allCheck();
+    }else{
+        allCheckCancel();
+    }
+})
+
+//운동
 $exercise.on("click",function () {
     if($(this).find("button").hasClass("fFBpBV")){
         $(this).find("button").removeClass('fFBpBV').addClass("kJEnf");
         $(this).find(".gRNDCb").show()
+        communityAr.push("EXERCISE");
     }else{
         $(this).find("button").removeClass('kJEnf').addClass("fFBpBV");
         $(this).find(".gRNDCb").hide()
+        communityAr = communityAr.filter((element) => element !=="EXERCISE");
     }
     if($filterBtn.find(".kJEnf").length==10){
         allCheck()
     }else{
-        allCheckCancel()
+        allCheckCancel();
     }
 })
 
@@ -61,36 +71,43 @@ $exercise.on("click",function () {
 $book.on("click",function () {
     if($(this).find("button").hasClass("fFBpBV")){
         $(this).find("button").removeClass('fFBpBV').addClass("kJEnf");
-        $(this).find(".gRNDCb").show()
+        $(this).find(".gRNDCb").show();
+        communityAr.push("BOOK");
     }else{
         $(this).find("button").removeClass('kJEnf').addClass("fFBpBV");
-        $(this).find(".gRNDCb").hide()
+        $(this).find(".gRNDCb").hide();
+        communityAr = communityAr.filter((element) => element !=="BOOK");
     }
     if($filterBtn.find(".kJEnf").length==10){
-        allCheck()
+        allCheck();
     }else{
-        allCheckCancel()
+        allCheckCancel();
     }
 })
-//다이어리
+//다이어리 => 이걸 고민상담으로 바꿈
 $diary.on("click",function () {
     if($(this).find("button").hasClass("fFBpBV")){
         $(this).find("button").removeClass('fFBpBV').addClass("kJEnf");
-        $(this).find(".gRNDCb").show()
+        $(this).find(".gRNDCb").show();
+        communityAr.push("COUNSELING");
     }else{
         $(this).find("button").removeClass('kJEnf').addClass("fFBpBV");
-        $(this).find(".gRNDCb").hide()
+        $(this).find(".gRNDCb").hide();
+        communityAr = communityAr.filter((element) => element !=="COUNSELING");
     }
     if($filterBtn.find(".kJEnf").length==10){
-        allCheck()
+        allCheck();
+
     }else{
-        allCheckCancel()
+        allCheckCancel();
     }
 })
 
 function allCheck(){
     $allBtn.find("button").removeClass('fFBpBV').addClass("kJEnf");
     $allBtn.find(".gRNDCb").show()
+    communityAr = [];
+    communityAr.push(communities);
 }
 
 function allCheckCancel(){
@@ -114,27 +131,10 @@ $allBtn.on("click",function () {
           $(item).find("button").removeClass('kJEnf').addClass("fFBpBV");
           $(item).find(".gRNDCb").hide()
       })
+      communityAr = [];
   }
 
 })
-
-
-
-// $filterBtn.click(function () {
-//     let text= $(this).text().trim();
-//     if($(this).find("button").hasClass('fFBpBV')) {
-//         $(this).find("button").removeClass('fFBpBV').addClass("kJEnf");
-//         $('.gRNDCb').show();
-//     }else{
-//         $(this).empty();
-//         $(this).append(`<div class="FilterOpenButton__Wrapper-sc-91gci-0 NVKNq">
-//                     <button height="auto" color="initial" font-size="14px" font-weight="500" class="Button-bqxlp0-0 fFBpBV">`+text+`</button>
-//                 </div>`)
-//     }
-// })
-
-
-
 
 
 
@@ -201,9 +201,6 @@ $(window).resize(function(){
         $("a.down785px").hide();
         $("a.until785px").show();
         $(".categoryMedia >div").css("justify-content", "start");
-        // $(".writeBtn").parent().css("right", "-196px");
-        // $(".writeBtn").parent().css("right", "29.5%");
-        // $(".writeBtn").parent().css("position", "absolute");
     }
 })
 
@@ -348,8 +345,24 @@ let communityService = (function() {
         });
     }
 
+    function filterCheck(communityCategories, callback, error){
+        $.ajax({
+            url: "/community/list-filter/" + communityCategories,
+            type: "get",
+            success: function(communityCategories, status, xhr){
+                if(callback){
+                    callback(communityCategories);
+                }
+            }, error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
 
-    return {getList: getList, getListNotUser: getListNotUser, infiniteScroll: infiniteScroll, addLike: addLike, minusLike: minusLike, checkLike: checkLike}
+
+    return {getList: getList, getListNotUser: getListNotUser, infiniteScroll: infiniteScroll, addLike: addLike, minusLike: minusLike, checkLike: checkLike, filterCheck: filterCheck}
 })();
 
 
@@ -358,6 +371,7 @@ let page = 1;
 
 $(window).scroll(function(){
     if($(window).scrollTop() * 1.001 >= $(document).height() - $(window).height()){
+        showCheck=true;
         communityService.infiniteScroll(page, getList);
         page++;
     }
@@ -414,3 +428,24 @@ $(document).ready(function(){
         }
     });
 });
+
+let showCheck = true;
+
+// 커뮤니티 카테고리 동적쿼리
+$(".jJIWoq").on("click", function(){
+    showCheck = false;
+    console.log("communityAr: " + communityAr);
+    console.log($filterBtn.find(".kJEnf").length);
+    // communityService.filterCheck(
+    //     communityAr,
+    //     function(){
+    //         checkUser();
+    //     });
+
+    filteringShow();
+});
+
+function filteringShow(){
+    communityService.filterCheck(
+        communityAr, getList);
+}

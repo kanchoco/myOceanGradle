@@ -2,13 +2,16 @@ package com.example.myoceanproject.repository.community.reply;
 
 import com.example.myoceanproject.domain.*;
 import com.example.myoceanproject.entity.CommunityPost;
+import com.example.myoceanproject.entity.QCommunityPost;
 import com.example.myoceanproject.type.CommunityCategory;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -21,8 +24,6 @@ public class CommunityReplyRepositoryImpl implements CommunityReplyCustomReposit
 //사용자 지정 레파지토리 Impl(구현)
 
     private final JPAQueryFactory queryFactory;
-
-
 
 //    전체 출력
     @Override

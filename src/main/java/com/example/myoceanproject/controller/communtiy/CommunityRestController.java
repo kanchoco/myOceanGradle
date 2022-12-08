@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,8 +51,6 @@ public class CommunityRestController {
         Long userId = (Long) session.getAttribute("userId");
 
         List<CommunityPostDTO> communityPostDTO= communityPostService.findAllByList(userId);
-
-
         return communityPostDTO;
     }
 
@@ -59,6 +58,13 @@ public class CommunityRestController {
     @GetMapping("/list-not-user")
     public List<CommunityPostDTO> getCommunity(){
         List<CommunityPostDTO> communityPostDTO= communityPostService.findAllByList();
+        return communityPostDTO;
+    }
+
+    @GetMapping(value="/list-filter/{communityCategories}")
+    public List<CommunityPostDTO> getFilterCommunity(@PathVariable("communityCategories") List<String> communityCategories){
+        List<CommunityPostDTO> communityPostDTO = communityPostService.findBoardByCategory(communityCategories);
+        log.info("communityPostDTO: " + communityPostDTO);
         return communityPostDTO;
     }
 

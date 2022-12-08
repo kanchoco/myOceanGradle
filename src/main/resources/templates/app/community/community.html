@@ -92,7 +92,7 @@
             <div class="FilterDiary__Wrapper-sc-1w6ksuy-0 jJIWoq">
                 <div class="FilterOpenButton__Wrapper-sc-91gci-0 NVKNq childFilter diaryFilter">
                     <button height="auto" color="initial" font-size="14px" font-weight="500" class="Button-bqxlp0-0 fFBpBV">
-                        일기
+                        고민
                         <button height="18px" class="Button-bqxlp0-0 FilterOpenButton__CloseButton-sc-91gci-1 gRNDCb">
                             <img src="/imgin/community/blueClose.png" class="FilterOpenButton__CloseIcon-sc-91gci-2 hnfyOW"></button>
                     </button>
@@ -108,9 +108,6 @@
             </div>
         </a>
     </div>
-
-
-
     <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
         <div class="view__FeedListWrapper-sc-1fff32g-0 ciajVR">
 
@@ -166,11 +163,7 @@
         </div>
     </div>
 </div>
-
-<!--로딩중-->
-<div class="back-drop" style="display:none;">
-    <img src="./svg/spinner-solid.svg"/>
-</div>
+<footer th:replace="/app/fix/footer.html :: footer"></footer>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/community/community.js"></script>
@@ -192,6 +185,7 @@
         }
     }
 
+
     // 화면 출력 함수 호출
     function show() {
         console.log(communityService);
@@ -201,11 +195,11 @@
     }
 
     function showWithOutUser() {
-        console.log(communityService);
         communityService.getListNotUser({
             page: page
         }, getList);
     }
+
 
 
 
@@ -218,6 +212,8 @@
 
             let imageSrc = "/community/display?fileName=" + post.communityFilePath + "/" + post.communityFileUuid + "_" + post.communityFileName;
             let userImageSrc = "/community/display?fileName=" + post.userFilePath + "/" + post.userFileUuid + "_" + post.userFileName;
+
+            if(post.communityCategory!="COUNSELING"){}
             // 작성자 프로필 사진, 닉네임
             text +=`<div><div class="Profile__Wrapper-sc-14xkqhl-0 ePpOcl CardFeed__StyledProfile-sc-1hnsnr8-0 kHXXhk">`;
             text +=`<div class="Profile__UserProfileWrapper-sc-14xkqhl-1 jHdfwa">`;
@@ -292,7 +288,11 @@
             text+=post.communityReplyCount;
             text+=`</span></img></a></div></div>`;
         })
-        $(".view__FeedListWrapper-sc-1fff32g-0.ciajVR").append(text);
+        if(showCheck){
+            $(".view__FeedListWrapper-sc-1fff32g-0.ciajVR").append(text);
+        } else{
+            $(".view__FeedListWrapper-sc-1fff32g-0.ciajVR").html(text);
+        }
     }
 </script>
 </html>
