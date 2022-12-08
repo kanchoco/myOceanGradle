@@ -2,6 +2,7 @@ package com.example.myoceanproject.controller.main;
 
 import com.example.myoceanproject.domain.GroupDTO;
 import com.example.myoceanproject.service.chattingService.ChattingService;
+import com.example.myoceanproject.service.main.MainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +18,7 @@ import java.util.List;
 @RequestMapping("/main/*")
 public class MainController {
     private final ChattingService chattingService;
-
+    private final MainService mainService;
 
 
     // 메인 페이지
@@ -25,6 +26,13 @@ public class MainController {
     public String main(HttpServletRequest request, Model model){
         HttpSession session=request.getSession();
         Long userId = (Long)session.getAttribute("userId");
+
+        model.addAttribute("groupList",mainService.showGroupList());
+        model.addAttribute("communityList",mainService.showCommunityList());
+        model.addAttribute("exerciseList",mainService.showExerciseList());
+        model.addAttribute("cookList",mainService.showCookList());
+        model.addAttribute("counselingList",mainService.showAnonymousList());
+        model.addAttribute("reviewList",mainService.showReviewList());
 
         if(session.getAttribute("userId") != null) {
             List<GroupDTO> groupDTOList = chattingService.show(userId);

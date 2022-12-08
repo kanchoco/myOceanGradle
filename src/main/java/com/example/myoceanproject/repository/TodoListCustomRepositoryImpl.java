@@ -22,26 +22,28 @@ import static com.example.myoceanproject.entity.QToDoList.toDoList;
 public class TodoListCustomRepositoryImpl implements TodoListCustomRepository{
     private final JPAQueryFactory jpaQueryFactory;
     @Override
-    public List<ToDoListDTO> findAllTodoList() {
+    public List<ToDoListDTO> findAllTodoList(Long userId) {
         return jpaQueryFactory.select(new QToDoListDTO(toDoList.toDoListId, toDoList.user.userId,
                 QToDoList.toDoList.toDoListContent,
-                QToDoList.toDoList.toDoListSelectDate)).from(QToDoList.toDoList).fetch();
+                QToDoList.toDoList.toDoListSelectDate)).from(QToDoList.toDoList).
+                where(toDoList.user.userId.eq(userId)).
+                fetch();
     }
 
     @Override
-    public List<ToDoListDTO> findAllByToday() {
+    public List<ToDoListDTO> findAllByToday(Long userId) {
         return jpaQueryFactory.select(new QToDoListDTO(toDoList.toDoListId,toDoList.user.userId,
                 QToDoList.toDoList.toDoListContent,
                 QToDoList.toDoList.toDoListSelectDate)).from(QToDoList.toDoList).
                 join(toDoList.user).
                 where(QToDoList.toDoList.toDoListSelectDate.between(LocalDate.now().atStartOfDay()
-                        ,LocalDateTime.of(LocalDate.now(), LocalTime.of(23,59,59))))
+                        ,LocalDateTime.of(LocalDate.now(), LocalTime.of(23,59,59))).and(toDoList.user.userId.eq(userId)))
                 .orderBy(toDoList.toDoListId.desc())
                 .fetch();
     }
 
     @Override
-    public List<ToDoListDTO> findAllByMonth(LocalDateTime toDoListSelectDate) {
+    public List<ToDoListDTO> findAllByMonth(LocalDateTime toDoListSelectDate, Long userId) {
         int lastDay = toDoListSelectDate.toLocalDate().lengthOfMonth();
 
 //        return jpaQueryFactory.select(new QToDoListDTO(QToDoList.toDoList.toDoListId,
@@ -57,7 +59,7 @@ public class TodoListCustomRepositoryImpl implements TodoListCustomRepository{
                 .from(toDoList)
                 .join(toDoList.user)
                 .where(toDoList.toDoListSelectDate.between(toDoListSelectDate.withDayOfMonth(1)
-                        ,LocalDateTime.of(toDoListSelectDate.withDayOfMonth(lastDay).toLocalDate(),LocalTime.of(23,59,59))))
+                        ,LocalDateTime.of(toDoListSelectDate.withDayOfMonth(lastDay).toLocalDate(),LocalTime.of(23,59,59))).and(toDoList.user.userId.eq(userId)))
                 .orderBy(toDoList.toDoListSelectDate.desc())
                 .fetch();
     }
