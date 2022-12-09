@@ -12,6 +12,13 @@ let communityAr = new Array();
 let communities = ['EXERCISE', 'COOK', 'MOVIE', 'BOOK', 'COUNSELING'];
 
 
+$(document).on("change", function(){
+    console.log("들어왔음");
+    if($filterBtn.find(".kJEnf").length==0){
+        communityAr.push(communities);
+    }
+})
+
 //요리
 $cook.on("click",function () {
     if($(this).find("button").hasClass("fFBpBV")){
@@ -61,7 +68,7 @@ $exercise.on("click",function () {
         communityAr = communityAr.filter((element) => element !=="EXERCISE");
     }
     if($filterBtn.find(".kJEnf").length==10){
-        allCheck()
+        allCheck();
     }else{
         allCheckCancel();
     }
@@ -95,7 +102,7 @@ $diary.on("click",function () {
         $(this).find(".gRNDCb").hide();
         communityAr = communityAr.filter((element) => element !=="COUNSELING");
     }
-    if($filterBtn.find(".kJEnf").length==10){
+    if($filterBtn.find(".kJEnf").length===10){
         allCheck();
 
     }else{
@@ -105,14 +112,15 @@ $diary.on("click",function () {
 
 function allCheck(){
     $allBtn.find("button").removeClass('fFBpBV').addClass("kJEnf");
-    $allBtn.find(".gRNDCb").show()
+    $allBtn.find(".gRNDCb").show();
+    console.log("들어오니?");
     communityAr = [];
     communityAr.push(communities);
 }
 
 function allCheckCancel(){
     $allBtn.find("button").removeClass('kJEnf').addClass("fFBpBV");
-    $allBtn.find(".gRNDCb").hide()
+    $allBtn.find(".gRNDCb").hide();
 }
 
 
@@ -120,20 +128,20 @@ function allCheckCancel(){
 $allBtn.on("click",function () {
     
   if($(this).find("button").hasClass("fFBpBV")){
+      // console.log("들어오니?");
       allCheck();
       $filterBtn.each((i,item)=>{
           $(item).find("button").removeClass('fFBpBV').addClass("kJEnf");
-          $(item).find(".gRNDCb").show()
+          $(item).find(".gRNDCb").show();
       })
   }else{
       allCheckCancel();
       $filterBtn.each((i,item)=>{
           $(item).find("button").removeClass('kJEnf').addClass("fFBpBV");
-          $(item).find(".gRNDCb").hide()
+          $(item).find(".gRNDCb").hide();
       })
       communityAr = [];
   }
-
 })
 
 

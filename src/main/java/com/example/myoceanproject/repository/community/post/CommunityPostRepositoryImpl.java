@@ -130,18 +130,9 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
                 booleanBuilder.or(communityPost.communityCategory.eq(CommunityCategory.COUNSELING));
             }
         }
-
-//        ...
-
         return booleanBuilder;
     }
 
-
-
-
-    private BooleanExpression eqCook(String cook){
-        return StringUtils.hasText(cook)? communityPost.communityCategory.eq(CommunityCategory.valueOf(cook)) : null;
-    }
 
 
 
