@@ -365,7 +365,6 @@ button:disabled {
     padding: 0px;
     background-color: white;
     text-align: center;
-    cursor: not-allowed;
     border-radius: 50%;
     font-size: 18px;
     display: flex;
@@ -435,4 +434,22 @@ button, input, select, textarea {
 
 .faWmEE img {
     width: 14px;
+}
+
+.jVxRns {
+    transform: rotate(180deg);
+}
+
+.page.active, .page.changePage{
+    line-height: 2.4;
+    font-size: 16px;
+    margin: 0 5px 0 5px;
+}
+
+.page.active {
+    color: blueviolet;
+}
+
+.page {
+    cursor:pointer;
 }

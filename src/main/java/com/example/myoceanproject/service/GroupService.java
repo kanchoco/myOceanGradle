@@ -23,9 +23,7 @@ import java.util.List;
 public class GroupService implements GroupBoardService {
     private final GroupRepository groupRepository;
     private final GroupRepositoryImpl groupRepositoryImpl;
-
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
 //  게시글 등록
     @Override
@@ -40,6 +38,10 @@ public class GroupService implements GroupBoardService {
     @Override
     public List<GroupDTO> show() {
         return groupRepositoryImpl.findAll();
+    }
+
+    public Page<GroupDTO> showGroup(Pageable pageable, Criteria criteria){
+        return criteria.getKeyword().equals("null") ? groupRepositoryImpl.findAll(pageable) : groupRepositoryImpl.findAll(pageable, criteria);
     }
 
     @Override

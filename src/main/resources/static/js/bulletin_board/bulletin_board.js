@@ -28,17 +28,38 @@ function checkMedia(){
     }
 }
 
-// // 각 모임의 썸네일 이미지 출력
-// $(document).ready(function(){
-//     let text = "";
-//     let imageSrc = "/host/display-list?filename=" + $('input[name=groupFilePath]').val() + "/" + $('input[name=groupFileUuid]').val() + "_" +$('input[name=groupFileName]').val();
-//     text = `<img src=` + imageSrc + ` class="Image__StyledImage-v97gyx-1 VUNpu" width="192">`;
-//     $(".Ratio-content").append(text);
-// })
-
 
 // 모임 상세 게시글로 화면 이동
-$(".detailGroup").on("click", function(e){
+$(".ProductList__ProductWrapper-sc-1lo0q2y-0").on("click", ".detailGroup", function(e){
     e.preventDefault();
     location.href = "/host/read?groupId=" + $(this).attr("href");
+})
+
+
+let groupService = (function(){
+    function getList(param, callback, error){
+        $.ajax({
+            url: encodeURI("/group/group/" + (param.page || 0) + "/"+ param.keyword),
+            type: "get",
+            async: false,
+            success: function (groupDTO, status, xhr){
+                if(callback){
+                    callback(groupDTO);
+                }
+            },
+            error: function (xhr, status, err){
+                console.log("완전 실패");
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+    return {getList: getList}
+})();
+
+
+// 페이징처리
+$(".Wrapper__PaginationWrapper-fk4uv4-0").on("click", ".iItkLq", function(){
+
 })

@@ -10,11 +10,13 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface GroupCustomRepository {
-    GroupDTO findGroupByGroupId(Long groupId);
+    public GroupDTO findGroupByGroupId(Long groupId);
 
-    List<GroupDTO> findAll();
+    public List<GroupDTO> findAll();
+    public Page<GroupDTO> findAll(Pageable pageable);
+    public Page<GroupDTO> findAll(Pageable pageable, Criteria criteria);
 
-    List<GroupDTO> findGroupTop5ByGroupId(Long groupId);
+    public List<GroupDTO> findGroupTop5ByGroupId(Long groupId);
 
     public Page<GroupDTO> findAllManage(Pageable pageable);
     public Page<GroupDTO> findAllManage(Pageable pageable, Criteria criteria);
