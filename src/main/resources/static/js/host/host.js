@@ -58,7 +58,7 @@ const makeCalendar = (date) => {
         htmlDummy += `<div data-v-3655f65c="" data-v-1e397a0c="" class="day">`;
         htmlDummy += `<div data-v-3655f65c="" class="clearfix px-2 pt-2">`;
         htmlDummy += `<div data-v-3655f65c="" class="float-left">`;
-        htmlDummy += `<div data-v-3655f65c="" class="day-btn">+</div>`;
+        htmlDummy += `<div data-v-3655f65c="" class="day-btn" onclick="addSchedule();">+</div>`;
         htmlDummy += `</div>`;
         htmlDummy += `<div data-v-3655f65c="" class="text-gray float-right">`;
         htmlDummy += `</div>`;
@@ -84,7 +84,7 @@ const makeCalendar = (date) => {
         htmlDummy += `<div data-v-3655f65c="" data-v-1e397a0c="" class="day">`;
         htmlDummy += `<div data-v-3655f65c="" class="clearfix px-2 pt-2">`;
         htmlDummy += `<div data-v-3655f65c="" class="float-left">`;
-        htmlDummy += `<div data-v-3655f65c="" class="day-btn" data-date="${date}">+</div>`;
+        htmlDummy += `<div data-v-3655f65c="" class="day-btn" onclick="addSchedule();" data-date="${date}">+</div>`;
         htmlDummy += `</div>`;
         htmlDummy += `<div data-v-3655f65c="" class="text-gray float-right">`;
         htmlDummy += `<!----> ${i}일`;
@@ -118,7 +118,7 @@ const makeCalendar = (date) => {
         htmlDummy += `<div data-v-3655f65c="" data-v-1e397a0c="" class="day">`;
         htmlDummy += `<div data-v-3655f65c="" class="clearfix px-2 pt-2">`;
         htmlDummy += `<div data-v-3655f65c="" class="float-left">`;
-        htmlDummy += `<div data-v-3655f65c="" class="day-btn">+</div>`;
+        htmlDummy += `<div data-v-3655f65c="" class="day-btn" onclick="addSchedule();">+</div>`;
         htmlDummy += `</div>`;
         htmlDummy += `<div data-v-3655f65c="" class="text-gray float-right">`;
         htmlDummy += `</div>`;
@@ -345,9 +345,9 @@ $('#placeAddress').on('blur', function(){
 
 
 // 일정 추가 버튼 클릭 -> 모달창 열기
-$('.day-btn').on('click', function(){
+function addSchedule() {
     // 일정 추가 버튼 유효성 검사
-    if($(".cancelRecruitment").css("display")=="none"){
+    if ($(".cancelRecruitment").css("display") == "none") {
         alert("일정 설정은 저장 후 가능합니다.");
         return;
     }
@@ -359,13 +359,13 @@ $('.day-btn').on('click', function(){
 
     $('input[type=date]').val($(this).attr('data-date'));
     let selDate = new Date($('input[type=date]').val());
-    selDate < date ? $('.dateNotice').css('display', ''): $('.dateNotice').css('display', 'none');
-    if($('input[type=date]').val()){
-        $('.periodNotice').text(`${selDate.getFullYear()}년 ${selDate.getMonth()+1}월 ${selDate.getDate()}일까지 대원이 신청할 수 있습니다.`);
-    }else{
+    selDate < date ? $('.dateNotice').css('display', '') : $('.dateNotice').css('display', 'none');
+    if ($('input[type=date]').val()) {
+        $('.periodNotice').text(`${selDate.getFullYear()}년 ${selDate.getMonth() + 1}월 ${selDate.getDate()}일까지 대원이 신청할 수 있습니다.`);
+    } else {
         $('.periodNotice').text(`날짜를 입력해주세요`);
     }
-});
+}
 
 //일정 시간 유효성 검사
 $('.openTime').on('change', function (){
