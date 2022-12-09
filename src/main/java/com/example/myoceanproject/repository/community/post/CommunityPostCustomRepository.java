@@ -21,4 +21,8 @@ public interface CommunityPostCustomRepository {
     public List<CommunityPostDTO> findAllByList(Long userId);
 
     public CommunityPostDTO findAllByDashboard();
+
+    public List<CommunityPostDTO> filterCommunityBoard(List<String> communityCategories);
+
+    public List<CommunityPostDTO> filterCommunityBoard(List<String> communityCategories, Long userId);
 }

@@ -35,7 +35,6 @@ public class CommunityController {
     @GetMapping("update")
     public String update(Long communityPostId, Model model){
         model.addAttribute("communityPostDTO", communityPostService.find(communityPostId));
-        log.info(model.toString());
         return "app/community/community_register";
     }
 

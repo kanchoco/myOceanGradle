@@ -851,8 +851,3 @@ $(document).ready(function() {
         $('input[name=groupContent]').attr('value', $(".note-editable").html());
     });
 }); //ready
-
-
-$(document).ready(
-
-)

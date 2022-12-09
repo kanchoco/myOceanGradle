@@ -128,7 +128,7 @@
                 <div class="WhatIsActionSheet__Body-sc-10e5q0f-0 cblWvR">
                     <strong class="WhatIsActionSheet__Summary-sc-10e5q0f-1 bAnoxg">자유게시판을 통해 나를 표현하고 <span role="img" aria-label="sunglasses">😎</span><br>
                         다른 사람들과 마음껏 소통 해보세요.</strong>
-                    <p class="WhatIsActionSheet__Description-sc-10e5q0f-2 dkImul">
+                     <p class="WhatIsActionSheet__Description-sc-10e5q0f-2 dkImul">
                         자유게시판에서 즐거웠고 행복했던 순간들을 또는 슬프고 속상했던 순간들을 자유롭게 표현하며 나의 속마음을 털어보세요.<br> 그리고 다른 사람들과 나의 마음을 공유해 보세요.
                     </p>
                     <p class="WhatIsActionSheet__Comment-sc-10e5q0f-3 cMDWip">
@@ -188,7 +188,6 @@
 
     // 화면 출력 함수 호출
     function show() {
-        console.log(communityService);
         communityService.getList({
             page: page
         }, getList);
@@ -207,9 +206,7 @@
     /*화면 출력*/
     function getList(communityPostDTO){
         let text ="";
-        console.log(communityPostDTO);
         communityPostDTO.forEach(post => {
-
             let imageSrc = "/community/display?fileName=" + post.communityFilePath + "/" + post.communityFileUuid + "_" + post.communityFileName;
             let userImageSrc = "/community/display?fileName=" + post.userFilePath + "/" + post.userFileUuid + "_" + post.userFileName;
 
@@ -261,7 +258,7 @@
             text+=`</span><button class="Description__ExpandButton-ogh69p-1 djffyn"></button></div></a>`;
             // 좋아요, 댓글
             text+=`<div class="ActionGroup__Wrapper-sg91np-0 cXiDYn">`;
-            text+=`<a class="ActionGroup__LikeButton-sg91np-1 jxmvcs" href="`;
+            text+=`<a class="ActionGroup__LikeButton-sg91np-1 jxmvcs" onclick="return false" href="`;
             text+=post.communityPostId + `">`;
             // 좋아요 눌렀을 때 이미지
             if($("input[name='userId']").val()==""){

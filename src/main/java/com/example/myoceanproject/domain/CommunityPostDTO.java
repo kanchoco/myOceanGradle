@@ -84,7 +84,7 @@ public class CommunityPostDTO {
     public CommunityPost toEntity(){
         return CommunityPost.builder()
                 .communityTitle(communityTitle)
-                .communityCategory(CommunityCategory.valueOf(communityCategory))
+                .communityCategory(CommunityCategory.change(communityCategory))
                 .communityContent(communityContent)
                 .communityFileName(communityFileName)
                 .communityFilePath(communityFilePath)

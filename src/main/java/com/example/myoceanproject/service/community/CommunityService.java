@@ -27,4 +27,7 @@ public interface CommunityService {
 
     // 무한스크롤
     public List<CommunityPostDTO> selectScrollBoards(int page);
+
+    // 무한스크롤(회원전용)
+    List<CommunityPostDTO> selectScrollBoards(int page, Long userId);
 }

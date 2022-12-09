@@ -13,4 +13,15 @@ public enum CommunityCategory {
     {
         return this.value; //will return , or ' instead of COMMA or APOSTROPHE
     }
+    //    value(한글) -> UserAccountStatus로
+    public static CommunityCategory change(String value){
+        CommunityCategory result = null;
+        for(CommunityCategory category : CommunityCategory.values()){
+            if(category.toString().equals(value)){
+                result = category;
+                break;
+            }
+        }
+        return result;
+    }
 }

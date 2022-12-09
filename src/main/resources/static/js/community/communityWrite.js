@@ -130,7 +130,7 @@ $(document).ready(function() {
     $('#summernote').on('summernote.change', function(we, contents, $editable) {
         $('input[name=groupContent]').attr('value', $(".note-editable").html());
     });
-}); //ready
+});
 
 
 let communitySave = (function(){
@@ -186,6 +186,32 @@ let communitySave = (function(){
 $(".Button-bqxlp0-0.fFBpBV").on("click", function(e){
     e.preventDefault();
 
+    // 유효성 검사
+
+    // 제목 기재 안했을 때
+    if($(".SocialFeedPage__Title-ky5ymg-2.gVPyuz").val()==""){
+        alert("제목을 작성해주세요");
+        return;
+    }
+
+    // 글 길이가 너무 길 때
+    if($(".note-editable").text().length>255){
+        alert("글자는 255자 이내로 작성 가능합니다.");
+        return;
+    }
+
+    // 글 내용이 없을 때
+    if($(".note-editable").text()==""){
+        alert("내용을 기재해주세요");
+        return;
+    }
+    
+    // 썸네일 이미지가 없을 때
+    if($("input[name=communityFileName]").val()==""){
+        alert("썸네일 이미지를 입력해주세요");
+        return;
+    }
+    
     // 카테고리 설정
     let category = $("input[name='post_filter_input']").val();
     switch(category) {
@@ -276,6 +302,12 @@ $(".plusThumb").on("change", function(){
             let imageSrc = "/community/display?fileName=" + Object.values(result[0])[11] + "/" + Object.values(result[0])[13] + "_" + Object.values(result[0])[12];
             console.log(Object.values(result));
             console.log(imageSrc);
+
+            if($('input[name=communityFileSize]').val()>100000){
+                alert("파일 사이즈는 10MB 이하여야합니다.");
+                return;
+            }
+
             $('.image-header').show();
             $('.img-box').show();
 
