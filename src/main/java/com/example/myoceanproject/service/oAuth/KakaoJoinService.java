@@ -114,17 +114,22 @@ public class KakaoJoinService {
             //Gson 라이브러리로 JSON파싱
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
-
+            boolean hasEmail=false;
             int id = element.getAsJsonObject().get("id").getAsInt();
-            boolean hasEmail = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("has_email").getAsBoolean();
+            if(element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("email_needs_agreement").getAsBoolean()==false) {
+                hasEmail = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("has_email").getAsBoolean();
+            }else{
+                hasEmail=false;
+            }
             String nickname=element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("profile").getAsJsonObject().get("nickname").getAsString();
             String userImage=element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("profile").getAsJsonObject().get("profile_image_url").getAsString();
-            Long userOauthId=element.getAsJsonObject().get("id").getAsLong();
-
+            String userOauthId=element.getAsJsonObject().get("id").getAsString();
             String email = "";
 
             if(hasEmail){
                 email = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("email").getAsString();
+            }else{
+                email="secureLevelTwo";
             }
 
             log.info("nickname :"+nickname);
@@ -146,28 +151,34 @@ public class KakaoJoinService {
                     user.createDate,
                     user.updatedDate,
                     user.userOauthId
-            )).from(user).where(user.userEmail.eq(email)).fetch();
+            )).from(user).where(user.userEmail.eq(email).and(user.userOauthId.like(userOauthId))).fetch();
 
             UserDTO userDTO=new UserDTO();
-            if(users.size()<1){
+            if(users.size()<1 && email!="secureLevelTwo"){
                 log.info("no join user");
                 userDTO.setUserNickname(nickname);
                 userDTO.setUserEmail(email);
-                userDTO.setUserLoginMethod(String.valueOf(UserLoginMethod.KAKAO));
-                userDTO.setUserAccountStatus(String.valueOf(UserAccountStatus.ACTIVE));
+                userDTO.setUserAccountStatus("정상");
                 userDTO.setUserTotalPoint(5000);
                 userDTO.setUserFilePath(userImage);
                 userDTO.setUserOauthId(userOauthId);
                 User user=userDTO.toEntity();
+                user.setUserLoginMethod(UserLoginMethod.KAKAO);
                 user.updateNicknameFile(userDTO);
                 userRepository.save(user);
             }
 
             br.close();
-            return users.size();
+            if(email.equals("secureLevelTwo")){
+                return 2;
+            }else if(!email.equals("secureLevelTwo") && users.size()==1){
+                return 1;
+            }else{
+                return 0;
+            }
         } catch (IOException e) {
             e.printStackTrace();
-            return 0;
+            return 10;
         }
     }
 

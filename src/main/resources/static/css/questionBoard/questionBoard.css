@@ -181,7 +181,7 @@ p, label {
     padding: 18px 0px;
     font-size: 14px;
     cursor: pointer;
-    border-bottom: 1px solid rgb(230, 230, 230);
+    /*border-bottom: 1px solid rgb(230, 230, 230);*/
 }
 
 /*페이징*/
@@ -379,6 +379,9 @@ button:disabled {
 /*답변 상태*/
 .answerStatus{
     margin-right: 15px;
+    /*float:right;*/
+    padding-top:19px;
+    margin-left:auto;
 }
 
 .completeAnswer{
@@ -387,4 +390,9 @@ button:disabled {
 
 .readyAnswer{
     color: #0314b4;
+}
+
+.arrange{
+    display:flex;
+    border-bottom: 1px solid rgb(230, 230, 230);
 }

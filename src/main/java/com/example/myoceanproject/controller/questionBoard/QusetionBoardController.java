@@ -40,34 +40,36 @@ public class QusetionBoardController {
         return "app/questionBoard/questionBoard";
     }
     // 자주 묻는 질문 중 나의 질문 페이지
-//    @GetMapping("myQuestion")
-//    public String myQuestionBoard(Model model, Criteria criteria, HttpServletRequest request){
-//        HttpSession session=request.getSession();
-//
-//        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
-//
-//        Page<AskDTO> askDTOPage= askService.showAllQuestion(pageable, criteria,(Long)session.getAttribute("userId"));
-//        int endPage = (int)(Math.ceil(askDTOPage.getNumber()+1 / (double)10)) * 10;
-//        if(askDTOPage.getTotalPages() < endPage){
-//            endPage = askDTOPage.getTotalPages() == 0 ? 1 : askDTOPage.getTotalPages();
-//        }
-//        log.info(endPage + "end");
-//
+    @GetMapping("myQuestion")
+    public String myQuestionBoard(Model model, Criteria criteria, HttpServletRequest request){
+        HttpSession session=request.getSession();
+
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+
+        Page<AskDTO> askDTOPage= askService.showAllQuestion(pageable, criteria,(Long)session.getAttribute("userId"));
+        int endPage = (int)(Math.ceil(askDTOPage.getNumber()+1 / (double)10)) * 10;
+        if(askDTOPage.getTotalPages() < endPage){
+            endPage = askDTOPage.getTotalPages() == 0 ? 1 : askDTOPage.getTotalPages();
+        }
+        log.info(endPage + "end");
+
 //        for(int i=0;i<10;i++){
 //            log.info("askdata:"+askDTOPage.getContent());
 //            log.info("askStatus:"+askDTOPage.getContent().get(i).getAskStatus());
+//            log.info("criteria:"+criteria);
+//            log.info("pageable:"+pageable);
 //        }
-//        log.info("pagenation:"+model.getAttribute("pagination"));
-//        log.info("criteria:"+criteria.getPage());
-//
-//        model.addAttribute("myQuestions", askDTOPage.getContent());
-//        model.addAttribute("pagination", askDTOPage);
-//        model.addAttribute("pageable", pageable);
-//        model.addAttribute("criteria", criteria);
-//        model.addAttribute("endPage", endPage);
-//
-//        return "app/questionBoard/myQuestion";
-//    }
+        log.info("pagenation:"+model.getAttribute("pagination"));
+        log.info("criteria:"+criteria.getPage());
+
+        model.addAttribute("myQuestions", askDTOPage.getContent());
+        model.addAttribute("pagination", askDTOPage);
+        model.addAttribute("pageable", pageable);
+        model.addAttribute("criteria", criteria);
+        model.addAttribute("endPage", endPage);
+
+        return "app/questionBoard/myQuestion";
+    }
     // 문의 사항 작성 페이지
     @GetMapping("myQuestionWrite")
     public String myQuestionWrite(){return "app/questionBoard/myQuestionWrite";}

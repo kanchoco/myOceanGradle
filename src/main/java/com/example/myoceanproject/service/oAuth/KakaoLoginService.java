@@ -114,16 +114,22 @@ public class KakaoLoginService {
             //Gson 라이브러리로 JSON파싱
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
-
+            boolean hasEmail=false;
             int id = element.getAsJsonObject().get("id").getAsInt();
-            boolean hasEmail = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("has_email").getAsBoolean();
+            if(element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("email_needs_agreement").getAsBoolean()==false) {
+                hasEmail = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("has_email").getAsBoolean();
+            }else{
+                hasEmail=false;
+            }
             String nickname=element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("profile").getAsJsonObject().get("nickname").getAsString();
             String userImage=element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("profile").getAsJsonObject().get("profile_image_url").getAsString();
-
+            String userOauthId=element.getAsJsonObject().get("id").getAsString();
             String email = "";
 
             if(hasEmail){
                 email = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("email").getAsString();
+            }else{
+                email="secureLevelTwo";
             }
 
             log.info("nickname :"+nickname);
@@ -145,19 +151,27 @@ public class KakaoLoginService {
                     user.createDate,
                     user.updatedDate,
                     user.userOauthId
-            )).from(user).where(user.userEmail.eq(email)).fetch();
+            )).from(user).where(user.userEmail.eq(email).and(user.userOauthId.like(userOauthId))).fetch();
 
             UserDTO userDTO=new UserDTO();
+            log.info("user:"+user);
+
             User user=new User();
             if(users.size()==1){
                 userDTO.setUserEmail(users.get(0).getUserEmail());
                 userDTO.setUserNickname(users.get(0).getUserNickname());
                 userDTO.setUserLoginMethod(users.get(0).getUserLoginMethod());
+                userDTO.setUserOauthId(users.get(0).getUserOauthId());
                 user=userDTO.toEntity();
+                user.setUserLoginMethod(UserLoginMethod.change(userDTO.getUserLoginMethod()));
                 user.setUserId(users.get(0).getUserId());
+            }else{
+                userDTO.setUserEmail(email);
+                user=userDTO.toEntity();
             }
 
-            log.info("user:"+user);
+
+
             br.close();
             return user;
         } catch (IOException e) {

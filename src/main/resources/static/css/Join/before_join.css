@@ -253,7 +253,7 @@ audio, canvas, iframe, img, svg, video {
 	width: 48px;
 	height: 48px;
 	line-height: normal;
-	padding: 0px 13px;
+	padding: 11px 13px;
 	background-color: rgb(255, 255, 255);
 	text-align: center;
 	cursor: pointer;
