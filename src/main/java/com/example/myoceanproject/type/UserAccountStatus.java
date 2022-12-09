@@ -15,4 +15,13 @@ public enum UserAccountStatus {
         return this.value; //will return , or ' instead of COMMA or APOSTROPHE
     }
 
+    public static String change(String value){
+        for(UserAccountStatus status : UserAccountStatus.values()){
+            status.equals(value);
+            value = status.name();
+            break;
+        }
+        return value;
     }
+
+}

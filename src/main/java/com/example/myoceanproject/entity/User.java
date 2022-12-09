@@ -105,6 +105,9 @@ public class User extends Period {
     public void setUserId(Long userId){
         this.userId = userId;
     }
+    public void setUserLoginMethod(UserLoginMethod userLoginMethod){
+        this.userLoginMethod = userLoginMethod;
+    }
     public void setUserNickname(String userNickname){
         this.userNickname = userNickname;
     }

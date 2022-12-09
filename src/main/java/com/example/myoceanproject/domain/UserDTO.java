@@ -1,13 +1,11 @@
 package com.example.myoceanproject.domain;
 
-import com.example.myoceanproject.entity.Period;
 import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.type.UserAccountStatus;
 import com.example.myoceanproject.type.UserLoginMethod;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -72,7 +70,6 @@ public class UserDTO {
                 .userPassword(userPassword)
                 .userNickname(userNickname)
                 .userEmail(userEmail)
-                .userLoginMethod(UserLoginMethod.valueOf(userLoginMethod))
                 .userAccountStatus(UserAccountStatus.valueOf(userAccountStatus))
                 .userTotalPoint(userTotalPoint)
                 .userOauthId(userOauthId)
