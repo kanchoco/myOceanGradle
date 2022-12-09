@@ -117,9 +117,9 @@ public class JoinController {
     public String joinOk(UserDTO userDTO){
         userDTO.setUserPassword(encryption(userDTO.getUserPassword()));
         userDTO.setUserTotalPoint(5000);
-        userDTO.setUserAccountStatus(String.valueOf(UserAccountStatus.ACTIVE));
-        userDTO.setUserLoginMethod(String.valueOf(UserLoginMethod.GENERAL));
+        userDTO.setUserAccountStatus(UserAccountStatus.change("정상"));
         User user=userDTO.toEntity();
+        user.setUserLoginMethod(UserLoginMethod.GENERAL);
         userRepository.save(user);
         return "redirect:/main/index";
     }
@@ -130,6 +130,7 @@ public class JoinController {
         log.info("code:"+code);
 
         String token = kakaoJoinService.getKaKaoAccessToken(code);
+        log.info(token);
         session.setAttribute("token", token);
         int exist=kakaoJoinService.getKakaoInfo(token);
 
