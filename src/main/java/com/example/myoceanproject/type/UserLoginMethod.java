@@ -12,5 +12,16 @@ public enum UserLoginMethod {
     {
         return this.value; //will return , or ' instead of COMMA or APOSTROPHE
     }
+
+    public static UserLoginMethod change(String value){
+        UserLoginMethod result = null;
+        for(UserLoginMethod method : UserLoginMethod.values()){
+            if (method.toString().equals(value)){
+                result = method;
+                break;
+            }
+        }
+        return result;
+    }
 }
 

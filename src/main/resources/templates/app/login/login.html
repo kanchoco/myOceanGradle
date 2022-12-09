@@ -91,9 +91,9 @@ http://localhost:15000/login/kakaoLogin&response_type=code&prompt=login" class="
 			access_type=offline&prompt=consent" >
                         <img src="http://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/5rH/image/aFrEyVpANu07FvoBZQbIB4aF_uc" style="width:48px;height:48px;" alt="google-login-icon">
                     </a>
-                    <button type="button" style="cursor:pointer;">
+                    <a type="button" style="cursor:pointer;">
                         <img src="https://www.naver.com/favicon.ico?1" style="width:48px;height:48px;border-radius:10px;" alt="naver-login-icon">
-                    </button>
+                    </a>
 
                 </div>
             </div>
@@ -118,9 +118,17 @@ http://localhost:15000/login/kakaoLogin&response_type=code&prompt=login" class="
         $("#outerheader").load("header.html");
     });
 
-    var existUser=new URL(location.href).searchParams.get("login");
-    if(existUser==true){
-        alert("이미 회원가입이 되었습니다.");
+    var existUserKakao=new URL(location.href).searchParams.get("existkakao");
+    var secureUserKakao=new URL(location.href).searchParams.get("securekakao");
+    var existUserGoogle=new URL(location.href).searchParams.get("existgoogle");
+    if(existUserKakao==true){
+        alert("카카오 계정으로 가입된 계정이 있습니다.");
+    }
+    if(existUserGoogle==true){
+        alert("구글 계정으로 가입된 계정이 있습니다.");
+    }
+    if(secureUserKakao==true){
+        alert("카카오 2단계 인증 해제후 회원가입을 진행해주십시오.");
     }
 </script>
 </html>

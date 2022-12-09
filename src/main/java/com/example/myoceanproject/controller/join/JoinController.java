@@ -117,11 +117,11 @@ public class JoinController {
     public String joinOk(UserDTO userDTO){
         userDTO.setUserPassword(encryption(userDTO.getUserPassword()));
         userDTO.setUserTotalPoint(5000);
-        userDTO.setUserAccountStatus(UserAccountStatus.change("정상"));
+        userDTO.setUserAccountStatus("정상");
         User user=userDTO.toEntity();
         user.setUserLoginMethod(UserLoginMethod.GENERAL);
         userRepository.save(user);
-        return "redirect:/main/index";
+        return "redirect:/main/index?joingeneral=1";
     }
 
     //    @ResponseBody
@@ -130,17 +130,18 @@ public class JoinController {
         log.info("code:"+code);
 
         String token = kakaoJoinService.getKaKaoAccessToken(code);
-        log.info(token);
         session.setAttribute("token", token);
         int exist=kakaoJoinService.getKakaoInfo(token);
 
         if(exist==0){
             session.invalidate();
-            return "redirect:/main/index?join=1";
+            return "redirect:/main/index?joinkakao=1";
         }
-        else{
-            return "redirect:/login/index?login=1";
-        }
+        else if(exist==1){
+            return "redirect:/login/index?existkakao=1";
+        }else if(exist==2){
+            return "redirect:/join/joinOne?securekakao=1";
+        }else{return "";}
     }
 
     @GetMapping("/googleJoin")
@@ -150,10 +151,10 @@ public class JoinController {
 
         if(exist==0){
             session.invalidate();
-            return "redirect:/main/index?join=1";
+            return "redirect:/main/index?joingoogle=1";
         }
         else{
-            return "redirect:/login/index?login=1";
+            return "redirect:/login/index?existgoogle=1";
         }
     }
 
@@ -235,3 +236,4 @@ public class JoinController {
 
 
 }
+// 구글 11자리, 카카오 10자리

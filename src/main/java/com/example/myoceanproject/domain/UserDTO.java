@@ -45,10 +45,10 @@ public class UserDTO {
 
     private List<UserDTO> userList;
     private int endPage;
-    private Long userOauthId;
+    private String userOauthId;
 
     @QueryProjection
-    public UserDTO(Long userId, String userPassword, String userNickname, UserAccountStatus userAccountStatus, String userFileName, String userFilePath, Long userFileSize, String userFileUuid, String userEmail, UserLoginMethod userLoginMethod, int userTotalPoint, LocalDateTime createDate, LocalDateTime updatedDate,Long userOauthId) {
+    public UserDTO(Long userId, String userPassword, String userNickname, UserAccountStatus userAccountStatus, String userFileName, String userFilePath, Long userFileSize, String userFileUuid, String userEmail, UserLoginMethod userLoginMethod, int userTotalPoint, LocalDateTime createDate, LocalDateTime updatedDate,String userOauthId) {
         this.userId = userId;
         this.userPassword = userPassword;
         this.userNickname = userNickname;
@@ -70,7 +70,7 @@ public class UserDTO {
                 .userPassword(userPassword)
                 .userNickname(userNickname)
                 .userEmail(userEmail)
-                .userAccountStatus(UserAccountStatus.valueOf(userAccountStatus))
+                .userAccountStatus(UserAccountStatus.change(userAccountStatus))
                 .userTotalPoint(userTotalPoint)
                 .userOauthId(userOauthId)
                 .build();

@@ -303,10 +303,7 @@ public class LoginController {
         user=kakaoLoginService.getKakaoInfo(token);
 
         log.info("user:"+user);
-        if(user.getUserId()==null){
-            return "redirect:/main/index?kakaonotjoin=1";
-        }
-        else{
+        if(user.getUserOauthId()!=null){
             session.setAttribute("userId",user.getUserId());
             session.setAttribute("userNickname",user.getUserNickname());
             session.setAttribute("userEmail",user.getUserEmail());
@@ -318,6 +315,13 @@ public class LoginController {
             log.info("userLoginMethod:"+session.getAttribute("userLoginMethod"));
 
             return "redirect:/main/index";
+        }
+        else{
+            if(user.getUserEmail().equals("secureLevelTwo")){
+                return "redirect:/join/joinOne?securekakao=1";
+            }else{
+                return "redirect:/join/joinOne?kakaonotjoin=1";
+            }
         }
     }
 
@@ -342,8 +346,8 @@ public class LoginController {
 
         User user=googleLoginService.getGoogleAccessTokenInfo(authCode);
 
-        if(user.getUserId()==null){
-            return "redirect:/main/index?googlenotjoin=1";
+        if(user.getUserOauthId()==null){
+            return "redirect:/join/joinOne?googlenotjoin=1";
         }
         else{
             session.setAttribute("userId",user.getUserId());

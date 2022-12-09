@@ -63,9 +63,9 @@ http://localhost:15000/join/kakaoJoin&response_type=code&prompt=login" class="Bu
 			access_type=offline&prompt=consent" class="Button-bqxlp0-0 ImageButton__FacebookRegisterButton-sc-1gujkoj-0 hWMKcf" width="48px" height="48px" >
                         <img src="https://banner2.cleanpng.com/20180324/iww/kisspng-google-logo-g-suite-google-5ab6f1cee66464.5739288415219388949437.jpg" style="width:21px;height:21px;" alt="구글로 시작">
                     </a>
-                    <button class="Button-bqxlp0-0 ImageButton__FacebookRegisterButton-sc-1gujkoj-0 hWMKcf" width="48px" height="48px">
+                    <a class="Button-bqxlp0-0 ImageButton__FacebookRegisterButton-sc-1gujkoj-0 hWMKcf" width="48px" height="48px">
                         <img src="https://play-lh.googleusercontent.com/Kbu0747Cx3rpzHcSbtM1zDriGFG74zVbtkPmVnOKpmLCS59l7IuKD5M3MKbaq_nEaZM" style="width:21px;height:21px;" alt="네이버로 시작">
-                    </button>
+                    </a>
                     <a href="/login/index">
                         <button class="Button-bqxlp0-0 IntroPage__NormalButton-sc-2ms2nt-5 hvCDRQ">로그인</button>
                     </a>
@@ -107,12 +107,16 @@ http://localhost:15000/join/kakaoJoin&response_type=code&prompt=login" class="Bu
 <script src="/js/Join/before_join.js"></script>
 <script>
     var notjoinFlagkakao=new URL(location.href).searchParams.get("kakaonotjoin");
+    var notjoinSecurekakao=new URL(location.href).searchParams.get("securekakao");
     var notjoinFlaggoogle=new URL(location.href).searchParams.get("googlenotjoin");
     if(notjoinFlagkakao){
         alert("카카오 회원가입을 진행해주십시오.");
     }
     if(notjoinFlaggoogle){
         alert("구글 회원가입을 진행해주십시오.");
+    }
+    if(notjoinSecurekakao){
+        alert("카카오 2단계 인증 해제 후 회원가입을 진행해주십시오.");
     }
 </script>
 </html>

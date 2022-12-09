@@ -9,19 +9,22 @@ public enum UserAccountStatus {
     {
         this.value = value;
     }
-
+//value
     public String toString()
     {
         return this.value; //will return , or ' instead of COMMA or APOSTROPHE
     }
 
-    public static String change(String value){
+//    value(한글) -> UserAccountStatus로
+    public static UserAccountStatus change(String value){
+        UserAccountStatus result = null;
         for(UserAccountStatus status : UserAccountStatus.values()){
-            status.equals(value);
-            value = status.name();
-            break;
+            if(status.toString().equals(value)){
+                result = status;
+                break;
+            }
         }
-        return value;
+        return result;
     }
 
 }

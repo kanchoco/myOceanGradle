@@ -810,10 +810,17 @@
 </script>
 
 <script>
-    var joinFlag=new URL(location.href).searchParams.get("join");
-    console.log(joinFlag);
-    if(joinFlag==true){
-        alert("회원가입이 완료되었습니다.");
+    var joinFlagKakao=new URL(location.href).searchParams.get("joinkakao");
+    var joinFlagGoogle=new URL(location.href).searchParams.get("joingoogle");
+    var joinFlagGeneral=new URL(location.href).searchParams.get("joingeneral");
+    if(joinFlagKakao==true){
+        alert("카카오 계정으로 회원가입이 완료되었습니다.");
+    }
+    if(joinFlagGoogle==true){
+        alert("구글 계정으로 회원가입이 완료되었습니다.");
+    }
+    if(joinFlagGeneral==true){
+        alert("일반 계정으로 회원가입이 완료되었습니다.");
     }
 </script>
 

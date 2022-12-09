@@ -37,13 +37,12 @@
                 <th:block th:each="myQuestion:${myQuestions}">
                     <li th:object="${myQuestion}">
                         <!--                    <p th:text="*{askStatus}"></p>-->
-                        <div class="FAQEntity__TitleWrapper-cpxlp5-0 ldvBHS" th:text="*{askTitle}">
-                            <p th:text="*{askStatus}"></p>
-                            <div class="my_list" th:switch="${#strings.toString(myQuestion.askStatus)}">
-                                <div th:case="답변대기" class="answerStatus readyAnswer" th:text="*{askStatus}"></div>
+                        <div class="arrange">
+                            <div class="FAQEntity__TitleWrapper-cpxlp5-0 ldvBHS" th:text="*{askTitle}"></div>
+                            <th:block th:switch="${#strings.toString(myQuestion.askStatus)}">
                                 <div th:case="답변완료" class="answerStatus completeAnswer" th:text="*{askStatus}"></div>
-                                <div th:case="*" class="answerStatus completeAnswer" th:text="*{askStatus}"></div>
-                            </div>
+                                <div th:case="답변대기" class="answerStatus readyAnswer" th:text="*{askStatus}"></div>
+                            </th:block>
                         </div>
                         <!--                    <p th:text="*{askStatus}"></p>-->
                         <div font-size="14px" class="FAQEntity__Content-cpxlp5-1 fFhAfW">
@@ -104,7 +103,7 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/js/fix/header.js"></script>
 <script src="/js/questionBoard/questionBoard.js"></script>
-<script>
+<script th:inline="javascript">
     const $pages = $('a.changePage');
 
     $("#search_input").on("keyup",function(key){
