@@ -75,6 +75,7 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
     }
 
     //    전체 출력 동적쿼리(비회원 전용)
+    @Override
     public List<CommunityPostDTO> filterCommunityBoard(List<String> communityCategories) {
         List<CommunityPostDTO> communityBoards = jpaQueryFactory.select(new QCommunityPostDTO(
                         communityPost.communityPostId,
@@ -110,6 +111,49 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
 
         return communityBoards;
     }
+
+    //    전체 출력 동적쿼리(회원 전용)
+    @Override
+    public List<CommunityPostDTO> filterCommunityBoard(List<String> communityCategories, Long userId) {
+        List<CommunityPostDTO> communityBoards = jpaQueryFactory.select(new QCommunityPostDTO(
+                        communityPost.communityPostId,
+                        communityPost.user.userId,
+                        communityPost.user.userNickname,
+                        communityPost.user.userFileName,
+                        communityPost.user.userFilePath,
+                        communityPost.user.userFileSize,
+                        communityPost.user.userFileUuid,
+                        communityPost.communityCategory,
+                        communityPost.communityTitle,
+                        communityPost.communityContent,
+                        communityPost.communityFilePath,
+                        communityPost.communityFileName,
+                        communityPost.communityFileUuid,
+                        communityPost.communityFileSize,
+                        communityPost.communityViewNumber,
+                        communityPost.communityLikeNumber,
+                        communityPost.createDate,
+                        communityPost.updatedDate
+                )).from(communityPost)
+                .where(
+                        categoryFilter(communityCategories)
+                )
+                .from(communityPost)
+                .orderBy(communityPost.createDate.desc())
+                .limit(10)
+                .fetch();
+
+        communityBoards.stream().forEach(communityPostDTO -> {
+            communityPostDTO.setCommunityReplyCount(replyRepositoryImpl.countReplyByCommunityPost(communityPostDTO.getCommunityPostId()));
+            communityPostDTO.setCheckLike(likeRepositoryImpl.findByCommunityPostAndUser(userId,communityPostDTO.getCommunityPostId()));
+        });
+
+        return communityBoards;
+    }
+
+
+
+
 
     private BooleanBuilder categoryFilter(List<String> communityCategories){
         BooleanBuilder booleanBuilder = new BooleanBuilder();
@@ -402,6 +446,44 @@ public List<CommunityPostDTO> findAllByListWithoutLogin(){
                 .offset(page * 10)
                 .limit(10)
                 .fetch();
+        boards.stream().forEach(communityPostDTO -> {
+            communityPostDTO.setCommunityReplyCount(replyRepositoryImpl.countReplyByCommunityPost(communityPostDTO.getCommunityPostId()));
+        });
+        return boards;
+    }
+
+    // 무한스크롤(회원전용)
+    // 처음에 10개를 뿌려주고, 스크롤이 맨 끝 단에 닿으면 다음의 10개가 뿌려짐
+    public List<CommunityPostDTO> selectScrollBoards(int page, Long userId){
+        List<CommunityPostDTO> boards = jpaQueryFactory.select(new QCommunityPostDTO(
+                        communityPost.communityPostId,
+                        communityPost.user.userId,
+                        communityPost.user.userNickname,
+                        communityPost.user.userFileName,
+                        communityPost.user.userFilePath,
+                        communityPost.user.userFileSize,
+                        communityPost.user.userFileUuid,
+                        communityPost.communityCategory,
+                        communityPost.communityTitle,
+                        communityPost.communityContent,
+                        communityPost.communityFilePath,
+                        communityPost.communityFileName,
+                        communityPost.communityFileUuid,
+                        communityPost.communityFileSize,
+                        communityPost.communityViewNumber,
+                        communityPost.communityLikeNumber,
+                        communityPost.createDate,
+                        communityPost.updatedDate
+                ))
+                .from(communityPost)
+                .orderBy(communityPost.createDate.desc())
+                .offset(page * 10)
+                .limit(10)
+                .fetch();
+        boards.stream().forEach(communityPostDTO -> {
+            communityPostDTO.setCommunityReplyCount(replyRepositoryImpl.countReplyByCommunityPost(communityPostDTO.getCommunityPostId()));
+            communityPostDTO.setCheckLike(likeRepositoryImpl.findByCommunityPostAndUser(userId,communityPostDTO.getCommunityPostId()));
+        });
         return boards;
     }
 

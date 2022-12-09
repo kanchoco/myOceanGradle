@@ -64,7 +64,15 @@ public class CommunityRestController {
     @GetMapping(value="/list-filter/{communityCategories}")
     public List<CommunityPostDTO> getFilterCommunity(@PathVariable("communityCategories") List<String> communityCategories){
         List<CommunityPostDTO> communityPostDTO = communityPostService.findBoardByCategory(communityCategories);
-        log.info("communityPostDTO: " + communityPostDTO);
+        return communityPostDTO;
+    }
+
+    @GetMapping(value="/list-filter-login-user/{communityCategories}")
+    public List<CommunityPostDTO> getFilterCommunity(@PathVariable("communityCategories") List<String> communityCategories, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute("userId");
+
+        List<CommunityPostDTO> communityPostDTO = communityPostService.findBoardByCategory(communityCategories, userId);
         return communityPostDTO;
     }
 
@@ -72,6 +80,15 @@ public class CommunityRestController {
     @GetMapping("/scroll/{page}")
     public List<CommunityPostDTO> infiniteScroll(@PathVariable int page){
         return communityPostService.selectScrollBoards(page);
+    }
+
+    //무한스크롤 회원전용
+    @GetMapping("/scroll-user/{page}")
+    public List<CommunityPostDTO> selectScrollBoards(@PathVariable int page, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute("userId");
+
+        return communityPostService.selectScrollBoards(page, userId);
     }
 
     // 게시글 작성 후 커뮤니티 페이지로 이동

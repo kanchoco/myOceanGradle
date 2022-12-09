@@ -8,27 +8,20 @@ const $movie = $(".movieFilter")
 const $book = $(".bookFilter")
 const $diary = $(".diaryFilter")
 
-let communityAr = new Array();
+globalThis.communityAr = new Array();
 let communities = ['EXERCISE', 'COOK', 'MOVIE', 'BOOK', 'COUNSELING'];
 
-
-$(document).on("change", function(){
-    console.log("들어왔음");
-    if($filterBtn.find(".kJEnf").length==0){
-        communityAr.push(communities);
-    }
-})
 
 //요리
 $cook.on("click",function () {
     if($(this).find("button").hasClass("fFBpBV")){
         $(this).find("button").removeClass('fFBpBV').addClass("kJEnf");
         $(this).find(".gRNDCb").show();
-        communityAr.push("COOK");
+        globalThis.communityAr.push("COOK");
     }else{
         $(this).find("button").removeClass('kJEnf').addClass("fFBpBV");
         $(this).find(".gRNDCb").hide()
-        communityAr = communityAr.filter((element) => element !=="COOK");
+        globalThis.communityAr = globalThis.communityAr.filter((element) => element !=="COOK");
     }
 
     if($filterBtn.find(".kJEnf").length==10){
@@ -43,11 +36,11 @@ $movie.on("click",function () {
     if($(this).find("button").hasClass("fFBpBV")){
         $(this).find("button").removeClass('fFBpBV').addClass("kJEnf");
         $(this).find(".gRNDCb").show();
-        communityAr.push("MOVIE");
+        globalThis.communityAr.push("MOVIE");
     }else{
         $(this).find("button").removeClass('kJEnf').addClass("fFBpBV");
         $(this).find(".gRNDCb").hide();
-        communityAr = communityAr.filter((element) => element !=="MOVIE");
+        globalThis.communityAr = globalThis.communityAr.filter((element) => element !=="MOVIE");
     }
     if($filterBtn.find(".kJEnf").length==10){
         allCheck();
@@ -61,11 +54,11 @@ $exercise.on("click",function () {
     if($(this).find("button").hasClass("fFBpBV")){
         $(this).find("button").removeClass('fFBpBV').addClass("kJEnf");
         $(this).find(".gRNDCb").show()
-        communityAr.push("EXERCISE");
+        globalThis.communityAr.push("EXERCISE");
     }else{
         $(this).find("button").removeClass('kJEnf').addClass("fFBpBV");
         $(this).find(".gRNDCb").hide()
-        communityAr = communityAr.filter((element) => element !=="EXERCISE");
+        globalThis.communityAr = globalThis.communityAr.filter((element) => element !=="EXERCISE");
     }
     if($filterBtn.find(".kJEnf").length==10){
         allCheck();
@@ -79,11 +72,11 @@ $book.on("click",function () {
     if($(this).find("button").hasClass("fFBpBV")){
         $(this).find("button").removeClass('fFBpBV').addClass("kJEnf");
         $(this).find(".gRNDCb").show();
-        communityAr.push("BOOK");
+        globalThis.communityAr.push("BOOK");
     }else{
         $(this).find("button").removeClass('kJEnf').addClass("fFBpBV");
         $(this).find(".gRNDCb").hide();
-        communityAr = communityAr.filter((element) => element !=="BOOK");
+        globalThis.communityAr = globalThis.communityAr.filter((element) => element !=="BOOK");
     }
     if($filterBtn.find(".kJEnf").length==10){
         allCheck();
@@ -96,11 +89,11 @@ $diary.on("click",function () {
     if($(this).find("button").hasClass("fFBpBV")){
         $(this).find("button").removeClass('fFBpBV').addClass("kJEnf");
         $(this).find(".gRNDCb").show();
-        communityAr.push("COUNSELING");
+        globalThis.communityAr.push("COUNSELING");
     }else{
         $(this).find("button").removeClass('kJEnf').addClass("fFBpBV");
         $(this).find(".gRNDCb").hide();
-        communityAr = communityAr.filter((element) => element !=="COUNSELING");
+        globalThis.communityAr = globalThis.communityAr.filter((element) => element !=="COUNSELING");
     }
     if($filterBtn.find(".kJEnf").length===10){
         allCheck();
@@ -113,9 +106,9 @@ $diary.on("click",function () {
 function allCheck(){
     $allBtn.find("button").removeClass('fFBpBV').addClass("kJEnf");
     $allBtn.find(".gRNDCb").show();
-    console.log("들어오니?");
-    communityAr = [];
-    communityAr.push(communities);
+    // globalThis.communityAr = [];
+    // globalThis.communityAr.push(communities);
+    globalThis.communityAr = ['EXERCISE', 'COOK', 'MOVIE', 'BOOK', 'COUNSELING'];
 }
 
 function allCheckCancel(){
@@ -128,7 +121,6 @@ function allCheckCancel(){
 $allBtn.on("click",function () {
     
   if($(this).find("button").hasClass("fFBpBV")){
-      // console.log("들어오니?");
       allCheck();
       $filterBtn.each((i,item)=>{
           $(item).find("button").removeClass('fFBpBV').addClass("kJEnf");
@@ -140,7 +132,7 @@ $allBtn.on("click",function () {
           $(item).find("button").removeClass('kJEnf').addClass("fFBpBV");
           $(item).find(".gRNDCb").hide();
       })
-      communityAr = [];
+      globalThis.communityAr = [];
   }
 })
 
@@ -191,8 +183,6 @@ $(window).resize(function(){
         $(".Filter__FilterButtonWrapper-sc-1buujtg-1").attr("class", "Filter__FilterButtonWrapper-sc-1buujtg-1 categoryMedia");
         $("a.down785px").show();
         $("a.until785px").hide();
-        // $(".writeBtn").parent().css("position", "relative");
-        // $(".writeBtn").parent().css("right", "0px");
         if(window.innerWidth<594){
             $(".filter_wrapper_3l").css("content","center");
             $(".jIjcTX").css("margin", "");
@@ -219,8 +209,6 @@ function checkMedia(){
         $(".Filter__FilterButtonWrapper-sc-1buujtg-1").attr("class", "Filter__FilterButtonWrapper-sc-1buujtg-1 categoryMedia");
         $("a.down785px").show();
         $("a.until785px").hide();
-        // $(".writeBtn").parent().css("position", "relative");
-        // $(".writeBtn").parent().css("right", "0px");
         if(window.innerWidth<594){
             $(".filter_wrapper_3l").css("content","center");
             $(".jIjcTX").css("margin", "");
@@ -237,9 +225,6 @@ function checkMedia(){
         $("a.down785px").hide();
         $("a.until785px").show();
         $(".categoryMedia >div").css("justify-content", "start");
-        // $(".writeBtn").parent().css("right", "-196px");
-        // $(".writeBtn").parent().css("right", "29.5%");
-        // $(".writeBtn").parent().css("position", "absolute");
     }
 }
 
@@ -252,7 +237,6 @@ let communityService = (function() {
         $.ajax({
             url: "/community/list/",
             type: "get",
-            async: false,
             success: function (communityPostDTO, status, xhr) {
                 if (callback) {
                     callback(communityPostDTO);
@@ -266,11 +250,9 @@ let communityService = (function() {
         });
     }
     function getListNotUser(param, callback, error) {
-        console.log(param);
         $.ajax({
             url: "/community/list-not-user/",
             type: "get",
-            async: false,
             success: function (communityPostDTO, status, xhr) {
                 if (callback) {
                     callback(communityPostDTO);
@@ -300,6 +282,24 @@ let communityService = (function() {
             }
         });
     }
+
+    function infiniteScrollUser(page, callback, error){
+        $.ajax({
+            url: "/community/scroll-user/" + page,
+            type: "get",
+            success: function(boards, status, xhr){
+                if(callback){
+                    callback(boards);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+
 
     function addLike(communityPostId, callback, error){
         $.ajax({
@@ -369,8 +369,24 @@ let communityService = (function() {
         });
     }
 
+    function filterCheckLoginUser(communityCategories, callback, error){
+        $.ajax({
+            url: "/community/list-filter-login-user/" + communityCategories,
+            type: "get",
+            success: function(communityCategories, status, xhr){
+                if(callback){
+                    callback(communityCategories);
+                }
+            }, error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
 
-    return {getList: getList, getListNotUser: getListNotUser, infiniteScroll: infiniteScroll, addLike: addLike, minusLike: minusLike, checkLike: checkLike, filterCheck: filterCheck}
+
+    return {getList: getList, getListNotUser: getListNotUser, infiniteScroll: infiniteScroll, infiniteScrollUser: infiniteScrollUser, addLike: addLike, minusLike: minusLike, checkLike: checkLike, filterCheck: filterCheck, filterCheckLoginUser : filterCheckLoginUser}
 })();
 
 
@@ -380,61 +396,63 @@ let page = 1;
 $(window).scroll(function(){
     if($(window).scrollTop() * 1.001 >= $(document).height() - $(window).height()){
         showCheck=true;
-        communityService.infiniteScroll(page, getList);
-        page++;
+        if($("input[name='userId']").val()){
+            communityService.infiniteScrollUser(page, getList);
+            page++;
+        }
+        else{
+            communityService.infiniteScroll(page, getList);
+            page++;
+        }
     }
 });
 
 
 /*댓글 창 이동하기*/
-$(document).ready(function(){
-    $(".goReplyBoard").on("click", function(e){
-        e.preventDefault();
-        location.href = "/reply/index?communityPostId=" + $(this).attr("href");
-    })
+$(".view__FeedListWrapper-sc-1fff32g-0").on("click", ".goReplyBoard", function(e){
+    e.preventDefault();
+    location.href = "/reply/index?communityPostId=" + $(this).attr("href");
 })
 
-
-
 /*좋아요 누를 때*/
-$(document).ready(function(){
-    $(".ActionGroup__LikeButton-sg91np-1.jxmvcs").on("click", function(e){
-        e.preventDefault();
-        if($("input[name='userId']").val()==""){
-            alert("로그인 후 이용하실 수 있습니다.")
-            return;
-        }
-        let communityPostId = $(this).attr("href");
+$(".view__FeedListWrapper-sc-1fff32g-0").on("click", ".ActionGroup__LikeButton-sg91np-1", function(e){
+    e.preventDefault();
+    const $img = $(this).find("img");
+    const $span = $(this).find("span");
+    let communityPostId = $(this).attr("href");
 
-        if($(".checkLike").attr("class").includes("likePlus")){
-            communityService.addLike(
-                communityPostId,
-                function(){
-                    console.log("좋아요 성공");
-                }
-            )
-            $(".checkLike").attr("src", "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='18' viewBox='0 0 21 18'%3E %3Cpath fill='%23F32D2D' d='M19.437 1.589C18.427.564 17.085 0 15.657 0s-2.77.564-3.78 1.589L10.5 2.986 9.124 1.59C8.114.564 6.77 0 5.344 0c-1.429 0-2.771.564-3.78 1.589-2.085 2.115-2.085 5.557 0 7.673l8.379 8.504c.148.15.348.234.557.234.209 0 .41-.084.557-.234l8.38-8.504c2.084-2.116 2.084-5.558 0-7.673z'/%3E %3C/svg%3E");
-            $(".checkLike").attr("class", "checkLike likeCancel");
+    if($("input[name='userId']").val()==""){
+        alert("로그인 후 이용 가능합니다.");
+        return;
+    }
 
-            let likeNumber = $(".likeNumber").text();
+    if($img.attr("class").includes("likePlus")){
+        communityService.addLike(
+            communityPostId,
+            function(){
+                console.log("좋아요 성공");
+            }
+        )
+        $img.attr("src", "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='18' viewBox='0 0 21 18'%3E %3Cpath fill='%23F32D2D' d='M19.437 1.589C18.427.564 17.085 0 15.657 0s-2.77.564-3.78 1.589L10.5 2.986 9.124 1.59C8.114.564 6.77 0 5.344 0c-1.429 0-2.771.564-3.78 1.589-2.085 2.115-2.085 5.557 0 7.673l8.379 8.504c.148.15.348.234.557.234.209 0 .41-.084.557-.234l8.38-8.504c2.084-2.116 2.084-5.558 0-7.673z'/%3E %3C/svg%3E");
+        $img.attr("class", "checkLike likeCancel");
 
-            $(".likeNumber").text(++likeNumber);
-        } else{
-            communityService.minusLike(
-                communityPostId,
-                function(){
-                    console.log("좋아요 취소 성공");
-                }
-            )
+        let likeNumber = $span.text();
 
-            $(".checkLike").attr("src", "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='18' viewBox='0 0 21 18'%3E %3Cpath fill='none' stroke='%234E5968' stroke-width='1.5' d='M15.657.75c-1.226 0-2.379.485-3.246 1.365l-1.91 1.94-1.912-1.94C7.722 1.235 6.57.75 5.343.75s-2.378.485-3.245 1.365C1.198 3.028.75 4.227.75 5.425c0 1.199.448 2.398 1.348 3.31l8.425 8.504 8.379-8.504c.9-.912 1.348-2.111 1.348-3.31 0-1.198-.448-2.397-1.347-3.31-.867-.88-2.02-1.365-3.246-1.365z'/%3E %3C/svg%3E");
-            $(".checkLike").attr("class", "checkLike likePlus");
+        $span.text(++likeNumber);
+    } else{
+        communityService.minusLike(
+            communityPostId,
+            function(){
+                console.log("좋아요 취소 성공");
+            }
+        )
 
-            let likeNumber = $(".likeNumber").text();
-            console.log("들어옴");
-            $(".likeNumber").text(--likeNumber);
-        }
-    });
+        $img.attr("src", "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='18' viewBox='0 0 21 18'%3E %3Cpath fill='none' stroke='%234E5968' stroke-width='1.5' d='M15.657.75c-1.226 0-2.379.485-3.246 1.365l-1.91 1.94-1.912-1.94C7.722 1.235 6.57.75 5.343.75s-2.378.485-3.245 1.365C1.198 3.028.75 4.227.75 5.425c0 1.199.448 2.398 1.348 3.31l8.425 8.504 8.379-8.504c.9-.912 1.348-2.111 1.348-3.31 0-1.198-.448-2.397-1.347-3.31-.867-.88-2.02-1.365-3.246-1.365z'/%3E %3C/svg%3E");
+        $img.attr("class", "checkLike likePlus");
+
+        let likeNumber = $span.text();
+        $span.text(--likeNumber);
+    }
 });
 
 let showCheck = true;
@@ -442,18 +460,22 @@ let showCheck = true;
 // 커뮤니티 카테고리 동적쿼리
 $(".jJIWoq").on("click", function(){
     showCheck = false;
-    console.log("communityAr: " + communityAr);
+    console.log("globalThis.communityAr: " + globalThis.communityAr);
     console.log($filterBtn.find(".kJEnf").length);
-    // communityService.filterCheck(
-    //     communityAr,
-    //     function(){
-    //         checkUser();
-    //     });
 
-    filteringShow();
+    if($("input[name='userId']").val()==""){
+        filteringShow();
+    } else{
+        filteringShowLoginUser();
+    }
 });
 
 function filteringShow(){
     communityService.filterCheck(
-        communityAr, getList);
+        globalThis.communityAr, getList);
+}
+
+function filteringShowLoginUser(){
+    communityService.filterCheckLoginUser(
+        globalThis.communityAr, getList);
 }

@@ -79,6 +79,11 @@ public class CommunityPostService implements CommunityService {
         return communityPostDTO;
     }
 
+    public List<CommunityPostDTO> findBoardByCategory(List<String> communityCategories, Long userId){
+        List<CommunityPostDTO> communityPostDTO = postRepositoryImpl.filterCommunityBoard(communityCategories, userId);
+        return communityPostDTO;
+    }
+
 
     @Override
     public CommunityPostDTO find(Long communityPostId) {
@@ -101,6 +106,12 @@ public class CommunityPostService implements CommunityService {
     @Override
     public List<CommunityPostDTO> selectScrollBoards(int page) {
         List<CommunityPostDTO> communityPostDTO = postRepositoryImpl.selectScrollBoards(page);
+        return communityPostDTO;
+    }
+
+    @Override
+    public List<CommunityPostDTO> selectScrollBoards(int page, Long userId) {
+        List<CommunityPostDTO> communityPostDTO = postRepositoryImpl.selectScrollBoards(page, userId);
         return communityPostDTO;
     }
 }
