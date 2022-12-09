@@ -197,19 +197,17 @@ $(".mentions__control").on("keyup", function (key) {
 /*==============================================================================================================================================*/
 let webSocket;
 function connect(){
-    webSocket = new WebSocket("ws://localhost:15000/chatts");
+    webSocket = new WebSocket("ws://localhost:15000/myOceanProject");
     webSocket.onopen = onOpen;
-    webSocket.onmessage = onMessage;
     webSocket.onclose = onClose;
-    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    console.log('새로운 클라이언트 접속 ip : ', ip);
+    webSocket.onmessage = onMessage;
 }
 
 let userNickName = document.getElementById("userId").innerText;
 let userId = document.getElementById("userId").getAttribute("href");
 let myGroupId;
 
-//db에서 해당 그룹의 채팅 내용을 모두 가져온다.
+// db에서 해당 그룹의 채팅 내용을 모두 가져온다.
 function getList(param, callback, error) {
     $.ajax({
         url: "/chatting/groupId/" + param.groupId,
@@ -246,23 +244,34 @@ $("li.active").on("click", function (e) {
     connect();
 })
 
-$("#sendButton").on("click", function(e){
-    console.log(myGroupId);
-    console.log()
+// $("#sendButton").on("click", function(){
+//     console.log(myGroupId);
+//     console.log()
+//     let chat = document.getElementById("msg").value;
+//     // send();
+//     // e.data = chat;
+//     // webSocket.onmessage(e);
+//     // add({
+//     //     chattingContent: chat,
+//     //     groupId : myGroupId,
+//     //     senderUserId : userId
+//     // })
+// });
+
+document.getElementById("sendButton").addEventListener("click",function(e){
     let chat = document.getElementById("msg").value;
-    send();
-    e.data = chat;
-    webSocket.onmessage(e);
+
+    // connect
     add({
         chattingContent: chat,
         groupId : myGroupId,
         senderUserId : userId
     })
-});
-
-document.getElementById("sendButton").addEventListener("click",function(){
-    send();
+    // send();
+    // // e.data = chat;
+    // // webSocket.onmessage(e);
 })
+
 
 function getChattingContentList(chattingDTOList) {
     let text = "";
@@ -315,14 +324,14 @@ function getChattingContentList(chattingDTOList) {
 
 }
 
-function add(chatting, callback, error){
+function add(chatting, error){
     $.ajax({
         url: "/chatting/new",
         type: "post",
         data: JSON.stringify(chatting),
         contentType: "application/json; charset=utf-8",
-        success: function (result, status, xhr) {
-            document.getElementById("msg").value = '';
+        success: function (status, xhr) {
+            send();
         },
         error: function(xhr, status, err){
             if(error){
@@ -348,47 +357,45 @@ function send(){
     console.log(userId);
     console.log(webSocket.readyState === webSocket.OPEN);
     let msg = document.getElementById("msg").value;
-        webSocket.send(JSON.stringify({
-            groupId : myGroupId,
-            messageType:'CHAT',
-            senderUserNickName:userNickName,
-            senderUserId : userId,
-            chattingContent : msg
-        }))
+    webSocket.send(JSON.stringify({
+        groupId : myGroupId,
+        messageType:'CHAT',
+        senderUserNickName:userNickName,
+        senderUserId : userId,
+        chattingContent : msg
+    }))
 }
 function onOpen(){
     console.log("=============================자바스크립트 onOpen들어옴======================================")
-    webSocket.send(JSON.stringify({groupId : myGroupId, messageType:'ENTER',senderUserNickName:userNickName, senderUserId : userId}));
+    // webSocket.send(JSON.stringify({groupId : myGroupId, messageType:'ENTER',senderUserNickName:userNickName, senderUserId : userId}));
 }
 function onMessage(e){
     console.log("=============================자바스크립트 onMessage들어옴======================================")
-    console.log(new Date().getHours()+"/"+new Date().getMinutes()+"/"+new Date().getSeconds()+"/"+new Date().getMilliseconds());
     chatdata = e.data;
-    chatContent = document.getElementById("msg").value;
-    console.log(e)
     chattingRoom =document.getElementById("chattingRoom");
     chattingRoom.innerHTML =chattingRoom.innerHTML
-     + "<div class=\"opponent\">"
-     + "<div class=\"thumb\">"
-     + "<a href=\"/people/ROSA\" target=\"_blank\">"
-     + "<img src=\"/imgin/chat/logo.png\" alt=\"chat_image\"></a>"
-     + "</div>"
-     + "<div class=\"userIdChatTxt\">"
-     + "<span class=\"userId\">" + userNickName + "</span>"
-     + "<div class=\"chatTxt\">"
-     + "<span class=\"chatTxtContents\">"
-     + "<a style=\"color: rgb(51, 51, 51);\">" + chatdata + "</a>"
-     + "</span>"
-     + "<div class=\"timeWrap\">"
-     + "<span class=\"time\">" + new Date().getHours()+":"+new Date().getMinutes() + "</span>"
-     + "</div>"
-     + "</div>"
-     + "</div>"
-     + "</div>"
+        + "<div class=\"opponent\">"
+        + "<div class=\"thumb\">"
+        + "<a href=\"/people/ROSA\" target=\"_blank\">"
+        + "<img src=\"/imgin/chat/logo.png\" alt=\"chat_image\"></a>"
+        + "</div>"
+        + "<div class=\"userIdChatTxt\">"
+        + "<span class=\"userId\">" + userNickName + "</span>"
+        + "<div class=\"chatTxt\">"
+        + "<span class=\"chatTxtContents\">"
+        + "<a style=\"color: rgb(51, 51, 51);\">" + chatdata + "</a>"
+        + "</span>"
+        + "<div class=\"timeWrap\">"
+        + "<span class=\"time\">" + new Date().getHours()+":"+new Date().getMinutes() + "</span>"
+        + "</div>"
+        + "</div>"
+        + "</div>"
+        + "</div>"
 }
 function onClose(){
     disconnect();
 }
+
 
 
 

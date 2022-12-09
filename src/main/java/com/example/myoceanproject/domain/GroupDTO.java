@@ -2,6 +2,7 @@ package com.example.myoceanproject.domain;
 
 import com.example.myoceanproject.embeddable.GroupMemberLimit;
 import com.example.myoceanproject.entity.Group;
+import com.example.myoceanproject.hadler.WebSocketHandler;
 import com.example.myoceanproject.type.GroupLocationType;
 import com.example.myoceanproject.type.GroupStatus;
 import com.example.myoceanproject.type.MessageType;
@@ -129,49 +130,39 @@ public class GroupDTO {
                 .build();
     }
 
-    private Set<WebSocketSession> sessions = new HashSet<>();
-    public Set<WebSocketSession> getSessions() {
-        return this.sessions;
-    }
-
-
-    public void setSessions(final Set<WebSocketSession> sessions) {
-        this.sessions = sessions;
-    }
-
-
+//    private Set<WebSocketSession> sessions = new HashSet<>();
     public void handleMessage(WebSocketSession session, ChattingDTO chattingDTO,
                               ObjectMapper objectMapper) throws IOException {
-        log.info("===========================GroupDTO handleMessage 들어옴======================================");
-        if(chattingDTO.getMessageType() == MessageType.ENTER){ // 사용자가 채팅방에 입장하여 "확인"을 눌렀을 때는 해당 닉네임 접속을 환영한다는 문구 출력
-            log.info("===========================GroupDTO handleMessage ENTER 들어옴======================================");
-            sessions.add(session);
-            sessions.stream().map(WebSocketSession::toString).forEach(log::info);
+//        log.info("===========================GroupDTO handleMessage 들어옴======================================");
+//        if(chattingDTO.getMessageType() == MessageType.ENTER){ // 사용자가 채팅방에 입장하여 "확인"을 눌렀을 때는 해당 닉네임 접속을 환영한다는 문구 출력
+//            log.info("===========================GroupDTO handleMessage ENTER 들어옴======================================");
+//            sessions.add(session);
+//            sessions.stream().map(WebSocketSession::toString).forEach(log::info);
+//            chattingDTO.setChattingContent(chattingDTO.getChattingContent());
+////            chattingDTO.setChattingContent(chattingDTO.getSenderUserNickName() + "님이 입장하셨습니다.");
+//        }
+//        else if(chattingDTO.getMessageType() == MessageType.LEAVE){ // 사용자가 채팅방에서 나가게 되면 해당 세션을 지우고, 해당 회원이 나갔다는 문구 출력
+//            log.info("===========================GroupDTO handleMessage LEAVE들어옴======================================");
+//            sessions.remove(session);
+////            chattingDTO.setChattingContent(chattingDTO.getSenderUserNickName() + "님이 퇴장하셨습니다.");
+//        }
+//        else{ // 그렇지 않고 "전송" 버튼을 눌렀을 경우는 접속한 세션에 따라 입력한 문장 전송
+//            log.info("===========================GroupDTO handleMessage CHAT들어옴======================================");
             chattingDTO.setChattingContent(chattingDTO.getChattingContent());
-//            chattingDTO.setChattingContent(chattingDTO.getSenderUserNickName() + "님이 입장하셨습니다.");
-        }
-        else if(chattingDTO.getMessageType() == MessageType.LEAVE){ // 사용자가 채팅방에서 나가게 되면 해당 세션을 지우고, 해당 회원이 나갔다는 문구 출력
-            log.info("===========================GroupDTO handleMessage LEAVE들어옴======================================");
-            sessions.remove(session);
-//            chattingDTO.setChattingContent(chattingDTO.getSenderUserNickName() + "님이 퇴장하셨습니다.");
-        }
-        else{ // 그렇지 않고 "전송" 버튼을 눌렀을 경우는 접속한 세션에 따라 입력한 문장 전송
-            log.info("===========================GroupDTO handleMessage CHAT들어옴======================================");
-            chattingDTO.setChattingContent(chattingDTO.getChattingContent());
-            sessions.stream().map(WebSocketSession::toString).forEach(log::info);
+//            sessions.stream().map(WebSocketSession::toString).forEach(log::info);
 
-        }
+//        }
         send(chattingDTO,objectMapper); // 최종적으로 위 3가지의 상황에 따라 결과를 send하여 메세지로 출력
     }
 
     private void send(ChattingDTO chattingDTO, ObjectMapper objectMapper) throws IOException {
         log.info("===========================GroupDTO send 메서드 들어옴======================================");
         log.info(chattingDTO.toString());
-        sessions.stream().map(WebSocketSession::toString).forEach(log::info);
+//        sessions.stream().map(WebSocketSession::toString).forEach(log::info);
         TextMessage textMessage = new TextMessage(objectMapper.
                 writeValueAsString(chattingDTO.getChattingContent()));
         log.info(textMessage.toString());
-        for(WebSocketSession sess : sessions){
+        for(WebSocketSession sess : WebSocketHandler.sessions){
             sess.sendMessage(textMessage);
         }
     }
