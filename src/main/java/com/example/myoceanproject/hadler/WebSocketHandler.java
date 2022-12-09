@@ -52,7 +52,6 @@ public class WebSocketHandler extends TextWebSocketHandler {
         String msg = message.getPayload();
         ChattingDTO chattingDTO = objectMapper.readValue(msg,ChattingDTO.class);
         GroupDTO groupDTO = groupRepositoryImpl.findGroupByGroupId(chattingDTO.getGroupId());
-        UserDTO userDTO = userRepositoryImple.findUserById(chattingDTO.getSenderUserId());
         Long groupMemberId =chattingRepository.findGroupMemberIdByUserIdAndGroupId(chattingDTO.getSenderUserId(), chattingDTO.getGroupId());
         chattingDTO.setSenderUserFileSize(234342L);
         chattingDTO.setSenderUserFileName("userFileName");
