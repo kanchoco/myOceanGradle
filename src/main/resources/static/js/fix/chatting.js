@@ -234,15 +234,28 @@ function show(id) {
     }, getChattingContentList)
 }
 
+let temp = 0;
 /* 왼쪽 대화목록에서 선택될 때마다 css 바꾸는 부분 */
+
+
 $("li.active").on("click", function (e) {
-    e.preventDefault()
-    $("li.active").removeClass("select");
-    $(this).addClass("select");
-    myGroupId = $(this).attr("href");
-    show(myGroupId)
-    connect();
-})
+        e.preventDefault()
+        myGroupId = $(this).attr("href");
+        show(myGroupId)
+        if ($(this).attr('class') !== "select") {
+            $("li.active").removeClass("select");
+            $(this).addClass("select");
+            connect();
+        } else if ($(this).attr('class') === "select") {
+            console.log("선택됐던 리스트")
+        } else {
+            disconnect();
+            connect();
+        }
+    }
+)
+
+
 
 // $("#sendButton").on("click", function(){
 //     console.log(myGroupId);
@@ -265,7 +278,8 @@ document.getElementById("sendButton").addEventListener("click",function(e){
     add({
         chattingContent: chat,
         groupId : myGroupId,
-        senderUserId : userId
+        senderUserId : userId,
+        messageType : "대화"
     })
     // send();
     // // e.data = chat;
@@ -348,18 +362,17 @@ function add(chatting, error){
 
 
 function disconnect(){
-    webSocket.send(JSON.stringify({groupId : myGroupId, messageType:'LEAVE',senderUserNickName:userNickName,senderUserId : userId}));
+    webSocket.send(JSON.stringify({groupId : myGroupId, messageType:'퇴장',senderUserNickName:userNickName,senderUserId : userId}));
     webSocket.close();
 }
 function send(){
     console.log("=============================자바스크립트 send들어옴======================================")
     console.log(userNickName);
     console.log(userId);
-    console.log(webSocket.readyState === webSocket.OPEN);
     let msg = document.getElementById("msg").value;
     webSocket.send(JSON.stringify({
         groupId : myGroupId,
-        messageType:'CHAT',
+        messageType:"대화",
         senderUserNickName:userNickName,
         senderUserId : userId,
         chattingContent : msg
@@ -373,6 +386,9 @@ function onMessage(e){
     console.log("=============================자바스크립트 onMessage들어옴======================================")
     chatdata = e.data;
     chattingRoom =document.getElementById("chattingRoom");
+    let datas = chatdata.split(':');
+    console.log(datas[0])
+    console.log(datas[1])
     chattingRoom.innerHTML =chattingRoom.innerHTML
         + "<div class=\"opponent\">"
         + "<div class=\"thumb\">"
@@ -380,10 +396,10 @@ function onMessage(e){
         + "<img src=\"/imgin/chat/logo.png\" alt=\"chat_image\"></a>"
         + "</div>"
         + "<div class=\"userIdChatTxt\">"
-        + "<span class=\"userId\">" + userNickName + "</span>"
+        + "<span class=\"userId\">" + datas[0] + "</span>"
         + "<div class=\"chatTxt\">"
         + "<span class=\"chatTxtContents\">"
-        + "<a style=\"color: rgb(51, 51, 51);\">" + chatdata + "</a>"
+        + "<a style=\"color: rgb(51, 51, 51);\">" + datas[1] + "</a>"
         + "</span>"
         + "<div class=\"timeWrap\">"
         + "<span class=\"time\">" + new Date().getHours()+":"+new Date().getMinutes() + "</span>"

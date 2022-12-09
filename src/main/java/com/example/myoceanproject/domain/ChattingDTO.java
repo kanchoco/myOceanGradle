@@ -41,7 +41,7 @@ public class ChattingDTO {
     private String chattingCreateTime;
     private String chattingCreateDate;
 
-    private MessageType messageType;
+    private String messageType;
 
 
     @QueryProjection
@@ -59,7 +59,7 @@ public class ChattingDTO {
         this.chattingContent = chattingContent;
         this.chattingCreateDate = createDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         this.chattingCreateTime = createDate.format(DateTimeFormatter.ofPattern("HH:mm"));
-        this.messageType = messageType;
+        this.messageType = messageType.toString();
 
     }
 
@@ -70,7 +70,7 @@ public class ChattingDTO {
     public Chatting toEntity(){
         return Chatting.builder()
                 .chattingContent(chattingContent)
-                .messageType(MessageType.CHAT)
+                .messageType(MessageType.change(messageType))
                 .build();
     }
 }
