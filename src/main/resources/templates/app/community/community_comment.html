@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>h.hyeoniya_커뮤니티게시판</title>
+    <title>커뮤니티 댓글</title>
     <link rel="stylesheet" href="/css/community/community_comment.css">
     <link rel="stylesheet" href="/css/fix/header.css">
     <link rel="stylesheet" href="/css/fix/footer.css">
@@ -66,7 +66,11 @@
                         <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
                             <div class="Ratio " style="display: block;">
                                 <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
-                                    <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                    <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;" th:if="${communityPostDTO.communityCategory.toString().equals('고민')}">
+                                        <!--댓글 작성자 기본 이미지-->
+                                        <img th:src="@{/imgin/user.png}" alt="profile-image" class="Image__StyledImage-v97gyx-1 VUNpu" width="45" height="45">
+                                    </div>
+                                    <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;" th:unless="${communityPostDTO.communityCategory.toString().equals('고민')}">
                                         <!--댓글 작성자 이미지-->
                                         <img th:if="*{userFileName}" th:src="@{/community/display(fileName=${communityPostDTO.userFilePath} + '/' + ${communityPostDTO.userFileUuid} + '_' + ${communityPostDTO.userFileName})}" alt="profile-image" class="Image__StyledImage-v97gyx-1 VUNpu" width="45" height="45">
                                         <img th:unless="*{userFileName}" th:src="@{/imgin/user.png}" alt="profile-image" class="Image__StyledImage-v97gyx-1 VUNpu" width="45" height="45">
@@ -115,10 +119,14 @@
             text +=`<div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">`;
             text +=`<img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36" src="`;
             // 유저 이미지 사진
-            if(reply.userFileName){
-                text+=userImageSrc;
-            } else{
+            if(reply.communityPostTitle == '고민상담'){
                 text +=`/imgin/user.png`;
+            } else{
+                if(reply.userFileName){
+                    text+=userImageSrc;
+                } else{
+                    text +=`/imgin/user.png`;
+                }
             }
             text +=`"></div>`;
             text +=`</div></div></div></div></div>`;
@@ -128,9 +136,17 @@
             console.log(reply.userId);
             let myId = $("input[name='myId']").val();
             if(postUserId == reply.userId){
-                text += reply.userNickName + "     (작성자)";
+                if(reply.communityPostTitle == '고민상담'){
+                    text += "익명" + reply.communityReplyId + "     (작성자)";
+                } else{
+                    text += reply.userNickName + "     (작성자)";
+                }
             } else{
-                text +=reply.userNickName;
+                if(reply.communityPostTitle == '고민상담'){
+                    text += "익명" + reply.communityReplyId;
+                } else{
+                    text +=reply.userNickName;
+                }
             }
             text +=`</div>`;
             text +=`<p class="FeedReplyCard__Contents-sc-1wg24nj-4 gDMyOG">`;

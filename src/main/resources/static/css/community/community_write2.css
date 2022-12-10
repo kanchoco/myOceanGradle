@@ -181,9 +181,13 @@
     z-index: 5;
 }
 
-.highWrapper{
+.highWrapper {
     display: flex;
     justify-content: space-between;
+    border-bottom: 1px solid rgb(238, 238, 238);
+    margin-bottom: 15px;
+    background: #eef5fa;
+    border-radius: 52px;
 }
 
 .until650px{

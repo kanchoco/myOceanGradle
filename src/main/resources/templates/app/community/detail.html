@@ -110,7 +110,10 @@
                                                 <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
                                                     <div class="Ratio " style="display: block;">
                                                         <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
-                                                            <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                            <div th:if="${communityPostDTO.communityCategory.toString().equals('고민')}" class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
+                                                                <img th:src="@{/imgin/user.png}" class="Image__StyledImage-v97gyx-1 VUNpu" width="56" height="56">
+                                                            </div>
+                                                            <div th:unless="${communityPostDTO.communityCategory.toString().equals('고민')}" class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
                                                                 <img th:if="*{userFileName}" th:src="@{/community/display(fileName=${communityPostDTO.userFilePath} + '/' + ${communityPostDTO.userFileUuid} + '_' + ${communityPostDTO.userFileName})}" class="Image__StyledImage-v97gyx-1 VUNpu" width="56" height="56">
                                                                 <img th:unless="*{userFileName}" th:src="@{/imgin/user.png}" class="Image__StyledImage-v97gyx-1 VUNpu" width="56" height="56">
                                                             </div>
@@ -124,7 +127,8 @@
                                         <div class="Profile__HostNameWrapper-sc-18xe7ny-6 jYAYJP">
                                             <span class="Profile__NickName-sc-18xe7ny-7 cZgpqN">
                                                 <!--유저 닉네임-->
-                                                <span th:text="*{userNickName}"></span>
+                                                <span th:if="${communityPostDTO.communityCategory.toString().equals('고민')}" th:text="|익명 *{communityPostId}|"></span>
+                                                <span th:unless="${communityPostDTO.communityCategory.toString().equals('고민')}" th:text="*{userNickName}"></span>
                                             </span>
                                         </div>
                                     </div>

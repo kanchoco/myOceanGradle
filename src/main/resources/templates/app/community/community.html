@@ -100,7 +100,7 @@
             </div>
         </div>
         <!-- 글작성 버튼 -->
-        <a th:href="@{/community/register}" style="margin-right: -8px" class="until785px">
+        <a href="/community/register" style="margin-right: -8px" class="until785px">
             <div class="writeBtn" >
                 <button class="PlusLink__IconBtn-sc-7f77eh-0 faWmEE">
                     <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='20' viewBox='0 0 18 20'%3E %3Cpath fill='%234E5968' fill-rule='evenodd' d='M9 .765c.552 0 1 .447 1 1v7.392h7c.552 0 1 .448 1 1v.098c0 .552-.448 1-1 1h-7v7.392c0 .552-.448 1-1 1s-1-.448-1-1v-7.392H1c-.552 0-1-.448-1-1v-.098c0-.552.448-1 1-1h7V1.765c0-.553.448-1 1-1z'/%3E %3C/svg%3E" alt="+">
@@ -110,7 +110,6 @@
     </div>
     <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
         <div class="view__FeedListWrapper-sc-1fff32g-0 ciajVR">
-
             <!--본문 게시글 -->
         </div>
     </div>
@@ -152,11 +151,11 @@
                         <p>신고 하시겠습니까?</p></div>
                 </div>
                 <div class="Dialog__ButtonGroup-sc-16kwpqb-6 bZEORB">
-                    <button width="100%" height="auto" color="black"
-                            class="Button-bqxlp0-0 Dialog__StyledButton-sc-16kwpqb-7 kXWQPc">취소
+                    <button width="100%" height="auto" color="black" class="Button-bqxlp0-0 Dialog__StyledButton-sc-16kwpqb-7 kXWQPc">
+                        취소
                     </button>
-                    <button width="100%" height="auto" color="#ff6666" font-weight="bold"
-                            class="Button-bqxlp0-0 Dialog__StyledButton-sc-16kwpqb-7 bQKwTd">신고
+                    <button width="100%" height="auto" color="#ff6666" font-weight="bold" class="Button-bqxlp0-0 Dialog__StyledButton-sc-16kwpqb-7 bQKwTd">
+                        신고
                     </button>
                 </div>
             </div>
@@ -210,7 +209,6 @@
             let imageSrc = "/community/display?fileName=" + post.communityFilePath + "/" + post.communityFileUuid + "_" + post.communityFileName;
             let userImageSrc = "/community/display?fileName=" + post.userFilePath + "/" + post.userFileUuid + "_" + post.userFileName;
 
-            if(post.communityCategory!="COUNSELING"){}
             // 작성자 프로필 사진, 닉네임
             text +=`<div><div class="Profile__Wrapper-sc-14xkqhl-0 ePpOcl CardFeed__StyledProfile-sc-1hnsnr8-0 kHXXhk">`;
             text +=`<div class="Profile__UserProfileWrapper-sc-14xkqhl-1 jHdfwa">`;
@@ -224,16 +222,27 @@
             text+=`<div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">`;
             text +=`<img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36" src="`;
             // 프로필 사진 이미지 부분
-            if(post.userFileName){
-                text+=userImageSrc;
+            if(post.communityCategory!="고민"){
+                if(post.userFileName){
+                    text+=userImageSrc;
+                } else{
+                    text +=`/imgin/user.png`;
+                }
             } else{
+                // 고민상담은 무조건 기본 이미지
                 text +=`/imgin/user.png`;
             }
+
             text +=`"></div></div></div></div></div></div>`;
             <!--작성자 아이디, 날짜-->
             text+=`<div class="Profile__UserTextWrapper-sc-14xkqhl-4 hopp"><p class="Profile__Name-sc-14xkqhl-3 jeiGkC">`;
             // 아이디
-            text+= post.userNickName;
+            if(post.communityCategory!="고민"){
+                text+= post.userNickName;
+            } else{
+                text += "익명 " + post.communityPostId;
+            }
+
             text+=`</p><div class="Profile__Time-sc-14xkqhl-5 gqDWoy">`;
             //날짜
             text+= post.updatedDate;
@@ -249,6 +258,13 @@
             // 썸네일 이미지
             text+=imageSrc;
             text+=`"></div></div></div></div></div></div>`;
+
+            /*카테고리*/
+            text+=`<div className="ProductLink__Wrapper-sc-1agbsre-0 ittDAj CardFeed__StyledProductLink-sc-1hnsnr8-1 ePVeWN">`;
+            text+=`<div className="ProductLink__Text-sc-1agbsre-1 gNRuxI" style="margin-top: 15px; line-height: 0.5; border: 1px solid rgb(229, 231, 234); border-radius: 22px; padding: 14px;">`
+            text+=`<img style="margin-right: 6px;" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='14' viewBox='0 0 12 14'%3E %3Cg fill='%230574E6'%3E %3Cpath d='M0 .708v12.584c0 .181.08.372.21.5A.728.728 0 00.716 14c.185-.008.377-.067.507-.206a.73.73 0 00.21-.5v-.337-.918-1.351-1.655V7.22 5.398v-1.7-1.443-1.037V.73.708a.732.732 0 00-.21-.5A.728.728 0 00.716 0C.532.009.34.068.21.207a.732.732 0 00-.21.5z' transform='translate(.104)'/%3E %3Cpath d='M10.108 2.339c0-.192.078-.362.198-.5a.674.674 0 01.479-.207.668.668 0 01.478.206c.122.129.198.32.198.501v.013c.004.281 0 .564 0 .846V9.29c0 .383-.311.707-.676.707h-.017c-.351.004-.704 0-1.056 0H6.587a.71.71 0 01-.533-.27l-.463-.54-.88-1.026.479.206H.678c-.366 0-.676-.325-.676-.707v-.013c-.004-.281 0-.564 0-.846V5.066 3.06v-1.66-.69c0-.383.31-.707.676-.707h.018c.362-.004.724 0 1.087 0h3.393c.192.003.383.08.513.232l.434.506.941 1.098-.479-.206h4.2c.184 0 .346.079.478.206.133.129.19.318.198.501a.732.732 0 01-.198.5.688.688 0 01-.478.207h-.017c-.351.005-.704 0-1.056 0H6.587a.71.71 0 01-.533-.27A22157517.325 22157517.325 0 004.71 1.21c.16.068.32.137.479.207H.678l.676-.708v.013c.004.281 0 .564 0 .846v6.093l-.676-.707h.018c.362-.006.724 0 1.087 0h3.393c.192.003.383.08.513.232l.434.506.941 1.098c-.16-.068-.319-.137-.479-.207h4.2l-.677.708v-.013c-.004-.281 0-.564 0-.846V6.696 4.69v-1.66-.69z' transform='translate(.104)'/%3E %3C/g%3E %3C/svg%3E">`;
+            text+= post.communityCategory + `</div></div>`;
+
             <!--본문 내용-->
 
             text+=`<div class="Description__Wrapper-ogh69p-0 lhIpIh CardFeed__StyledDescription-sc-1hnsnr8-2 eOhuaj" style="margin-top:10px;">`;
