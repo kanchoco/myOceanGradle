@@ -34,75 +34,123 @@ public class MainService {
     }
 
     public List<CommunityPostDTO> showCommunityList(){
-        List<CommunityPostDTO> list = jpaQueryFactory.select(new QCommunityPostDTO(communityPost.communityPostId,communityPost.user.userId,
-                communityPost.user.userNickname,communityPost.user.userFileName,
-                communityPost.user.userFilePath,communityPost.user.userFileSize,
-                communityPost.user.userFileUuid, communityPost.communityCategory,
-                communityPost.communityTitle, communityPost.communityContent,
-                communityPost.communityFilePath, communityPost.communityFileName,
-                communityPost.communityFileUuid, communityPost.communityFileSize,
-                communityPost.communityViewNumber, communityPost.communityLikeNumber,
-                communityPost.createDate, communityPost.updatedDate)).from(communityPost)
+        List<CommunityPostDTO> list = jpaQueryFactory.select(new QCommunityPostDTO(
+                communityPost.communityPostId,
+                communityPost.user.userId,
+                communityPost.user.userNickname,
+                communityPost.user.userFileName,
+                communityPost.user.userFilePath,
+                communityPost.user.userFileSize,
+                communityPost.user.userFileUuid,
+                communityPost.communityCategory,
+                communityPost.communityTitle,
+                communityPost.communityContent,
+                communityPost.communityFilePath,
+                communityPost.communityFileName,
+                communityPost.communityFileUuid,
+                communityPost.communityFileSize,
+                communityPost.communityViewNumber,
+                communityPost.communityLikeNumber,
+                communityPost.createDate,
+                communityPost.updatedDate
+        )).from(communityPost)
 //                .where(communityPost.communityCategory.eq(CommunityCategory.FREEBOARD))
                 .orderBy(communityPost.communityPostId.desc()).limit(4l).fetch();
         return list;
     }
 
+
     public List<CommunityPostDTO> showExerciseList(){
-        List<CommunityPostDTO> list = jpaQueryFactory.select(new QCommunityPostDTO(communityPost.communityPostId,communityPost.user.userId,
-                communityPost.user.userNickname,communityPost.user.userFileName,
-                communityPost.user.userFilePath,communityPost.user.userFileSize,
-                communityPost.user.userFileUuid, communityPost.communityCategory,
-                communityPost.communityTitle, communityPost.communityContent,
-                communityPost.communityFilePath, communityPost.communityFileName,
-                communityPost.communityFileUuid, communityPost.communityFileSize,
-                communityPost.communityViewNumber, communityPost.communityLikeNumber,
-                communityPost.createDate, communityPost.updatedDate)).from(communityPost)
+        List<CommunityPostDTO> list = jpaQueryFactory.select(new QCommunityPostDTO(communityPost.communityPostId,
+                communityPost.user.userId,
+                communityPost.user.userNickname,
+                communityPost.user.userFileName,
+                communityPost.user.userFilePath,
+                communityPost.user.userFileSize,
+                communityPost.user.userFileUuid,
+                communityPost.communityCategory,
+                communityPost.communityTitle,
+                communityPost.communityContent,
+                communityPost.communityFilePath,
+                communityPost.communityFileName,
+                communityPost.communityFileUuid,
+                communityPost.communityFileSize,
+                communityPost.communityViewNumber,
+                communityPost.communityLikeNumber,
+                communityPost.createDate,
+                communityPost.updatedDate)).from(communityPost)
                 .where(communityPost.communityCategory.eq(CommunityCategory.EXERCISE))
                 .orderBy(communityPost.communityPostId.desc()).limit(4l).fetch();
         return list;
     }
 
     public List<CommunityPostDTO> showCookList(){
-        List<CommunityPostDTO> list = jpaQueryFactory.select(new QCommunityPostDTO(communityPost.communityPostId,communityPost.user.userId,
-                communityPost.user.userNickname,communityPost.user.userFileName,
-                communityPost.user.userFilePath,communityPost.user.userFileSize,
-                communityPost.user.userFileUuid, communityPost.communityCategory,
-                communityPost.communityTitle, communityPost.communityContent,
-                communityPost.communityFilePath, communityPost.communityFileName,
-                communityPost.communityFileUuid, communityPost.communityFileSize,
-                communityPost.communityViewNumber, communityPost.communityLikeNumber,
-                communityPost.createDate, communityPost.updatedDate)).from(communityPost)
+        List<CommunityPostDTO> list = jpaQueryFactory.select(new QCommunityPostDTO(communityPost.communityPostId,
+                communityPost.user.userId,
+                communityPost.user.userNickname,
+                communityPost.user.userFileName,
+                communityPost.user.userFilePath,
+                communityPost.user.userFileSize,
+                communityPost.user.userFileUuid,
+                communityPost.communityCategory,
+                communityPost.communityTitle,
+                communityPost.communityContent,
+                communityPost.communityFilePath,
+                communityPost.communityFileName,
+                communityPost.communityFileUuid,
+                communityPost.communityFileSize,
+                communityPost.communityViewNumber,
+                communityPost.communityLikeNumber,
+                communityPost.createDate,
+                communityPost.updatedDate)).from(communityPost)
                 .where(communityPost.communityCategory.eq(CommunityCategory.COOK))
                 .orderBy(communityPost.communityPostId.desc()).limit(4l).fetch();
         return list;
     }
 
     public List<CommunityPostDTO> showAnonymousList(){
-        List<CommunityPostDTO> list = jpaQueryFactory.select(new QCommunityPostDTO(communityPost.communityPostId,communityPost.user.userId,
-                communityPost.user.userNickname,communityPost.user.userFileName,
-                communityPost.user.userFilePath,communityPost.user.userFileSize,
-                communityPost.user.userFileUuid, communityPost.communityCategory,
-                communityPost.communityTitle, communityPost.communityContent,
-                communityPost.communityFilePath, communityPost.communityFileName,
-                communityPost.communityFileUuid, communityPost.communityFileSize,
-                communityPost.communityViewNumber, communityPost.communityLikeNumber,
-                communityPost.createDate, communityPost.updatedDate)).from(communityPost)
+        List<CommunityPostDTO> list = jpaQueryFactory.select(new QCommunityPostDTO(communityPost.communityPostId,
+                communityPost.user.userId,
+                communityPost.user.userNickname,
+                communityPost.user.userFileName,
+                communityPost.user.userFilePath,
+                communityPost.user.userFileSize,
+                communityPost.user.userFileUuid,
+                communityPost.communityCategory,
+                communityPost.communityTitle,
+                communityPost.communityContent,
+                communityPost.communityFilePath,
+                communityPost.communityFileName,
+                communityPost.communityFileUuid,
+                communityPost.communityFileSize,
+                communityPost.communityViewNumber,
+                communityPost.communityLikeNumber,
+                communityPost.createDate,
+                communityPost.updatedDate)).from(communityPost)
                 .where(communityPost.communityCategory.eq(CommunityCategory.COUNSELING))
                 .orderBy(communityPost.communityPostId.desc()).limit(4l).fetch();
         return list;
     }
 
     public List<CommunityPostDTO> showReviewList(){
-        List<CommunityPostDTO> list = jpaQueryFactory.select(new QCommunityPostDTO(communityPost.communityPostId,communityPost.user.userId,
-                communityPost.user.userNickname,communityPost.user.userFileName,
-                communityPost.user.userFilePath,communityPost.user.userFileSize,
-                communityPost.user.userFileUuid, communityPost.communityCategory,
-                communityPost.communityTitle, communityPost.communityContent,
-                communityPost.communityFilePath, communityPost.communityFileName,
-                communityPost.communityFileUuid, communityPost.communityFileSize,
-                communityPost.communityViewNumber, communityPost.communityLikeNumber,
-                communityPost.createDate, communityPost.updatedDate)).from(communityPost)
+        List<CommunityPostDTO> list = jpaQueryFactory.select(new QCommunityPostDTO(communityPost.communityPostId,
+                communityPost.user.userId,
+                communityPost.user.userNickname,
+                communityPost.user.userFileName,
+                communityPost.user.userFilePath,
+                communityPost.user.userFileSize,
+                communityPost.user.userFileUuid,
+                communityPost.communityCategory,
+                communityPost.communityTitle,
+                communityPost.communityContent,
+                communityPost.communityFilePath,
+                communityPost.communityFileName,
+                communityPost.communityFileUuid,
+                communityPost.communityFileSize,
+                communityPost.communityViewNumber,
+                communityPost.communityLikeNumber,
+                communityPost.createDate,
+                communityPost.updatedDate)).from(communityPost)
                 .where(communityPost.communityCategory.eq(CommunityCategory.MOVIE).or(communityPost.communityCategory.eq(CommunityCategory.BOOK)))
                 .orderBy(communityPost.communityPostId.desc()).limit(3l).fetch();
         return list;

@@ -421,7 +421,7 @@
                                                             <div class="Ratio " style="display: block;">
                                                                 <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
                                                                     <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
-                                                                        <img alt="이미지" class="Image__StyledImage-v97gyx-1 VUNpu" width="192" th:src="*{groupFilePath}">
+                                                                        <img alt="이미지" class="Image__StyledImage-v97gyx-1 VUNpu" width="192" th:src="@{/host/display(fileName=${group.groupFilePath} + '/' + ${group.groupFileUuid} + '_' + ${group.groupFileName})}">
                                                                     </div>
                                                                 </div>
                                                             </div>
