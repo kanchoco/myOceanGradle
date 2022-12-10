@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>h.hyeoniya_모임목록</title>
+    <title>모임 목록</title>
     <link rel="stylesheet" href="/css/fix/header.css">
     <link rel="stylesheet" href="/css/fix/footer.css">
     <link rel="stylesheet" href="/css/fix/chatting.css">
@@ -41,73 +41,12 @@
     <!--전체 리스트 부분-->
     <div class="sc-Axmtr hBVTtp">
         <div class="ProductList__ProductWrapper-sc-1lo0q2y-0 jjtvVw">
-
-
-            <!--각 게시글 wrap 시작-->
-            <th:block th:each="groupDTO:${groupDTOs}">
-                <div class="CardProduct__Wrapper-a817d1-0 ijdqTp" th:object="${groupDTO}">
-                    <!--세부 게시글로 넘어가는 부분-->
-                    <a class="withLink__StyledLink-zuberk-0 lQqkn detailGroup" th:href="*{groupId}">
-                        <div class="CardProduct__InfoWrapper-a817d1-1 hPIfDi">
-                            <div class="CardProduct__ImageContainer-a817d1-2 eEpNrE">
-                                <!--썸네일 이미지 감싸고 있는 부분-->
-                                <div class="Image__Wrapper-v97gyx-0 gDuKGF CardProduct__StyledImage-a817d1-4 fRUJUy">
-                                    <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
-                                        <div class="Ratio " style="display: block;">
-                                            <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
-                                                <div class="Ratio-content" style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
-                                                    <!--썸네일 이미지-->
-                                                    <img th:src="@{/host/display(fileName=${groupDTO.groupFilePath} + '/' + ${groupDTO.groupFileUuid} + '_' + ${groupDTO.groupFileName})}" class="Image__StyledImage-v97gyx-1 VUNpu" width="192">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="CardProduct__DetailContainer-a817d1-6 iDZoyW">
-                                <!--지역명-->
-                                <span class="CardProduct__Location-a817d1-7 hgalyK" th:text="*{groupLocationName}"></span>
-                                <!--제목-->
-                                <div class="CardProduct__Title-a817d1-8 kxyGXE" th:text="*{groupName}"></div>
-                                <hr type="Line" size="16" class="Border-sc-1bzcz1p-0 eXQzbT">
-                                <div class="CardProduct__PriceContainer-a817d1-11 gyjVwY">
-                                    <div class="CardProduct__DiscountRateContainer-a817d1-13 figzTw">
-                                        <!--포인트-->
-                                        <div class="CardProduct__SalePrice-a817d1-12 fEyOLH" th:text="|*{groupPoint} POINT|"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </th:block>
         </div>
     </div>
 
         <!--페이징처리-->
         <footer class="Wrapper__PaginationWrapper-fk4uv4-0 hBVRcD">
-            <div class="PaginationButtonGroup__PrevButtonWrapper-x0iffd-0 gIsDDT">
-                <button width="40px" height="40px" font-size="18px" disabled="" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
-                </button>
-                <button width="40px" height="40px" font-size="18px" disabled="" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
-                </button>
-            </div>
-            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 RPlDq">
-                1
-            </button>
-            <button width="40px" height="40px" color="black" font-size="18px" font-weight="normal" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 laOFLe">
-                2
-            </button>
-            <div class="PaginationButtonGroup__NextButtonWrapper-x0iffd-1 eNIHag">
-                <button width="40px" height="40px" font-size="18px" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 garfld">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath d='M18 0H0v18h18z'/%3E %3Cpath stroke='%23000' stroke-width='1.5' d='M7 5l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu">
-                </button>
-                <button width="40px" height="40px" font-size="18px" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 garfld">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Crect width='40' height='40' fill='%23FFF' fill-opacity='0' fill-rule='nonzero' rx='20'/%3E %3Cg stroke='%23000' stroke-width='1.5'%3E %3Cpath d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu">
-                </button>
-            </div>
+
         </footer>
     </div>
 </div>
@@ -118,4 +57,158 @@
 <script src="/js/fix/header.js"></script>
 <script src="/js/fix/chatting.js"></script>
 <script src="/js/bulletin_board/bulletin_board.js"></script>
+<script>
+    let page = 1;
+    let keyword = 'null';
+    let $pages = $("a.changePage");
+
+
+
+    // 화면에 모임 리스트 출력
+    function show(){
+        console.log("show 함수 ");
+        groupService.getList({
+            page: page,
+            keyword : keyword
+        }, getList);
+    }
+    show();
+
+    // 페이지 버튼 클릭 시
+    function changePage(href){
+        page = href;
+        show();
+    }
+
+    /*리스트 출력*/
+    function getList(groupDTO){
+        let text = "";
+        groupDTO.groupList.forEach(group => {
+            thumbnailImage = "/host/display?fileName=" + group.groupFilePath + "/" + group.groupFileUuid + "_" + group.groupFileName;
+
+            <!--각 게시글 wrap 시작-->
+            text +=`<div class="CardProduct__Wrapper-a817d1-0 ijdqTp">`;
+            <!--세부 게시글로 넘어가는 부분-->
+            text +=`<a class="withLink__StyledLink-zuberk-0 lQqkn detailGroup" href="`;
+            text +=group.groupId +`">`;
+            text +=`<div class="CardProduct__InfoWrapper-a817d1-1 hPIfDi">`;
+            text +=`<div class="CardProduct__ImageContainer-a817d1-2 eEpNrE">`;
+            <!--썸네일 이미지 감싸고 있는 부분-->
+            text +=`<div class="Image__Wrapper-v97gyx-0 gDuKGF CardProduct__StyledImage-a817d1-4 fRUJUy">`;
+            text +=`<div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">`;
+            text +=`<div class="Ratio " style="display: block;">`;
+            text +=`<div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">`;
+            text +=`<div class="Ratio-content" style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">`;
+            <!--썸네일 이미지-->
+            text +=`<img src="`;
+            text +=thumbnailImage;
+            text +=`" class="Image__StyledImage-v97gyx-1 VUNpu" width="192">`;
+            text +=`</div></div></div></div></div></div>`;
+            text +=`<div class="CardProduct__DetailContainer-a817d1-6 iDZoyW">`;
+            /*지역명*/
+
+            text +=`<span class="CardProduct__Location-a817d1-7 hgalyK">`;
+            if(!group.groupLocationName){
+                text += "온라인";
+            }
+            else{
+                text +=group.groupLocationName;
+            }
+            text +=`</span>`;
+            <!--제목-->
+            text +=`<div class="CardProduct__Title-a817d1-8 kxyGXE">`;
+            text +=group.groupName;
+            text +=`</div>`;
+            text +=`<hr type="Line" size="16" class="Border-sc-1bzcz1p-0 eXQzbT">`;
+            text +=`<div class="CardProduct__PriceContainer-a817d1-11 gyjVwY">`;
+            text +=`<div class="CardProduct__DiscountRateContainer-a817d1-13 figzTw">`;
+            <!--포인트-->
+            text +=`<div class="CardProduct__SalePrice-a817d1-12 fEyOLH">`;
+            text +=group.groupPoint + "POINT";
+            text +=`</div></div></div></div></div></a></div>`;
+        });
+
+        /*출력 부분에 넣기*/
+        $(".ProductList__ProductWrapper-sc-1lo0q2y-0").html(text);
+
+        /*페이징 처리 부분 추가*/
+        showPage(groupDTO.endPage);
+    }
+
+
+    /*페이지*/
+    function showPage(endPage){
+        let endNumber = Math.ceil(page / 10) * 10;
+        let realEnd = endPage;
+        let startNumber = endNumber -9;
+        if(endNumber > realEnd){
+            endNumber = realEnd ==0? '1' : realEnd;
+        }
+
+        let text = '';
+        /*페이징처리*/
+        text+= `<div class="PaginationButtonGroup__PrevButtonWrapper-x0iffd-0 gIsDDT">`;
+
+        /*페이지 << 이미지*/
+        if(page===1){
+            text+= `<button width="40px" height="40px" font-size="18px" disabled="" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">`;
+            /*페이지 << 이미지*/
+            text+= `<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">`;
+        } else if(page < 10 && page > 0){
+            text+= `<button onclick="changePage(${startNumber})" width="40px" height="40px" font-size="18px" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">`;
+            text+= `<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Crect width='40' height='40' fill='%23FFF' fill-opacity='0' fill-rule='nonzero' rx='20'/%3E %3Cg stroke='%23000' stroke-width='1.5'%3E %3Cpath d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">`;
+        } else{
+            text+= `<button onclick="changePage(${startNumber})" width="40px" height="40px" font-size="18px" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">`;
+            text+= `<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Crect width='40' height='40' fill='%23FFF' fill-opacity='0' fill-rule='nonzero' rx='20'/%3E %3Cg stroke='%23000' stroke-width='1.5'%3E %3Cpath d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">`;
+        }
+        text+= `</button>`;
+
+        /* < 이미지 */
+        if(page===1){
+            text+= `<button width="40px" height="40px" font-size="18px" disabled="" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">`;
+            text+= `<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">`;
+        }
+        else{
+            text+= `<button onclick="changePage(${page>1? page-1 : page})" width="40px" height="40px" font-size="18px" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">`;
+            text+= `<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath d='M18 0H0v18h18z'/%3E %3Cpath stroke='%23000' stroke-width='1.5' d='M7 5l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">`;
+        }
+        text+= `</button></div>`;
+        /*실제 숫자*/
+        for (let i = startNumber; i<=endNumber; i++){
+            /*현재 페이지*/
+            if(page ===i){
+                text += `<a class="page active" width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" style="cursor:pointer;" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 RPlDq">${i}</a>`;
+                continue;
+            }
+            /*해당 페이지단에 있는 다른 페이지*/
+            text += `<a class="page changePage" onclick="changePage(${i})" width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 RPlDq">${i}</a>`;
+        }
+        /*다음 페이지 */
+        text+= `<div class="PaginationButtonGroup__NextButtonWrapper-x0iffd-1 eNIHag">`;
+
+        /* > 이미지 */
+        if(page === realEnd){
+            text+= `<button disabled="" width="40px" height="40px" font-size="18px" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 garfld">`;
+            text+= `<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu">`;
+        }
+        else {
+            text+= `<button onclick="changePage(${page + 1 > realEnd? realEnd : page+1})" width="40px" height="40px" font-size="18px" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 garfld">`;
+            text+= `<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath d='M18 0H0v18h18z'/%3E %3Cpath stroke='%23000' stroke-width='1.5' d='M7 5l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu">`;
+        }
+        text+= `</button>`;
+        /*>> 이미지*/
+        if(page === realEnd){
+            text+=`<button disabled="" width="40px" height="40px" font-size="18px" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 garfld">`;
+            text+=`<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu">`;
+        }
+        else{
+            text +=`<button onclick="changePage(${endPage})" width="40px" height="40px" font-size="18px" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 garfld">`;
+            text+= `<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Crect width='40' height='40' fill='%23FFF' fill-opacity='0' fill-rule='nonzero' rx='20'/%3E %3Cg stroke='%23000' stroke-width='1.5'%3E %3Cpath d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu">`;
+        }
+        text+= `</button></div>`;
+
+        $('.Wrapper__PaginationWrapper-fk4uv4-0').html(text);
+    }
+
+</script>
 </html>

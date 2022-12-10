@@ -213,28 +213,7 @@ $(".Button-bqxlp0-0.fFBpBV").on("click", function(e){
     }
     
     // 카테고리 설정
-    let category = $("input[name='post_filter_input']").val();
-    switch(category) {
-
-        case "영화":
-            category="MOVIE";
-            break;
-        case "요리":
-            category="COOK";
-            break;
-        case "책":
-            category="BOOK";
-            break;
-        case "고민":
-            category="COUNSELING";
-            break;
-        case "영화":
-            category="MOVIE";
-            break;
-        case "운동":
-            category="EXERCISE";
-            break;
-    }
+    let category = $(".post_filter .label").text();
 
     /*작성 내용*/
     /*업데이트 체크*/

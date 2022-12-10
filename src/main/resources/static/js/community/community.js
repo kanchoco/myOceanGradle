@@ -203,7 +203,6 @@ $(window).resize(function(){
 })
 
 function checkMedia(){
-
     if(window.innerWidth<785){
         $(".view__FeedListWrapper-sc-1fff32g-0").attr("class", "view__FeedListWrapper-sc-1fff32g-0 media");
         $(".Filter__FilterButtonWrapper-sc-1buujtg-1").attr("class", "Filter__FilterButtonWrapper-sc-1buujtg-1 categoryMedia");
