@@ -9,7 +9,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static com.example.myoceanproject.entity.QAsk.ask;
@@ -35,13 +34,13 @@ public class MyAskRepositoryImpl implements MyAskCustomRepository{
                 ask.updatedDate
         ))
                 .from(ask)
-                .where(ask.user.userId.eq(userId))
-                .orderBy(ask.createDate.desc())
+                .where(ask.user.userId.eq(1L))
+                .orderBy(ask.askId.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()).fetch();
 
         long total = jpaQueryFactory.selectFrom(ask)
-                .where(ask.user.userId.eq(userId))
+                .where(ask.user.userId.eq(1L))
                 .fetch().size();
 
         return new PageImpl<>(posts, pageable, total);
@@ -62,8 +61,62 @@ public class MyAskRepositoryImpl implements MyAskCustomRepository{
                 ask.updatedDate
         ))
                 .from(ask)
+                .where(ask.user.userId.eq(1L))
+                .orderBy(ask.askId.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize()).fetch();
+
+        long total = jpaQueryFactory.selectFrom(ask)
+                .where(ask.user.userId.eq(1L))
+                .fetch().size();
+
+        return new PageImpl<>(asks, pageable, total);
+    }
+
+    @Override
+    public Page<AskDTO> findAllMyAsk(Pageable pageable, Long userId) {
+        List<AskDTO> posts = jpaQueryFactory.select(new QAskDTO(
+                ask.askId,
+                ask.user.userId,
+                ask.user.userNickname,
+                ask.askStatus,
+                ask.askTitle,
+                ask.askContent,
+                ask.answer,
+                ask.askCategory,
+                ask.createDate,
+                ask.updatedDate
+        ))
+                .from(ask)
+                .where(ask.user.userId.eq(userId).and(ask.user.userId.ne(1L)))
+                .orderBy(ask.askId.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize()).fetch();
+
+        long total = jpaQueryFactory.selectFrom(ask)
                 .where(ask.user.userId.eq(userId))
-                .orderBy(ask.createDate.desc())
+                .fetch().size();
+
+        return new PageImpl<>(posts, pageable, total);
+    }
+
+    @Override
+    public Page<AskDTO> findAllMyAsk(Pageable pageable, Criteria criteria, Long userId) {
+        List<AskDTO> asks = jpaQueryFactory.select(new QAskDTO(
+                ask.askId,
+                ask.user.userId,
+                ask.user.userNickname,
+                ask.askStatus,
+                ask.askTitle,
+                ask.askContent,
+                ask.answer,
+                ask.askCategory,
+                ask.createDate,
+                ask.updatedDate
+        ))
+                .from(ask)
+                .where(ask.user.userId.eq(userId).and(ask.user.userId.ne(1L)))
+                .orderBy(ask.askId.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()).fetch();
 
@@ -76,7 +129,7 @@ public class MyAskRepositoryImpl implements MyAskCustomRepository{
 
     @Override
     public Page<AskDTO> findAllByCategory(Pageable pageable, AskCategory askCategory, Long userId) {
-        List<AskDTO> posts = jpaQueryFactory.select(new QAskDTO(
+        List<AskDTO> notices = jpaQueryFactory.select(new QAskDTO(
                 ask.askId,
                 ask.user.userId,
                 ask.user.userNickname,
@@ -90,20 +143,20 @@ public class MyAskRepositoryImpl implements MyAskCustomRepository{
         ))
                 .from(ask)
                 .where(ask.askCategory.eq(askCategory))
-                .orderBy(ask.createDate.desc())
+                .orderBy(ask.askId.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()).fetch();
 
         long total = jpaQueryFactory.selectFrom(ask)
-                .where(ask.user.userId.eq(userId))
+                .where(ask.askCategory.eq(askCategory))
                 .fetch().size();
 
-        return new PageImpl<>(posts, pageable, total);
+        return new PageImpl<>(notices, pageable, total);
     }
 
     @Override
     public Page<AskDTO> findAllByCategory(Pageable pageable, AskCategory askCategory, Criteria criteria, Long userId) {
-        List<AskDTO> posts = jpaQueryFactory.select(new QAskDTO(
+        List<AskDTO> notices = jpaQueryFactory.select(new QAskDTO(
                 ask.askId,
                 ask.user.userId,
                 ask.user.userNickname,
@@ -117,14 +170,14 @@ public class MyAskRepositoryImpl implements MyAskCustomRepository{
         ))
                 .from(ask)
                 .where(ask.askCategory.eq(askCategory))
-                .orderBy(ask.createDate.desc())
+                .orderBy(ask.askId.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()).fetch();
 
         long total = jpaQueryFactory.selectFrom(ask)
-                .where(ask.user.userId.eq(userId))
+                .where(ask.askCategory.eq(askCategory))
                 .fetch().size();
 
-        return new PageImpl<>(posts, pageable, total);
+        return new PageImpl<>(notices, pageable, total);
     }
 }

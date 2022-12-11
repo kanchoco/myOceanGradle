@@ -9,19 +9,38 @@ FAQEntity__TitleWrapper-cpxlp5-0 ldvBHS*/
 
 
 //질문 누르면 답변 나오게 하기
-$contents.on("click", function(){
-    if($(this).attr("class").includes("arrange")){
-        $(this).find(".ldvBHS").attr("class", "FAQEntity__TitleWrapper-cpxlp5-0 ldvBHS");
-        $(this).next().find(".ldvBHS").hide();
-    } else{
-        $(".gvlnCr").parent().next().find(".ldvBHS").hide();
-        $contents.attr("class", "FAQEntity__TitleWrapper-cpxlp5-0 ldvBHS");
-        $(this).find(".ldvBHS").attr("class", "FAQEntity__TitleWrapper-cpxlp5-0 gvlnCr");
-        $(this).next().find(".ldvBHS").show();
+// $contents.on("click", function(){
+//     if($(this).attr("class").includes("arrange")){
+//         $(this).find(".ldvBHS").attr("class", "FAQEntity__TitleWrapper-cpxlp5-0 ldvBHS");
+//         $(this).next().find(".ldvBHS").hide();
+//     } else{
+//         $(".gvlnCr").parent().next().find(".ldvBHS").hide();
+//         $contents.attr("class", "FAQEntity__TitleWrapper-cpxlp5-0 ldvBHS");
+//         $(this).find(".ldvBHS").attr("class", "FAQEntity__TitleWrapper-cpxlp5-0 gvlnCr");
+//         $(this).next().find(".ldvBHS").show();
+//     }
+// })
+
+$(".arrange").on("click",function(){
+    console.log(this);
+})
+$(".ldvBHS").on("click",function(){
+    console.log(this);
+})
+$(".FAQEntity__TitleWrapper-cpxlp5-0").on("click",function(){
+    console.log(this);
+})
+$(".answerStatus").on("click",function(){
+    console.log(this);
+})
+
+$(".represent").on("click",function(){
+    if($(this).attr("class").includes("represent")){
+        $(this).next().toggle();
     }
 })
 // //질문 누르면 답변 나오게 하기
-// $contents.on("click", function(){
+// $contents.on("click", functdjWtyMion(){
 //     if($(this).attr("class").includes("gvlnCr")){
 //         $(this).attr("class", "FAQEntity__TitleWrapper-cpxlp5-0 ldvBHS");
 //         $(this).next().hide();
@@ -52,5 +71,15 @@ $category.on("click", function(){
     if($(this).attr("class").includes("eCnPke")){
         $category.attr("class", "TabLabels__Tab-sc-1i2f4oa-1 eCnPke");
         $(this).attr("class", "TabLabels__Tab-sc-1i2f4oa-1 djWtyM");
+    }
+})
+$(".my_list").on("click",function(){
+    if($(this).attr("class").includes("my_list")){
+        $(this).next().toggle();
+    }
+});
+$(".ldvBHS").on("click",function(){
+    if($(this).attr("class").includes("ldvBHS")){
+        $(this).next().toggle();
     }
 })

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgIpFwCZ0TNWjZV_oDbG6PttZ-tGS9m-HZRULv9iAT-pEn-hzV88sokgdWw2U_65MkBTbheiqaax2nlIOZkjLm3md7vpmpdVpre9YlzA4iQ7zi4WL7YDXP36A28XAkwZWcYGeq7v7UJ1GHyXVOMvzQxc0LH7Spqe7Ybl31dUqjgDh7oz63ZRaowjl2Mzw/s1600/myoceanlogo.png">
-    <title>자주 묻는 질문 - 나의 바다(MyOcean)</title>
+    <title>퀘스트 정보 질문 - 나의 바다(MyOcean)</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/7f85a56ba4.css">
@@ -26,18 +26,18 @@
             <!--                <input type="text" placeholder="키워드를 입력하세요" value="">-->
             <!--            </form>-->
             <div class="TabLabels__Wrapper-sc-1i2f4oa-0 cxqTPR">
-                <span class="TabLabels__Tab-sc-1i2f4oa-1 djWtyM"><a href="/questionBoard/index">전체</a></span>
+                <span class="TabLabels__Tab-sc-1i2f4oa-1 eCnPke"><a href="/questionBoard/index">전체</a></span>
                 <span class="TabLabels__Tab-sc-1i2f4oa-1 eCnPke"><a href="/questionBoard/questionUsingInfo">이용안내</a></span>
                 <span class="TabLabels__Tab-sc-1i2f4oa-1 eCnPke"><a href="/questionBoard/questionUserInfo">회원정보</a></span>
                 <span class="TabLabels__Tab-sc-1i2f4oa-1 eCnPke"><a href="/questionBoard/questionPointInfo">결제/환불</a></span>
-                <span class="TabLabels__Tab-sc-1i2f4oa-1 eCnPke"><a href="/questionBoard/questionQuestInfo">퀘스트</a></span>
+                <span class="TabLabels__Tab-sc-1i2f4oa-1 djWtyM"><a href="/questionBoard/questionQuestInfo">퀘스트</a></span>
                 <span class="TabLabels__Tab-sc-1i2f4oa-1 eCnPke"><a href="/questionBoard/myQuestion">나의 질문</a></span>
             </div>
             <ul class="HelpPage__FAQListWrapper-sc-1624coo-1 jaTQXA">
-                <th:block th:each="Question:${Questions}">
-                    <ul th:object="${Question}">
+                <th:block th:each="questionQuestInfo:${questionQuestInfos}">
+                    <ul th:object="${questionQuestInfo}">
                         <li>
-                            <div class="my_list" th:switch="${#strings.toString(Question.askCategory)}">
+                            <div class="my_list" th:switch="${#strings.toString(questionQuestInfo.askCategory)}">
                                 <!--          th:text="${#dates.format(user.createDt, 'yyyy-MM-dd HH:mm')}"-->
                                 <div th:case="이용" class="badge free" th:text="*{askCategory}"/>
                                 <div th:case="회원" class="badge cook" th:text="*{askCategory}"/>
@@ -80,7 +80,7 @@
                              class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
                     </a>
                 </div>
-                <form th:action="@{/questionBoard/index}" th:object="${criteria}" name="pageForm">
+                <form th:action="@{/questionBoard/questionQuestInfo}" th:object="${criteria}" name="pageForm">
                     <input type="hidden" th:field="*{page}">
                     <input type="hidden" th:field="*{keyword}">
                 </form>

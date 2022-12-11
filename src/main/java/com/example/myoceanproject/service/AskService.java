@@ -23,12 +23,18 @@ public class AskService {
     @Autowired
     private MyAskRepository myAskRepository;
 
+    /*카테고리별 자주묻는질문*/
     public Page<AskDTO> showQuestion(Pageable pageable, AskCategory askCategory, Criteria criteria, Long userId){
         return criteria.getKeyword() == null ? myAskRepositoryImpl.findAllByCategory(pageable, askCategory,userId) : myAskRepositoryImpl.findAllByCategory(pageable, askCategory,criteria,userId);
     }
 
+    /*관리자가 작성한 질문 예시*/
     public Page<AskDTO> showAllQuestion(Pageable pageable, Criteria criteria, Long userId){
         return criteria.getKeyword() == null ? myAskRepositoryImpl.findAll(pageable,userId) : myAskRepositoryImpl.findAll(pageable,criteria,userId);
+    }
+    /*나의 질문 조회*/
+    public Page<AskDTO> showAllMyAsk(Pageable pageable, Criteria criteria, Long userId){
+        return criteria.getKeyword() == null ? myAskRepositoryImpl.findAllMyAsk(pageable,userId) : myAskRepositoryImpl.findAllMyAsk(pageable,criteria,userId);
     }
 
     public Page<AskDTO> showAsk(Pageable pageable, Criteria criteria){

@@ -1,10 +1,9 @@
 package com.example.myoceanproject.controller.questionBoard;
 
 import com.example.myoceanproject.domain.AskDTO;
-import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.domain.Criteria;
-import com.example.myoceanproject.entity.CommunityPost;
 import com.example.myoceanproject.service.AskService;
+import com.example.myoceanproject.type.AskCategory;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,18 +35,175 @@ public class QusetionBoardController {
 
     // 자주 묻는 질문 페이지
     @GetMapping("/index")
-    public String questionBoard(){
+    public String questionBoard(Model model, Criteria criteria, HttpServletRequest request){
+
+        HttpSession session=request.getSession();
+
+        log.info("index in");
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+
+        Page<AskDTO> askDTOPage= askService.showAllQuestion(pageable, criteria,(Long)session.getAttribute("userId"));
+
+        int endPage = (int)(Math.ceil((askDTOPage.getNumber()+1) / (double)10)) * 10;
+        if(askDTOPage.getTotalPages() < endPage){
+            endPage = askDTOPage.getTotalPages() == 0 ? 1 : askDTOPage.getTotalPages();
+        }
+        log.info(endPage + "end");
+
+        for(AskDTO pages:askDTOPage){
+            log.info("datas:"+pages);
+        }
+//        for(int i=0;i<10;i++){
+//            log.info("askdata:"+askDTOPage.getContent());
+//            log.info("askStatus:"+askDTOPage.getContent().get(i).getAskStatus());
+//            log.info("criteria:"+criteria);
+//            log.info("pageable:"+pageable);
+//        }
+        log.info("pagenation:"+model.getAttribute("pagination"));
+        log.info("criteria:"+criteria.getPage());
+
+        model.addAttribute("Questions", askDTOPage.getContent());
+        model.addAttribute("pagination", askDTOPage);
+        model.addAttribute("pageable", pageable);
+        model.addAttribute("criteria", criteria);
+        model.addAttribute("endPage", endPage);
+
         return "app/questionBoard/questionBoard";
     }
+
+    @GetMapping("/questionUsingInfo")
+    public String questionUsingInfo(Model model, Criteria criteria, HttpServletRequest request){
+        HttpSession session=request.getSession();
+
+        log.info("index in");
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+
+        log.info("criteria:"+criteria);
+
+        Page<AskDTO> askDTOPage= askService.showQuestion(pageable, AskCategory.USINGINFO ,criteria,(Long)session.getAttribute("userId"));
+        log.info("pageable:"+pageable);
+        int endPage = (int)(Math.ceil((askDTOPage.getNumber()+1) / (double)10)) * 10;
+        if(askDTOPage.getTotalPages() < endPage){
+            endPage = askDTOPage.getTotalPages() == 0 ? 1 : askDTOPage.getTotalPages();
+        }
+        log.info(endPage + "end");
+
+        for(AskDTO pages:askDTOPage){
+            log.info("datas:"+pages);
+        }
+
+        log.info("pagenation:"+model.getAttribute("pagination"));
+        log.info("criteria:"+criteria.getPage());
+
+        model.addAttribute("questionUsingInfos", askDTOPage.getContent());
+        model.addAttribute("pagination", askDTOPage);
+        model.addAttribute("pageable", pageable);
+        model.addAttribute("criteria", criteria);
+        model.addAttribute("endPage", endPage);
+
+        return "app/questionBoard/questionUsingInfo";
+    }
+
+    @GetMapping("/questionUserInfo")
+    public String questionUserInfo(Model model, Criteria criteria, HttpServletRequest request){
+        HttpSession session=request.getSession();
+
+        log.info("index in");
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+
+        Page<AskDTO> askDTOPage= askService.showQuestion(pageable, AskCategory.ACCOUNTINFO ,criteria,(Long)session.getAttribute("userId"));
+        int endPage = (int)(Math.ceil((askDTOPage.getNumber()+1) / (double)10)) * 10;
+        if(askDTOPage.getTotalPages() < endPage){
+            endPage = askDTOPage.getTotalPages() == 0 ? 1 : askDTOPage.getTotalPages();
+        }
+        log.info(endPage + "end");
+
+        for(AskDTO pages:askDTOPage){
+            log.info("datas:"+pages);
+        }
+
+        log.info("pagenation:"+model.getAttribute("pagination"));
+        log.info("criteria:"+criteria.getPage());
+
+        model.addAttribute("questionUserInfos", askDTOPage.getContent());
+        model.addAttribute("pagination", askDTOPage);
+        model.addAttribute("pageable", pageable);
+        model.addAttribute("criteria", criteria);
+        model.addAttribute("endPage", endPage);
+
+        return "app/questionBoard/questionUserInfo";
+    }
+
+    @GetMapping("/questionPointInfo")
+    public String questionPointInfo(Model model, Criteria criteria, HttpServletRequest request){
+        HttpSession session=request.getSession();
+
+        log.info("index in");
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+
+        Page<AskDTO> askDTOPage= askService.showQuestion(pageable, AskCategory.POINTINFO ,criteria,(Long)session.getAttribute("userId"));
+        int endPage = (int)(Math.ceil((askDTOPage.getNumber()+1) / (double)10)) * 10;
+        if(askDTOPage.getTotalPages() < endPage){
+            endPage = askDTOPage.getTotalPages() == 0 ? 1 : askDTOPage.getTotalPages();
+        }
+        log.info(endPage + "end");
+
+        for(AskDTO pages:askDTOPage){
+            log.info("datas:"+pages);
+        }
+
+        log.info("pagenation:"+model.getAttribute("pagination"));
+        log.info("criteria:"+criteria.getPage());
+
+        model.addAttribute("questionPointInfos", askDTOPage.getContent());
+        model.addAttribute("pagination", askDTOPage);
+        model.addAttribute("pageable", pageable);
+        model.addAttribute("criteria", criteria);
+        model.addAttribute("endPage", endPage);
+
+        return "app/questionBoard/questionPointInfo";
+    }
+
+    @GetMapping("/questionQuestInfo")
+    public String questionQuestInfo(Model model, Criteria criteria, HttpServletRequest request){
+        HttpSession session=request.getSession();
+
+        log.info("index in");
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+
+        Page<AskDTO> askDTOPage= askService.showQuestion(pageable, AskCategory.QUESTINFO ,criteria,(Long)session.getAttribute("userId"));
+        int endPage = (int)(Math.ceil((askDTOPage.getNumber()+1) / (double)10)) * 10;
+        if(askDTOPage.getTotalPages() < endPage){
+            endPage = askDTOPage.getTotalPages() == 0 ? 1 : askDTOPage.getTotalPages();
+        }
+        log.info(endPage + "end");
+
+        for(AskDTO pages:askDTOPage){
+            log.info("datas:"+pages);
+        }
+
+        log.info("pagenation:"+model.getAttribute("pagination"));
+        log.info("criteria:"+criteria.getPage());
+
+        model.addAttribute("questionQuestInfos", askDTOPage.getContent());
+        model.addAttribute("pagination", askDTOPage);
+        model.addAttribute("pageable", pageable);
+        model.addAttribute("criteria", criteria);
+        model.addAttribute("endPage", endPage);
+
+        return "app/questionBoard/questionQuestInfo";
+    }
+
     // 자주 묻는 질문 중 나의 질문 페이지
     @GetMapping("myQuestion")
     public String myQuestionBoard(Model model, Criteria criteria, HttpServletRequest request){
         HttpSession session=request.getSession();
 
+        log.info("myquestion in");
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
-        Page<AskDTO> askDTOPage= askService.showAllQuestion(pageable, criteria,(Long)session.getAttribute("userId"));
-        int endPage = (int)(Math.ceil(askDTOPage.getNumber()+1 / (double)10)) * 10;
+        Page<AskDTO> askDTOPage= askService.showAllMyAsk(pageable, criteria,(Long)session.getAttribute("userId"));
+        int endPage = (int)(Math.ceil((askDTOPage.getNumber()+1) / (double)10)) * 10;
         if(askDTOPage.getTotalPages() < endPage){
             endPage = askDTOPage.getTotalPages() == 0 ? 1 : askDTOPage.getTotalPages();
         }
