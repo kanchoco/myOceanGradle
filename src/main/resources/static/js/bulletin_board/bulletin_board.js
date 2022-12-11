@@ -58,8 +58,15 @@ let groupService = (function(){
     return {getList: getList}
 })();
 
+// 글 등록 버튼
+$(".goHostBtn").on("click", function(e){
+    e.preventDefault();
+    if($("input[name='userId']").val()==""){
+        alert("로그인 후 이용하실 수 있습니다.");
+        return;
+    }
 
-// 페이징처리
-$(".Wrapper__PaginationWrapper-fk4uv4-0").on("click", ".iItkLq", function(){
+    location.href = $(".goHostBtn").attr("href");
 
 })
+

@@ -33,7 +33,7 @@ public class BulletinboardRestController {
         criteria.setPage(page);
         criteria.setKeyword(decodeKeyword);
 
-        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 12);
 
         Page<GroupDTO> groupDTOPage = groupService.showGroup(pageable, criteria);
         int endPage = (int)(Math.ceil(groupDTOPage.getNumber()+1 / (double)10)) * 10;

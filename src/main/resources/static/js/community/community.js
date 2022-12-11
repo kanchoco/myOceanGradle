@@ -106,8 +106,6 @@ $diary.on("click",function () {
 function allCheck(){
     $allBtn.find("button").removeClass('fFBpBV').addClass("kJEnf");
     $allBtn.find(".gRNDCb").show();
-    // globalThis.communityAr = [];
-    // globalThis.communityAr.push(communities);
     globalThis.communityAr = ['EXERCISE', 'COOK', 'MOVIE', 'BOOK', 'COUNSELING'];
 }
 
@@ -478,3 +476,14 @@ function filteringShowLoginUser(){
     communityService.filterCheckLoginUser(
         globalThis.communityAr, getList);
 }
+
+
+$(".until785px").on("click", function(e){
+    e.preventDefault();
+    if($("input[name='userId']").val()==""){
+        alert("로그인 후 이용 가능합니다.")
+        return;
+    }
+
+    location.href=$(".until785px").attr("href");
+})
