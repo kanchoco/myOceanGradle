@@ -205,6 +205,7 @@
     });
 
 
+
     function getUser(userDTO){
         let text = "";
 
@@ -218,7 +219,7 @@
                     text += `<td class="info_td">`+ user.createDate +`</td>`;
                     text += `<td class="info_td">`+ user.userTotalPoint +`</td>`;
                     text += `<td class="info_td">`+ user.userLoginMethod +`</td>`;
-                    if(user.userAccountStatus === 'ACTIVE'){
+                    if(user.userAccountStatus === '정상'){
                         text += `<td class="info_td active">정상</td>`;
                     }else{
                         text += `<td class="info_td banned">정지</td>`;

@@ -6,7 +6,6 @@ import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "TBL_QUEST")
@@ -26,8 +25,10 @@ public class Quest extends Period{
     @NotNull
     private int questPoint;
 
-    @Enumerated(EnumType.STRING)
-    private QuestType questType;
+    @NotNull
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "QUEST_TYPE")
+    private QuestType questType; //Enum
 
     private String questDeadLine;
     private String questFileName;
@@ -52,7 +53,7 @@ public class Quest extends Period{
         this.questCategory = questDTO.getQuestCategory();
         this.questName = questDTO.getQuestName();
         this.questContent = questDTO.getQuestContent();
-        this.questType = questDTO.getQuestType();
+        this.questType = QuestType.change(questDTO.getQuestType());
         this.questDeadLine = questDTO.getQuestDeadLine();
         this.questPoint = questDTO.getQuestPoint();
     }

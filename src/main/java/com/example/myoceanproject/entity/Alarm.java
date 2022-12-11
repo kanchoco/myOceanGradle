@@ -1,5 +1,7 @@
 package com.example.myoceanproject.entity;
 
+import com.example.myoceanproject.domain.AlarmDTO;
+import com.example.myoceanproject.type.AlarmCategory;
 import com.example.myoceanproject.type.ReadStatus;
 import com.sun.istack.NotNull;
 import lombok.*;
@@ -28,28 +30,34 @@ public class Alarm extends Period{
     @Enumerated(EnumType.STRING)
     private ReadStatus readStatus; //Enum
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private AlarmCategory alarmCategory; //Enum
+
+    private Long contentId;
+
 //  양방향
     public void setUser(User user){
         this.user = user;
     }
 
     @Builder
-    public Alarm(User user, String alarmContent, ReadStatus readStatus) {
+    public Alarm(User user, String alarmContent, ReadStatus readStatus, AlarmCategory alarmCategory, Long contentId) {
         this.user = user;
-        this.alarmContent = alarmContent;
         this.readStatus = readStatus;
+        this.alarmContent = alarmContent;
+        this.alarmCategory = alarmCategory;
+        this.contentId = contentId;
     }
 
 //  ReadStatus는 유저가 알람을 보는 순간 READ로 업데이트가 되어야 한다.
-    public void update(ReadStatus readStatus){
-        this.readStatus = readStatus;
+    public void updateStatus(){
+        this.readStatus = ReadStatus.READ;
+    }
+    public void setAlarm(AlarmDTO alarmDTO){
+        this.alarmContent = alarmDTO.getAlarmContent();
+        this.alarmCategory = AlarmCategory.change(alarmDTO.getAlarmCategory());
+        this.contentId = alarmDTO.getContentId();
     }
 
-    public void setAlarmContent(String alarmContent){
-        this.alarmContent = alarmContent;
-    }
-
-    public void setReadStatus(ReadStatus readStatus){
-        this.readStatus = readStatus;
-    }
 }

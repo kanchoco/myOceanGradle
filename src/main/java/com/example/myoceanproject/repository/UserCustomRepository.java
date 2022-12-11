@@ -11,6 +11,7 @@ import java.util.List;
 // 유저 엔티티 사용자 지정 레포지토리
 public interface UserCustomRepository {
     public int findCountByemail(String email);
+    public List<UserDTO> findAllByActive();
 
     public Page<UserDTO> findAll(Pageable pageable);
     public Page<UserDTO> findAll(Pageable pageable, Criteria criteria);

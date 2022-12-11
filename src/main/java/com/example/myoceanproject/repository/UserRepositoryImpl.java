@@ -109,6 +109,29 @@ public class UserRepositoryImpl implements UserCustomRepository {
 
         return new PageImpl<>(users, pageable, total);
     }
+    @Override
+    public List<UserDTO> findAllByActive() {
+        return queryFactory.select(new QUserDTO(
+                        user.userId,
+                        user.userPassword,
+                        user.userNickname,
+                        user.userAccountStatus,
+                        user.userFileName,
+                        user.userFilePath,
+                        user.userFileSize,
+                        user.userFileUuid,
+                        user.userEmail,
+                        user.userLoginMethod,
+                        user.userTotalPoint,
+                        user.createDate,
+                        user.updatedDate,
+                        user.userOauthId
+                ))
+                .from(user)
+                .where(user.userAccountStatus.eq(UserAccountStatus.ACTIVE))
+                .orderBy(user.userId.desc())
+                .fetch();
+    }
 
     public Page<UserDTO> findAllByStatus(Pageable pageable, UserAccountStatus userAccountStatus){
         List<UserDTO> users = queryFactory.select(new QUserDTO(
@@ -143,7 +166,6 @@ public class UserRepositoryImpl implements UserCustomRepository {
                 .fetch().size();
 
         return new PageImpl<>(users, pageable, total);
-
     }
     public Page<UserDTO> findAllByStatus(Pageable pageable, Criteria criteria, UserAccountStatus userAccountStatus){
         List<UserDTO> users = queryFactory.select(new QUserDTO(

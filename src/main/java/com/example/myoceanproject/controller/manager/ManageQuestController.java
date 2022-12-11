@@ -1,9 +1,7 @@
 package com.example.myoceanproject.controller.manager;
-import com.example.myoceanproject.domain.CommunityPostDTO;
-import com.example.myoceanproject.domain.Criteria;
-import com.example.myoceanproject.domain.QuestDTO;
-import com.example.myoceanproject.domain.UserDTO;
+import com.example.myoceanproject.domain.*;
 import com.example.myoceanproject.service.QuestService;
+import com.example.myoceanproject.service.alarm.AlarmService;
 import com.example.myoceanproject.type.UserAccountStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +30,7 @@ public class ManageQuestController {
 
 
     private final QuestService questService;
+    private final AlarmService alarmService;
 
     //    브라우저에서 JSON 타입으로 데이터를 전송하고 서버에서는 댓글의 처리 결과에 따라 문자열로 결과를 리턴한다.
 //    consumes : 전달받은 데이터의 타입
@@ -42,6 +41,10 @@ public class ManageQuestController {
     @PostMapping(value = "/upload", consumes = "application/json", produces = "text/plain; charset=utf-8")
     public String addQuest(@RequestBody QuestDTO questDTO) {
         questService.addQuest(questDTO);
+        AlarmDTO alarmDTO = new AlarmDTO();
+        alarmDTO.setAlarmCategory("TODAY");
+        alarmDTO.setAlarmContent("!오늘의 퀘스트 도착!");
+        alarmService.addAlarm(alarmDTO);
         return "dd";
     }
     @PatchMapping (value = "/update", consumes = "application/json", produces = "text/plain; charset=utf-8")

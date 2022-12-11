@@ -25,7 +25,7 @@ public class QuestDTO {
     private String questDeadLine;
     private int questPoint;
 
-    private QuestType questType;
+    private String questType;
     private String questFilePath;
     private String questFileName;
 
@@ -43,7 +43,7 @@ public class QuestDTO {
         this.questCategory = questCategory;
         this.questName = questName;
         this.questContent = questContent;
-        this.questType = questType;
+        this.questType = questType.toString();
         this.questDeadLine = questDeadLine;
         this.questPoint = questPoint;
         this.questFilePath = questFilePath;
@@ -57,7 +57,7 @@ public class QuestDTO {
         return Quest.builder()
                 .questCategory(questCategory)
                 .questName(questName)
-                .questType(questType)
+                .questType(QuestType.change(questType))
                 .questDeadLine(questDeadLine)
                 .questContent(questContent)
                 .questPoint(questPoint)
