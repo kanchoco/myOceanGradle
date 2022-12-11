@@ -5,7 +5,6 @@ import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.domain.DiaryDTO;
 import com.example.myoceanproject.entity.CommunityPost;
 import com.example.myoceanproject.repository.MyPostRepository;
-import com.example.myoceanproject.repository.community.post.CommunityPostRepository;
 import com.example.myoceanproject.service.DiaryService;
 import com.example.myoceanproject.service.myPost.MyPostService;
 import com.example.myoceanproject.type.CommunityCategory;
@@ -51,7 +50,7 @@ public class MyListController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<DiaryDTO> diaryDTOPage= diaryService.showDiary(pageable,(Long)session.getAttribute("userId"), criteria);
-        int endPage = (int)(Math.ceil(diaryDTOPage.getNumber()+1 / (double)10)) * 10;
+        int endPage = (int)(Math.ceil((diaryDTOPage.getNumber()+1) / (double)10)) * 10;
         if(diaryDTOPage.getTotalPages() < endPage) {
             endPage = diaryDTOPage.getTotalPages() == 0 ? 1 : diaryDTOPage.getTotalPages();
         }
@@ -75,7 +74,7 @@ public class MyListController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<DiaryDTO> diaryDTOPage= diaryService.showExchangeDiary(pageable,(Long)session.getAttribute("userId"), criteria);
-        int endPage = (int)(Math.ceil(diaryDTOPage.getNumber()+1 / (double)10)) * 10;
+        int endPage = (int)(Math.ceil((diaryDTOPage.getNumber()+1) / (double)10)) * 10;
         if(diaryDTOPage.getTotalPages() < endPage) {
             endPage = diaryDTOPage.getTotalPages() == 0 ? 1 : diaryDTOPage.getTotalPages();
         }
@@ -105,7 +104,7 @@ public class MyListController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<CommunityPostDTO> postDTOPage= myPostService.showCounseling(pageable, CommunityCategory.BOOK, criteria,(Long)session.getAttribute("userId"));
-        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
+        int endPage = (int)(Math.ceil((postDTOPage.getNumber()+1) / (double)10)) * 10;
         if(postDTOPage.getTotalPages() < endPage) {
             endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
         }
@@ -132,7 +131,7 @@ public class MyListController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<CommunityPostDTO> postDTOPage= myPostService.showCounseling(pageable, CommunityCategory.COOK, criteria,(Long)session.getAttribute("userId"));
-        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
+        int endPage = (int)(Math.ceil((postDTOPage.getNumber()+1) / (double)10)) * 10;
         if(postDTOPage.getTotalPages() < endPage) {
             endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
         }
@@ -159,7 +158,7 @@ public class MyListController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<CommunityPostDTO> postDTOPage= myPostService.showCounseling(pageable, CommunityCategory.COUNSELING, criteria,(Long)session.getAttribute("userId"));
-        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
+        int endPage = (int)(Math.ceil((postDTOPage.getNumber()+1) / (double)10)) * 10;
         if(postDTOPage.getTotalPages() < endPage) {
             endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
         }
@@ -186,7 +185,7 @@ public class MyListController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<CommunityPostDTO> postDTOPage= myPostService.showCounseling(pageable, CommunityCategory.EXERCISE, criteria,(Long)session.getAttribute("userId"));
-        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
+        int endPage = (int)(Math.ceil((postDTOPage.getNumber()+1) / (double)10)) * 10;
         if(postDTOPage.getTotalPages() < endPage) {
             endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
         }
@@ -213,7 +212,7 @@ public class MyListController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<CommunityPostDTO> postDTOPage= myPostService.showCounseling(pageable, CommunityCategory.FREEBOARD, criteria,(Long)session.getAttribute("userId"));
-        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
+        int endPage = (int)(Math.ceil((postDTOPage.getNumber()+1) / (double)10)) * 10;
         if(postDTOPage.getTotalPages() < endPage) {
             endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
         }
@@ -240,7 +239,7 @@ public class MyListController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<CommunityPostDTO> postDTOPage= myPostService.showCounseling(pageable, CommunityCategory.MOVIE, criteria,(Long)session.getAttribute("userId"));
-        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
+        int endPage = (int)(Math.ceil((postDTOPage.getNumber()+1) / (double)10)) * 10;
         if(postDTOPage.getTotalPages() < endPage) {
             endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
         }
@@ -273,7 +272,7 @@ public class MyListController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<CommunityPostDTO> postDTOPage= myPostService.showPost(pageable, criteria,(Long)session.getAttribute("userId"));
-        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
+        int endPage = (int)(Math.ceil((postDTOPage.getNumber()+1) / (double)10)) * 10;
         if(postDTOPage.getTotalPages() < endPage){
             endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
         }

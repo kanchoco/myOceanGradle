@@ -113,7 +113,7 @@ div#table_wrapper li {
 
 div.my_list {
     box-sizing: inherit;
-    display: inline-block;
+    display: flex;
     -webkit-box-pack: justify;
     justify-content: space-between;
     min-height: 25px;

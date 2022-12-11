@@ -143,6 +143,7 @@ p, label {
     margin: 0px;
     padding: 0px;
     list-style: none;
+    margin-left:-41px;
 }
 
 .gvlnCr {
@@ -395,4 +396,7 @@ button:disabled {
 .arrange{
     display:flex;
     border-bottom: 1px solid rgb(230, 230, 230);
+}
+ul{
+    list-style:none;
 }

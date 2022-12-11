@@ -86,7 +86,7 @@ public class User extends Period {
         this.userOauthId=userOauthId;
     }
 
-//  가입 후 유저 비밀번호와 닉네임, 유저 포인트 변경 및 업데이트가 가능하다.
+    //  가입 후 유저 비밀번호와 닉네임, 유저 포인트 변경 및 업데이트가 가능하다.
 //  관리자가 회원을 정지시키거나 정지를 해제하여 AccountStatus를 업데이트할 수 있다.
     public void updateNicknameFile(UserDTO userDTO) {
         this.userNickname = userDTO.getUserNickname();
@@ -101,6 +101,8 @@ public class User extends Period {
     public void updateManager(UserAccountStatus userAccountStatus) {
         this.userAccountStatus = userAccountStatus;
     }
+
+    public void updateUserTotalPoint(UserDTO userDTO){this.userTotalPoint=userDTO.getUserTotalPoint();}
 
     public void setUserId(Long userId){
         this.userId = userId;
