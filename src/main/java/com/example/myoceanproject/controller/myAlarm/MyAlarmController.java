@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/myAlarm/*")
-public class MyAlarm {
+public class MyAlarmController {
     // 내가 받은 알람
     @GetMapping("/myAlarm")
     public String myAlarm(){

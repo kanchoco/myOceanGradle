@@ -1,6 +1,5 @@
-package com.example.myoceanproject.repository;
+package com.example.myoceanproject.repository.alarm;
 
-import com.example.myoceanproject.domain.AlarmDTO;
 import com.example.myoceanproject.entity.Alarm;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

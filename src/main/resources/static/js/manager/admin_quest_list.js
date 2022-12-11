@@ -131,17 +131,7 @@ $('.regist').click(function (){
     alert("퀘스트가 등록됐습니다.");
     questName = $('.register td:nth-child(1) input').val();
     questCategory = $('.register td:nth-child(2) input').val();
-    switch($('.register td:nth-child(3) input').val()){
-        case '오늘의 퀘스트':
-            questType = 'TODAY';
-            break;
-        case '이벤트':
-            questType = 'EVENT';
-            break;
-        default :
-            questType = 'BASIC';
-            break;
-    }
+    questType = $('.register td:nth-child(3) input').val();
     questDeadLine = $('.register td:nth-child(4) input').val();
     questContent = $('.register td:nth-child(5) input').val();
     questPoint = $('.register td:nth-child(6) input').val();
@@ -161,7 +151,6 @@ $('.regist').click(function (){
             questFileSize : questFileSize
         }, function (){show();});
     }else{
-        console.log("eeeeeeeeeeeee");
         questService.update({
             questId : questId,
             questName : questName,
