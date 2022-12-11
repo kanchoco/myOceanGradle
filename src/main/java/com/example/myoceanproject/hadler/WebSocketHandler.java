@@ -31,20 +31,21 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class WebSocketHandler extends TextWebSocketHandler {
-    public static List<WebSocketSession> sessions = new ArrayList<>();
+
     private final GroupRepositoryImpl groupRepositoryImpl;
     private final ObjectMapper objectMapper;
     private final ChattingRepositoryImpl chattingRepository;
+//    public static List<WebSocketSession> sessions = new ArrayList<>();
 
     private final UserRepositoryImpl userRepositoryImple;
     private final GroupMemberRepository groupMemberRepository;
     private final ChattingService chattingService;
 
-    @Override
-    public void afterConnectionEstablished(WebSocketSession session) {
-        System.out.println("afterConnectionEstablished:" + session);
-        sessions.add(session);
-    }
+//    @Override
+//    public void afterConnectionEstablished(WebSocketSession session) {
+//        System.out.println("afterConnectionEstablished:" + session);
+//        sessions.add(session);
+//    }
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
@@ -53,18 +54,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
         ChattingDTO chattingDTO = objectMapper.readValue(msg,ChattingDTO.class);
         GroupDTO groupDTO = groupRepositoryImpl.findGroupByGroupId(chattingDTO.getGroupId());
         Long groupMemberId =chattingRepository.findGroupMemberIdByUserIdAndGroupId(chattingDTO.getSenderUserId(), chattingDTO.getGroupId());
-        chattingDTO.setSenderUserFileSize(234342L);
-        chattingDTO.setSenderUserFileName("userFileName");
-        chattingDTO.setSenderUserFileUuid("kjsdahgalsdkj");
         chattingDTO.setSenderGroupMemberId(groupMemberId);
-        chattingDTO.setGroupId(groupDTO.getGroupId());
-        chattingDTO.setGroupName(groupDTO.getGroupName());
-        chattingDTO.setReceiverGroupMemberId(1L);
-        chattingDTO.setChattingCreateDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        chattingDTO.setChattingCreateTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
-        chattingDTO.setSenderUserFilePath("dsjahfkhgjksg");
-        chattingDTO.setChattingId(8098L);
-
 //        chattingService.saveMessage(userId, groupId, chattingDTO);
 
         log.info(chattingDTO.toString());
@@ -74,10 +64,10 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
     }
 
-    @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        sessions.remove(session);
-        System.out.println("afterConnectionEstablished:" + session + ":" + status);
-    }
+//    @Override
+//    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+//        sessions.remove(session);
+//        System.out.println("afterConnectionEstablished:" + session + ":" + status);
+//    }
 
 }
