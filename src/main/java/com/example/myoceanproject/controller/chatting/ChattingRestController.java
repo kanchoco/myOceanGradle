@@ -30,9 +30,9 @@ public class ChattingRestController {
     public List<ChattingDTO> list(@PathVariable("groupId") Long groupId, Model model){
         log.info("===================================컨트롤러 list들어옴============================================");
 
+        GroupDTO groupDTO = groupRepositoryImpl.findGroupByGroupId(groupId);
+        model.addAttribute("groupDTO", groupDTO);
         List<ChattingDTO> chattingDTOList= chattingService.showChatting(groupId);
-        GroupDTO groupDTO =groupRepositoryImpl.findGroupByGroupId(groupId);
-        model.addAttribute("room",groupDTO);
         return chattingDTOList;
     }
 

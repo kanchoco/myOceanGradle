@@ -242,16 +242,10 @@ $("li.active").on("click", function (e) {
         e.preventDefault()
         myGroupId = $(this).attr("href");
         show(myGroupId)
-        if ($(this).attr('class') !== "select") {
-            $("li.active").removeClass("select");
-            $(this).addClass("select");
-            connect();
-        } else if ($(this).attr('class') === "select") {
-            console.log("선택됐던 리스트")
-        } else {
-            disconnect();
-            connect();
-        }
+        $("li.active").removeClass("select");
+        $(this).addClass("select");
+        connect();
+
     }
 )
 
@@ -264,11 +258,12 @@ $("li.active").on("click", function (e) {
 //     // send();
 //     // e.data = chat;
 //     // webSocket.onmessage(e);
-//     // add({
-//     //     chattingContent: chat,
-//     //     groupId : myGroupId,
-//     //     senderUserId : userId
-//     // })
+//     add({
+//         chattingContent: chat,
+//         groupId : myGroupId,
+//         senderUserId : userId,
+//         messageType : "대화"
+//     })
 // });
 
 document.getElementById("sendButton").addEventListener("click",function(e){
@@ -281,9 +276,6 @@ document.getElementById("sendButton").addEventListener("click",function(e){
         senderUserId : userId,
         messageType : "대화"
     })
-    // send();
-    // // e.data = chat;
-    // // webSocket.onmessage(e);
 })
 
 
@@ -355,14 +347,8 @@ function add(chatting, error){
     });
 }
 
-
-
-
-
-
-
 function disconnect(){
-    webSocket.send(JSON.stringify({groupId : myGroupId, messageType:'퇴장',senderUserNickName:userNickName,senderUserId : userId}));
+    // webSocket.send(JSON.stringify({groupId : myGroupId, messageType:'퇴장',senderUserNickName:userNickName,senderUserId : userId}));
     webSocket.close();
 }
 function send(){
@@ -380,7 +366,7 @@ function send(){
 }
 function onOpen(){
     console.log("=============================자바스크립트 onOpen들어옴======================================")
-    // webSocket.send(JSON.stringify({groupId : myGroupId, messageType:'ENTER',senderUserNickName:userNickName, senderUserId : userId}));
+    // webSocket.send(JSON.stringify({groupId : myGroupId, messageType:'입장',senderUserNickName:userNickName, senderUserId : userId}));
 }
 function onMessage(e){
     console.log("=============================자바스크립트 onMessage들어옴======================================")
@@ -411,7 +397,6 @@ function onMessage(e){
 function onClose(){
     disconnect();
 }
-
 
 
 
