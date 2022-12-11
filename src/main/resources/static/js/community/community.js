@@ -457,8 +457,6 @@ let showCheck = true;
 // 커뮤니티 카테고리 동적쿼리
 $(".jJIWoq").on("click", function(){
     showCheck = false;
-    console.log("globalThis.communityAr: " + globalThis.communityAr);
-    console.log($filterBtn.find(".kJEnf").length);
 
     if($("input[name='userId']").val()==""){
         filteringShow();

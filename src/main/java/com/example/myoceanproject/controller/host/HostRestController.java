@@ -1,7 +1,9 @@
 package com.example.myoceanproject.controller.host;
 
 import com.example.myoceanproject.domain.GroupDTO;
+import com.example.myoceanproject.domain.GroupScheduleDTO;
 import com.example.myoceanproject.entity.Group;
+import com.example.myoceanproject.entity.GroupSchedule;
 import com.example.myoceanproject.repository.GroupRepository;
 import com.example.myoceanproject.service.GroupService;
 import com.example.myoceanproject.type.GroupStatus;
@@ -35,6 +37,7 @@ public class HostRestController {
     private final GroupService groupService;
     private final GroupRepository groupRepository;
 
+
     @PostMapping(value="/index", consumes = "application/json", produces = "text/plain; charset=utf-8")
     public ResponseEntity<String> host(@RequestBody GroupDTO groupDTO, HttpServletRequest request) throws UnsupportedEncodingException {
         HttpSession session=request.getSession();
@@ -44,6 +47,23 @@ public class HostRestController {
 
         groupService.add(groupDTO);
         return new ResponseEntity<>(new String("register success".getBytes(), "UTF-8"), HttpStatus.OK);
+    }
+
+    // 스케줄 저장
+    @PostMapping(value="/addDate/{groupId}", consumes = "application/json", produces = "text/plain; charset=utf-8")
+    public ResponseEntity<String> schedule(@RequestBody GroupScheduleDTO groupScheduleDTO, @PathVariable("groupId") Long groupId) throws UnsupportedEncodingException {
+
+        groupScheduleDTO.setGroupId(groupId);
+
+        groupService.addSchedule(groupScheduleDTO);
+        return new ResponseEntity<>(new String("register success".getBytes(), "UTF-8"), HttpStatus.OK);
+    }
+
+    // 스케줄 출력
+    @GetMapping("/date-list/{groupId}")
+    public List<GroupScheduleDTO> getSchedule(@PathVariable("groupId") Long groupId){
+        List<GroupScheduleDTO> groupScheduleDTO = groupService.findAllByGroupId(groupId);
+        return groupScheduleDTO;
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -121,6 +141,14 @@ public class HostRestController {
             file.delete();
         }
     }
+
+    @PostMapping("/delete-schedule/{groupId}/{scheduleDate}")
+    public void deleteSchedule(@PathVariable("groupId") Long groupId, @PathVariable("scheduleDate") String scheduleDate){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyy-MM-dd");
+        log.info(groupService.findAllByGroupId(groupId).toString());
+
+    }
+
 
     public String createDirectoryByNow(){
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");

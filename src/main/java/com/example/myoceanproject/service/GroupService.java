@@ -2,9 +2,12 @@ package com.example.myoceanproject.service;
 
 import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.domain.GroupDTO;
+import com.example.myoceanproject.domain.GroupScheduleDTO;
 import com.example.myoceanproject.entity.Group;
+import com.example.myoceanproject.entity.GroupSchedule;
 import com.example.myoceanproject.repository.GroupRepository;
 import com.example.myoceanproject.repository.GroupRepositoryImpl;
+import com.example.myoceanproject.repository.GroupScheduleRepository;
 import com.example.myoceanproject.repository.UserRepository;
 import com.example.myoceanproject.type.GroupStatus;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +27,7 @@ public class GroupService implements GroupBoardService {
     private final GroupRepository groupRepository;
     private final GroupRepositoryImpl groupRepositoryImpl;
     private final UserRepository userRepository;
+    private final GroupScheduleRepository groupScheduleRepository;
 
 //  게시글 등록
     @Override
@@ -34,11 +38,26 @@ public class GroupService implements GroupBoardService {
         groupRepository.save(group);
     }
 
+//  모임 일정 등록
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void addSchedule(GroupScheduleDTO groupScheduleDTO){
+        GroupSchedule groupSchedule = groupScheduleDTO.toEntity();
+        groupSchedule.setGroup(groupRepository.findById(groupScheduleDTO.getGroupId()).get());
+        groupScheduleRepository.save(groupSchedule);
+    }
+
 //  게시글 목록 보기
     @Override
     public List<GroupDTO> show() {
         return groupRepositoryImpl.findAll();
     }
+
+//  모임 스케줄 보기
+    @Override
+    public List<GroupScheduleDTO> findAllByGroupId(Long groupId){
+        return groupRepositoryImpl.findAllSchedule(groupId);
+    };
 
     public Page<GroupDTO> showGroup(Pageable pageable, Criteria criteria){
         return criteria.getKeyword().equals("null") ? groupRepositoryImpl.findAll(pageable) : groupRepositoryImpl.findAll(pageable, criteria);
@@ -65,6 +84,7 @@ public class GroupService implements GroupBoardService {
     public void delete(Long groupId) {
         groupRepository.deleteById(groupId);
     }
+
 
     public Page<GroupDTO> findAllManage(Pageable pageable, Criteria criteria){
         return criteria.getKeyword().equals("null") ? groupRepositoryImpl.findAllManage(pageable) : groupRepositoryImpl.findAllManage(pageable,criteria);

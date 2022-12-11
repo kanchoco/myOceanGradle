@@ -11,35 +11,51 @@ $('.noticeEx').css('display', '');
 
 
 
+const date = new Date();
 
-//다이어리
-// 임시 데이터
-const data = [
-    // { date: '2022-10-15', startTime: '' },
-    // { date: '2022-10-03', startTime: '테스트2' },
-    // { date: '2022-10-15', startTime: '테스트3' },
-    // { date: '2022-10-26', startTime: '테스트4' },
-    // { date: '2022-10-21', startTime: '테스트5' },
-    // { date: '2022-11-21', startTime: '18:48' },
-    // { date: '2022-11-03', startTime: '12:00' },
-    // { date: '2022-11-15', startTime: '13:00' },
-    // { date: '2022-11-20', startTime: '16:00' },
-];
+// 캘린더에 들어갈 데이터
+let data = [];
 
+$(document).ready(function(){
+    showList();
 
-// 데이터 가공
-const calendarList = data.reduce(
-    (acc, v) =>
-        ({ ...acc, [v.date]: [...(acc[v.date] || []), v.startTime] })
-    , {}
-);
+})
+function showList(){
+    groupSave.listDate(groupId,listDate);
+
+}
+
+// 모임 리스트에 저장 후 groupScheduleDTO에 모임의 날짜를 각각 저장해준다.
+// 이후 콜백함수를 통해 리스트를 출력
+function listDate(groupScheduleDTO){
+    data = [];
+    groupScheduleDTO.forEach(schedule => {
+        let simpleDate = schedule.groupScheduleStartTime.split("T")[0];
+        let simpleTime = schedule.groupScheduleStartTime.split("T")[1].split(":");
+        let startTime = simpleTime[0] + ':' + simpleTime[1];
+
+        data.push({
+            date : simpleDate,
+            startTime : startTime
+        });
+    });
+    makeCalendar(date);
+}
+
 
 // pad method ( 2 -> 02 )
 Number.prototype.pad = function() {
     return this > 9 ? this : '0' + this;
 }
 
+
 const makeCalendar = (date) => {
+
+    const calendarList = data.reduce(
+        (acc, v) =>
+            ({ ...acc, [v.date]: [...(acc[v.date] || []), v.startTime] })
+        , {}
+    );
     const currentYear = new Date(date).getFullYear();
     const currentMonth = new Date(date).getMonth() + 1;
 
@@ -67,15 +83,13 @@ const makeCalendar = (date) => {
         htmlDummy += `<div data-v-3655f65c="" class="px-2"></div>`;
         htmlDummy += `</div>`;
         htmlDummy += `</td>`;
-        count = i;
-        console.log(++count + '더미 끝');
+        count = i+1;
     }
 
+
+
     for (let i = 1; i <= lastDay; i++) {
-
         const date = `${currentYear}-${currentMonth.pad()}-${i.pad()}`;
-        console.log(date);
-
         if (count % 7 === 0) {
             count = 0;
             htmlDummy += `<tr data-v-1e397a0c="" class="week">`;
@@ -88,13 +102,11 @@ const makeCalendar = (date) => {
         htmlDummy += `</div>`;
         htmlDummy += `<div data-v-3655f65c="" class="text-gray float-right">`;
         htmlDummy += `<!----> ${i}일`;
-        // htmlDummy += ` <p>${calendarList[date]?.join('</p><p>') || ''}</p>`;
         htmlDummy += `</div>`;
         htmlDummy += `</div>`;
         htmlDummy += `<div data-v-3655f65c="" class="px-2">`;
+
         if(calendarList[date]){
-            console.log(calendarList[date].startTime);
-            console.log(calendarList[date]);
             htmlDummy += `<div data-v-3655f65c="" class="bg-frip-primary-50 text-frip-primary rounded p-1 my-2 wg-100" style="cursor: pointer;">`;
             htmlDummy += `<div class="clearfix">`;
             htmlDummy += `<div class="float-left">${calendarList[date]}</div>`;
@@ -106,13 +118,11 @@ const makeCalendar = (date) => {
         htmlDummy += `</div>`;
         htmlDummy += `</td>`;
         if (count % 7 === 0 && count !== 0) {
-            console.log('/tr');
             htmlDummy += `</tr>`;
         }
 
         count++
     }
-
     for (let i = limitDay; i < nextDay; i++) {
         htmlDummy += `<td data-v-1e397a0c="">`;
         htmlDummy += `<div data-v-3655f65c="" data-v-1e397a0c="" class="day">`;
@@ -132,18 +142,18 @@ const makeCalendar = (date) => {
     document.querySelector(`.calendar`).innerHTML = htmlDummy;
     document.querySelector(`.dateTitle`).innerText = `${currentYear}년 ${currentMonth}월`;
 }
-const date = new Date();
 
-makeCalendar(date);
 
 // 이전달 이동
 $(`.prevDay`).on('click',function(){
+    makeCalendar(date);
     makeCalendar(new Date(date.setMonth(date.getMonth() - 1)));
 });
 
 
 // 다음달 이동
 $(`.nextDay`).on('click', function(){
+    makeCalendar(date);
     makeCalendar(new Date(date.setMonth(date.getMonth() + 1)));
 });
 
@@ -157,15 +167,14 @@ $('input[type=number].period').bind('keyup mouseup', function (){
     let selDate = new Date($('input[type=date]').val());
     console.log(selDate);
     selDate = new Date(selDate.setDate(selDate.getDate()-this.value));
-    $('.periodNotice').text(`${selDate.getFullYear()}년 ${selDate.getMonth()+1}월 ${selDate.getDate()}일까지 대원이 신청할 수 있습니다.`);
+    $('.periodNotice').text(`${selDate.getFullYear()}년 ${selDate.getMonth()+1}월 ${selDate.getDate()}일까지 모임을 신청할 수 있습니다.`);
+    console.log($('.periodNotice').text());
 });
 
 
 // 기본정보/프립설명 탭 이동
 $(".nav-item a").on('click', function(e){
     e.preventDefault();
-    console.log($(this).attr('id'));
-    console.log($(this).attr('id') == '__BVID__562___BV_tab_button__');
     if ($(this).attr('id') == '__BVID__562___BV_tab_button__'){
         $('.basic-info').show();
         $('.noticeInfo').show();
@@ -237,7 +246,6 @@ $('.input-group .form-control').on('blur', function(){
     $(this).next().children('span').css('border-color', '');
     $(this).css('border-color', '');
     if($(this).attr('class') == 'number1 form-control' || $(this).attr('class') == 'number2 form-control'){
-        console.log('d');
         return;
     }
     if(!$(this).val()){
@@ -300,14 +308,6 @@ $('.clearPlace').on('click', function(){
     $('.findPlace').show();
 });
 
-// //난이도 선택
-// $('.difficulty input[type=radio]').on('click', function(){
-//     if($(this).is(':checked')){
-//         $('.difficulty input[type=radio]').prop('checked',false);
-//         $(this).prop('checked',true);
-//     }
-// });
-
 // 진행 장소 등록 버튼 클릭 이벤트막기
 $('.createPlace').on('click', function(e){
     if($('input[data-v-72dffd28]').eq(12).val() == ""){
@@ -351,6 +351,28 @@ function addSchedule() {
         alert("일정 설정은 저장 후 가능합니다.");
         return;
     }
+
+    $(".table").on("click", ".day-btn", function(){
+        console.log($(this).parent().parent().next().children().text());
+        if($(this).parent().parent().next().children().text()){
+            let scheduleDeleteMsg = confirm($(".mx-3.dateTitle").text() + $(this).parent().next().text() + " " +  $(this).parent().parent().next().children().text().trim() + "에 진행 예정인 모임 일정을 삭제하시겠습니까?");
+            if(scheduleDeleteMsg){
+                let scheduleDate = $(this).attr("data-date");
+                let groupId = $('input[name=groupId]').val();
+                // 삭제
+                $.ajax({
+                    url: "/host/delete-schedule/" + groupId + "/" + scheduleDate,
+                    type: "post",
+                    success: function(){
+                        showList();
+                    }
+                });
+            }else{;}
+            return;
+        }
+    })
+
+
     $('#__BVID__287___BV_modal_outer_').show();
     $('#__BVID__287___BV_modal_content_').hide();
     $('#__BVID__21___BV_modal_content_').hide();
@@ -365,6 +387,8 @@ function addSchedule() {
     } else {
         $('.periodNotice').text(`날짜를 입력해주세요`);
     }
+
+
 }
 
 //일정 시간 유효성 검사
@@ -426,12 +450,16 @@ $('.createPlan').on('click', function(){
     if($('.timeNotice').css('display') != 'none'){
         return;
     }
-    
-    
-    //rest로 일정 등록해서 집어 넣을 공간
 
     $('#__BVID__287___BV_modal_outer_').hide();
     $('#__BVID__1216___BV_modal_content_').hide();
+
+    //rest로 일정 등록해서 집어 넣을 공간
+    groupSave.addDate({
+        groupScheduleDate :new Date($('input[type=date]').val()),
+        groupScheduleStartTime : new Date($('input[type=date]').val() + " " + $('.openTime').val() + ":00"),
+        groupScheduleEndTime : new Date($('input[type=date]').val() + " " + $('.closeTime').val() + ":00")
+    }, showList);
 });
 
 
@@ -439,12 +467,10 @@ $('.createPlan').on('click', function(){
 // 주차장 옵션 버튼 눌렀을때, 주차옵션이 있다면 메모를 할 수 있게함
 $('#parkingOption .custom-radio').on('click', function(){
     if($(this).children('input').attr('id') != 'parkingOption_BV_option_0'){
-        console.log('proptrue');
         $('#parkingOption_BV_option_0').val('false')
         $('#textarea').val('');
         $('#textarea').prop('disabled', true);
     }else{
-        console.log('propfalse');
         $('#parkingOption_BV_option_0').val('true')
         $('#textarea').prop('disabled', false);
     }
@@ -458,22 +484,9 @@ $('.col-lg-5.selectBox').on('click', function(){
     $(this).attr('class', 'col-lg-5 selectBox selected');
 });
 
-//인풋에서 이미지 주소 불러오기
-// function readURL(input) {
-//     if (input.files && input.files[0]) {
-//         var reader = new FileReader();
-//         reader.onload = function(e) {
-//             var url = e.target.result;
-//             $('.img-box').attr('src', url);
-//         }
-//         console.log(input.files[0].name);
-//         reader.readAsDataURL(input.files[0]);
-//     }
-// }
 
 //썸네일 이미지
 $(".plusThumb").on("change", function(){
-
 
     let arrayFile =[];
 
@@ -649,7 +662,52 @@ let groupSave = (function(){
         });
     }
 
-    return {add: add, update: update}
+    function addDate(groupContents, callback, error){
+        let groupId = $('input[name=groupId]').val();
+        $.ajax({
+            url: "/host/addDate/" + groupId,
+            type: "post",
+            data: JSON.stringify(groupContents),
+            contentType: "application/json; charset=utf-8",
+            success: function(result, status, xhr){
+                if(callback){
+                    callback(result);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+
+    function listDate(param, callback, error){
+        let groupId = $('input[name=groupId]').val();
+        $.ajax({
+            url: "/host/date-list/" + groupId,
+            type: "get",
+            success: function(groupScheduleDTO, status, xhr){
+                if(callback){
+                    console.log("success");
+                    callback(groupScheduleDTO);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    console.log("error");
+                    error(err);
+                }
+            }
+        });
+    }
+
+    // 모임 페이지 삭제
+        $(".goDelete").on("click", function(e){
+            e.preventDefault();
+            location.href ="/host/deleteGroup?groupId=" + $(this).attr("href");
+        })
+    return {add: add, update: update, addDate: addDate, listDate: listDate}
 })();
 
 
@@ -851,3 +909,5 @@ $(document).ready(function() {
         $('input[name=groupContent]').attr('value', $(".note-editable").html());
     });
 }); //ready
+
+

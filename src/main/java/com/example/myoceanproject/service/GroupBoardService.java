@@ -1,7 +1,9 @@
 package com.example.myoceanproject.service;
 
 import com.example.myoceanproject.domain.GroupDTO;
+import com.example.myoceanproject.domain.GroupScheduleDTO;
 import com.example.myoceanproject.entity.Group;
+import com.example.myoceanproject.entity.GroupSchedule;
 import org.hibernate.Criteria;
 
 import java.util.List;
@@ -10,8 +12,13 @@ public interface GroupBoardService {
     //  게시글 등록
     public void add(GroupDTO groupDTO);
 
+    // 모임 일정 등록
+    public void addSchedule(GroupScheduleDTO groupScheduleDTO);
+
     //  게시글 목록
     public List<GroupDTO> show();
+
+    public List<GroupScheduleDTO> findAllByGroupId(Long groupId);
 
     //  게시글 조회
     public GroupDTO find(Long groupId);

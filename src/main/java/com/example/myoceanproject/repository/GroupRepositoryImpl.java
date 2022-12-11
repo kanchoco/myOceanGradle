@@ -1,8 +1,8 @@
 package com.example.myoceanproject.repository;
 
-import com.example.myoceanproject.domain.Criteria;
-import com.example.myoceanproject.domain.GroupDTO;
-import com.example.myoceanproject.domain.QGroupDTO;
+import com.example.myoceanproject.domain.*;
+import com.example.myoceanproject.entity.QGroup;
+import com.example.myoceanproject.entity.QGroupSchedule;
 import com.example.myoceanproject.type.GroupStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -10,9 +10,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 import static com.example.myoceanproject.entity.QGroup.group;
+import static com.example.myoceanproject.entity.QGroupSchedule.groupSchedule;
 
 
 @Repository
@@ -141,6 +143,15 @@ public class GroupRepositoryImpl implements GroupCustomRepository{
         return new PageImpl<>(groups, pageable, total);
     }
 
+    @Override
+    public List<GroupScheduleDTO> findAllSchedule(Long groupId){
+        return queryFactory.select(new QGroupScheduleDTO(
+                groupSchedule.group.groupId,
+                groupSchedule.groupScheduleDate,
+                groupSchedule.groupScheduleStartTime,
+                groupSchedule.groupScheduleEndTime
+                )).from(groupSchedule).fetch();
+    }
 
 
     @Override
