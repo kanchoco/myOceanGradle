@@ -165,7 +165,7 @@
             text += `<td class="info_td">`+ ask.updateDate +`</td>`;
             text += `<td class="info_td">`+ ask.askStatus +`</td>`;
             text += `<td class="info_td">`;
-            text += `<button class="more" onclick="location.href='/questionBoard/managerAnswer'"><img src="/imgin/more.png" width="15px"></button>`;
+            text += `<button class="more" onclick="location.href='/questionBoard/managerAnswer?askId=${ask.askId}'"><img src="/imgin/more.png" width="15px"></button>`;
             text += `</td>`;
             text += `</tr>`;
         });

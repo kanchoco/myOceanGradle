@@ -42,9 +42,11 @@ public class ManageQuestController {
     public String addQuest(@RequestBody QuestDTO questDTO) {
         questService.addQuest(questDTO);
         AlarmDTO alarmDTO = new AlarmDTO();
-        alarmDTO.setAlarmCategory("TODAY");
-        alarmDTO.setAlarmContent("!오늘의 퀘스트 도착!");
-        alarmService.addAlarm(alarmDTO);
+        if (questDTO.getQuestCategory().equals("오늘의 퀘스트")) {
+            alarmDTO.setAlarmCategory("TODAY");
+            alarmDTO.setAlarmContent("!오늘의 퀘스트 도착!");
+            alarmService.addAlarm(alarmDTO);
+        }
         return "dd";
     }
     @PatchMapping (value = "/update", consumes = "application/json", produces = "text/plain; charset=utf-8")

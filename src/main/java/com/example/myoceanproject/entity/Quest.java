@@ -17,6 +17,10 @@ public class Quest extends Period{
     @GeneratedValue
     private long questId; //PK
     @NotNull
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "QUEST_FORM")
+    private QuestType questType; //Enum
+    @NotNull
     private String questCategory;
     @NotNull
     private String questName;
@@ -25,10 +29,6 @@ public class Quest extends Period{
     @NotNull
     private int questPoint;
 
-    @NotNull
-    @Enumerated(value = EnumType.STRING)
-    @Column(name = "QUEST_TYPE")
-    private QuestType questType; //Enum
 
     private String questDeadLine;
     private String questFileName;
