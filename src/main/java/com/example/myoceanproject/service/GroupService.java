@@ -4,11 +4,9 @@ import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.domain.GroupDTO;
 import com.example.myoceanproject.domain.GroupScheduleDTO;
 import com.example.myoceanproject.entity.Group;
+import com.example.myoceanproject.entity.GroupMember;
 import com.example.myoceanproject.entity.GroupSchedule;
-import com.example.myoceanproject.repository.GroupRepository;
-import com.example.myoceanproject.repository.GroupRepositoryImpl;
-import com.example.myoceanproject.repository.GroupScheduleRepository;
-import com.example.myoceanproject.repository.UserRepository;
+import com.example.myoceanproject.repository.*;
 import com.example.myoceanproject.type.GroupStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GroupService implements GroupBoardService {
     private final GroupRepository groupRepository;
+    private final GroupMemberRepository groupMemberRepository;
     private final GroupRepositoryImpl groupRepositoryImpl;
     private final UserRepository userRepository;
     private final GroupScheduleRepository groupScheduleRepository;
@@ -76,7 +75,6 @@ public class GroupService implements GroupBoardService {
 
     @Override
     public void update(GroupDTO groupDTO) {
-
     }
 
     @Override
@@ -92,4 +90,15 @@ public class GroupService implements GroupBoardService {
     public Page<GroupDTO> findAllByStatus(Pageable pageable, GroupStatus groupStatus, Criteria criteria){
         return criteria.getKeyword().equals("null") ? groupRepositoryImpl.findAllByStatus(pageable, groupStatus) : groupRepositoryImpl.findAllByStatus(pageable,groupStatus, criteria);
     }
+
+    public boolean findGroupUser(Long userId){
+        return groupRepositoryImpl.countGroupUser(userId) == 1;
+    }
+
+
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteMember(Long userId, Long groupId){
+        groupRepositoryImpl.deleteGroupMemberByUserId(userId, groupId);
+    }
+
 }

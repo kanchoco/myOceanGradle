@@ -3,11 +3,12 @@ package com.example.myoceanproject.controller.host;
 import com.example.myoceanproject.domain.GroupDTO;
 import com.example.myoceanproject.domain.GroupScheduleDTO;
 import com.example.myoceanproject.entity.Group;
-import com.example.myoceanproject.entity.GroupSchedule;
+import com.example.myoceanproject.entity.GroupMember;
+import com.example.myoceanproject.repository.GroupMemberRepository;
 import com.example.myoceanproject.repository.GroupRepository;
+import com.example.myoceanproject.repository.UserRepository;
 import com.example.myoceanproject.service.GroupScheduleService;
 import com.example.myoceanproject.service.GroupService;
-import com.example.myoceanproject.type.GroupStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -37,18 +37,54 @@ public class HostRestController {
 
     private final GroupService groupService;
     private final GroupRepository groupRepository;
-
     private final GroupScheduleService groupScheduleService;
+    private final GroupMemberRepository groupMemberRepository;
+    private final UserRepository userRepository;
 
 
+    // 모임 게시글 임시 저장
     @PostMapping(value="/index", consumes = "application/json", produces = "text/plain; charset=utf-8")
-    public ResponseEntity<String> host(@RequestBody GroupDTO groupDTO, HttpServletRequest request) throws UnsupportedEncodingException {
+    public Long host(@RequestBody GroupDTO groupDTO, HttpServletRequest request) throws UnsupportedEncodingException {
         HttpSession session=request.getSession();
 
         Long userId = (Long) session.getAttribute("userId");
         groupDTO.setUserId(userId);
 
+        /*Group 테이블 저장*/
         groupService.add(groupDTO);
+//        return new ResponseEntity<>(new String("register success".getBytes(), "UTF-8"), HttpStatus.OK);
+        return groupDTO.getGroupId();
+    }
+
+    // 모임 멤버 테이블 생성
+    @PostMapping("/group-member/{groupId}")
+    public ResponseEntity<String> groupMember(@PathVariable("groupId") Long groupId, HttpServletRequest request) throws UnsupportedEncodingException {
+        HttpSession session=request.getSession();
+        GroupMember groupMember = new GroupMember();
+
+        /*user 저장*/
+        Long userId = (Long) session.getAttribute("userId");
+        groupMember.setUser(userRepository.findById(userId).get());
+
+        /*Group 저장*/
+        groupMember.setGroup(groupRepository.findById(groupId).get());
+        groupMemberRepository.save(groupMember);
+        log.info(groupMember.toString());
+
+        return new ResponseEntity<>(new String("register success".getBytes(), "UTF-8"), HttpStatus.OK);
+    }
+
+    // 모임 멤버 취소 시 테이블에서 삭제
+    @PostMapping("/group-member-delete/{groupId}")
+    public ResponseEntity<String> groupMemberDelete(@PathVariable("groupId") Long groupId, HttpServletRequest request) throws UnsupportedEncodingException {
+        HttpSession session=request.getSession();
+
+        /*user 저장*/
+        Long userId = (Long) session.getAttribute("userId");
+
+        /*멤버삭제*/
+        groupService.deleteMember(userId, groupId);
+
         return new ResponseEntity<>(new String("register success".getBytes(), "UTF-8"), HttpStatus.OK);
     }
 
@@ -61,6 +97,7 @@ public class HostRestController {
         groupService.addSchedule(groupScheduleDTO);
         return new ResponseEntity<>(new String("register success".getBytes(), "UTF-8"), HttpStatus.OK);
     }
+
 
     // 스케줄 출력
     @GetMapping("/date-list/{groupId}")
@@ -77,6 +114,24 @@ public class HostRestController {
         Long userId = (Long)session.getAttribute("userId");
         groupDTO.setUserId(userId);
         groupDTO.setGroupStatus("임시저장");
+        /*groupDTO로 받아온 값의 groupId를 엔티티화하여 group을 찾는다.*/
+        Group group = groupRepository.findById(groupDTO.getGroupId()).get();
+        log.info(groupDTO.toString());
+        /*그룹 안에 선언한 update메소드를 통해 groupDTO로 받아온 값으로 값을 수정한다.*/
+        group.update(groupDTO);
+        log.info(group.toString());
+
+        return new ResponseEntity<>(new String("register success".getBytes(), "UTF-8"), HttpStatus.OK);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @PostMapping(value="/update-status", consumes = "application/json", produces = "text/plain; charset=utf-8")
+    public ResponseEntity<String> hostStatusUpdate(@RequestBody GroupDTO groupDTO, HttpServletRequest request) throws UnsupportedEncodingException {
+
+        HttpSession session=request.getSession();
+        Long userId = (Long)session.getAttribute("userId");
+        groupDTO.setUserId(userId);
+        groupDTO.setGroupStatus("승인대기");
         /*groupDTO로 받아온 값의 groupId를 엔티티화하여 group을 찾는다.*/
         Group group = groupRepository.findById(groupDTO.getGroupId()).get();
         log.info(groupDTO.toString());
@@ -177,7 +232,7 @@ public class HostRestController {
     @ResponseBody
     @PostMapping("/summernote")
     public void summerImage(MultipartFile file, HttpServletRequest request,
-                             HttpServletResponse response) throws Exception {
+                            HttpServletResponse response) throws Exception {
 
         response.setContentType("text/html;charset=utf-8");
         String uploadPath = "C:/upload/groupUpload/";
@@ -194,3 +249,4 @@ public class HostRestController {
         out.close();
     }
 }
+
