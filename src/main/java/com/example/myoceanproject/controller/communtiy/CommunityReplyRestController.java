@@ -49,6 +49,11 @@ public class CommunityReplyRestController {
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute("userId");
 
+
+        log.info("===================================================replyDTO============");
+        log.info(communityReplyDTO.toString());
+        log.info("===================================================replyDTO============");
+
         model.addAttribute("userId", userId);
 
 

@@ -1,5 +1,6 @@
 package com.example.myoceanproject.service.community;
 
+import com.example.myoceanproject.aspect.annotation.LikeAlarm;
 import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.entity.CommunityLike;
 import com.example.myoceanproject.entity.CommunityPost;
@@ -33,6 +34,7 @@ public class CommunityLikeService {
 
 //  Like테이블에 좋아요 누른 유저 추가
     @Transactional(rollbackFor = Exception.class)
+    @LikeAlarm
     public void addLike(Long userId, Long communityPostId){
         CommunityLike communityLike = new CommunityLike();
         User user = userRepository.findById(userId).get();

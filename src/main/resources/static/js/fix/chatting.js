@@ -246,8 +246,7 @@ $("li.active").on("click", function (e) {
         $(this).addClass("select");
         connect();
 
-    }
-)
+    })
 
 
 
@@ -348,7 +347,7 @@ function add(chatting, error){
 }
 
 function disconnect(){
-    // webSocket.send(JSON.stringify({groupId : myGroupId, messageType:'퇴장',senderUserNickName:userNickName,senderUserId : userId}));
+    webSocket.send(JSON.stringify({groupId : myGroupId, messageType:'퇴장',senderUserNickName:userNickName,senderUserId : userId}));
     webSocket.close();
 }
 function send(){
@@ -366,12 +365,15 @@ function send(){
 }
 function onOpen(){
     console.log("=============================자바스크립트 onOpen들어옴======================================")
-    // webSocket.send(JSON.stringify({groupId : myGroupId, messageType:'입장',senderUserNickName:userNickName, senderUserId : userId}));
+    webSocket.send(JSON.stringify({groupId : myGroupId, messageType:'입장',senderUserNickName:userNickName, senderUserId : userId}));
 }
 function onMessage(e){
     console.log("=============================자바스크립트 onMessage들어옴======================================")
-    chatdata = e.data;
+    if(!e.data.includes(':')){
+        return null;
+    }
     chattingRoom =document.getElementById("chattingRoom");
+    chatdata = e.data;
     let datas = chatdata.split(':');
     console.log(datas[0])
     console.log(datas[1])

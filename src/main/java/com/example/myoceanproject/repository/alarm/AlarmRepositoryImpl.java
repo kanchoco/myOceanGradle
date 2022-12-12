@@ -8,13 +8,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 import static com.example.myoceanproject.entity.QAlarm.alarm;
 
 @Repository
 @RequiredArgsConstructor
+@Transactional
 public class AlarmRepositoryImpl implements AlarmCustomRepository {
 //사용자 지정 레파지토리 Impl(구현)
 
@@ -45,6 +52,12 @@ public class AlarmRepositoryImpl implements AlarmCustomRepository {
                 .fetch().size();
 
         return new PageImpl<>(alarms, pageable, total);
+    }
+
+    public void removeAlarm(LocalDateTime today){
+        jpaQueryFactory.delete(alarm)
+                .where(alarm.createDate.lt(today))
+                .execute();
     }
 
 }

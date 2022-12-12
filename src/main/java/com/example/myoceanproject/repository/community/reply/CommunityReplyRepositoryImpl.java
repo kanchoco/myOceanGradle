@@ -40,7 +40,8 @@ public class CommunityReplyRepositoryImpl implements CommunityReplyCustomReposit
                 communityReply.communityReplyId,
                 communityReply.communityReplyContent,
                 communityReply.createDate,
-                communityReply.updatedDate
+                communityReply.updatedDate,
+                communityReply.communityPost.user.userId
         )).from(communityReply)
                 .where(communityPost.communityPostId.eq(communityPostId))
                 .orderBy(communityReply.createDate.desc()).fetch();
@@ -89,7 +90,8 @@ public class CommunityReplyRepositoryImpl implements CommunityReplyCustomReposit
                         communityReply.communityReplyId,
                         communityReply.communityReplyContent,
                         communityReply.createDate,
-                        communityReply.updatedDate
+                        communityReply.updatedDate,
+                        communityReply.communityPost.user.userId
                 ))
                 .from(communityReply)
                 .where(communityReply.communityPost.communityPostId.eq(communityPost.getCommunityPostId()))
@@ -110,7 +112,8 @@ public class CommunityReplyRepositoryImpl implements CommunityReplyCustomReposit
                 communityReply.communityReplyId,
                 communityReply.communityReplyContent,
                 communityReply.createDate,
-                communityReply.updatedDate
+                communityReply.updatedDate,
+                communityReply.communityPost.user.userId
         )).from(communityReply).orderBy(communityReply.createDate.desc()).fetch();
         return replies;
     }
@@ -130,7 +133,8 @@ public class CommunityReplyRepositoryImpl implements CommunityReplyCustomReposit
                     communityReply.communityReplyId,
                     communityReply.communityReplyContent,
                     communityReply.createDate,
-                    communityReply.updatedDate
+                    communityReply.updatedDate,
+                    communityReply.communityPost.user.userId
                 ))
                 .from(communityReply)
                 .where(communityReply.communityPost.communityCategory.ne(CommunityCategory.COUNSELING))
@@ -158,7 +162,8 @@ public class CommunityReplyRepositoryImpl implements CommunityReplyCustomReposit
                         communityReply.communityReplyId,
                         communityReply.communityReplyContent,
                         communityReply.createDate,
-                        communityReply.updatedDate
+                        communityReply.updatedDate,
+                        communityReply.communityPost.user.userId
                 ))
                 .from(communityReply)
                 .where(communityReply.communityPost.communityTitle.contains(criteria.getKeyword()).and(communityReply.communityPost.communityCategory.ne(CommunityCategory.COUNSELING)))
@@ -185,7 +190,8 @@ public class CommunityReplyRepositoryImpl implements CommunityReplyCustomReposit
                     communityReply.communityReplyId,
                     communityReply.communityReplyContent,
                     communityReply.createDate,
-                    communityReply.updatedDate
+                    communityReply.updatedDate,
+                    communityReply.communityPost.user.userId
                 ))
                 .from(communityReply)
                 .where(communityReply.communityPost.communityCategory.eq(CommunityCategory.COUNSELING))
@@ -213,7 +219,8 @@ public class CommunityReplyRepositoryImpl implements CommunityReplyCustomReposit
                         communityReply.communityReplyId,
                         communityReply.communityReplyContent,
                         communityReply.createDate,
-                        communityReply.updatedDate
+                        communityReply.updatedDate,
+                        communityReply.communityPost.user.userId
                 ))
                 .from(communityReply)
                 .where(communityReply.communityPost.communityTitle.contains(criteria.getKeyword()).and(communityReply.communityPost.communityCategory.eq(CommunityCategory.COUNSELING)))
