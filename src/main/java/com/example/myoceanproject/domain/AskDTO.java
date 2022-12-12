@@ -23,11 +23,11 @@ public class AskDTO {
     private String userNickname;//유저가 null일 경우 자주 묻는 질문
 
     private Long askId;
-    private AskStatus askStatus;
+    private String askStatus;
     private String askTitle;
     private String askContent;
     private String answer;
-    private AskCategory askCategory;
+    private String askCategory;
 
     private String createDate;
     private String updateDate;
@@ -40,11 +40,11 @@ public class AskDTO {
         this.askId = askId;
         this.userId = userId;
         this.userNickname = userNickname;
-        this.askStatus = askStatus;
+        this.askStatus = askStatus.toString();
         this.askTitle = askTitle;
         this.askContent = askContent;
         this.answer = answer;
-        this.askCategory = askCategory;
+        this.askCategory = askCategory.toString();
         this.createDate=createDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         this.updateDate=updateDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
@@ -53,11 +53,11 @@ public class AskDTO {
     //  askCategory는 변경될 수 있기 때문에 update에 포함되지만, 현재 화면에서도 처음으로 저장되기 때문에 toEntity에도 포함된다.
     public Ask toEntity(){
         return Ask.builder()
-                .askStatus(askStatus)
+                .askStatus(AskStatus.change(askStatus))
                 .askTitle(askTitle)
                 .askContent(askContent)
                 .answer(answer)
-                .askCategory(askCategory)
+                .askCategory(AskCategory.change(askCategory))
                 .build();
     }
 }
