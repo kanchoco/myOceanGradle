@@ -51,6 +51,7 @@
         </div>
         <!--댓글창 전체 wrap-->
         <input th:field="*{userId}" name="userId" type="text" class="userId" style="display:none;">
+        <input th:field="*{communityTitle}" name="postTitle" type="text" class="postTitle" style="display:none;">
         <input th:field="*{communityPostId}" name="communityPostId" type="text" class="communityPostId" style="display:none;">
         <div class="SocialFeedReplyList__Wrapper-sc-1vuk2zv-0 eKpsNP">
             <!--댓글 한 개 wrap-->
@@ -95,6 +96,8 @@
 <script src="/js/fix/header.js"></script>
 <script>
     let postUserId = $("input[name='userId']").val();
+    let postTitle = $("input[name='communityTitle']").val();
+    console.log(postTitle);
 
     // 화면 출력 함수 호출
     function show(){
