@@ -304,8 +304,8 @@ public class QusetionBoardController {
 
         askDTO.setAskTitle(askTitle);
         askDTO.setAskContent(askContent);
-        askDTO.setAskStatus(AskStatus.WAITING);
-        askDTO.setAskCategory(askCategory);
+        askDTO.setAskStatus("답변대기");
+        askDTO.setAskCategory(askCategory.toString());
         Ask ask=askDTO.toEntity();
 
         Optional<User> user = userRepository.findById(askUser);
