@@ -374,9 +374,15 @@ function onMessage(e){
     }
     chattingRoom =document.getElementById("chattingRoom");
     chatdata = e.data;
-    let datas = chatdata.split(':');
-    console.log(datas[0])
-    console.log(datas[1])
+    let datas = chatdata.replaceAll("\"", "");
+    let realDatas = datas.split(":");
+    let dateTime = new Date().toTimeString().split(' ')[0];
+    let time = dateTime.split(":")
+    console.log(realDatas[0])
+    console.log(realDatas[1])
+    console.log(time[0])
+    console.log(time[1])
+
     chattingRoom.innerHTML =chattingRoom.innerHTML
         + "<div class=\"opponent\">"
         + "<div class=\"thumb\">"
@@ -384,13 +390,13 @@ function onMessage(e){
         + "<img src=\"/imgin/chat/logo.png\" alt=\"chat_image\"></a>"
         + "</div>"
         + "<div class=\"userIdChatTxt\">"
-        + "<span class=\"userId\">" + datas[0] + "</span>"
+        + "<span class=\"userId\">" + realDatas[0] + "</span>"
         + "<div class=\"chatTxt\">"
         + "<span class=\"chatTxtContents\">"
-        + "<a style=\"color: rgb(51, 51, 51);\">" + datas[1] + "</a>"
+        + "<a style=\"color: rgb(51, 51, 51);\">" + realDatas[1] + "</a>"
         + "</span>"
         + "<div class=\"timeWrap\">"
-        + "<span class=\"time\">" + new Date().getHours()+":"+new Date().getMinutes() + "</span>"
+        + "<span class=\"time\">" + time[0]+ ":" + time[1] + "</span>"
         + "</div>"
         + "</div>"
         + "</div>"
