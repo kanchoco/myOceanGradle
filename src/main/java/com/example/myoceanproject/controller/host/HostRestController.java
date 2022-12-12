@@ -76,7 +76,7 @@ public class HostRestController {
         HttpSession session=request.getSession();
         Long userId = (Long)session.getAttribute("userId");
         groupDTO.setUserId(userId);
-        groupDTO.setGroupStatus(GroupStatus.WAITING);
+        groupDTO.setGroupStatus("임시저장");
         /*groupDTO로 받아온 값의 groupId를 엔티티화하여 group을 찾는다.*/
         Group group = groupRepository.findById(groupDTO.getGroupId()).get();
         log.info(groupDTO.toString());

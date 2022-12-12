@@ -2,6 +2,7 @@ package com.example.myoceanproject.entity;
 
 import com.example.myoceanproject.domain.GroupDTO;
 import com.example.myoceanproject.embeddable.GroupMemberLimit;
+import com.example.myoceanproject.type.CommunityCategory;
 import com.example.myoceanproject.type.GroupLocationType;
 import com.example.myoceanproject.type.GroupStatus;
 import com.sun.istack.NotNull;
@@ -27,6 +28,7 @@ public class Group extends Period{
     @NotNull
     private String groupName;
     @NotNull//직접 입력임. 선택x
+    @Column(length=10000)
     private String groupContent;
     @NotNull
     private String groupCategory;
@@ -103,7 +105,7 @@ public class Group extends Period{
         this.groupLocationDetail = groupDTO.getGroupLocationDetail();
         this.groupParkingAvailable=groupDTO.getGroupParkingAvailable();
         this.groupMoreInformation=groupDTO.getGroupMoreInformation();
-        this.groupStatus = groupDTO.getGroupStatus();
+        this.groupStatus = GroupStatus.change(groupDTO.getGroupStatus());
         this.groupFileSize = groupDTO.getGroupFileSize();
         this.groupFileName = groupDTO.getGroupFileName();
         this.groupFilePath = groupDTO.getGroupFilePath();

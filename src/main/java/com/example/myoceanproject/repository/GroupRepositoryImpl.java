@@ -151,7 +151,7 @@ public class GroupRepositoryImpl implements GroupCustomRepository{
                 groupSchedule.groupScheduleDate,
                 groupSchedule.groupScheduleStartTime,
                 groupSchedule.groupScheduleEndTime
-                )).from(groupSchedule).fetch();
+                )).from(groupSchedule).where(groupSchedule.group.groupId.eq(groupId)).orderBy(groupSchedule.groupScheduleStartTime.asc()).fetch();
     }
 
     @Override

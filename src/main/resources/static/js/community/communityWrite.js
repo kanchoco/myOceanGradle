@@ -195,8 +195,8 @@ $(".Button-bqxlp0-0.fFBpBV").on("click", function(e){
     }
 
     // 글 길이가 너무 길 때
-    if($(".note-editable").text().length>255){
-        alert("글자는 255자 이내로 작성 가능합니다.");
+    if($(".note-editable").text().length>10000){
+        alert("글자는 10,000자 이내로 작성 가능합니다.");
         return;
     }
 

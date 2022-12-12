@@ -187,7 +187,7 @@
 
     // 화면 출력 함수 호출
     function show() {
-        communityService.getList(page, getList);
+        communityService.getList({page:page}, getList);
     }
 
     function showWithOutUser() {
@@ -195,8 +195,6 @@
             page: page
         }, getList);
     }
-
-
 
     /*화면 출력*/
     function getList(communityPostDTO){

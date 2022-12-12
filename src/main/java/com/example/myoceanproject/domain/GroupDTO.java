@@ -43,7 +43,7 @@ public class GroupDTO {
     private String groupParkingAvailable;
     private String groupMoreInformation;
     private GroupLocationType groupLocationType;
-    private GroupStatus groupStatus;
+    private String groupStatus;
     private String groupFilePath;
     private String groupFileName;
 
@@ -88,7 +88,7 @@ public class GroupDTO {
         this.groupParkingAvailable = groupParkingAvailable;
         this.groupMoreInformation = groupMoreInformation;
         this.groupLocationType = groupLocationType;
-        this.groupStatus = groupStatus;
+        this.groupStatus = groupStatus.toString();
         this.groupFilePath = groupFilePath;
         this.groupFileName = groupFileName;
         this.groupFileUuid = groupFileUuid;
@@ -119,7 +119,7 @@ public class GroupDTO {
                 .groupParkingAvailable(groupParkingAvailable)
                 .groupMoreInformation(groupMoreInformation)
                 .groupLocationType(groupLocationType)
-                .groupStatus(GroupStatus.WAITING)
+                .groupStatus(GroupStatus.TEMPORARY)
                 .groupMemberLimit(groupMemberLimit)
                 .groupName(groupName)
                 .groupFileName(groupFileName)

@@ -434,15 +434,6 @@ $('.createPlan').on('click', function(){
         return;
     }
 
-    if(!$('input[type=number].period').val()){
-        $('input[type=number].period').focus();
-        return;
-    }
-
-    if($('.dateNotice').css('display') != 'none'){
-        return;
-    }
-
     if($('.timeNotice').css('display') != 'none'){
         return;
     }
@@ -763,7 +754,7 @@ $('.saveRequest').on('click', function (e){
     let content = $(".note-editable").html();
     $('input[name=groupContent]').attr('value', content);
 
-    if($(".note-editable").text().length>255){
+    if($(".note-editable").text().length>10000){
         alert("글자는 255자 이내로 작성 가능합니다.");
         return;
     }

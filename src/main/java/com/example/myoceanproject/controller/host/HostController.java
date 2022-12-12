@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Slf4j
@@ -48,9 +49,11 @@ public class HostController {
 
     // 게시글 상세보기
     @GetMapping("read")
-    public String read(Long groupId, Model model, Model model2){
+    public String read(Long groupId, Model model, Model model2, Model model3, Model model4){
         model.addAttribute("groupDTO", groupService.find(groupId));
         model2.addAttribute("groupTop5DTOs", groupService.findTop5BygroupId(groupId));
+        model3.addAttribute("groupScheduleDTO", groupService.findAllByGroupId(groupId));
+        model4.addAttribute("localDateTime", LocalDateTime.now());
         log.info(model2.toString());
         return "app/bulletin_board/bulletin_board_detail";
     }

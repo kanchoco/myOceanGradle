@@ -338,7 +338,6 @@ a, area, button, input, label, select, textarea, [tabindex] {
     align-items: baseline;
     flex-wrap: wrap;
     margin-top: 4px;
-    border-bottom: solid 1px rgb(238, 238, 238);
 }
 
 .lgXxUu {
@@ -431,11 +430,11 @@ button, input, select, textarea {
 }
 
 .kWprXL {
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 500;
     line-height: 22px;
     letter-spacing: -0.42px;
-    color: rgb(159 38 38);
+    color: rgb(8 15 255);
 }
 
 .gVwBVO {
@@ -950,7 +949,11 @@ h2 {
 }
 
 .dbbJUL > div:last-child {
-    margin: 0px;
+    margin-bottom: 25px;
+    width:100%;
+}
+.dbbJUL > div:first-child {
+    margin-top: 25px;
 }
 
 .dbbJUL > div {
@@ -959,12 +962,13 @@ h2 {
 }
 
 .dbbJUL > div > dt {
-    width: 76px;
+    width: 112px;
     color: rgb(153, 153, 153);
 }
 
 .dbbJUL > div > dd {
     margin: 0px;
+    width:100%;
 }
 
 dd {
@@ -1665,7 +1669,7 @@ button:disabled {
     border-radius: 10px;
     color: white;
     font-size: 16px;
-    margin: 0px;
+    margin-bottom: 8px;
 }
 
 .jqJvkX{
@@ -1803,32 +1807,43 @@ button:disabled {
 .selectBox2 .optionList::-webkit-scrollbar-thumb {background: #303030; border-radius: 45px;}
 .selectBox2 .optionList::-webkit-scrollbar-thumb:hover {background: #303030;}
 
-/*셀렉트 박스*/
+
+#info_table {
+    border: 1px solid rgb(238, 238, 238);
+    padding: 5px 10px;
+    text-align: center;
+    width: 70%;
+    line-height: 2.5;
+    border-spacing: 0;
+}
 
 
 
+th{
+    border-bottom: solid 1px black;
+}
 
+td{
+    border-bottom: solid 1px #f1ecec;
+}
 
+.content:last-child > td{
+    border-bottom: transparent;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.BUemN {
+    width: 100%;
+    height: 56px;
+    line-height: 24px;
+    padding: 16px;
+    background-color: rgb(122, 41, 250);
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    margin: 8px;
+}
 
 
 

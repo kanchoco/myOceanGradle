@@ -27,6 +27,7 @@ public class CommunityPost extends Period{
     @Enumerated(EnumType.STRING)
     private CommunityCategory communityCategory;
     private String communityTitle;
+    @Column(length=10000)
     private String communityContent;
     private int communityViewNumber;
 
