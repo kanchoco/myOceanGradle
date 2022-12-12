@@ -1,10 +1,10 @@
 package com.example.myoceanproject.type;
 
-public enum PointType {
-    PAY("결제"),REFUNDREADY("환불대기"),REFUNDCOMPLETE("환불승인");
+public enum PointCheckType {
+    BEFOREREFUND("처음"),AFTERREFUND("이후");
 
     private String value;
-    private PointType(String value)
+    private PointCheckType(String value)
     {
         this.value = value;
     }
@@ -14,9 +14,9 @@ public enum PointType {
         return this.value; //will return , or ' instead of COMMA or APOSTROPHE
     }
     //    value(한글) -> UserAccountStatus로
-    public static PointType change(String value){
-        PointType result = null;
-        for(PointType category : PointType.values()){
+    public static PointCheckType change(String value){
+        PointCheckType result = null;
+        for(PointCheckType category : PointCheckType.values()){
             if(category.toString().equals(value)){
                 result = category;
                 break;

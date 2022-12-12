@@ -7,13 +7,12 @@ import com.example.myoceanproject.repository.PointRepository;
 import com.example.myoceanproject.repository.UserRepository;
 import com.example.myoceanproject.service.PointService;
 import com.example.myoceanproject.service.UserService;
+import com.example.myoceanproject.type.PointCheckType;
+import com.example.myoceanproject.type.PointType;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,11 +20,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import java.util.List;
 
+import static com.example.myoceanproject.entity.QPoint.point;
 import static com.example.myoceanproject.entity.QUser.user;
 
 @Slf4j
@@ -74,6 +75,7 @@ public class MyPointController {
         pointDTO.setPointMerchantUid(merchantUid);
         pointDTO.setPointImpUid(impUid);
         pointDTO.setPointContent(content);
+        pointDTO.setPointCheckType("처음");
         Point point=pointDTO.toEntity();
         point.changeUser(user1);
 
@@ -91,6 +93,98 @@ public class MyPointController {
 
         log.info("userDTO1:"+userDTO);
         log.info("selectuser:"+selectuser);
-        return "sucess";
+        return "success";
+    }
+
+    @GetMapping("/myPointRefund")
+    public String myPointRefund(Model model, HttpServletRequest request){
+        HttpSession session=request.getSession();
+        List<PointDTO> pointDTOList=pointService.findAllPayPointByUser((Long)session.getAttribute("userId"), PointType.PAY);
+        log.info("pointList:"+pointDTOList);
+        model.addAttribute("payPoints", pointDTOList);
+        return "app/myPoint/myPointRefund";
+    }
+
+    @RequestMapping("/refundRequest")
+    @ResponseBody
+    @Transactional
+    @Modifying
+    public String myPointRefundRequest(@RequestBody String pointId,HttpServletRequest request){
+        PointDTO pointDTO=new PointDTO();
+        PointDTO pointDTO1=new PointDTO();
+        User user1=new User();
+
+        HttpSession session=request.getSession();
+        Long userId=(Long)session.getAttribute("userId");
+
+        user1.setUserId(userId);
+
+        log.info("controller in");
+        Point points=jpaQueryFactory.selectFrom(point).where(point.pointId.eq(Long.parseLong(pointId))).fetchOne();
+        pointDTO.setPointAmountHistory(points.getPointAmountHistory());
+        pointDTO.setPointType("환불대기");
+        pointDTO.setPointMerchantUid(points.getPointMerchantUid());
+        pointDTO.setPointImpUid(points.getPointImpUid());
+        pointDTO.setPointContent("MyOcean 포인트 환불 요청");
+        pointDTO.setPointCheckType("처음");
+        Point point1=pointDTO.toEntity();
+        point1.changeUser(user1);
+
+        pointRepository.save(point1);
+
+        Point selectuser=jpaQueryFactory.selectFrom(point).where(point.pointType.eq(PointType.PAY).and(point.pointCheckType.eq(PointCheckType.BEFOREREFUND))).fetchOne();
+
+        pointDTO1.setPointCheckType("이후");
+        pointDTO1.setPointContent("MyOcean 포인트 충전");
+        pointDTO1.setPointType("결제");
+        selectuser.update(pointDTO1);
+
+        return "success";
+    }
+
+    @GetMapping("/managerRefund")
+    public String managerRefund(Model model){
+        List<PointDTO> pointDTOList=pointService.findAllRefundPointByAllUser(PointType.REFUNDREADY);
+        log.info("pointList:"+pointDTOList);
+        model.addAttribute("refundPoints", pointDTOList);
+        return "app/myPoint/managerRefund";
+    }
+
+    @RequestMapping("/managerRefund")
+    @ResponseBody
+    @Transactional
+    @Modifying
+    public String managerRefundOk(@RequestBody ObjectNode objectNode,HttpServletRequest request){
+
+        PointDTO pointDTO=new PointDTO();
+        PointDTO pointDTO1=new PointDTO();
+        UserDTO userDTO=new UserDTO();
+        User user1=new User();
+
+        Long userIds=objectNode.get("requestRefundUser").asLong();
+        Long pointIds=objectNode.get("requestRefundPointId").asLong();
+
+        user1.setUserId(userIds);
+
+        Point points=jpaQueryFactory.selectFrom(point).where(point.pointId.eq(pointIds)).fetchOne();
+        pointDTO.setPointAmountHistory(points.getPointAmountHistory());
+        pointDTO.setPointType("환불승인");
+        pointDTO.setPointMerchantUid(points.getPointMerchantUid());
+        pointDTO.setPointImpUid(points.getPointImpUid());
+        pointDTO.setPointContent("MyOcean 포인트 환불 완료");
+        pointDTO.setPointCheckType("처음");
+        Point point1=pointDTO.toEntity();
+        point1.changeUser(user1);
+
+        pointRepository.save(point1);
+
+        Point selectuser=jpaQueryFactory.selectFrom(point).where(point.pointType.eq(PointType.REFUNDREADY).and(point.pointCheckType.eq(PointCheckType.BEFOREREFUND))).fetchOne();
+
+        pointDTO1.setPointCheckType("이후");
+        pointDTO1.setPointContent("MyOcean 포인트 환불 요청");
+        pointDTO1.setPointType("환불대기");
+        selectuser.update(pointDTO1);
+
+        return "success";
     }
 }

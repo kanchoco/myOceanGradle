@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgIpFwCZ0TNWjZV_oDbG6PttZ-tGS9m-HZRULv9iAT-pEn-hzV88sokgdWw2U_65MkBTbheiqaax2nlIOZkjLm3md7vpmpdVpre9YlzA4iQ7zi4WL7YDXP36A28XAkwZWcYGeq7v7UJ1GHyXVOMvzQxc0LH7Spqe7Ybl31dUqjgDh7oz63ZRaowjl2Mzw/s1600/myoceanlogo.png">
-    <title>이용 안내 질문 - 나의 바다(MyOcean)</title>
+    <title>회원들의 질문 - 나의 바다(MyOcean)</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/7f85a56ba4.css">
@@ -27,18 +27,18 @@
             <!--            </form>-->
             <div class="TabLabels__Wrapper-sc-1i2f4oa-0 cxqTPR">
                 <span class="TabLabels__Tab-sc-1i2f4oa-1 eCnPke"><a href="/questionBoard/index">전체</a></span>
-                <span class="TabLabels__Tab-sc-1i2f4oa-1 djWtyM"><a href="/questionBoard/questionUsingInfo">이용안내</a></span>
+                <span class="TabLabels__Tab-sc-1i2f4oa-1 eCnPke"><a href="/questionBoard/questionUsingInfo">이용안내</a></span>
                 <span class="TabLabels__Tab-sc-1i2f4oa-1 eCnPke"><a href="/questionBoard/questionUserInfo">회원정보</a></span>
                 <span class="TabLabels__Tab-sc-1i2f4oa-1 eCnPke"><a href="/questionBoard/questionPointInfo">결제/환불</a></span>
                 <span class="TabLabels__Tab-sc-1i2f4oa-1 eCnPke"><a href="/questionBoard/questionQuestInfo">퀘스트</a></span>
-                <span class="TabLabels__Tab-sc-1i2f4oa-1 eCnPke" th:if="${session.userId}=='1'"><a href="/questionBoard/usersQuestion">회원들의 질문</a></span>
-                <span class="TabLabels__Tab-sc-1i2f4oa-1 eCnPke" th:unless="${session.userId}=='1'"><a href="/questionBoard/myQuestion">나의 질문</a></span>
+                <span class="TabLabels__Tab-sc-1i2f4oa-1 djWtyM" th:if="${session.userId}=='1'"><a href="/questionBoard/usersQuestion">회원들의 질문</a></span>
+                <span class="TabLabels__Tab-sc-1i2f4oa-1 djWtyM" th:unless="${session.userId}=='1'"><a href="/questionBoard/myQuestion">나의 질문</a></span>
             </div>
             <ul class="HelpPage__FAQListWrapper-sc-1624coo-1 jaTQXA">
-                <th:block th:each="questionUsingInfo:${questionUsingInfos}">
-                    <ul th:object="${questionUsingInfo}">
+                <th:block th:each="usersQuestion:${usersQuestions}">
+                    <ul th:object="${usersQuestion}">
                         <li>
-                            <div class="my_list" th:switch="${#strings.toString(questionUsingInfo.askCategory)}">
+                            <div class="my_lists" th:switch="${#strings.toString(usersQuestion.askCategory)}">
                                 <!--          th:text="${#dates.format(user.createDt, 'yyyy-MM-dd HH:mm')}"-->
                                 <div th:case="이용" class="badge free" th:text="*{askCategory}"/>
                                 <div th:case="회원" class="badge cook" th:text="*{askCategory}"/>
@@ -46,14 +46,36 @@
                                 <div th:case="퀘스트" class="badge movie" th:text="*{askCategory}"/>
                                 <div th:case="*" class="badge cook" th:text="*{askCategory}"/>
                                 <div class="list_title" th:text="*{askTitle}"></div>
-                                <div class="list_date" th:text="*{createDate}"></div>
+                                <div th:switch="${#strings.toString(usersQuestion.askStatus)}">
+                                    <div th:case="답변완료" class="answerStatus completeAnswer" th:text="*{askStatus}"></div>
+                                    <div th:case="답변대기" class="answerStatus readyAnswer" th:text="*{askStatus}"></div>
+                                </div>
                             </div>
                             <div font-size="14px" class="FAQEntity__Content-cpxlp5-1 fFhAfW">
-                                <p th:text="*{askContent}"/>
+                                <br th:utext="*{askContent}">
                             </div>
+                            <input type="hidden" name="requestAsk" th:value="*{askId}">
                         </li>
                     </ul>
                 </th:block>
+                <!--                <th:block th:each="myQuestion:${myQuestions}">-->
+                <!--                    <li th:object="${myQuestion}">-->
+                <!--                        &lt;!&ndash;                    <p th:text="*{askStatus}"></p>&ndash;&gt;-->
+                <!--                        <div class="arrange">-->
+                <!--                            <div class="FAQEntity__TitleWrapper-cpxlp5-0 ldvBHS" th:text="*{askTitle}"></div>-->
+                <!--                            <th:block th:switch="${#strings.toString(myQuestion.askStatus)}">-->
+                <!--                                <div th:case="답변완료" class="answerStatus completeAnswer" th:text="*{askStatus}"></div>-->
+                <!--                                <div th:case="답변대기" class="answerStatus readyAnswer" th:text="*{askStatus}"></div>-->
+                <!--                            </th:block>-->
+                <!--                        </div>-->
+                <!--                        &lt;!&ndash;                    <p th:text="*{askStatus}"></p>&ndash;&gt;-->
+                <!--                        <div class="represent">질문내용</div>-->
+
+                <!--                        <div font-size="14px" class="FAQEntity__Content-cpxlp5-1 fFhAfW">-->
+                <!--                            <p th:text="*{askContent}"/>-->
+                <!--                        </div>-->
+                <!--                    </li>-->
+                <!--                </th:block>-->
             </ul>
             <div id = "page_changer_wrapper" th:object="${pagination}">
                 <div id="previous_button_wrapper">
@@ -81,7 +103,7 @@
                              class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
                     </a>
                 </div>
-                <form th:action="@{/questionBoard/questionUsingInfo}" th:object="${criteria}" name="pageForm">
+                <form th:action="@{/questionBoard/usersQuestion}" th:object="${criteria}" name="pageForm">
                     <input type="hidden" th:field="*{page}">
                     <input type="hidden" th:field="*{keyword}">
                 </form>

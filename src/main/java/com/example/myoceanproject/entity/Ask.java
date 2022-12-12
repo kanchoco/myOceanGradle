@@ -40,14 +40,16 @@ public class Ask extends Period{
     }
 
     @Builder
-    public Ask(String askTitle, String askContent, AskStatus askStatus, AskCategory askCategory, String answer) {
+    public Ask(String askTitle, String askContent, AskStatus askStatus, AskCategory askCategory, String answer,User user) {
         this.askTitle = askTitle;
         this.askContent = askContent;
         this.askStatus = askStatus;
         this.askCategory = askCategory;
         this.answer = answer;
+        this.user=user;
     }
 
+    public void setUser(User user){this.user=user;}
     //  관리자 답변이 발송되면 askStatus의 값이 변하므로 update
     public void updateStatus(AskStatus status){
         this.askStatus = status;

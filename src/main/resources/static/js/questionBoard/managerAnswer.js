@@ -21,6 +21,36 @@ $(".applyButton").on("click", function(){
     $(".modify").text("수정");
 })
 
+// 등록 유효성 검사
+$(".answerApply").on("click", function(){
+    var askId=new URL(location.href).searchParams.get("askId");
+    var tinymceText = tinymce.get("tinymceEditor").getContent();
+    console.log(tinymceText);
+
+    // 아무 내용도 안적혀있을 때
+    if(tinymceText==""){
+        alert("내용을 기재해주세요.");
+        return;
+    }
+    alert("등록 완료되었습니다.");
+    let askData={"askContent":tinymceText,"askId":askId};
+    $.ajax({
+        url:"usersQuestionWriteOk",
+        type:"post",
+        headers:{"Content-Type":"application/json"},
+        data:JSON.stringify(askData),
+        dataType:"text",
+        success:function(result){
+            console.log(result);
+            if(result=="success") {
+                location.href="http://localhost:15000/questionBoard/usersQuestion";
+            }
+        },
+        error:function(status,error){
+            console.log(status,error);
+        }
+    })
+})
 
 //에디터
 $(function() {

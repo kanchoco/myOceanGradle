@@ -25,7 +25,7 @@
     <div class="PcTop__Content-sc-1mni0hl-1 iKjpvd">
         <input type="number" class="gGztpV" placeholder="충전금액" pattern="[0-9]*" style="-webkit-appearance: none;">
         <button class="Outlined__Button-qqupyj-0 kpRdoO" style="line-height:0.5" onclick="requestPay()">충전</button>
-        <!--            <button class="Outlined__Button-qqupyj-0 kpRdoO" style="line-height:0.5" onclick="cancelPay()">환불</button>-->
+        <button class="Outlined__Button-qqupyj-0 kpRdoO" style="line-height:0.5" onclick="location.href='/myPoint/myPointRefund'">환불</button>
     </div>
     <div class="PageWrapper-sc-1w87j10-0 bScXKt">
         <form class="MyCoupons__InputWrapper-sc-1c3qwij-0 fmHjaT">
@@ -43,10 +43,11 @@
                         <div class="EnergyLog__CreateDate-sc-19yls83-1 ckxegI" th:text="*{pointMerchantUid}"></div>
                         <div class="EnergyLog__ContentWrapper-sc-19yls83-2 fmfynV">
                             <div class="EnergyLog__Title-sc-19yls83-3 fGTHSO" th:text="*{pointContent}"></div>
-                            <div class="EnergyLog__DescriptionWrapper-sc-19yls83-4 cgVuQs"></div>
+                            <div class="EnergyLog__DescriptionWrapper-sc-19yls83-4 cgVuQs" th:text="*{createDate}"></div>
                             <div th:switch="${#strings.toString(point.pointType)}">
                                 <!--th:text="'-'+*{pointAmountHistory}"-->
-                                <div th:case="환불" class="EnergyLog__Value-sc-19yls83-6 ftNZaK" th:text="|-*{pointAmountHistory}|"></div>
+                                <div th:case="환불대기" class="EnergyLog__Value-sc-19yls83-6 ftNZaKA" th:text="|-*{pointAmountHistory}|"></div>
+                                <div th:case="환불승인" class="EnergyLog__Value-sc-19yls83-6 ftNZaK" th:text="|-*{pointAmountHistory}|"></div>
                                 <div th:case="결제" class="EnergyLog__Value-sc-19yls83-6 fwsFdo" th:text="|+*{pointAmountHistory}|"></div>
                             </div>
                         </div>
