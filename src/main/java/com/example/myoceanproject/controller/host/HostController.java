@@ -16,7 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,13 +50,17 @@ public class HostController {
     }
 
     // 게시글 상세보기
-    @GetMapping("read")
-    public String read(Long groupId, Model model, Model model2, Model model3, Model model4){
+    @GetMapping("/read")
+    public String read(Long groupId, Model model, Model model2, Model model3, Model model4, Model model5, HttpServletRequest request) throws UnsupportedEncodingException{
+        HttpSession session= request.getSession();
+        Long userId = (Long) session.getAttribute("userId");
+
         model.addAttribute("groupDTO", groupService.find(groupId));
         model2.addAttribute("groupTop5DTOs", groupService.findTop5BygroupId(groupId));
         model3.addAttribute("groupScheduleDTO", groupService.findAllByGroupId(groupId));
         model4.addAttribute("localDateTime", LocalDateTime.now());
-        log.info(model2.toString());
+        model5.addAttribute("groupUserCheck", groupService.findGroupUser(userId));
+        log.info(model5.toString());
         return "app/bulletin_board/bulletin_board_detail";
     }
 

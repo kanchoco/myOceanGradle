@@ -291,8 +291,8 @@ let checkedLogion = false;
 //국내 || 해외 선택
 $('.countryOption .custom-radio').on('click', function(){
     checkedLogion = true;
-        $('.countryOption .custom-radio').attr('value', 'false');
-        $(this).attr('value', 'true');
+    $('.countryOption .custom-radio').attr('value', 'false');
+    $(this).attr('value', 'true');
     if($(this).attr('data-value') != 'country'){
         $('.findBtn').hide();
     }else{
@@ -559,6 +559,8 @@ $('.fixed-bottom .frip-button').on('click', function(){
 //검수 요청 확인
 $('.checkRequest').on('click', function (){
 
+    $('#__BVID__287___BV_modal_outer_').hide();
+
     if($('.image-header').css('display') == 'none'){
         alert('이미지를 등록해주세요');
         $('#__BVID__287___BV_modal_outer_').hide();
@@ -577,11 +579,11 @@ $('.checkRequest').on('click', function (){
         return;
     }
 
-    if($('input[type=text].form-control').get(0).value == '' || $('input[type=text].form-control').get(1).value == '' || $('input[type=text].form-control').get(2).value == ''){
-        alert('필수입력 항목을 확인해주세요');
-        $('#__BVID__287___BV_modal_outer_').hide();
-        return;
-    }
+    // if($('input[type=text].form-control').get(0).value == '' || $('input[type=text].form-control').get(1).value == '' || $('input[type=text].form-control').get(2).value == ''){
+    //     alert('필수입력 항목을 확인해주세요');
+    //     $('#__BVID__287___BV_modal_outer_').hide();
+    //     return;
+    // }
 
     if($('.number1').val() == '' || $('.number2').val() == '' || $('.recruitment').next().css('display') != 'none'){
         alert('모집인원 항목을 확인해주세요');
@@ -595,17 +597,41 @@ $('.checkRequest').on('click', function (){
         return;
     }
 
-    if($('.selectBox.mx-2').attr('data-type') == 'offline'){
+
+    if($('.selectBox.mx-2.selected').attr('data-type') == 'offline'){
         //장소등록 안되있으면 return
+        console.log("장소등록");
         if($('.my-2.placeTable').css('display')=='none'){
+            console.log("장소등록리턴");
+
             return;
         }
     }
 
+//  모임 멤버 테이블 생성
+    let groupId = $('input[name=groupId]').val();
+    $.ajax({
+        url: "/host/group-member/" + groupId,
+        type: "post",
+        async: false,
+        success: function(result, status, xhr) {
+            console.log("멤버 등록 성공");
+        },
+        error: function(xhr, status, err){
+            if(error){
+                error(err);
+            }
+        }
+    });
 
+    // 모임 등록 최상단 부분 문구 변경
+    $(".text-muted.font-weight-bold").text("승인 대기중");
 //    누르면 승인대기 상태로 바꾸기
     alert('검수 요청이 완료되었습니다');
-    $('#__BVID__287___BV_modal_outer_').hide();
+
+//    업데이트
+    groupUpdate();
+
 
 });
 
@@ -614,6 +640,28 @@ let groupSave = (function(){
     function add(groupContents, callback, error){
         $.ajax({
             url: "/host/index",
+            type: "post",
+            async: false,
+            data: JSON.stringify(groupContents),
+            contentType: "application/json; charset=utf-8",
+            success: function(result, status, xhr) {
+                console.log(result);
+                $(".text-sm").text(result);
+                if (callback) {
+                    callback(result);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+
+    function update(groupContents, callback, error){
+        $.ajax({
+            url: "/host/update",
             type: "post",
             data: JSON.stringify(groupContents),
             contentType: "application/json; charset=utf-8",
@@ -630,9 +678,9 @@ let groupSave = (function(){
         });
     }
 
-    function update(groupContents, callback, error){
+    function updateStatus(groupContents, callback, error){
         $.ajax({
-            url: "/host/update",
+            url: "/host/update-status",
             type: "post",
             data: JSON.stringify(groupContents),
             contentType: "application/json; charset=utf-8",
@@ -689,7 +737,7 @@ let groupSave = (function(){
         });
     }
 
-    return {add: add, update: update, addDate: addDate, listDate: listDate}
+    return {add: add, update: update, updateStatus: updateStatus, addDate: addDate, listDate: listDate}
 })();
 
 // 모임 페이지 삭제
@@ -719,7 +767,7 @@ $('input[name=groupId]').attr('value', $("#__BVID__579 .text-sm").text());
 $('.saveRequest').on('click', function (e){
     e.preventDefault();
     $('#__BVID__287___BV_modal_outer_').hide();
-    
+
     /*추가 유효성검사 필요하면 여기에 기재*/
 
     //groupLocationType 설정
@@ -781,31 +829,36 @@ $('.saveRequest').on('click', function (e){
             groupFileUuid : $('input[name=groupFileUuid]').val()
         })
     }
-    
+
     /*게시글 수정일 때*/
     else{
-        groupSave.update({
-            groupName : $('input[name=groupName]').val(),
-            groupCategory : $('input[name=groupCategory]').val(),
-            groupContent :$('input[name=groupContent]').val(),
-            groupPoint : $('input[name=groupPoint]').val(),
-            groupOverSea : $('input[name=groupOverSea]').val(),
-            groupLocationName : $('input[name=groupLocationName]').val(),
-            groupLocation : $('input[name=groupLocation]').val(),
-            groupLocationDetail : $('input[name=groupLocationDetail]').val(),
-            groupParkingAvailable : $('input[name=groupParkingAvailable]').val(),
-            groupMoreInformation : $('input[name=groupMoreInformation]').val(),
-            groupLocationType : $('input[name=groupLocationType]').val(),
-            maxMember : $('input[name=maxMember]').val(),
-            minMember : $('input[name=minMember]').val(),
-            groupFileName : $('input[name=groupFileName]').val(),
-            groupFilePath : $('input[name=groupFilePath]').val(),
-            groupFileSize : $('input[name=groupFileSize]').val(),
-            groupFileUuid : $('input[name=groupFileUuid]').val(),
-            groupId : $('input[name=groupId]').val()
-        })
+        groupUpdate();
     }
 });
+
+function groupUpdate(){
+    groupSave.updateStatus({
+        groupName : $('input[name=groupName]').val(),
+        groupCategory : $('input[name=groupCategory]').val(),
+        groupContent :$('input[name=groupContent]').val(),
+        groupPoint : $('input[name=groupPoint]').val(),
+        groupOverSea : $('input[name=groupOverSea]').val(),
+        groupLocationName : $('input[name=groupLocationName]').val(),
+        groupLocation : $('input[name=groupLocation]').val(),
+        groupLocationDetail : $('input[name=groupLocationDetail]').val(),
+        groupParkingAvailable : $('input[name=groupParkingAvailable]').val(),
+        groupMoreInformation : $('input[name=groupMoreInformation]').val(),
+        groupLocationType : $('input[name=groupLocationType]').val(),
+        maxMember : $('input[name=maxMember]').val(),
+        minMember : $('input[name=minMember]').val(),
+        groupFileName : $('input[name=groupFileName]').val(),
+        groupFilePath : $('input[name=groupFilePath]').val(),
+        groupFileSize : $('input[name=groupFileSize]').val(),
+        groupFileUuid : $('input[name=groupFileUuid]').val(),
+        groupId : $('input[name=groupId]').val()
+    });
+}
+
 
 //인원 설정 시 유효성검사.
 $('.number1').bind('keyup mouseup', function (){

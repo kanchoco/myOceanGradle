@@ -1,7 +1,9 @@
 package com.example.myoceanproject.repository;
 
 import com.example.myoceanproject.domain.*;
+import com.example.myoceanproject.entity.GroupMember;
 import com.example.myoceanproject.entity.QGroup;
+import com.example.myoceanproject.entity.QGroupMember;
 import com.example.myoceanproject.entity.QGroupSchedule;
 import com.example.myoceanproject.type.GroupStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -15,7 +17,7 @@ import java.util.List;
 
 import static com.example.myoceanproject.entity.QGroup.group;
 import static com.example.myoceanproject.entity.QGroupSchedule.groupSchedule;
-
+import static com.example.myoceanproject.entity.QGroupMember.groupMember;
 
 @Repository
 @RequiredArgsConstructor
@@ -393,4 +395,18 @@ public class GroupRepositoryImpl implements GroupCustomRepository{
         return new PageImpl<>(groups, pageable, total);
 
     }
+
+    public Integer countGroupUser(Long userId){
+        return Math.toIntExact(queryFactory.select(groupMember.user.userId.count())
+                .from(groupMember)
+                .where(groupMember.user.userId.eq(userId)).fetchOne());
+    }
+
+    public void deleteGroupMemberByUserId(Long userId, Long groupId){
+        queryFactory.delete(groupMember)
+                .where(groupMember.user.userId.eq(userId)
+                        .and(groupMember.group.groupId.eq(groupId))).execute();
+    }
+
+
 }
