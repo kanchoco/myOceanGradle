@@ -167,9 +167,4 @@ public class GroupDTO {
             sess.sendMessage(textMessage);
         }
     }
-
-
-
-
-
 }

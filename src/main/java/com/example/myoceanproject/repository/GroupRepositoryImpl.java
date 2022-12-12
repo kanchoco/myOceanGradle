@@ -146,13 +146,13 @@ public class GroupRepositoryImpl implements GroupCustomRepository{
     @Override
     public List<GroupScheduleDTO> findAllSchedule(Long groupId){
         return queryFactory.select(new QGroupScheduleDTO(
+                groupSchedule.groupScheduleId,
                 groupSchedule.group.groupId,
                 groupSchedule.groupScheduleDate,
                 groupSchedule.groupScheduleStartTime,
                 groupSchedule.groupScheduleEndTime
                 )).from(groupSchedule).fetch();
     }
-
 
     @Override
     public List<GroupDTO> findGroupTop5ByGroupId(Long groupId) {

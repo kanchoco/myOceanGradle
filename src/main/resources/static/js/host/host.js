@@ -18,11 +18,10 @@ let data = [];
 
 $(document).ready(function(){
     showList();
-
 })
+
 function showList(){
     groupSave.listDate(groupId,listDate);
-
 }
 
 // 모임 리스트에 저장 후 groupScheduleDTO에 모임의 날짜를 각각 저장해준다.
@@ -288,10 +287,10 @@ function findPlace(){
     $('#__BVID__123___BV_modal_content_').hide();
 }
 
-let checkedLegion = false;
+let checkedLogion = false;
 //국내 || 해외 선택
 $('.countryOption .custom-radio').on('click', function(){
-    checkedLegion = true;
+    checkedLogion = true;
         $('.countryOption .custom-radio').attr('value', 'false');
         $(this).attr('value', 'true');
     if($(this).attr('data-value') != 'country'){
@@ -314,7 +313,7 @@ $('.createPlace').on('click', function(e){
         $('input[data-v-72dffd28]').eq(12).blur();
     }
 
-    if(!checkedLegion){
+    if(!checkedLogion){
         alert('해외장소 여부를 선택해주세요');
     }
 
@@ -387,8 +386,6 @@ function addSchedule() {
     } else {
         $('.periodNotice').text(`날짜를 입력해주세요`);
     }
-
-
 }
 
 //일정 시간 유효성 검사
@@ -420,7 +417,6 @@ $('.openTime').on('change', function (){
     }else{
         $('.timeNotice').css('display', 'none');
     }
-
 });
 
 
@@ -702,14 +698,14 @@ let groupSave = (function(){
         });
     }
 
-    // 모임 페이지 삭제
-        $(".goDelete").on("click", function(e){
-            e.preventDefault();
-            location.href ="/host/deleteGroup?groupId=" + $(this).attr("href");
-        })
     return {add: add, update: update, addDate: addDate, listDate: listDate}
 })();
 
+// 모임 페이지 삭제
+$(".goDelete").on("click", function(e){
+    e.preventDefault();
+    location.href ="/host/deleteGroup?groupId=" + $(this).attr("href");
+})
 
 //임시 저장 버튼
 $('.saveRecruitment').on('click', function (){
