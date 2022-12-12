@@ -5,6 +5,7 @@ import com.example.myoceanproject.domain.GroupScheduleDTO;
 import com.example.myoceanproject.entity.Group;
 import com.example.myoceanproject.entity.GroupSchedule;
 import com.example.myoceanproject.repository.GroupRepository;
+import com.example.myoceanproject.service.GroupScheduleService;
 import com.example.myoceanproject.service.GroupService;
 import com.example.myoceanproject.type.GroupStatus;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,8 @@ public class HostRestController {
 
     private final GroupService groupService;
     private final GroupRepository groupRepository;
+
+    private final GroupScheduleService groupScheduleService;
 
 
     @PostMapping(value="/index", consumes = "application/json", produces = "text/plain; charset=utf-8")
@@ -145,10 +148,19 @@ public class HostRestController {
     @PostMapping("/delete-schedule/{groupId}/{scheduleDate}")
     public void deleteSchedule(@PathVariable("groupId") Long groupId, @PathVariable("scheduleDate") String scheduleDate){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyy-MM-dd");
-        log.info(groupService.findAllByGroupId(groupId).toString());
-
+        List<GroupScheduleDTO> groupScheduleDTOs = groupService.findAllByGroupId(groupId);
+        Long groupScheduleId=0L;
+        for(GroupScheduleDTO groupScheduleDTO : groupScheduleDTOs){
+            Date date = java.sql.Timestamp.valueOf(groupScheduleDTO.getGroupScheduleDate());
+            String simpleDate = String.valueOf(date).split(" ")[0];
+            log.info("simpleDate: " + simpleDate);
+            log.info("scheduleDate" + scheduleDate);
+            if(simpleDate.equals(scheduleDate)){
+                groupScheduleId = groupScheduleDTO.getGroupScheduleId();
+            };
+        }
+        groupScheduleService.delete(groupScheduleId);
     }
-
 
     public String createDirectoryByNow(){
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
