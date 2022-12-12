@@ -1,16 +1,12 @@
-package com.example.myoceanproject.hadler;
+package com.example.myoceanproject.handler;
 
 import com.example.myoceanproject.domain.ChattingDTO;
 import com.example.myoceanproject.domain.GroupDTO;
-import com.example.myoceanproject.domain.UserDTO;
-import com.example.myoceanproject.entity.GroupMember;
-import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.repository.GroupMemberRepository;
 import com.example.myoceanproject.repository.GroupRepositoryImpl;
 import com.example.myoceanproject.repository.UserRepositoryImpl;
 import com.example.myoceanproject.repository.chatting.ChattingRepositoryImpl;
 import com.example.myoceanproject.service.chattingService.ChattingService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,10 +18,6 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 @Slf4j
 @Component
@@ -61,12 +53,11 @@ public class WebSocketHandler extends TextWebSocketHandler {
 //        세션 가지고 있음
         log.info(session.toString());
         groupDTO.handleMessage(session,chattingDTO,objectMapper);
-
     }
 
 //    @Override
 //    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-//        sessions.remove(session);
+//        GroupDTO.sessions.remove(session);
 //        System.out.println("afterConnectionEstablished:" + session + ":" + status);
 //    }
 
