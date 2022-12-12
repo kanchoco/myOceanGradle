@@ -133,17 +133,16 @@ public class GroupDTO {
                               ObjectMapper objectMapper) throws IOException {
             log.info("===========================GroupDTO handleMessage 들어옴======================================");
 //            http 세션에 저장된 유저 아이디
-        if(chattingDTO.getMessageType().equals(MessageType.ENTER.toString())){ // 사용자가 채팅방에 입장하여 "확인"을 눌렀을 때는 해당 닉네임 접속을 환영한다는 문구 출력
+        if(chattingDTO.getMessageType().equals(MessageType.ENTER.toString())&&session.getAttributes().get("groupId") == chattingDTO.getGroupId()){ // 사용자가 채팅방에 입장하여 "확인"을 눌렀을 때는 해당 닉네임 접속을 환영한다는 문구 출력
             chattingDTO.setChattingContent(chattingDTO.getSenderUserNickName() + "님이 입장하셨습니다.");
             sessions.put(chattingDTO.getSenderUserId(), session);
         }else {
             chattingDTO.setChattingContent(chattingDTO.getSenderUserNickName() + " : " + chattingDTO.getChattingContent());
         }
-        log.info(session.getAttributes().toString());
-        log.info(chattingDTO.getSenderUserId().toString());
-        log.info(session.toString());
-        log.info(sessions.toString());
-        send(chattingDTO,objectMapper);
+        log.info("웹소켓 세션의 그룹 아이디 : "+session.getAttributes().get("groupId").toString());
+        log.info("chatttingDTO의 그룹 아이디 : "+chattingDTO.getGroupId().toString());
+        if(session.getAttributes().get("groupId") == chattingDTO.getGroupId()){
+        send(chattingDTO,objectMapper);}
 
     }
 
@@ -154,7 +153,9 @@ public class GroupDTO {
                 writeValueAsString(chattingDTO.getChattingContent()));
         log.info(sessions.toString());
         for(WebSocketSession sess : sessions.values()){
-            sess.sendMessage(textMessage);
+            if(sess.getAttributes().get("groupId") == chattingDTO.getGroupId()) {
+                sess.sendMessage(textMessage);
+            }
         }
     }
 }

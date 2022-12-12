@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -25,7 +27,9 @@ public class ChattingRestController {
     private final GroupRepositoryImpl groupRepositoryImpl;
 
     @GetMapping("/groupId/{groupId}")
-    public List<ChattingDTO> list(@PathVariable("groupId") Long groupId, Model model){
+    public List<ChattingDTO> list(@PathVariable("groupId") Long groupId, Model model, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        session.setAttribute("groupId", groupId);
         log.info("===================================컨트롤러 list들어옴============================================");
 
         GroupDTO groupDTO = groupRepositoryImpl.findGroupByGroupId(groupId);
