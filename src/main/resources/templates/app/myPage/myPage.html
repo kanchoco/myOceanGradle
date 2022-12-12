@@ -29,10 +29,17 @@
     </div>
     <div class="PageWrapper-sc-1w87j10-0 bScXKt">
       <div class="MyPage__UserPropertyContainer-sc-8hrgc7-1 dduMk">
-        <a href="/myPoint/index">
-          <div class="UserProperty__Title-xpx7mx-0 eFrFPC">포인트</div>
-          <div class="UserProperty__Value-xpx7mx-1 yiVA-d">0</div>
-        </a>
+        <div th:if="${session.userId}=='1'">
+          <a href="/myPoint/managerRefund">
+            <div class="UserProperty__Title-xpx7mx-0 eFrFPC">포인트</div>
+          </a>
+        </div>
+        <div th:unless="${session.userId}=='1'">
+          <a href="/myPoint/index">
+            <div class="UserProperty__Title-xpx7mx-0 eFrFPC">포인트</div>
+            <div class="UserProperty__Value-xpx7mx-1 yiVA-d">0</div>
+          </a>
+        </div>
         <a href="/myList/myDiary">
           <div class="UserProperty__Title-xpx7mx-0 eFrFPC">일기</div>
           <div class="UserProperty__Value-xpx7mx-1 yiVA-d">2</div>

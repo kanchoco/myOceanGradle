@@ -31,7 +31,8 @@
                 <span class="TabLabels__Tab-sc-1i2f4oa-1 eCnPke"><a href="/questionBoard/questionUserInfo">회원정보</a></span>
                 <span class="TabLabels__Tab-sc-1i2f4oa-1 eCnPke"><a href="/questionBoard/questionPointInfo">결제/환불</a></span>
                 <span class="TabLabels__Tab-sc-1i2f4oa-1 djWtyM"><a href="/questionBoard/questionQuestInfo">퀘스트</a></span>
-                <span class="TabLabels__Tab-sc-1i2f4oa-1 eCnPke"><a href="/questionBoard/myQuestion">나의 질문</a></span>
+                <span class="TabLabels__Tab-sc-1i2f4oa-1 eCnPke" th:if="${session.userId}=='1'"><a href="/questionBoard/usersQuestion">회원들의 질문</a></span>
+                <span class="TabLabels__Tab-sc-1i2f4oa-1 eCnPke" th:unless="${session.userId}=='1'"><a href="/questionBoard/myQuestion">나의 질문</a></span>
             </div>
             <ul class="HelpPage__FAQListWrapper-sc-1624coo-1 jaTQXA">
                 <th:block th:each="questionQuestInfo:${questionQuestInfos}">

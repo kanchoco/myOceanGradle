@@ -1,8 +1,7 @@
 package com.example.myoceanproject.domain;
 
-import com.example.myoceanproject.entity.Period;
 import com.example.myoceanproject.entity.Point;
-import com.example.myoceanproject.entity.User;
+import com.example.myoceanproject.type.PointCheckType;
 import com.example.myoceanproject.type.PointType;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
@@ -23,11 +22,13 @@ public class PointDTO {
     private String pointMerchantUid;
     private String pointImpUid;
     private String pointContent;
+    private Long pointId;
+    private String pointCheckType;
 
     private LocalDateTime createDate;
 
     @QueryProjection
-    public PointDTO(Long userId, String groupName, int pointAmountHistory,LocalDateTime createDate,PointType pointType,String pointMerchantUid,String pointImpUid,String pointContent) {
+    public PointDTO(Long userId, String groupName, int pointAmountHistory, LocalDateTime createDate, PointType pointType, String pointMerchantUid, String pointImpUid, String pointContent, Long pointId, PointCheckType pointCheckType) {
         this.userId = userId;
         this.groupName = groupName;
         this.pointAmountHistory = pointAmountHistory;
@@ -36,6 +37,8 @@ public class PointDTO {
         this.pointMerchantUid=pointMerchantUid;
         this.pointImpUid=pointImpUid;
         this.pointContent=pointContent;
+        this.pointId=pointId;
+        this.pointCheckType=pointCheckType.toString();
     }
 
     //  포인트의 변화 추이가 계속 새롭게 저장이 된다.
@@ -46,6 +49,7 @@ public class PointDTO {
                 .pointMerchantUid(pointMerchantUid)
                 .pointImpUid(pointImpUid)
                 .pointContent(pointContent)
+                .pointCheckType(PointCheckType.change(pointCheckType))
                 .build();
     }
 }

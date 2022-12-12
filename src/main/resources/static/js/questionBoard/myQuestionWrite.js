@@ -1,12 +1,17 @@
 // 등록 유효성 검사
 $(".registryWrap").on("click", function(){
+    console.log(askUser);
     var tinymceText = tinymce.get("tinymceEditor").getContent();
     console.log(tinymceText);
 
     // 제목을 안적었을 때
     if($(".questionTitle").val()==""){
         alert("제목을 기재해주세요.")
-        return
+        return;
+    }
+    else if(!$(".questionTitle").val().includes("이용") && !$(".questionTitle").val().includes("회원") && !$(".questionTitle").val().includes("포인트") && !$(".questionTitle").val().includes("퀘스트")){
+        alert("문의하실 제목을 정확히 입력해주세요.");
+        return;
     }
     // 아무 내용도 안적혀있을 때
     if(tinymceText==""){
@@ -14,6 +19,23 @@ $(".registryWrap").on("click", function(){
         return;
     }
     alert("등록 완료되었습니다.");
+    let askData={"askTitle":$(".questionTitle").val(),"askContent":tinymceText,"askUser":askUser};
+    $.ajax({
+        url:"myQuestionWriteOk",
+        type:"post",
+        headers:{"Content-Type":"application/json"},
+        data:JSON.stringify(askData),
+        dataType:"text",
+        success:function(result){
+            console.log(result);
+            if(result=="success") {
+                location.href="http://localhost:15000/questionBoard/myQuestion";
+            }
+        },
+        error:function(status,error){
+            console.log(status,error);
+        }
+    })
 })
 
 

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgIpFwCZ0TNWjZV_oDbG6PttZ-tGS9m-HZRULv9iAT-pEn-hzV88sokgdWw2U_65MkBTbheiqaax2nlIOZkjLm3md7vpmpdVpre9YlzA4iQ7zi4WL7YDXP36A28XAkwZWcYGeq7v7UJ1GHyXVOMvzQxc0LH7Spqe7Ybl31dUqjgDh7oz63ZRaowjl2Mzw/s1600/myoceanlogo.png">
-    <title>자주 묻는 질문 - 나의 바다(MyOcean)</title>
+    <title>나의 질문 - 나의 바다(MyOcean)</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/7f85a56ba4.css">
@@ -31,7 +31,8 @@
                 <span class="TabLabels__Tab-sc-1i2f4oa-1 eCnPke"><a href="/questionBoard/questionUserInfo">회원정보</a></span>
                 <span class="TabLabels__Tab-sc-1i2f4oa-1 eCnPke"><a href="/questionBoard/questionPointInfo">결제/환불</a></span>
                 <span class="TabLabels__Tab-sc-1i2f4oa-1 eCnPke"><a href="/questionBoard/questionQuestInfo">퀘스트</a></span>
-                <span class="TabLabels__Tab-sc-1i2f4oa-1 djWtyM"><a href="/questionBoard/myQuestion">나의 질문</a></span>
+                <span class="TabLabels__Tab-sc-1i2f4oa-1 djWtyM" th:if="${session.userId}=='1'"><a href="/questionBoard/usersQuestion">회원들의 질문</a></span>
+                <span class="TabLabels__Tab-sc-1i2f4oa-1 djWtyM" th:unless="${session.userId}=='1'"><a href="/questionBoard/myQuestion">나의 질문</a></span>
             </div>
             <ul class="HelpPage__FAQListWrapper-sc-1624coo-1 jaTQXA">
                 <th:block th:each="myQuestion:${myQuestions}">
@@ -45,13 +46,17 @@
                                 <div th:case="퀘스트" class="badge movie" th:text="*{askCategory}"/>
                                 <div th:case="*" class="badge cook" th:text="*{askCategory}"/>
                                 <div class="list_title" th:text="*{askTitle}"></div>
-                                <div th:switch="${#strings.toString(myQuestion.askStatus)}">
+                                <div th:switch="${#strings.isEmpty(myQuestion.askStatus)}">
                                     <div th:case="답변완료" class="answerStatus completeAnswer" th:text="*{askStatus}"></div>
                                     <div th:case="답변대기" class="answerStatus readyAnswer" th:text="*{askStatus}"></div>
                                 </div>
                             </div>
                             <div font-size="14px" class="FAQEntity__Content-cpxlp5-1 fFhAfW">
-                                <p th:text="*{askContent}"/>
+                                <br th:utext="*{askContent}">
+                            </div>
+                            <div font-size="14px" class="FAQEntity__Content-cpxlp5-1 fFhAfZ">
+                                <div class="finish" th:if="${#strings.isEmpty(myQuestion.askStatus)}" th:utext="*{answer}"></div>
+                                <div class="waiting" th:unless="${#strings.isEmpty(myQuestion.askStatus)}" th:utext="*{answer}"></div>
                             </div>
                         </li>
                     </ul>

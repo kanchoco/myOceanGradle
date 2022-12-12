@@ -400,3 +400,38 @@ button:disabled {
 ul{
     list-style:none;
 }
+
+div.my_lists:hover{
+    background-color: #F6FAFE;
+}
+
+div.my_lists {
+    box-sizing: inherit;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    min-height: 25px;
+    line-height: 24px;
+    padding: 18px 0px;
+    font-size: 14px;
+    cursor: pointer;
+    border-bottom: 1px solid rgb(230, 230, 230);
+    width: auto;
+}
+
+.fFhAfZ {
+    width: 100%;
+    min-height: 84px;
+    padding: 20px;
+    background-color: rgb(255, 247, 239);
+    color: rgb(74, 74, 74);
+    font-size: 14px;
+    line-height: 24px;
+}
+.fFhAfZ * {
+    width: 100%;
+    font-family: inherit;
+}
+.fFhAfZ {
+    display: none;
+}

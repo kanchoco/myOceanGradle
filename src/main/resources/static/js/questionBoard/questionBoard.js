@@ -74,8 +74,12 @@ $category.on("click", function(){
     }
 })
 $(".my_list").on("click",function(){
+    console.log($(this).next().next().find("div:first").text());
     if($(this).attr("class").includes("my_list")){
         $(this).next().toggle();
+        if($(this).next().next().find("div:first").text()!=null && $(this).next().next().find("div:first").text()!=""){
+            $(this).next().next().toggle();
+        }
     }
 });
 $(".ldvBHS").on("click",function(){
@@ -83,3 +87,10 @@ $(".ldvBHS").on("click",function(){
         $(this).next().toggle();
     }
 })
+
+$(".my_lists").on("click",function(){
+    var askData=$("input[name='requestAsk']").val();
+    console.log(askData);
+    location.href="/questionBoard/managerAnswer?askId="+askData;
+});
+

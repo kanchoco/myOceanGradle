@@ -36,6 +36,10 @@ public class AskService {
     public Page<AskDTO> showAllMyAsk(Pageable pageable, Criteria criteria, Long userId){
         return criteria.getKeyword() == null ? myAskRepositoryImpl.findAllMyAsk(pageable,userId) : myAskRepositoryImpl.findAllMyAsk(pageable,criteria,userId);
     }
+    /*나의 질문 조회*/
+    public Page<AskDTO> showAllUserAsk(Pageable pageable, Criteria criteria, Long userId){
+        return criteria.getKeyword() == null ? myAskRepositoryImpl.findAllUserAsk(pageable,userId) : myAskRepositoryImpl.findAllUserAsk(pageable,criteria,userId);
+    }
 
     public Page<AskDTO> showAsk(Pageable pageable, Criteria criteria){
         return criteria.getKeyword().equals("null") ? askRepositoryImpl.findAll(pageable) : askRepositoryImpl.findAll(pageable,criteria);
