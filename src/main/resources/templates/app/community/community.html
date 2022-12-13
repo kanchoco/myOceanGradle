@@ -187,13 +187,15 @@
 
     // 화면 출력 함수 호출
     function show() {
-        communityService.getList({page:page}, getList);
+        communityService.getList(
+            page,
+        getList);
     }
 
     function showWithOutUser() {
-        communityService.getListNotUser({
-            page: page
-        }, getList);
+        communityService.getListNotUser(
+            page,
+            getList);
     }
 
     /*화면 출력*/

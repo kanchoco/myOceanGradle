@@ -20,9 +20,7 @@ $(document).ready(function(){
     showList();
 })
 
-function showList(){
-    groupSave.listDate(groupId,listDate);
-}
+
 
 // 모임 리스트에 저장 후 groupScheduleDTO에 모임의 날짜를 각각 저장해준다.
 // 이후 콜백함수를 통해 리스트를 출력
@@ -267,6 +265,18 @@ $('.selectBox.mx-2').on('click', function(){
     }
 });
 
+$(document).ready(
+    showPlaceDetail()
+)
+
+function showPlaceDetail(){
+    if($("#offline").attr("class") == "selectBox mx-2 selected"){
+        console.log("들어왔니");
+        $(".place").show();
+        console.log("들어왔다")
+    }
+}
+
 // 모달창 닫기
 function closeModal(){
     $('#__BVID__287___BV_modal_outer_').hide();
@@ -362,12 +372,15 @@ function addSchedule() {
                 $.ajax({
                     url: "/host/delete-schedule/" + groupId + "/" + scheduleDate,
                     type: "post",
+                    async: false,
                     success: function(){
                         showList();
+                        console.log("들어옴");
+                        return;
+                        console.log("나감");
                     }
                 });
             }else{;}
-            return;
         }
     })
 
@@ -951,3 +964,6 @@ $(document).ready(function() {
 }); //ready
 
 
+function showList(){
+    groupSave.listDate(groupId,listDate);
+}
