@@ -134,10 +134,15 @@ $allBtn.on("click",function () {
   }
 })
 
+//유의사항 클릭 시 나오는 것
+$(document).on("click", ".bremOa", function(){
+    console.log("asdfasdf");
+    $(".Accordion__Content-sc-1jd6vdl-3.zRWUs").attr("class", "Accordion__Content-sc-1jd6vdl-3 bJFgwb");
+})
+
 
 
 //모달
-
 const $modal = $("#modal-root")
 const $modalCancelBtn = $(".kXWQPc");
 $(".lbwitP").click(function () {

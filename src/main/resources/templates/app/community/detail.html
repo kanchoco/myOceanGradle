@@ -84,22 +84,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="PriceInfo__PriceWrapper-sc-1s3i0u7-0 bZWTJt">
-                                <div class="PriceInfo__Price-sc-1s3i0u7-2 iRfDsw">
-                                    카테고리: <span th:text="*{communityCategory}" class="PriceInfo__PriceUnit-sc-1s3i0u7-3 kWprXL"></span>
-                                </div>
-                            </div>
-                            <div class="PriceInfo__PriceWrapper-sc-1s3i0u7-0 bZWTJt">
-                                <div class="PriceInfo__Price-sc-1s3i0u7-2 iRfDsw">
-                                    작성일: <span th:text="*{createDate}" class="PriceInfo__PriceUnit-sc-1s3i0u7-3 kWprXL"></span>
-                                </div>
-                            </div>
-                            <div class="PriceInfo__PriceWrapper-sc-1s3i0u7-0 bZWTJt">
-                                <div class="PriceInfo__Price-sc-1s3i0u7-2 iRfDsw">
-                                    수정일: <span th:text="*{updatedDate}" class="PriceInfo__PriceUnit-sc-1s3i0u7-3 kWprXL">1~5명</span>
-                                </div>
-                            </div>
-                        </section><section class="Section__Wrapper-sc-15fmp0p-0 kfLoin HostProfileSection__SectionWrapper-sc-1408l89-0 jFAUTZ">
+                        </section>
+                        <section class="Section__Wrapper-sc-15fmp0p-0 kfLoin HostProfileSection__SectionWrapper-sc-1408l89-0 jFAUTZ">
                         <div class="Profile__Wrapper-sc-18xe7ny-0 gVwBVO">
                             <div class="Profile-sc-18xe7ny-1 hZQCDJ">
                                 <div class="Profile__Info-sc-18xe7ny-2 ixjLkJ">
@@ -138,6 +124,26 @@
                     </section>
                     </div>
                 </div>
+                <section class="ProductDetailPage__SectionContainer-sc-126q1k2-4 bremOa">
+                    <article>
+                        <section class="ProductDetailPage__SectionContainer-sc-126q1k2-4 cGKzvC"></section>
+                        <header class="Article__Header-sc-1mmkltm-0 fCwkht">
+                            <hgroup>
+                                <h2 class="Article__Title-sc-1mmkltm-1 bZNoYF">커뮤니티 정보</h2>
+                            </hgroup>
+                        </header>
+                        <dl class="InfoSection__InfoContainer-yf02u4-0 dbbJUL">
+                            <div>
+                                <dt>카테고리</dt>
+                                <dd th:text="*{communityCategory}"></dd>
+                            </div>
+                            <div>
+                                <dt>최근 수정일</dt>
+                                <dd th:text="*{updatedDate}"></dd>
+                            </div>
+                        </dl>
+                    </article>
+                </section>
                 <section class="ProductDetailPage__SectionContainer-sc-126q1k2-4 cGKzvC"></section>
                 <div class="ProductDetailPage__SectionWrapper-sc-126q1k2-3 jLKVwS">
                     <section class="ProductDetailPage__SectionContainer-sc-126q1k2-4 bremOa"><article><header class="Article__Header-sc-1mmkltm-0 blaApX"><hgroup>
