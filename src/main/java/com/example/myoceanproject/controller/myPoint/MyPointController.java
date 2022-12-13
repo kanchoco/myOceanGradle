@@ -154,7 +154,7 @@ public class MyPointController {
     @ResponseBody
     @Transactional
     @Modifying
-    public String managerRefundOk(@RequestBody ObjectNode objectNode,HttpServletRequest request){
+    public String managerRefundOk(@RequestBody ObjectNode objectNode){
 
         PointDTO pointDTO=new PointDTO();
         PointDTO pointDTO1=new PointDTO();
@@ -184,6 +184,12 @@ public class MyPointController {
         pointDTO1.setPointContent("MyOcean 포인트 환불 요청");
         pointDTO1.setPointType("환불대기");
         selectuser.update(pointDTO1);
+
+        User udpateuser=jpaQueryFactory.selectFrom(user).where(user.userId.eq(userIds)).fetchOne();
+
+        int updateTotalPoint=udpateuser.getUserTotalPoint()-Integer.parseInt(String.valueOf(selectuser.getPointAmountHistory()));
+        userDTO.setUserTotalPoint(updateTotalPoint);
+        udpateuser.updateUserTotalPoint(userDTO);
 
         return "success";
     }

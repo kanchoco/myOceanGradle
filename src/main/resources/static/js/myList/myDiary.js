@@ -220,4 +220,24 @@ $("button.eklkj752").on("click", function(){
 
     dateText = yearText + " " + monthText + " " + dayText+ "일";
     $(".selectDate").text(dateText);
+
+    console.log("dateText:"+dateText);
+    console.log("yearText:"+yearText);
+    console.log("monthText:"+monthText);
+    console.log("dayText:"+dayText);
+    console.log(typeof dateText);
+
+    let dateData={"year":yearText,"month":monthText,"day":dayText};
+    $.ajax({
+        url:"calendar",
+        type:"post",
+        headers:{"Content-Type":"application/json"},
+        data:JSON.stringify(dateData),
+        dataType:"text",
+        success:function(result){
+            console.log(result);
+        },error:function(status,error){
+            console.log(status,error);
+        }
+    });
 })
