@@ -57,6 +57,7 @@ public class CommunityRestController {
     //  비회원 전용 리스트 출력
     @GetMapping("/list-not-user")
     public List<CommunityPostDTO> getCommunity(){
+
         List<CommunityPostDTO> communityPostDTO= communityPostService.findAllByList();
         return communityPostDTO;
     }
@@ -71,24 +72,39 @@ public class CommunityRestController {
     public List<CommunityPostDTO> getFilterCommunity(@PathVariable("communityCategories") List<String> communityCategories, HttpServletRequest request){
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute("userId");
-
         List<CommunityPostDTO> communityPostDTO = communityPostService.findBoardByCategory(communityCategories, userId);
         return communityPostDTO;
     }
 
-    //무한스크롤
-    @GetMapping("/scroll/{page}")
-    public List<CommunityPostDTO> infiniteScroll(@PathVariable int page){
-        return communityPostService.selectScrollBoards(page);
+    //무한스크롤 비회원전용(카테고리 있을 때)
+    @GetMapping("/scroll/{page}/{communityCategories}")
+    public List<CommunityPostDTO> infiniteScroll(@PathVariable int page, @PathVariable("communityCategories") List<String> communityCategories){
+        return communityPostService.findBoardByCategory(page, communityCategories);
     }
 
-    //무한스크롤 회원전용
-    @GetMapping("/scroll-user/{page}")
-    public List<CommunityPostDTO> selectScrollBoards(@PathVariable int page, HttpServletRequest request){
-        HttpSession session = request.getSession();
+
+    //무한스크롤 비회원전용(카테고리 없을 때)
+    @GetMapping("/scroll/{page}/")
+    public List<CommunityPostDTO> infiniteScroll(@PathVariable int page){
+        return communityPostService.findBoardByCategory(page);
+    }
+
+    //무한스크롤 회원전용(카테고리 있을 때)
+    @GetMapping("/scroll-user/{page}/{communityCategories}")
+    public List<CommunityPostDTO> selectScrollBoards(@PathVariable int page, @PathVariable("communityCategories") List<String> communityCategories, HttpSession session){
+
         Long userId = (Long) session.getAttribute("userId");
 
-        return communityPostService.selectScrollBoards(page, userId);
+        return communityPostService.findBoardByCategory(page, communityCategories, userId);
+    }
+
+    //무한스크롤 회원전용(카테고리 없을 때)
+    @GetMapping("/scroll-user/{page}/")
+    public List<CommunityPostDTO> selectScrollBoards(@PathVariable int page, HttpSession session){
+
+        Long userId = (Long) session.getAttribute("userId");
+
+        return communityPostService.findBoardByCategory(page, userId);
     }
 
     // 게시글 작성 후 커뮤니티 페이지로 이동

@@ -1,4 +1,22 @@
 
+$("article div.LinkAccordion__AccordionContainer-sc-1o112j5-1.cJPEO").on("click", "#noticeWrap", function(){
+    if($("#notice").attr("class")== "Accordion__Content-sc-1jd6vdl-3 zRWUs"){
+        $("#notice").attr("class", "Accordion__Content-sc-1jd6vdl-3 bJFgwb");
+    } else{
+        $("#notice").attr("class", "Accordion__Content-sc-1jd6vdl-3 zRWUs");
+    }
+})
+
+$("#refundWrap").on("click", function(){
+    if($("#refund").attr("class")== "Accordion__Content-sc-1jd6vdl-3 zRWUs"){
+        console.log("열림");
+        $("#refund").attr("class", "Accordion__Content-sc-1jd6vdl-3 bJFgwb");
+    }else{
+        console.log("닫힘");
+        $("#refund").attr("class", "Accordion__Content-sc-1jd6vdl-3 zRWUs");
+    }
+})
+
 
 // 참여하기
 $(".joinGroup").on("click", function(){

@@ -1845,8 +1845,16 @@ td{
     margin: 8px;
 }
 
-
-
+.bJFgwb {
+    margin: 0px;
+    overflow: hidden auto;
+    transform-origin: left top;
+    white-space: pre-line;
+    font-size: 14px;
+    line-height: 22px;
+    padding: 24px 24px 12px;
+    transform: translateY(0px) scale(1, 1);
+}
 
 
 

@@ -139,13 +139,13 @@
             console.log(reply.userId);
             let myId = $("input[name='myId']").val();
             if(postUserId == reply.userId){
-                if(reply.communityPostTitle == '고민'){
+                if(reply.communityPostTitle == '고민상담'){
                     text += "익명" + reply.communityReplyId + "     (작성자)";
                 } else{
                     text += reply.userNickName + "     (작성자)";
                 }
             } else{
-                if(reply.communityPostTitle == '고민'){
+                if(reply.communityPostTitle == '고민상담'){
                     text += "익명" + reply.communityReplyId;
                 } else{
                     text +=reply.userNickName;
@@ -162,7 +162,7 @@
             text +=``;
             <!--삭제 버튼-->
             text +=`</p>`
-            if(postUserId == reply.userId){
+            if($("input[name='myId']").val() == reply.userId){
                 text +=`<a class="deleteReply" onclick="return false" href=` + reply.communityReplyId;
                 text +=` class="ActionMenu__TextButton-s8lvsh-2 kosXvh goDelete">삭제</a>`;
             }

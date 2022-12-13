@@ -51,7 +51,7 @@ public class HostController {
 
     // 게시글 상세보기
     @GetMapping("/read")
-    public String read(Long groupId, Model model, Model model2, Model model3, Model model4, Model model5, HttpServletRequest request) throws UnsupportedEncodingException{
+    public String read(Long groupId, Model model, Model model2, Model model3, Model model4, Model model5, Model model6, HttpServletRequest request) throws UnsupportedEncodingException{
         HttpSession session= request.getSession();
         Long userId = (Long) session.getAttribute("userId");
 
@@ -59,8 +59,15 @@ public class HostController {
         model2.addAttribute("groupTop5DTOs", groupService.findTop5BygroupId(groupId));
         model3.addAttribute("groupScheduleDTO", groupService.findAllByGroupId(groupId));
         model4.addAttribute("localDateTime", LocalDateTime.now());
-        model5.addAttribute("groupUserCheck", groupService.findGroupUser(userId));
-        log.info(model5.toString());
+        if(userId != null){
+            model5.addAttribute("groupUserCheck", groupService.findGroupUser(userId, groupId));
+        } else{
+            model5 = null;
+        }
+
+        model6.addAttribute("groupJoinMember", groupService.countGroupMember(groupId));
+
+
         return "app/bulletin_board/bulletin_board_detail";
     }
 

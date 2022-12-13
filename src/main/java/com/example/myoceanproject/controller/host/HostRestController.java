@@ -91,7 +91,7 @@ public class HostRestController {
     // 스케줄 저장
     @PostMapping(value="/addDate/{groupId}", consumes = "application/json", produces = "text/plain; charset=utf-8")
     public ResponseEntity<String> schedule(@RequestBody GroupScheduleDTO groupScheduleDTO, @PathVariable("groupId") Long groupId) throws UnsupportedEncodingException {
-
+        log.info(groupScheduleDTO.toString());
         groupScheduleDTO.setGroupId(groupId);
 
         groupService.addSchedule(groupScheduleDTO);
@@ -212,7 +212,7 @@ public class HostRestController {
             log.info("scheduleDate" + scheduleDate);
             if(simpleDate.equals(scheduleDate)){
                 groupScheduleId = groupScheduleDTO.getGroupScheduleId();
-            };
+            }
         }
         groupScheduleService.delete(groupScheduleId);
     }
@@ -248,5 +248,23 @@ public class HostRestController {
         out.println("/upload/groupUpload/"+storedFileName + originalFileExtension);
         out.close();
     }
+
+    // 게시글 임시 저장 시 모임 등록 헤더 변경
+    @GetMapping("/header")
+    public GroupDTO getHeader(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute("userId");
+        log.info("============================");
+        log.info("============================");
+        log.info("============================");
+        log.info("============================");
+        log.info("여기로 들어옴");
+        GroupDTO groupDTO = groupService.findByUserId(userId);
+        log.info(groupDTO.toString());
+
+        return groupDTO;
+    }
 }
+
+
 

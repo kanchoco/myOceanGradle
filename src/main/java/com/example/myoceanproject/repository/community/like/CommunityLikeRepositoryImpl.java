@@ -4,6 +4,7 @@ import com.example.myoceanproject.entity.CommunityLike;
 import com.example.myoceanproject.entity.CommunityPost;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import static com.example.myoceanproject.entity.QCommunityLike.communityLike;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class CommunityLikeRepositoryImpl implements CommunityLikeCustomRepository{
 //사용자 지정 레파지토리 Impl(구현)
 

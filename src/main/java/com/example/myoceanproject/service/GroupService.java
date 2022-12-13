@@ -91,14 +91,23 @@ public class GroupService implements GroupBoardService {
         return criteria.getKeyword().equals("null") ? groupRepositoryImpl.findAllByStatus(pageable, groupStatus) : groupRepositoryImpl.findAllByStatus(pageable,groupStatus, criteria);
     }
 
-    public boolean findGroupUser(Long userId){
-        return groupRepositoryImpl.countGroupUser(userId) == 1;
+    public boolean findGroupUser(Long userId, Long groupId){
+        return groupRepositoryImpl.countGroupUser(userId, groupId);
     }
 
 
     @Transactional(rollbackFor = Exception.class)
     public void deleteMember(Long userId, Long groupId){
         groupRepositoryImpl.deleteGroupMemberByUserId(userId, groupId);
+    }
+
+    public int countGroupMember(Long groupId){
+        return groupRepositoryImpl.countMember(groupId);
+    }
+
+    public GroupDTO findByUserId(Long userId){
+        GroupDTO groupDTO = groupRepositoryImpl.findByUserId(userId);
+        return groupDTO;
     }
 
 }
