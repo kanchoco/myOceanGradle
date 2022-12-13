@@ -48,7 +48,7 @@
                             <div th:if="${#strings.toString(payPoint.pointType)}=='결제'" class="EnergyLog__Value-sc-19yls83-6 fwsFdo" th:text="|+*{pointAmountHistory}|"></div>
                             <!--                            <input type="hidden" name="requestAsk" th:value="*{pointId}">-->
                         </div>
-                        <button type="button" class="Outlined__Button-qqupyj-0 kpRdoOA" style="line-height:0.5" onclick="refundPay()">환불하기</button>
+                        <button type="button" class="Outlined__Button-qqupyj-0 kpRdoOA" style="line-height:0.5" onclick="refundPay(this)">환불하기</button>
                         <input type="hidden" name="requestRefund" th:value="*{pointId}">
                     </div>
                 </th:block>
