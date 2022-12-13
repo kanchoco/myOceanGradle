@@ -277,6 +277,14 @@ function showPlaceDetail(){
     }
 }
 
+$("input[name='groupPoint']").keyup(function(){
+    if($("input[name='groupPoint']").val()>10000){
+        alert("포인트는 10,000 이상 설정하실 수 없습니다.");
+        $("input[name='groupPoint']").focus();
+    }
+})
+
+
 // 모달창 닫기
 function closeModal(){
     $('#__BVID__287___BV_modal_outer_').hide();
@@ -290,12 +298,42 @@ function findPlace(){
         return;
     }
 
+
+
     $('#__BVID__287___BV_modal_outer_').show();
     $('#__BVID__287___BV_modal_content_').show();
     $('#__BVID__1216___BV_modal_content_').hide();
     $('#__BVID__21___BV_modal_content_').hide();
     $('#__BVID__123___BV_modal_content_').hide();
 }
+
+// 장소 추가 유효성 검사
+$(".createPlace.btn.frip-button.btn-frip-primary.btn-tab").on("click", function(){
+    if($("input[name='locationName']").val()==""){
+        alert("장소명을 입력해주세요.");
+        $("input[name='locationName']").focus();
+        return;
+    }
+
+    if(!checkedLogion){
+        alert('해외장소 여부를 선택해주세요');
+        return;
+    }
+
+    if($("input[id='placeAddress']").val()==""){
+        alert("주소를 입력해주세요.");
+        $("input[id='placeAddress']").focus();
+        return;
+    }
+
+    if($("input[id='locationDetail']").val()==""){
+        alert("상세 주소를 입력해주세요.");
+        $("input[id='placeAddress']").focus();
+        return;
+    }
+
+    closeModal();
+})
 
 let checkedLogion = false;
 //국내 || 해외 선택
@@ -317,14 +355,24 @@ $('.clearPlace').on('click', function(){
     $('.findPlace').show();
 });
 
+// 편집 진행 시 장소 테이블에 나오도록 진행
+$(function(){
+    if($(".text-sm")[0].innerText != "신규등록"){
+        if($('input[data-v-72dffd28]').eq(14).val() != "" && $('#placeAddress').val() != ""){
+            $('.placeTable .placeName').text($("input[name='locationName']").val());
+            $('.placeTable .placeAddr').text($('#placeAddress').val());
+            $('.my-2.placeTable').css("display", "block");
+            $('.placeTableBtn').css("display", "block");
+            $('.findPlace').hide();
+            $(".place").show();
+        }
+    }
+})
+
 // 진행 장소 등록 버튼 클릭 이벤트막기
 $('.createPlace').on('click', function(e){
     if($('input[data-v-72dffd28]').eq(12).val() == ""){
         $('input[data-v-72dffd28]').eq(12).blur();
-    }
-
-    if(!checkedLogion){
-        alert('해외장소 여부를 선택해주세요');
     }
 
     if($('#placeAddress').val() == ""){
@@ -340,9 +388,9 @@ $('.createPlace').on('click', function(e){
         $('.placeTableBtn').show();
         $('.findPlace').hide();
 
-        closeModal();
     }
 });
+
 $('#placeAddress').on('blur', function(){
     if(!$(this).val()){
         $(this).attr('class', 'form-control is-invalid');
@@ -355,6 +403,7 @@ $('#placeAddress').on('blur', function(){
 
 // 일정 추가 버튼 클릭 -> 모달창 열기
 function addSchedule() {
+    let dateCheck = false;
     // 일정 추가 버튼 유효성 검사
     if ($(".cancelRecruitment").css("display") == "none") {
         alert("일정 설정은 저장 후 가능합니다.");
@@ -362,43 +411,36 @@ function addSchedule() {
     }
 
     $(".table").on("click", ".day-btn", function(){
-        console.log($(this).parent().parent().next().children().text());
         if($(this).parent().parent().next().children().text()){
-            let scheduleDeleteMsg = confirm($(".mx-3.dateTitle").text() + $(this).parent().next().text() + " " +  $(this).parent().parent().next().children().text().trim() + "에 진행 예정인 모임 일정을 삭제하시겠습니까?");
-            if(scheduleDeleteMsg){
-                let scheduleDate = $(this).attr("data-date");
-                let groupId = $('input[name=groupId]').val();
-                // 삭제
-                $.ajax({
-                    url: "/host/delete-schedule/" + groupId + "/" + scheduleDate,
-                    type: "post",
-                    async: false,
-                    success: function(){
-                        showList();
-                        console.log("들어옴");
-                        return;
-                        console.log("나감");
-                    }
-                });
-            }else{;}
+            // alert($(".mx-3.dateTitle").text() + $(this).parent().next().text() + " " +  $(this).parent().parent().next().children().text().trim() + "에 진행 예정인 모임 일정을 삭제합니다.");
+            let scheduleDate = $(this).attr("data-date");
+            let groupId = $('input[name=groupId]').val();
+            // 삭제
+            $.ajax({
+                url: "/host/delete-schedule/" + groupId + "/" + scheduleDate,
+                type: "post",
+                async: false,
+                success: function(){
+                    showList();
+                }
+            });
+        } else{
+            $('#__BVID__287___BV_modal_outer_').show();
+            $('#__BVID__287___BV_modal_content_').hide();
+            $('#__BVID__21___BV_modal_content_').hide();
+            $('#__BVID__123___BV_modal_content_').hide();
+            $('#__BVID__1216___BV_modal_content_').show();
+
+            $('input[type=date]').val($(this).attr('data-date'));
+            let selDate = new Date($('input[type=date]').val());
+            selDate < date ? $('.dateNotice').css('display', '') : $('.dateNotice').css('display', 'none');
+            if ($('input[type=date]').val()) {
+                $('.periodNotice').text(`${selDate.getFullYear()}년 ${selDate.getMonth() + 1}월 ${selDate.getDate()}일까지 모임을 신청할 수 있습니다.`);
+            } else {
+                $('.periodNotice').text(`날짜를 입력해주세요`);
+            }
         }
     })
-
-
-    $('#__BVID__287___BV_modal_outer_').show();
-    $('#__BVID__287___BV_modal_content_').hide();
-    $('#__BVID__21___BV_modal_content_').hide();
-    $('#__BVID__123___BV_modal_content_').hide();
-    $('#__BVID__1216___BV_modal_content_').show();
-
-    $('input[type=date]').val($(this).attr('data-date'));
-    let selDate = new Date($('input[type=date]').val());
-    selDate < date ? $('.dateNotice').css('display', '') : $('.dateNotice').css('display', 'none');
-    if ($('input[type=date]').val()) {
-        $('.periodNotice').text(`${selDate.getFullYear()}년 ${selDate.getMonth() + 1}월 ${selDate.getDate()}일까지 대원이 신청할 수 있습니다.`);
-    } else {
-        $('.periodNotice').text(`날짜를 입력해주세요`);
-    }
 }
 
 //일정 시간 유효성 검사
@@ -409,6 +451,7 @@ $('.openTime').on('change', function (){
     let openTime = new Date();
     let closeTime = new Date();
 
+
     openTime.setHours(open[0]);
     openTime.setMinutes(open[1]);
     closeTime.setHours(close[0]);
@@ -416,9 +459,6 @@ $('.openTime').on('change', function (){
 
     let differ = (closeTime.getTime() - openTime.getTime()) / (1000*60*60)
 
-    console.log("openTime" + openTime);
-    console.log("closeTime" + closeTime);
-    console.log(openTime > closeTime);
 
     if(openTime > closeTime){
         console.log('dd');
@@ -431,6 +471,8 @@ $('.openTime').on('change', function (){
         $('.timeNotice').css('display', 'none');
     }
 });
+
+
 
 
 //일정 등록
@@ -516,9 +558,6 @@ $(".plusThumb").on("change", function(){
             $('input[name=groupFileSize]').attr('value', Object.values(result[0])[22]);
             $('input[name=groupFileUuid]').attr('value', Object.values(result[0])[21]);
             let imageSrc = "/host/display?fileName=" + Object.values(result[0])[19] + "/" + Object.values(result[0])[21] + "_" + Object.values(result[0])[20];
-            console.log(result[0].groupFilePath);
-            console.log(Object.values(result[0]));
-            console.log(imageSrc);
 
             if($('input[name=groupFileSize]').val()>100000){
                 alert("파일 사이즈는 10MB 이하여야합니다.");
@@ -580,6 +619,12 @@ $('.checkRequest').on('click', function (){
         return;
     }
 
+    if($("input[name='groupPoint']")>10000 || !$("input[name='groupPoint']")){
+        alert("금액을 10,000원 이하로 기재해주세요.");
+        $("input[name='groupPoint']").focus();
+        return;
+    }
+
     if($('input[name=groupContent]').val() === ''){
         alert('모임 설명을 확인해주세요');
         $('#__BVID__287___BV_modal_outer_').hide();
@@ -616,7 +661,6 @@ $('.checkRequest').on('click', function (){
         console.log("장소등록");
         if($('.my-2.placeTable').css('display')=='none'){
             console.log("장소등록리턴");
-
             return;
         }
     }
@@ -658,7 +702,6 @@ let groupSave = (function(){
             data: JSON.stringify(groupContents),
             contentType: "application/json; charset=utf-8",
             success: function(result, status, xhr) {
-                console.log(result);
                 $(".text-sm").text(result);
                 if (callback) {
                     callback(result);
@@ -750,7 +793,24 @@ let groupSave = (function(){
         });
     }
 
-    return {add: add, update: update, updateStatus: updateStatus, addDate: addDate, listDate: listDate}
+    function hostHeader(param, callback, error){
+        $.ajax({
+            url: "/host/header",
+            type: "get",
+            async: false,
+            success: function(groupDTO, status, xhr){
+                if(callback){
+                    callback(groupDTO);
+                }
+            }, error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        }, hostHeader);
+    }
+
+    return {add: add, update: update, updateStatus: updateStatus, addDate: addDate, listDate: listDate, hostHeader: hostHeader}
 })();
 
 // 모임 페이지 삭제
@@ -816,7 +876,7 @@ $('.saveRequest').on('click', function (e){
     $('input[name=groupContent]').attr('value', content);
 
     if($(".note-editable").text().length>10000){
-        alert("글자는 255자 이내로 작성 가능합니다.");
+        alert("글자는 10,000자 이내로 작성 가능합니다.");
         return;
     }
 
@@ -840,7 +900,7 @@ $('.saveRequest').on('click', function (e){
             groupFilePath : $('input[name=groupFilePath]').val(),
             groupFileSize : $('input[name=groupFileSize]').val(),
             groupFileUuid : $('input[name=groupFileUuid]').val()
-        })
+        }, showHeader);
     }
 
     /*게시글 수정일 때*/
@@ -869,7 +929,7 @@ function groupUpdate(){
         groupFileSize : $('input[name=groupFileSize]').val(),
         groupFileUuid : $('input[name=groupFileUuid]').val(),
         groupId : $('input[name=groupId]').val()
-    });
+    }, showHeader);
 }
 
 
@@ -967,3 +1027,36 @@ $(document).ready(function() {
 function showList(){
     groupSave.listDate(groupId,listDate);
 }
+
+// 게시글 임시 저장, 또는 업데이트 시 상단 부분 변경
+function hostHeader(groupDTO){
+    console.log(groupDTO);
+    let groupText = "";
+    groupText += `<div><div data-v-59b7de29="" className="row"><div data-v-59b7de29="" className="col"><fieldset data-v-59b7de29="" className="form-group" id="__BVID__579"><div>`;
+    groupText += `<label className="form-control-label">ID</label>`;
+    if(groupDTO.groupId){
+        groupText += `<div>groupDTO.groupId</div>`;
+    } else{
+        groupText =`<div className="text-sm">신규등록</div>`;
+    }
+    groupText += `</div></fieldset></div><div data-v-59b7de29="" className="col"><fieldset data-v-59b7de29="" className="form-group" id="__BVID__581"><div>`;
+    groupText += `<label className="form-control-label">상태</label><div className="text-sm">`;
+    if(groupDTO.groupStatus == '승인완료'){
+        groupText += `<div data-v-59b7de29="" className="text-frip-primary font-weight-bold">승인 대기중</div>`;
+    } else{
+        groupText += `<div data-v-59b7de29="" className="text-frip-primary font-weight-bold">등록중</div>`;
+    }
+    groupText += `</div></div></fieldset></div><div data-v-59b7de29="" className="col"><fieldset data-v-59b7de29="" className="form-group" id="__BVID__583"><div>`;
+    groupText += `<label className="form-control-label">검수상태</label>`;
+    if(groupDTO.groupStatus == '승인대기'){
+        groupText += `<div data-v-59b7de29="" className="text-muted font-weight-bold"> 검수 진행중</div>`;
+    } else{
+        groupText +=`<div data-v-59b7de29="" className="text-muted font-weight-bold"> 검수 미신청</div></div>`;
+    }
+
+    groupText+=`<div className="text-sm">`;
+    groupText+= `</div></div></fieldset></div></div></div>`;
+
+    $("#groupHeader").html(groupText);
+}
+

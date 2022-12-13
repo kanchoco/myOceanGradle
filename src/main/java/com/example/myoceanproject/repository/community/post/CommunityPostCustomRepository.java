@@ -24,5 +24,8 @@ public interface CommunityPostCustomRepository {
 
     public List<CommunityPostDTO> filterCommunityBoard(List<String> communityCategories);
 
+    public List<CommunityPostDTO> filterCommunityBoard(int page, List<String> communityCategories);
+
     public List<CommunityPostDTO> filterCommunityBoard(List<String> communityCategories, Long userId);
+    public List<CommunityPostDTO> filterCommunityBoard(int page, List<String> communityCategories, Long id);
 }

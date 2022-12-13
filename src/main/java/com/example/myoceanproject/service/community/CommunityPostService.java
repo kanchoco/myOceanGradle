@@ -79,10 +79,47 @@ public class CommunityPostService implements CommunityService {
         return communityPostDTO;
     }
 
+//    비회원 전용
+    public List<CommunityPostDTO> findBoardByCategory(int page, List<String> communityCategories){
+        List<CommunityPostDTO> communityPostDTO = postRepositoryImpl.filterCommunityBoard(page, communityCategories);
+        return communityPostDTO;
+    }
+
+//    비회원 전용(카테고리 없을 때)
+    public List<CommunityPostDTO> findBoardByCategory(int page){
+        List<CommunityPostDTO> communityPostDTO = postRepositoryImpl.filterCommunityBoard(page);
+        return communityPostDTO;
+    }
+
+
+
+
+
+//  회원 전용
+    public List<CommunityPostDTO> findBoardByCategory(int page, List<String> communityCategories, Long userId){
+        log.info("===============" + userId);
+        List<CommunityPostDTO> communityPostDTO = postRepositoryImpl.filterCommunityBoard(page, communityCategories, userId);
+        return communityPostDTO;
+    }
+
+//  회원 전용(카테고리 없을 때)
+    public List<CommunityPostDTO> findBoardByCategory(int page, Long userId){
+        log.info("===============" + userId);
+        List<CommunityPostDTO> communityPostDTO = postRepositoryImpl.filterCommunityBoard(page, userId);
+        return communityPostDTO;
+    }
+
+
+
+
+
+
     public List<CommunityPostDTO> findBoardByCategory(List<String> communityCategories, Long userId){
         List<CommunityPostDTO> communityPostDTO = postRepositoryImpl.filterCommunityBoard(communityCategories, userId);
         return communityPostDTO;
     }
+
+
 
 
     @Override

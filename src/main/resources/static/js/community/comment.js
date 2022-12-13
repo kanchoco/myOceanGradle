@@ -35,7 +35,6 @@ $textarea.keyup(function (e) {
     if(content.length==0 || content==''){
         $registerBtn.css("cursor","not-allowed");
         $registerBtn.prop("disabled", true);
-
     }else{
         $registerBtn.css("cursor","pointer");
         $registerBtn.prop("disabled", false);

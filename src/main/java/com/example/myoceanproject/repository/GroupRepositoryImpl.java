@@ -56,7 +56,7 @@ public class GroupRepositoryImpl implements GroupCustomRepository{
                 group.createDate,
                 group.updatedDate,
                 group.reason
-        )).from(group).orderBy(group.groupId.desc()).fetch();
+        )).from(group).where(group.groupStatus.eq(GroupStatus.APPROVED)).orderBy(group.groupId.desc()).fetch();
     }
 
     @Override
@@ -91,7 +91,7 @@ public class GroupRepositoryImpl implements GroupCustomRepository{
                 group.updatedDate,
                 group.reason
         ))
-                .from(group)
+                .from(group).where(group.groupStatus.eq(GroupStatus.APPROVED))
                 .orderBy(group.groupId.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -134,7 +134,7 @@ public class GroupRepositoryImpl implements GroupCustomRepository{
                         group.updatedDate,
                         group.reason
                 ))
-                .from(group)
+                .from(group).where(group.groupStatus.eq(GroupStatus.APPROVED))
                 .orderBy(group.groupId.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -187,7 +187,7 @@ public class GroupRepositoryImpl implements GroupCustomRepository{
                 group.createDate,
                 group.updatedDate,
                 group.reason
-        )).from(group).orderBy(group.groupId.desc()).limit(5L).fetch();
+        )).from(group).where(group.groupStatus.eq(GroupStatus.APPROVED)).orderBy(group.groupId.desc()).limit(5L).fetch();
     }
 
     @Override
@@ -396,10 +396,10 @@ public class GroupRepositoryImpl implements GroupCustomRepository{
 
     }
 
-    public Integer countGroupUser(Long userId){
-        return Math.toIntExact(queryFactory.select(groupMember.user.userId.count())
-                .from(groupMember)
-                .where(groupMember.user.userId.eq(userId)).fetchOne());
+//  그룹 번호와 사용자의 번호를 통해 참석 여부를 가려주는 메소드
+//  참여를 했으면 false, 참여를 하지 않았으면 true
+    public boolean countGroupUser(Long userId, Long groupId){
+        return queryFactory.selectFrom(groupMember).where(groupMember.group.groupId.eq(groupId).and(groupMember.user.userId.eq(userId))).fetchOne()==null;
     }
 
     public void deleteGroupMemberByUserId(Long userId, Long groupId){
@@ -408,5 +408,46 @@ public class GroupRepositoryImpl implements GroupCustomRepository{
                         .and(groupMember.group.groupId.eq(groupId))).execute();
     }
 
+//  각 모임의 참여 인원 현황
+    public int countMember(Long groupId){
+        return Math.toIntExact(queryFactory.select(groupMember.count())
+                .from(groupMember)
+                .where(groupMember.group.groupId.eq(groupId)).fetchFirst());
+    }
 
+//  모임 헤더 관련 정보 찾기
+    public GroupDTO findByUserId(Long userId){
+        GroupDTO groupDTO = queryFactory.select(new QGroupDTO(
+                group.groupId,
+                group.user.userId,
+                group.user.userFileName,
+                group.user.userFilePath,
+                group.user.userFileSize,
+                group.user.userFileUuid,
+                group.user.userNickname,
+                group.groupName,
+                group.groupCategory,
+                group.groupContent,
+                group.groupPoint,
+                group.groupOverSea,
+                group.groupLocationName,
+                group.groupLocation,
+                group.groupLocationDetail,
+                group.groupParkingAvailable,
+                group.groupMoreInformation,
+                group.groupLocationType,
+                group.groupStatus,
+                group.groupFilePath,
+                group.groupFileName,
+                group.groupFileUuid,
+                group.groupFileSize,
+                group.groupMemberLimit.maxMember,
+                group.groupMemberLimit.minMember,
+                group.createDate,
+                group.updatedDate,
+                group.reason
+        )).from(group).where(group.user.userId.eq(userId)).orderBy(group.updatedDate.desc()).fetchFirst();
+
+        return groupDTO;
+    }
 }

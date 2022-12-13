@@ -60,3 +60,11 @@ $(".goDeleteCommunity").on("click", function(e){
     e.preventDefault();
     location.href ="/community/deleteBoard?communityPostId=" + $(this).attr("href");
 })
+
+$("#noticeWrap").on("click", function(){
+    if($("#notice").attr("class") == "Accordion__Content-sc-1jd6vdl-3 zRWUs"){
+        $("#notice").attr("class", "Accordion__Content-sc-1jd6vdl-3 bJFgwb");
+    } else{
+        $("#notice").attr("class", "Accordion__Content-sc-1jd6vdl-3 zRWUs");
+    }
+})

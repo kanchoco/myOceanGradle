@@ -44,7 +44,7 @@ public class CommunityReplyRepositoryImpl implements CommunityReplyCustomReposit
                 communityReply.communityPost.user.userId
         )).from(communityReply)
                 .where(communityPost.communityPostId.eq(communityPostId))
-                .orderBy(communityReply.createDate.desc()).fetch();
+                .orderBy(communityReply.createDate.asc()).fetch();
 
         return replies;
     }

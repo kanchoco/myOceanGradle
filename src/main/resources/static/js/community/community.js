@@ -9,6 +9,7 @@ const $book = $(".bookFilter")
 const $diary = $(".diaryFilter")
 
 globalThis.communityAr = new Array();
+
 let communities = ['EXERCISE', 'COOK', 'MOVIE', 'BOOK', 'COUNSELING'];
 
 
@@ -117,7 +118,7 @@ function allCheckCancel(){
 
 
 $allBtn.on("click",function () {
-    
+
   if($(this).find("button").hasClass("fFBpBV")){
       allCheck();
       $filterBtn.each((i,item)=>{
@@ -235,7 +236,6 @@ let communityLikeCheck = false;
 
 let communityService = (function() {
     function getList(param, callback, error) {
-        console.log(param);
         $.ajax({
             url: "/community/list/",
             type: "get",
@@ -268,9 +268,9 @@ let communityService = (function() {
         });
     }
 
-    function infiniteScroll(page, callback, error){
+    function infiniteScroll(param, callback, error){
         $.ajax({
-            url: "/community/scroll/" + page,
+            url: "/community/scroll/" + param.page + "/" + param.keyword,
             type: "get",
             success: function(boards, status, xhr){
                 if(callback){
@@ -285,9 +285,9 @@ let communityService = (function() {
         });
     }
 
-    function infiniteScrollUser(page, callback, error){
+    function infiniteScrollUser(param, callback, error){
         $.ajax({
-            url: "/community/scroll-user/" + page,
+            url: "/community/scroll-user/" + param.page + (("/" + param.keyword) || ""),
             type: "get",
             success: function(boards, status, xhr){
                 if(callback){
@@ -357,7 +357,7 @@ let communityService = (function() {
 
     function filterCheck(communityCategories, callback, error){
         $.ajax({
-            url: "/community/list-filter/" + communityCategories,
+            url: "/community/list-filter/" + globalThis.communityAr,
             type: "get",
             success: function(communityCategories, status, xhr){
                 if(callback){
@@ -373,7 +373,7 @@ let communityService = (function() {
 
     function filterCheckLoginUser(communityCategories, callback, error){
         $.ajax({
-            url: "/community/list-filter-login-user/" + communityCategories,
+            url: "/community/list-filter-login-user/" + globalThis.communityAr,
             type: "get",
             success: function(communityCategories, status, xhr){
                 if(callback){
@@ -394,18 +394,31 @@ let communityService = (function() {
 
 
 let page = 1;
-
+let scrollCheck = false;
 $(window).scroll(function(){
     if($(window).scrollTop() * 1.001 >= $(document).height() - $(window).height()){
+        if(scrollCheck){
+            return;
+        }
+        scrollCheck = true;
         showCheck=true;
+        console.log(globalThis.communityAr);
         if($("input[name='userId']").val()){
-            communityService.infiniteScrollUser(page, getList);
-            page++;
+            communityService.infiniteScrollUser({
+                page:page,
+                keyword: globalThis.communityAr
+            }, getList);
         }
         else{
-            communityService.infiniteScroll(page, getList);
-            page++;
+            communityService.infiniteScroll({
+                page:page,
+                keyword: globalThis.communityAr
+            }, getList);
         }
+        page++;
+        setTimeout(function(){
+            scrollCheck = false;
+        }, 500);
     }
 });
 
@@ -461,6 +474,7 @@ let showCheck = true;
 
 // 커뮤니티 카테고리 동적쿼리
 $(".jJIWoq").on("click", function(){
+    page = 1;
     showCheck = false;
 
     if($("input[name='userId']").val()==""){
