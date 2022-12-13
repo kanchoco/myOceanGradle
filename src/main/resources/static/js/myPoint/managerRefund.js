@@ -10,8 +10,10 @@ function refundOkPay(){
         dataType:"text",
         success:function(result){
             console.log(result);
-            if(result=="success");
-            location.reload(true);
+            if(result=="success") {
+                alert("회원의 환불 요청이 승인되었습니다.");
+                location.href = "/myPoint/managerRefund";
+            }
         },
         error:function(status,error){
             console.log(status,error);
