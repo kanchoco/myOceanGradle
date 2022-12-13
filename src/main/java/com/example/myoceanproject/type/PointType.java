@@ -1,7 +1,7 @@
 package com.example.myoceanproject.type;
 
 public enum PointType {
-    PAY("결제"),REFUNDREADY("환불대기"),REFUNDCOMPLETE("환불승인");
+    PAY("결제"),REFUNDREADY("환불대기"),REFUNDCOMPLETE("환불승인"), REWARD("보상");
 
     private String value;
     private PointType(String value)

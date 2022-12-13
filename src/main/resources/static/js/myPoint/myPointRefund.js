@@ -1,9 +1,9 @@
-function refundPay() {
+function refundPay(tag) {
     $.ajax({
         url: "refundRequest",
         type: "post",
         headers: {"Content-Type": "application/json"},
-        data: $("input[name='requestRefund']").val(),
+        data: $(tag).next().val(),
         dataType: "text",
         success: function (result) {
             if (result == "success") {

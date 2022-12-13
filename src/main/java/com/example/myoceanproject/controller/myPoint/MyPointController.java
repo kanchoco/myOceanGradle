@@ -1,5 +1,7 @@
 package com.example.myoceanproject.controller.myPoint;
 
+import com.example.myoceanproject.aspect.annotation.PointAlarm;
+import com.example.myoceanproject.aspect.annotation.RefundAlarm;
 import com.example.myoceanproject.domain.*;
 import com.example.myoceanproject.entity.Point;
 import com.example.myoceanproject.entity.User;
@@ -57,6 +59,7 @@ public class MyPointController {
     @ResponseBody
     @Transactional
     @Modifying
+    @PointAlarm
     public String receivePayment(@RequestBody ObjectNode objectNode){
         PointDTO pointDTO=new PointDTO();
         UserDTO userDTO=new UserDTO();
@@ -88,8 +91,7 @@ public class MyPointController {
         User selectuser=jpaQueryFactory.selectFrom(user).where(user.userId.eq(userId)).fetchOne();
 
         int updateTotalPoint=selectuser.getUserTotalPoint()+Integer.parseInt(String.valueOf(userPoint));
-        userDTO.setUserTotalPoint(updateTotalPoint);
-        selectuser.updateUserTotalPoint(userDTO);
+        selectuser.updateUserTotalPoint(updateTotalPoint);
 
         log.info("userDTO1:"+userDTO);
         log.info("selectuser:"+selectuser);
@@ -109,6 +111,7 @@ public class MyPointController {
     @ResponseBody
     @Transactional
     @Modifying
+    @RefundAlarm
     public String myPointRefundRequest(@RequestBody String pointId,HttpServletRequest request){
         PointDTO pointDTO=new PointDTO();
         PointDTO pointDTO1=new PointDTO();
@@ -132,12 +135,11 @@ public class MyPointController {
 
         pointRepository.save(point1);
 
-        Point selectuser=jpaQueryFactory.selectFrom(point).where(point.pointType.eq(PointType.PAY).and(point.pointCheckType.eq(PointCheckType.BEFOREREFUND))).fetchOne();
-
         pointDTO1.setPointCheckType("이후");
         pointDTO1.setPointContent("MyOcean 포인트 충전");
         pointDTO1.setPointType("결제");
-        selectuser.update(pointDTO1);
+        points.update(pointDTO1);
+
 
         return "success";
     }
@@ -154,6 +156,7 @@ public class MyPointController {
     @ResponseBody
     @Transactional
     @Modifying
+    @PointAlarm
     public String managerRefundOk(@RequestBody ObjectNode objectNode){
 
         PointDTO pointDTO=new PointDTO();
@@ -178,18 +181,16 @@ public class MyPointController {
 
         pointRepository.save(point1);
 
-        Point selectuser=jpaQueryFactory.selectFrom(point).where(point.pointType.eq(PointType.REFUNDREADY).and(point.pointCheckType.eq(PointCheckType.BEFOREREFUND))).fetchOne();
 
         pointDTO1.setPointCheckType("이후");
         pointDTO1.setPointContent("MyOcean 포인트 환불 요청");
         pointDTO1.setPointType("환불대기");
-        selectuser.update(pointDTO1);
+        points.update(pointDTO1);
 
-        User udpateuser=jpaQueryFactory.selectFrom(user).where(user.userId.eq(userIds)).fetchOne();
+        User updateUser=jpaQueryFactory.selectFrom(user).where(user.userId.eq(userIds)).fetchOne();
 
-        int updateTotalPoint=udpateuser.getUserTotalPoint()-Integer.parseInt(String.valueOf(selectuser.getPointAmountHistory()));
-        userDTO.setUserTotalPoint(updateTotalPoint);
-        udpateuser.updateUserTotalPoint(userDTO);
+        int updateTotalPoint=updateUser.getUserTotalPoint()-Integer.parseInt(String.valueOf(points.getPointAmountHistory()));
+        updateUser.updateUserTotalPoint(updateTotalPoint);
 
         return "success";
     }

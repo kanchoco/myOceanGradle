@@ -1,5 +1,6 @@
 package com.example.myoceanproject.controller.questionBoard;
 
+import com.example.myoceanproject.aspect.annotation.AskAlarm;
 import com.example.myoceanproject.domain.AskDTO;
 import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.entity.Ask;
@@ -330,6 +331,7 @@ public class QusetionBoardController {
     @ResponseBody
     @Transactional
     @Modifying
+    @AskAlarm
     public String usersQuestionWriteOk(@RequestBody ObjectNode objectNode){
 
         Long askId=objectNode.get("askId").asLong();

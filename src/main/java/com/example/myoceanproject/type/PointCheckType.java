@@ -1,7 +1,7 @@
 package com.example.myoceanproject.type;
 
 public enum PointCheckType {
-    BEFOREREFUND("처음"),AFTERREFUND("이후");
+    BEFOREREFUND("처음"),AFTERREFUND("이후"), REWARD("보상");
 
     private String value;
     private PointCheckType(String value)

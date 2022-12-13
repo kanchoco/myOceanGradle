@@ -102,7 +102,7 @@ public class User extends Period {
         this.userAccountStatus = userAccountStatus;
     }
 
-    public void updateUserTotalPoint(UserDTO userDTO){this.userTotalPoint=userDTO.getUserTotalPoint();}
+    public void updateUserTotalPoint(int userTotalPoint){this.userTotalPoint=userTotalPoint;}
 
     public void setUserId(Long userId){
         this.userId = userId;
