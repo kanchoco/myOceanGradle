@@ -1,6 +1,6 @@
-function refundOkPay(){
-    var refundPointId=$("input[name='requestRefundPointId']").val();
-    var refundUserId=$("input[name='requestRefundUser']").val();
+function refundOkPay(tag){
+    var refundPointId=$(tag).next().val();
+    var refundUserId=$(tag).next().next().val();
     let formData={"requestRefundPointId":refundPointId,"requestRefundUser":refundUserId};
     $.ajax({
         url:"managerRefund",

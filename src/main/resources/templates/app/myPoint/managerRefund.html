@@ -48,7 +48,7 @@
                             <div class="EnergyLog__Value-sc-19yls83-6 ftNZaKA" th:text="|-*{pointAmountHistory}|"></div>
                             <!--                            <input type="hidden" name="requestAsk" th:value="*{pointId}">-->
                         </div>
-                        <button type="button" class="Outlined__Button-qqupyj-0 kpRdoOA" style="line-height:0.5" onclick="refundOkPay()">환불처리</button>
+                        <button type="button" class="Outlined__Button-qqupyj-0 kpRdoOA" style="line-height:0.5" onclick="refundOkPay(this)">환불처리</button>
                         <input type="hidden" name="requestRefundPointId" th:value="*{pointId}">
                         <input type="hidden" name="requestRefundUser" th:value="*{userId}">
                     </div>
