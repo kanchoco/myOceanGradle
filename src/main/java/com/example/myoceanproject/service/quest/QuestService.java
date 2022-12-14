@@ -1,4 +1,4 @@
-package com.example.myoceanproject.service;
+package com.example.myoceanproject.service.quest;
 
 import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.domain.Criteria;
