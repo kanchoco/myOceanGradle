@@ -888,7 +888,10 @@ body, button, input, select, td, textarea, th {
     cursor: pointer;
 }
 
-
+.left img{
+    width:9px;
+    height: 9px;
+}
 
 
 
