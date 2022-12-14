@@ -24,7 +24,7 @@ public class Point extends Period{
     @NotNull
     private int pointAmountHistory;
 
-    @NotNull
+
     private String groupName;
 
     @NotNull
@@ -48,13 +48,14 @@ public class Point extends Period{
 
     //  포인트를 사용하거나 충전했을 때 포인트 히스토리가 하나씩 추가되므로 update가 아니라 insert로 봐야 한다.
     @Builder
-    public Point(int pointAmountHistory,PointType pointType,String pointMerchantUid,String pointImpUid,String pointContent,PointCheckType pointCheckType) {
+    public Point(int pointAmountHistory,PointType pointType,String pointMerchantUid,String pointImpUid,String pointContent,PointCheckType pointCheckType, String groupName) {
         this.pointAmountHistory = pointAmountHistory;
         this.pointType=pointType;
         this.pointMerchantUid=pointMerchantUid;
         this.pointImpUid=pointImpUid;
         this.pointContent=pointContent;
         this.pointCheckType=pointCheckType;
+        this.groupName = groupName;
     }
 
     //  포인트 환불 요청시 관리자가 환불대기->환불승인 상태로 변경시켜주기 위해

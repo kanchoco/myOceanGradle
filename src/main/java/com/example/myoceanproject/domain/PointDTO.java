@@ -50,6 +50,7 @@ public class PointDTO {
                 .pointImpUid(pointImpUid)
                 .pointContent(pointContent)
                 .pointCheckType(PointCheckType.change(pointCheckType))
+                .groupName(groupName)
                 .build();
     }
 }

@@ -39,6 +39,7 @@ $exchangeFilterLi.click(function () {
 })
 
 checkMedia()
+
 $(window).resize(function(){
     if(window.innerWidth<650){
         $(".registerBtn_1h").hide()
@@ -240,7 +241,6 @@ $(".Button-bqxlp0-0.fFBpBV").on("click", function(e){
 //썸네일 이미지
 $(".plusThumb").on("change", function(){
     let arrayFile =[];
-
     let formData = new FormData();
     let $inputFile = $("input[name='plusThumb']");
     let files = $inputFile[0].files;
@@ -262,7 +262,6 @@ $(".plusThumb").on("change", function(){
         contentType: false,
         processData: false,
         success: function(result) {
-            console.log(Object.values(result[0]));
             $('input[name=communityFileName]').attr('value', Object.values(result[0])[12]);
             $('input[name=communityFilePath]').attr('value', Object.values(result[0])[11]);
             $('input[name=communityFileSize]').attr('value', Object.values(result[0])[14]);

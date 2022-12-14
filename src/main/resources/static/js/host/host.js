@@ -16,15 +16,27 @@ const date = new Date();
 // 캘린더에 들어갈 데이터
 let data = [];
 
-$(document).ready(function(){
-    showList();
-})
+// $(document).ready(function(){
+//     showList();
+// })
 
+displayCalendar();
+
+function displayCalendar(){
+    console.log($(".text-sm")[0].innerText);
+    if($(".text-sm")[0].innerText == '신규등록'){
+        console.log("==========================")
+        $("#calendarWrap").hide();
+    } else{
+        $("#calendarWrap").show();
+    }
+}
 
 
 // 모임 리스트에 저장 후 groupScheduleDTO에 모임의 날짜를 각각 저장해준다.
 // 이후 콜백함수를 통해 리스트를 출력
 function listDate(groupScheduleDTO){
+    displayCalendar();
     data = [];
     groupScheduleDTO.forEach(schedule => {
         let simpleDate = schedule.groupScheduleStartTime.split("T")[0];
@@ -278,8 +290,8 @@ function showPlaceDetail(){
 }
 
 $("input[name='groupPoint']").keyup(function(){
-    if($("input[name='groupPoint']").val()>10000){
-        alert("포인트는 10,000 이상 설정하실 수 없습니다.");
+    if($("input[name='groupPoint']").val()>10000 || $("input[name='groupPoint']").val() <99){
+        alert("포인트는 100원 이상, 10,000원 미만으로 설정해주세요.");
         $("input[name='groupPoint']").focus();
     }
 })
@@ -297,9 +309,6 @@ function findPlace(){
         alert("모임명과 카테고리를 먼저 입력해주세요.");
         return;
     }
-
-
-
     $('#__BVID__287___BV_modal_outer_').show();
     $('#__BVID__287___BV_modal_content_').show();
     $('#__BVID__1216___BV_modal_content_').hide();
@@ -312,11 +321,6 @@ $(".createPlace.btn.frip-button.btn-frip-primary.btn-tab").on("click", function(
     if($("input[name='locationName']").val()==""){
         alert("장소명을 입력해주세요.");
         $("input[name='locationName']").focus();
-        return;
-    }
-
-    if(!checkedLogion){
-        alert('해외장소 여부를 선택해주세요');
         return;
     }
 
@@ -406,7 +410,8 @@ function addSchedule() {
     let dateCheck = false;
     // 일정 추가 버튼 유효성 검사
     if ($(".cancelRecruitment").css("display") == "none") {
-        alert("일정 설정은 저장 후 가능합니다.");
+        $("p.alertMsg").text("일정 설정은 저장 후 가능합니다.");
+        $("p.alertMsg").css("display", "block");
         return;
     }
 
@@ -425,6 +430,30 @@ function addSchedule() {
                 }
             });
         } else{
+
+            // 이미 지난 날짜인지 비교
+            let clickDate = $(".mx-3.dateTitle").text() + $(this).parent().next().text() + "00:00:00";
+
+            let year = clickDate.split("년")[0];
+            let month = clickDate.split("년")[1].split("월")[0];
+            let day = clickDate.split("년")[1].split("월")[1].split("일")[0];
+
+            let concatenateDate = year + "-" + month.trim() + "-" + day.trim() + " 00:00:00";
+            let checkDate = new Date(concatenateDate);
+
+            let presentDate = new Date();
+            presentDate = presentDate.getFullYear() + "-" + (presentDate.getMonth()+1) + "-" + presentDate.getDate() + " 00:00:00";
+            let presentDateTypeChange = new Date(presentDate).getTime();
+
+            console.log(presentDateTypeChange);
+            console.log(checkDate.getTime());
+            console.log(presentDateTypeChange - checkDate.getTime());
+            if(presentDateTypeChange - checkDate.getTime()+1 >0){
+                $("p.alertMsg").text("오늘 또는 지난 날짜는 선택하실 수 없습니다.");
+                $("p.alertMsg").css("display", "block");
+                return;
+            }
+
             $('#__BVID__287___BV_modal_outer_').show();
             $('#__BVID__287___BV_modal_content_').hide();
             $('#__BVID__21___BV_modal_content_').hide();
@@ -479,19 +508,45 @@ $('.openTime').on('change', function (){
 $('.createPlan').on('click', function(){
     //이거 백엔드에서 DB일정 등록하시고 rest로 달력이랑 같이 로딩하시면 됨,
 
+    // 날짜 값이 비어있으면 날짜로 포커싱
     if(!$('input[type=date]').val()){
+        $(".timeNotice.mt-2.text-sm.text-frip-danger").text("날짜를 입력해주세요.");
+        $(".timeNotice.mt-2.text-sm.text-frip-danger").css("display", "block");
         $('input[type=date]').focus();
         return;
     }
 
+    // 현재 날짜보다 진행하고자 하는 날짜가 더 빠르면 날짜로 포커싱
+    let pickDate = new Date($('input[type=date]').val() + " 00:00:00").getTime();
+    let presentDate = new Date();
+    presentDate = presentDate.getFullYear() + "-" + (presentDate.getMonth()+1) + "-" + presentDate.getDate() + " 00:00:00";
+    let presentDateTypeChange = new Date(presentDate).getTime();
+    console.log(presentDateTypeChange);
+    console.log(pickDate);
+    if((presentDateTypeChange+10) - pickDate >0){
+        $(".timeNotice.mt-2.text-sm.text-frip-danger").text("오늘 또는 지난 날을 선택할 수 없습니다.");
+        $(".timeNotice.mt-2.text-sm.text-frip-danger").css("display", "block");
+        $('input[type=date]').focus();
+        return;
+    }
+
+
+    // 시작 시간이나 끝나는 시간이 비어있으면 시작 시간 칸으로 포커싱
     if(!$('.openTime').val() || !$('.closeTime').val()){
+        $(".timeNotice.mt-2.text-sm.text-frip-danger").text("시작 시간 또는 종료 시간을 입력해주세요.");
+        $(".timeNotice.mt-2.text-sm.text-frip-danger").css("display", "block");
         $('.openTime').focus();
         return;
     }
 
-    if($('.timeNotice').css('display') != 'none'){
+    // 시작 시간이 끝나는 시간보다 더 늦으면 시작 시간으로 포커싱
+    if($(".openTime").val() >= $(".closeTime").val()){
+        $(".timeNotice.mt-2.text-sm.text-frip-danger").text("종료시간은 시작시간보다 빠를 수 없습니다.");
+        $(".timeNotice.mt-2.text-sm.text-frip-danger").css("display", "block");
+        $('.openTime').focus();
         return;
     }
+
 
     $('#__BVID__287___BV_modal_outer_').hide();
     $('#__BVID__1216___BV_modal_content_').hide();
@@ -655,14 +710,18 @@ $('.checkRequest').on('click', function (){
         return;
     }
 
-
+    //장소등록 안되있으면 return
     if($('.selectBox.mx-2.selected').attr('data-type') == 'offline'){
-        //장소등록 안되있으면 return
-        console.log("장소등록");
         if($('.my-2.placeTable').css('display')=='none'){
-            console.log("장소등록리턴");
+            alert("장소를 등록해주세요.");
             return;
         }
+    }
+
+    //스케줄 등록이 안되어있으면 return
+    if(data.length == 0){
+        alert("일정을 하루 이상 등록해주세요.");
+        return;
     }
 
 //  모임 멤버 테이블 생성
@@ -689,6 +748,7 @@ $('.checkRequest').on('click', function (){
 //    업데이트
     groupUpdate();
 
+    location.href = "/host/group-list";
 
 });
 
@@ -702,12 +762,10 @@ let groupSave = (function(){
             data: JSON.stringify(groupContents),
             contentType: "application/json; charset=utf-8",
             success: function(result, status, xhr) {
-                $(".text-sm").text(result);
-                if (callback) {
                     callback(result);
-                }
             },
             error: function(xhr, status, err){
+                console.log(xhr, status, err);
                 if(error){
                     error(err);
                 }
@@ -755,8 +813,10 @@ let groupSave = (function(){
 
     function addDate(groupContents, callback, error){
         let groupId = $('input[name=groupId]').val();
+        let groupScheduleStartTime = new Date($('input[type=date]').val() + " " + $('.openTime').val() + ":00");
+        let groupScheduleEndTime = new Date($('input[type=date]').val() + " " + $('.closeTime').val() + ":00");
         $.ajax({
-            url: "/host/addDate/" + groupId,
+            url: "/host/addDate/" + groupId + "/" + groupScheduleStartTime + "/" + groupScheduleEndTime,
             type: "post",
             data: JSON.stringify(groupContents),
             contentType: "application/json; charset=utf-8",
@@ -774,6 +834,7 @@ let groupSave = (function(){
     }
 
     function listDate(param, callback, error){
+
         let groupId = $('input[name=groupId]').val();
         $.ajax({
             url: "/host/date-list/" + groupId,
@@ -793,24 +854,7 @@ let groupSave = (function(){
         });
     }
 
-    function hostHeader(param, callback, error){
-        $.ajax({
-            url: "/host/header",
-            type: "get",
-            async: false,
-            success: function(groupDTO, status, xhr){
-                if(callback){
-                    callback(groupDTO);
-                }
-            }, error: function(xhr, status, err){
-                if(error){
-                    error(err);
-                }
-            }
-        }, hostHeader);
-    }
-
-    return {add: add, update: update, updateStatus: updateStatus, addDate: addDate, listDate: listDate, hostHeader: hostHeader}
+    return {add: add, update: update, updateStatus: updateStatus, addDate: addDate, listDate: listDate}
 })();
 
 // 모임 페이지 삭제
@@ -900,7 +944,7 @@ $('.saveRequest').on('click', function (e){
             groupFilePath : $('input[name=groupFilePath]').val(),
             groupFileSize : $('input[name=groupFileSize]').val(),
             groupFileUuid : $('input[name=groupFileUuid]').val()
-        }, showHeader);
+        }, hostHeader);
     }
 
     /*게시글 수정일 때*/
@@ -929,7 +973,7 @@ function groupUpdate(){
         groupFileSize : $('input[name=groupFileSize]').val(),
         groupFileUuid : $('input[name=groupFileUuid]').val(),
         groupId : $('input[name=groupId]').val()
-    }, showHeader);
+    });
 }
 
 
@@ -958,9 +1002,8 @@ let thumbnailCheck = 0;
 
 // 수정 진행 시 썸머노트에 기존 내용 출력하기
 $(".py-2.px-0.container.ex").on("click", function(){
-
+    thumbnailCheck++;
     if($('input[name=groupFilePath]').val()){
-        thumbnailCheck++;
         if(thumbnailCheck<=1){
             let imageSrc = "/host/display?fileName=" + $('input[name=groupFilePath]').val() + "/" + $('input[name=groupFileUuid]').val() + "_" + $('input[name=groupFileName]').val();
 
@@ -1025,38 +1068,41 @@ $(document).ready(function() {
 
 
 function showList(){
-    groupSave.listDate(groupId,listDate);
+    /*모임 상단 헤더에 모임 아이디가 나오기 때문에 거기에 아이디 값을 넣어준다.*/
+    groupSave.listDate($(".text-sm")[0].innerText,listDate);
 }
 
 // 게시글 임시 저장, 또는 업데이트 시 상단 부분 변경
 function hostHeader(groupDTO){
     console.log(groupDTO);
     let groupText = "";
-    groupText += `<div><div data-v-59b7de29="" className="row"><div data-v-59b7de29="" className="col"><fieldset data-v-59b7de29="" className="form-group" id="__BVID__579"><div>`;
-    groupText += `<label className="form-control-label">ID</label>`;
+    groupText += `<div><div data-v-59b7de29="" class="row"><div data-v-59b7de29="" class="col"><fieldset data-v-59b7de29="" class="form-group" id="__BVID__579"><div>`;
+    groupText += `<label class="form-control-label">ID</label>`;
     if(groupDTO.groupId){
-        groupText += `<div>groupDTO.groupId</div>`;
+        groupText += `<div class="text-sm">${groupDTO.groupId}</div>`;
     } else{
-        groupText =`<div className="text-sm">신규등록</div>`;
+        groupText =`<div class="text-sm">신규등록</div>`;
     }
-    groupText += `</div></fieldset></div><div data-v-59b7de29="" className="col"><fieldset data-v-59b7de29="" className="form-group" id="__BVID__581"><div>`;
-    groupText += `<label className="form-control-label">상태</label><div className="text-sm">`;
+    groupText += `</div></fieldset></div><div data-v-59b7de29="" class="col"><fieldset data-v-59b7de29="" class="form-group" id="__BVID__581"><div>`;
+    groupText += `<label class="form-control-label">상태</label><div class="text-sm">`;
     if(groupDTO.groupStatus == '승인완료'){
-        groupText += `<div data-v-59b7de29="" className="text-frip-primary font-weight-bold">승인 대기중</div>`;
+        groupText += `<div data-v-59b7de29="" class="text-frip-primary font-weight-bold">승인 대기중</div>`;
     } else{
-        groupText += `<div data-v-59b7de29="" className="text-frip-primary font-weight-bold">등록중</div>`;
+        groupText += `<div data-v-59b7de29="" class="text-frip-primary font-weight-bold">등록중</div>`;
     }
-    groupText += `</div></div></fieldset></div><div data-v-59b7de29="" className="col"><fieldset data-v-59b7de29="" className="form-group" id="__BVID__583"><div>`;
-    groupText += `<label className="form-control-label">검수상태</label>`;
+    groupText += `</div></div></fieldset></div><div data-v-59b7de29="" class="col"><fieldset data-v-59b7de29="" class="form-group" id="__BVID__583"><div>`;
+    groupText += `<label class="form-control-label">검수상태</label>`;
     if(groupDTO.groupStatus == '승인대기'){
-        groupText += `<div data-v-59b7de29="" className="text-muted font-weight-bold"> 검수 진행중</div>`;
+        groupText += `<div data-v-59b7de29="" class="text-muted font-weight-bold"> 검수 진행중</div>`;
     } else{
-        groupText +=`<div data-v-59b7de29="" className="text-muted font-weight-bold"> 검수 미신청</div></div>`;
+        groupText +=`<div data-v-59b7de29="" class="text-muted font-weight-bold"> 검수 미신청</div></div>`;
     }
 
-    groupText+=`<div className="text-sm">`;
+    groupText+=`<div class="text-sm">`;
     groupText+= `</div></div></fieldset></div></div></div>`;
 
     $("#groupHeader").html(groupText);
+    $('input[name=groupId]').attr("value", $(".text-sm")[0].innerText);
+    showList();
 }
 

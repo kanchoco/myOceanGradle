@@ -5,6 +5,7 @@ import com.example.myoceanproject.entity.Group;
 import com.example.myoceanproject.type.GroupLocationType;
 import com.example.myoceanproject.type.GroupStatus;
 import com.example.myoceanproject.type.MessageType;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
