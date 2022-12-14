@@ -4,7 +4,6 @@ import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.domain.QuestDTO;
 import com.example.myoceanproject.entity.Ask;
 import com.example.myoceanproject.service.AskService;
-import com.example.myoceanproject.service.QuestService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
