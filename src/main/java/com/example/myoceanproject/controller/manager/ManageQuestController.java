@@ -1,7 +1,7 @@
 package com.example.myoceanproject.controller.manager;
 import com.example.myoceanproject.domain.*;
-import com.example.myoceanproject.service.QuestService;
 import com.example.myoceanproject.service.alarm.AlarmService;
+import com.example.myoceanproject.service.quest.QuestService;
 import com.example.myoceanproject.type.UserAccountStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
