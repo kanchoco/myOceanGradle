@@ -6,6 +6,9 @@ import com.example.myoceanproject.domain.QQuestDTO;
 import com.example.myoceanproject.domain.QuestDTO;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import static com.example.myoceanproject.entity.QQuest.quest;
@@ -20,8 +23,8 @@ public class QuestAchievementRepositoryImpl implements QuestAchievementCustomRep
 
     @Override
 //    유저 아이디를 이용해 해당 유저가 달성한 퀘스트를 dto로 받아온다.
-    public List<QuestDTO> findQuestAchievementByUserId(Long userId){
-        return queryFactory.select(new QQuestDTO(
+    public Page<QuestDTO> findQuestAchievementByUserId(Long userId, Pageable pageable){
+        List<QuestDTO> questDTOList = queryFactory.select(new QQuestDTO(
                         quest.questId,
                         quest.questCategory,
                         quest.questName,
@@ -38,6 +41,13 @@ public class QuestAchievementRepositoryImpl implements QuestAchievementCustomRep
                 .join(questAchievement)
                 .on(questAchievement.quest.questId.eq(quest.questId))
                 .where(questAchievement.user.userId.eq(userId))
-                .fetch();
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize()).fetch();
+
+        long total = queryFactory.selectFrom(questAchievement)
+                .where(questAchievement.user.userId.eq(userId))
+                .fetch().size();
+
+        return new PageImpl<>(questDTOList, pageable, total);
     }
 }

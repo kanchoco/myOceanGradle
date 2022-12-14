@@ -1,9 +1,13 @@
 package com.example.myoceanproject.controller.myQuest;
 
+import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.domain.QuestDTO;
 import com.example.myoceanproject.service.quest.QuestAchievementService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Slf4j
@@ -26,13 +32,29 @@ public class MyQuestRestController {
 //    ResponseEntity : 서버의 상태코드, 응답 메세지 등을 담을 수 있는 타입
     private final QuestAchievementService questAchievementService;
     // 완료한 퀘스트 페이지
-    @GetMapping(value = "/myCollection")
-    public List<QuestDTO> completeQuest(HttpServletRequest request){
+    @GetMapping(value = "/{page}")
+    public QuestDTO completeQuest(@PathVariable int page,@PathVariable(required = false) String keyword, HttpServletRequest request){
         log.info("================================REST CONTROLLER 들어옴===================================");
+
+        Criteria criteria = new Criteria();
+        criteria.setPage(page);
+
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 4);
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute("userId");
         log.info(userId.toString());
-        List<QuestDTO> questDTOList = questAchievementService.showMyAchievement(userId);
-       return questDTOList;
+        Page<QuestDTO> questDTOList = questAchievementService.showMyAchievement(userId, pageable);
+        int endPage = (int)(Math.ceil(questDTOList.getNumber()+1 / (double)4)) * 10;
+        if(questDTOList.getTotalPages() < endPage){
+            endPage = questDTOList.getTotalPages() == 0 ? 1 : questDTOList.getTotalPages();
+        }
+
+        QuestDTO questDTO = new QuestDTO();
+
+        questDTO.setQuestList(questDTOList.getContent());
+        questDTO.setEndPage(endPage);
+
+
+        return questDTO;
     }
 }
