@@ -19,10 +19,10 @@ public class ChattingStatusRepositoryImpl implements ChattingStatusCustomReposit
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<ChattingStatus> findByGroupMemberId(GroupMember groupMember) {
+    public List<ChattingStatus> findByGroupMemberId(Long groupMemberId) {
         return queryFactory.select(chattingStatus)
                 .from(chattingStatus)
-                .where(chattingStatus.receiverGroupMember.groupMemberId.eq(groupMember.getGroupMemberId()))
+                .where(chattingStatus.receiverGroupMember.groupMemberId.eq(groupMemberId))
                 .fetch();
     }
 

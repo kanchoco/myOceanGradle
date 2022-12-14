@@ -1,6 +1,7 @@
 package com.example.myoceanproject.controller.chatting;
 
 import com.example.myoceanproject.domain.ChattingDTO;
+import com.example.myoceanproject.domain.ChattingStatusDTO;
 import com.example.myoceanproject.domain.GroupDTO;
 import com.example.myoceanproject.repository.GroupRepositoryImpl;
 import com.example.myoceanproject.service.GroupService;
@@ -36,10 +37,12 @@ public class ChattingRestController {
 
     @GetMapping("/groupId/{groupId}")
     public List<ChattingDTO> list(@PathVariable("groupId") Long groupId, HttpServletRequest request){
+        log.info("==============================list 컨트롤러 들어옴=====================================================");
         HttpSession session = request.getSession();
         session.setAttribute("groupId", groupId);
         Long userId = (Long) session.getAttribute("userId");
         List<ChattingDTO> chattingDTOList= chattingService.showChatting(userId,groupId);
+
         return chattingDTOList;
     }
 

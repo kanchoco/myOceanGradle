@@ -1,6 +1,7 @@
 package com.example.myoceanproject.repository.chatting;
 
 import com.example.myoceanproject.domain.*;
+import com.example.myoceanproject.entity.ChattingStatus;
 import com.example.myoceanproject.type.ReadStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class ChattingRepositoryImpl implements ChattingCustomRepository {
                 groupMember.groupMemberId,
                 groupMember.group.groupId,
                 groupMember.user.userId
-        )).from(groupMember).fetch();
+        )).from(groupMember).where(groupMember.group.groupId.eq(groupId)).fetch();
     }
 
     //    유저 아이디를 받아서 받은 유저 정보와 그룹 멤버 테이블의 유저 정보가 일치할 경우 그룹 아이디를 가지고 옴
@@ -127,12 +128,13 @@ public class ChattingRepositoryImpl implements ChattingCustomRepository {
         )).from(chattingStatus).where(chattingStatus.chatting.group.groupId.eq(groupId).and(chattingStatus.receiverGroupMember.user.userId.eq(userId)).and(chattingStatus.readStatus.eq(ReadStatus.UNREAD))).fetch().size();
     }
 
+
+
 //    그룹멤버 아이디를 받아와서 그룹 멤버 아이디 값이 매개변수와 동일하면서 chattingStatus가 unread였던 메세지들의 상태를 read로 바꿔준다.
 
     @Override
     public void updateChattingReadStatus(Long groupMemberId){
-        queryFactory.update(chattingStatus).set(chattingStatus.readStatus, ReadStatus.READ)
-                .where(chattingStatus.receiverGroupMember.groupMemberId.eq(groupMemberId))
-                .execute();
+//        queryFactory.update(chattingStatus).set(chattingStatus.readStatus, ReadStatus.READ)
+//                .where(chattingStatus.receiverGroupMember.groupMemberId.eq(groupMemberId));
     }
 }

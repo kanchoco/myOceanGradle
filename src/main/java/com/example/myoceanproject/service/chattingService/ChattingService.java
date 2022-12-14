@@ -44,31 +44,41 @@ public class ChattingService {
     @Transactional(rollbackFor = Exception.class)
     public List<ChattingDTO> showChatting(Long userId, Long groupId){
         Long groupMemberId = chattingRepositoryImpl.findGroupMemberIdByUserIdAndGroupId(userId, groupId);
-        chattingRepositoryImpl.updateChattingReadStatus(groupMemberId);
-        return chattingRepositoryImpl.findChattingByUserId(groupId);}
+        log.info(groupMemberId.toString());
+//        그룹멤버 아이디를 받아와서
+//        해당 그룹멤버 아이디가 receiver인 채팅 status의 상태를 읽음으로 바꿔준다
+
+//        chattingRepositoryImpl.updateChattingReadStatus(groupMemberId);
+        List<ChattingDTO> chattingDTOList = chattingRepositoryImpl.findChattingByUserId(groupId);
+        List<ChattingStatus> chattingStatusList = chattingStatusRepositoryImpl.findByGroupMemberId(groupMemberId);
+        for (ChattingStatus chattingStatus:chattingStatusList) {
+            log.info("==================================chattingStatus===============================================");
+            log.info("==================================chattingStatus===============================================");
+            log.info("==================================chattingStatus===============================================");
+            log.info(chattingStatus.toString());
+           chattingStatus.update(ReadStatus.READ);
+        }
+        return chattingDTOList;
+    }
 
 //    public GroupDTO showGroup(Long groupMemberId){return chattingRepositoryImpl.findGroupByGroupMemberId(groupMemberId);}
 
 
     public void saveMessage(Long userId, Long groupId, ChattingDTO chattingDTO) {
         Long groupMemberId= chattingRepositoryImpl.findGroupMemberIdByUserIdAndGroupId(userId,groupId);
-        log.info("=====================================groupMemberId=========================================");
-        log.info(groupMemberId.toString());
         chattingDTO.setSenderGroupMemberId(groupMemberId);
         Chatting chatting = chattingDTO.toEntity();
         chatting.setGroup(groupRepository.findById(groupId).get());
         chatting.setSenderGroupMember(groupMemberRepository.findById(groupMemberId).get());
-        log.info("====================================chatting entity=========================================");
-        log.info(chatting.toString());
         List<ChattingStatus> chattingStatusList = new ArrayList<>();
         for (GroupMemberDTO groupMemberDTO : chattingRepositoryImpl.findByGroupId(chatting.getGroup().getGroupId())) {
             ChattingStatusDTO chattingStatusDTO = new ChattingStatusDTO();
-            log.info("==========================saveMessage=================================");
-            log.info("==========================saveMessage=================================");
-            log.info("==========================saveMessage=================================");
-            log.info(groupMemberDTO.getGroupMemberId().toString());
+            log.info("===================================saveMessage=======================================");
+            log.info("===================================saveMessage=======================================");
+            log.info("===================================saveMessage=======================================");
             log.info(chattingDTO.getSenderGroupMemberId().toString());
-            if(groupMemberDTO.getGroupMemberId() == chattingDTO.getSenderGroupMemberId()){
+            log.info(groupMemberDTO.getGroupMemberId().toString());
+            if(groupMemberDTO.getGroupMemberId().equals(chattingDTO.getSenderGroupMemberId())){
                 chattingStatusDTO.setReadStatus(ReadStatus.READ);
             }else {
                 chattingStatusDTO.setReadStatus(ReadStatus.UNREAD);
@@ -88,6 +98,7 @@ public class ChattingService {
         List<GroupDTO> groupDTOList = chattingRepositoryImpl.findByUserId(userId);
         for (GroupDTO groupDTO : groupDTOList) {
             groupDTO.setUnreadMessage(chattingRepositoryImpl.findUnreadChattingByGroupMemberId(userId, groupDTO.getGroupId()));
+
         }
         return groupDTOList;
     }
