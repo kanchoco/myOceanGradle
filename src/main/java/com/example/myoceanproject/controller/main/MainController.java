@@ -34,13 +34,13 @@ public class MainController {
         model.addAttribute("counselingList",mainService.showAnonymousList());
         model.addAttribute("reviewList",mainService.showReviewList());
 
-        if(session.getAttribute("userId") != null) {
-            List<GroupDTO> groupDTOList = chattingService.show(userId);
-            model.addAttribute("groupDTOList", groupDTOList);
+//        if(session.getAttribute("userId") != null) {
+//            List<GroupDTO> groupDTOList = chattingService.show(userId);
+//            model.addAttribute("groupDTOList", groupDTOList);
+//            return "app/Main/main";
+//        }else {
             return "app/Main/main";
-        }else {
-            return "app/Main/main";
-        }
+//        }
     }
 
 }

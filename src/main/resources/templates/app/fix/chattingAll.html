@@ -36,24 +36,25 @@
             </div>
             <div class="chattingSection">
                 <div class="list left leftBody">
-                    <ul>
-                        <th:block th:each="groupList: ${groupDTOList}">
-                            <li class="active leftChattingList" th:object="${groupList}" th:href="*{groupId}">
-                                <div class="thumb chatThumb">
-                                    <img src="/imgin/chat/logo.png" alt="chat_image">
-                                </div>
-                                <div class="chatInfo">
-                                    <div class="userIdAndBeforeTime">
-                                        <div class="right">
-                                            <span class="userId" th:text="*{groupName}"></span>
-                                        </div>
-                                    </div>
-                                    <p class="chatInfoTxt" th:text="*{groupContent}">
-                                    </p>
-                                    <p class="endTime">채팅 기한: 22-11-23 21:00:00</p>
-                                </div>
-                            </li>
-                        </th:block>
+                    <ul id = "groupList">
+                        <!--                            <li class="active leftChattingList" th:object="${groupList}" th:href="*{groupId}">-->
+                        <!--                                <div class="thumb chatThumb">-->
+                        <!--                                    <img src="/imgin/chat/logo.png" alt="chat_image">-->
+                        <!--                                </div>-->
+                        <!--                                <div class="chatInfo">-->
+                        <!--                                    <div class="userIdAndBeforeTime">-->
+                        <!--                                        <div class="right">-->
+                        <!--                                            <span class="userId" th:text="*{groupName}"></span>-->
+                        <!--                                        </div>-->
+                        <!--                                        <div class="left" id = "alarmSpace">-->
+
+                        <!--                                        </div>-->
+                        <!--                                    </div>-->
+                        <!--                                    <p class="chatInfoTxt" th:text="*{groupContent}">-->
+                        <!--                                    </p>-->
+                        <!--                                    <p class="endTime">채팅 기한: 22-11-23 21:00:00</p>-->
+                        <!--                                </div>-->
+                        <!--                            </li>-->
                     </ul>
                 </div>
                 <div class="chattingRoom right active rightBody">

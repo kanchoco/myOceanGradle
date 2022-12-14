@@ -52,7 +52,7 @@ public class GroupDTO {
 
     private String reason;
 
-//    임베드 타입 가져옴(이렇게 가져오는 것이 맞는지는 불확실함. 생성자와 toEntity에도 추가함)
+    //    임베드 타입 가져옴(이렇게 가져오는 것이 맞는지는 불확실함. 생성자와 toEntity에도 추가함)
     private Integer maxMember;
     private Integer minMember;
 
@@ -64,6 +64,8 @@ public class GroupDTO {
     private int endPage;
 
     private static Map<Long, WebSocketSession> sessions = new HashMap<>();
+
+    private Integer unreadMessage;
 
 
 
@@ -131,7 +133,7 @@ public class GroupDTO {
     }
     public void handleMessage(WebSocketSession session, ChattingDTO chattingDTO,
                               ObjectMapper objectMapper) throws IOException {
-            log.info("===========================GroupDTO handleMessage 들어옴======================================");
+        log.info("===========================GroupDTO handleMessage 들어옴======================================");
 //            http 세션에 저장된 유저 아이디
         if(chattingDTO.getMessageType().equals(MessageType.ENTER.toString())&&session.getAttributes().get("groupId") == chattingDTO.getGroupId()){ // 사용자가 채팅방에 입장하여 "확인"을 눌렀을 때는 해당 닉네임 접속을 환영한다는 문구 출력
             chattingDTO.setChattingContent(chattingDTO.getSenderUserNickName() + "님이 입장하셨습니다.");
@@ -142,7 +144,7 @@ public class GroupDTO {
         log.info("웹소켓 세션의 그룹 아이디 : "+session.getAttributes().get("groupId").toString());
         log.info("chatttingDTO의 그룹 아이디 : "+chattingDTO.getGroupId().toString());
         if(session.getAttributes().get("groupId") == chattingDTO.getGroupId()){
-        send(chattingDTO,objectMapper);}
+            send(chattingDTO,objectMapper);}
 
     }
 

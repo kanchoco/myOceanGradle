@@ -26,4 +26,6 @@ public class ChattingStatusRepositoryImpl implements ChattingStatusCustomReposit
                 .fetch();
     }
 
+
+
 }
