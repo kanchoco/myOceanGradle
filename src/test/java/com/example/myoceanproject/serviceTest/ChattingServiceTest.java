@@ -16,12 +16,17 @@ public class ChattingServiceTest {
     @Autowired
     private ChattingService chattingService;
 
-@Test
-    public void findTest(){
-    List<ChattingDTO> chattingDTOgList =  chattingService.showChatting(24L);
-    log.info("========================================================================");
-    chattingDTOgList.stream().map(ChattingDTO::toString).forEach(log::info);
-    log.info("========================================================================");
+//@Test
+//    public void findTest(){
+//    List<ChattingDTO> chattingDTOgList =  chattingService.showChatting(24L);
+//    log.info("========================================================================");
+//    chattingDTOgList.stream().map(ChattingDTO::toString).forEach(log::info);
+//    log.info("========================================================================");
+//
+//}
 
+@Test
+    public void updateTest(){
+    chattingService.showChatting(2L, 43L).stream().map(ChattingDTO::toString).forEach(log::info);
 }
 }

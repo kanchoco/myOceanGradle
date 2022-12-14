@@ -1,9 +1,6 @@
 package com.example.myoceanproject.controller.myAlarm;
 
 import com.example.myoceanproject.domain.AlarmDTO;
-import com.example.myoceanproject.domain.Criteria;
-import com.example.myoceanproject.domain.QuestDTO;
-import com.example.myoceanproject.service.QuestService;
 import com.example.myoceanproject.service.alarm.AlarmService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 
 @RestController
 @RequiredArgsConstructor

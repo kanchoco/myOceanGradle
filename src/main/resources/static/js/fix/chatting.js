@@ -61,19 +61,15 @@ $(window).resize(function () {
 })
 
 
-/* 오른쪽 하단 아이콘 누르면 채팅창 보이기 */
-$(".chattingWrap2").on("click", function () {
-    $(".chattingWrap2").css("display", "none");
-    $("#chattingList").css("display", "block");
 
-
-})
 
 
 /* 채팅창 닫기 누르면 다시 원상복귀 */
 $(".foldChatBtn").on("click", function () {
     $("#chattingList").css("display", "none");
     $(".chattingWrap2").css("display", "block");
+    $("#chattingList").children("li").removeClass("select");
+
 })
 
 
@@ -227,6 +223,28 @@ function getList(param, callback, error) {
 
 }
 
+
+
+function getUnreadChat(error){
+    console.log("getUnreadChat들어옴");
+    $.ajax({
+        url: "/chatting/unread",
+        type: "get",
+        success: function (groupDTOList,status, xhr) {
+            console.log(groupDTOList);
+            getUnreadStatus(groupDTOList);
+        },
+        error: function (xhr, status, err) {
+            if (error) {
+                error(err);
+            }
+        }
+    });
+}
+
+
+
+
 // 채팅 db에서 해당 그룹의 채팅 내용을 모두 가져온 후 다시
 function show(id) {
     getList({
@@ -237,16 +255,19 @@ function show(id) {
 let temp = 0;
 /* 왼쪽 대화목록에서 선택될 때마다 css 바꾸는 부분 */
 
+$("#groupList").on("click","li",function (e) {
+    e.preventDefault()
+    console.log("채팅방 목록 클릭")
+    myGroupId = $(this).attr("href");
+    $("li.active").removeClass("select");
+    $(this).addClass("select");
+    console.log($(this))
+    console.log($(this).find("#alarmSpace"))
+    $(this).find("#alarmSpace").css("visibility", "hidden")
+    show(myGroupId);
+    connect();
+})
 
-$("li.active").on("click", function (e) {
-        e.preventDefault()
-        myGroupId = $(this).attr("href");
-        show(myGroupId)
-        $("li.active").removeClass("select");
-        $(this).addClass("select");
-        connect();
-
-    })
 
 
 
@@ -276,6 +297,53 @@ document.getElementById("sendButton").addEventListener("click",function(e){
         messageType : "대화"
     })
 })
+
+
+
+
+function getUnreadStatus(groupDTOList){
+    console.log("=================getUnreadStatus 들어옴===================")
+    let realtext = ""
+    groupDTOList.forEach(groupDTO => {
+        // if (myGroupId == groupDTO.groupId) {
+        //
+        //     realtext += "<li class=\"active leftChattingList select\" href =" + groupDTO.groupId + ">"
+        // }else{
+            realtext += "<li class=\"active leftChattingList\" href =" + groupDTO.groupId + ">"
+        // }
+        realtext+= "<div class=\"thumb chatThumb\">"
+        realtext+= "<img src=\"/imgin/chat/logo.png\" alt=\"chat_image\">"
+        realtext+= "</div>"
+        realtext+= "<div class=\"chatInfo\">"
+        realtext+= "<div class=\"userIdAndBeforeTime\">"
+        realtext+= "<div class=\"right\">"
+        realtext+="<span class=\"userId\">"+groupDTO.groupName+"</span>"
+        realtext+= "</div>"
+        if(groupDTO.unreadMessage > 0) {
+            realtext += "<div class=\"left\" id=\"alarmSpace\">"
+            realtext += "<span>"
+            realtext += "<img src=\"/imgin/chat/alertChatting.png\">"
+            realtext += "</span>"
+            realtext += "</div>"
+            realtext+= "</div>"
+            realtext+= "<p class=\"chatInfoTxt\">"+groupDTO.groupContent+"</p>"
+            realtext+= "<p class=\"endTime\">채팅 기한: 22-11-23 21:00:00</p>"
+            realtext+= "</div>"
+            realtext+= "</li>"
+        }else{
+            realtext+= "</div>"
+            realtext+= "<p class=\"chatInfoTxt\">"+groupDTO.groupContent+"</p>"
+            realtext+= "<p class=\"endTime\">채팅 기한: 22-11-23 21:00:00</p>"
+            realtext+= "</div>"
+            realtext+= "</li>"
+        }
+
+
+    })
+    $("#groupList").html(realtext);
+
+
+}
 
 
 function getChattingContentList(chattingDTOList) {
@@ -406,7 +474,10 @@ function onClose(){
     disconnect();
 }
 
-
-
-
+/* 오른쪽 하단 아이콘 누르면 채팅창 보이기 */
+$(".chattingWrap2").on("click", function () {
+    $(".chattingWrap2").css("display", "none");
+    $("#chattingList").css("display", "block");
+    getUnreadChat();
+})
 

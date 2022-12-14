@@ -249,3 +249,88 @@ button:disabled {
 .uncheckedBadge{
     filter: grayscale(100%);
 }
+
+div#page_changer_wrapper {
+    display: flex;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 100%;
+    margin-top: 64px;
+    background-color: white;
+}
+
+#previous_button_wrapper {
+    display: flex;
+    margin-right: 10px;
+}
+
+
+a.previous_buttons {
+    transform: scaleX(-1);
+    width: 40px;
+    height: 40px;
+    line-height: normal;
+    padding: 0px;
+    background-color: white;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 18px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    outline: none;
+    border: none;
+}
+
+.page {
+    font: inherit;
+    width: 40px;
+    height: 40px;
+    line-height: normal;
+    padding: 0;
+    background-color: white;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 50%;
+    color: #c4bec9;
+    font-size: 18px;
+    font-weight: normal;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    outline: none;
+    border: none;
+}
+.page.active{
+    color: black;
+}
+
+#next_button_wrapper {
+    display: flex;
+    margin-right: 10px;
+}
+
+
+.next_buttons {
+    width: 40px;
+    height: 40px;
+    line-height: normal;
+    padding: 0px;
+    background-color: white;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 18px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    outline: none;
+    border: none;
+}

@@ -1,16 +1,12 @@
 package com.example.myoceanproject.domain;
 
-import com.example.myoceanproject.entity.Chatting;
 import com.example.myoceanproject.entity.ChattingStatus;
-import com.example.myoceanproject.entity.GroupMember;
 import com.example.myoceanproject.type.ReadStatus;
 import com.querydsl.core.annotations.QueryProjection;
-import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
 
 @Component
 @Data
@@ -18,13 +14,16 @@ import javax.persistence.*;
 public class ChattingStatusDTO {
 
     private Long ChattingStatusId;
-    private GroupMember receiverGroupMember;
+    private Long receiverGroupMemberId;
+    private Long chattingId;
     private ReadStatus readStatus;
 
+
     @QueryProjection
-    public ChattingStatusDTO(Long chattingStatusId, GroupMember receiverGroupMember, ReadStatus readStatus) {
-        ChattingStatusId = chattingStatusId;
-        this.receiverGroupMember = receiverGroupMember;
+    public ChattingStatusDTO(Long chattingStatusId, Long receiverGroupMemberId,Long chattingId, ReadStatus readStatus) {
+        this.ChattingStatusId = chattingStatusId;
+        this.receiverGroupMemberId = receiverGroupMemberId;
+        this.chattingId = chattingId;
         this.readStatus = readStatus;
     }
 

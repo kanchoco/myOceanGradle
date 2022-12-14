@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ChattingStatusCustomRepository {
 
-    List<ChattingStatus> findByGroupMemberId(GroupMember groupMember);
+    List<ChattingStatus> findByGroupMemberId(Long groupMemberId);
 }
