@@ -4,6 +4,7 @@ const $section = $("section.lkrzmV");
 const $windowWidth = $(window).width();
 
 checkWidth();
+checking(check);
 
 function checkWidth(){
     if($windowWidth<769){
@@ -50,6 +51,7 @@ $(window).resize(function() {
         $nav.hide();
         $section.show();
     }
+    checking(check);
 });
 
 /* 카테고리 숨김 / 보이기 버튼  */
@@ -64,4 +66,32 @@ function toggleBtn1() {
     else {
         serachshowone.style.display = 'block';
     }
+}
+
+function check(result){
+    console.log("ddddddd");
+    console.log( result);
+    console.log( result === true);
+    result === true ? $(".ierGsl").hide() : $(".ierGsl").show();
+}
+
+
+
+
+function checking(callback, error) {
+    $.ajax({
+        url: "/alarm/check",
+        type: "patch",
+        async: false,
+        success: function (result) {
+            if (callback) {
+                callback(result);
+            }
+        },
+        error: function (xhr, status, err) {
+            if (error) {
+                error(err);
+            }
+        }
+    });
 }

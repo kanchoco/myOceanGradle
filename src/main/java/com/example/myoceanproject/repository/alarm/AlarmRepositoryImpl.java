@@ -2,6 +2,7 @@ package com.example.myoceanproject.repository.alarm;
 
 import com.example.myoceanproject.domain.AlarmDTO;
 import com.example.myoceanproject.domain.QAlarmDTO;
+import com.example.myoceanproject.type.ReadStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -54,6 +55,20 @@ public class AlarmRepositoryImpl implements AlarmCustomRepository {
         jpaQueryFactory.delete(alarm)
                 .where(alarm.createDate.lt(today))
                 .execute();
+    }
+
+    public boolean checkRead(Long userId){
+        return jpaQueryFactory.select(new QAlarmDTO(
+                        alarm.alarmId,
+                        alarm.user.userId,
+                        alarm.alarmContent,
+                        alarm.readStatus,
+                        alarm.alarmCategory,
+                        alarm.contentId,
+                        alarm.createDate
+                ))
+                .from(alarm)
+                .where(alarm.user.userId.eq(userId).and(alarm.readStatus.eq(ReadStatus.UNREAD))).fetch().isEmpty();
     }
 
 }

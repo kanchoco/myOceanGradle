@@ -36,17 +36,28 @@ public class MyAlarmRestController {
         alarmDTO.setAlarmList(alarmDTOPage.getContent());
         alarmDTO.setEndPage(endPage);
 
+        alarmDTO.getAlarmList().stream().map(AlarmDTO::toString).forEach(log::info);
+
         return alarmDTO;
     }
 
     @PatchMapping(value = "/update/{alarmId}")
     public String updateQuest(@PathVariable Long alarmId){
-        log.info("-----------------------------------------------------");
-        log.info("업데이트");
-        log.info("-----------------------------------------------------");
         alarmService.modify(alarmId);
 
         return "update success";
     }
+
+    @PatchMapping(value = "/check")
+    public Boolean checkStatus(HttpServletRequest request){
+        Long userId = (Long) request.getSession().getAttribute("userId");
+        Boolean check = (Boolean) request.getSession().getAttribute("readCheck");
+        log.info(userId + "userId");
+        log.info(check + "check");
+
+        return userId ==null || alarmService.checkStatus(userId) ;
+    }
+
+
 
 }
