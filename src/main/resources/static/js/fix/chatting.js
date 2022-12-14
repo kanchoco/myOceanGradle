@@ -68,6 +68,8 @@ $(window).resize(function () {
 $(".foldChatBtn").on("click", function () {
     $("#chattingList").css("display", "none");
     $(".chattingWrap2").css("display", "block");
+    $("#chattingList").children("li").removeClass("select");
+
 })
 
 
@@ -253,17 +255,19 @@ function show(id) {
 let temp = 0;
 /* 왼쪽 대화목록에서 선택될 때마다 css 바꾸는 부분 */
 
-$("#groupList").on("click", "li", function (e) {
+$("#groupList").on("click","li",function (e) {
     e.preventDefault()
     console.log("채팅방 목록 클릭")
     myGroupId = $(this).attr("href");
     $("li.active").removeClass("select");
     $(this).addClass("select");
-    show(myGroupId)
-    getUnreadChat();
+    console.log($(this))
+    console.log($(this).find("#alarmSpace"))
+    $(this).find("#alarmSpace").css("visibility", "hidden")
+    show(myGroupId);
     connect();
-
 })
+
 
 
 
@@ -294,16 +298,19 @@ document.getElementById("sendButton").addEventListener("click",function(e){
     })
 })
 
+
+
+
 function getUnreadStatus(groupDTOList){
     console.log("=================getUnreadStatus 들어옴===================")
     let realtext = ""
     groupDTOList.forEach(groupDTO => {
-        if (myGroupId == groupDTO.groupId) {
-
-            realtext += "<li class=\"active leftChattingList select\" href =" + groupDTO.groupId + ">"
-        }else{
+        // if (myGroupId == groupDTO.groupId) {
+        //
+        //     realtext += "<li class=\"active leftChattingList select\" href =" + groupDTO.groupId + ">"
+        // }else{
             realtext += "<li class=\"active leftChattingList\" href =" + groupDTO.groupId + ">"
-        }
+        // }
         realtext+= "<div class=\"thumb chatThumb\">"
         realtext+= "<img src=\"/imgin/chat/logo.png\" alt=\"chat_image\">"
         realtext+= "</div>"
@@ -312,11 +319,7 @@ function getUnreadStatus(groupDTOList){
         realtext+= "<div class=\"right\">"
         realtext+="<span class=\"userId\">"+groupDTO.groupName+"</span>"
         realtext+= "</div>"
-        console.log(groupDTO.unreadMessage);
-        console.log(typeof groupDTO.unreadMessage)
-        console.log(groupDTO.unreadMessage > 0)
-        console.log(myGroupId != groupDTO.groupId)
-        if(groupDTO.unreadMessage > 0 && myGroupId != groupDTO.groupId) {
+        if(groupDTO.unreadMessage > 0) {
             realtext += "<div class=\"left\" id=\"alarmSpace\">"
             realtext += "<span>"
             realtext += "<img src=\"/imgin/chat/alertChatting.png\">"
