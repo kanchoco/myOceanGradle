@@ -25,10 +25,10 @@ public class QuestServiceTest {
         questDTOS.stream().map(QuestDTO::toString).forEach(log::info);
     }
 
-    @Test
-    public void showRepositoryTest(){
-        List<QuestDTO> questDTOS = questAchievementRepositoryImpl.findQuestAchievementByUserId(2L);
-        questDTOS.stream().map(QuestDTO::toString).forEach(log::info);
-    }
+//    @Test
+//    public void showRepositoryTest(){
+//        List<QuestDTO> questDTOS = questAchievementRepositoryImpl.findQuestAchievementByUserId(2L);
+//        questDTOS.stream().map(QuestDTO::toString).forEach(log::info);
+//    }
 
 }
