@@ -1,5 +1,6 @@
 package com.example.myoceanproject.service.oAuth;
 
+import com.example.myoceanproject.aspect.annotation.JoinAlarm;
 import com.example.myoceanproject.domain.QUserDTO;
 import com.example.myoceanproject.domain.UserDTO;
 import com.example.myoceanproject.oauth.GoogleOAuthRequest;

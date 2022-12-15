@@ -10,6 +10,7 @@ import com.example.myoceanproject.repository.UserRepository;
 import com.example.myoceanproject.repository.ask.AskRepository;
 import com.example.myoceanproject.repository.community.post.CommunityPostRepository;
 import com.example.myoceanproject.repository.quest.QuestAchievementRepository;
+import com.example.myoceanproject.repository.quest.QuestAchievementRepositoryImpl;
 import com.example.myoceanproject.repository.quest.QuestRepository;
 import com.example.myoceanproject.service.PointService;
 import com.example.myoceanproject.service.alarm.AlarmService;
@@ -18,6 +19,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
@@ -42,6 +45,8 @@ public class LogAspect {
 
     private final PointRepository pointRepository;
     private final QuestAchievementRepository questAchievementRepository;
+
+    private final QuestAchievementRepositoryImpl achievementRepositoryImpl;
     private final QuestRepository questRepository;
 
     private final PointService pointService;
@@ -99,9 +104,6 @@ public class LogAspect {
         Long groupId = Long.valueOf(joinPoint.getArgs()[0].toString());
         HttpServletRequest request = (HttpServletRequest) joinPoint.getArgs()[1];
         Long userId = (Long)request.getSession().getAttribute("userId");
-        log.info("------------------------------------------------------");
-        log.info("--"+ userId + "----" + groupId);
-        log.info("------------------------------------------------------");
 
         Group group = groupRepository.findById(groupId).get();
 
@@ -137,6 +139,7 @@ public class LogAspect {
         alarmService.addAlarm(alarmDTO);
     }
 
+//포인트 충전 알람
     @After("@annotation(com.example.myoceanproject.aspect.annotation.PointAlarm)")
     public void point(JoinPoint joinPoint){
         ObjectNode objectNode = Arrays.stream(joinPoint.getArgs())
@@ -160,8 +163,8 @@ public class LogAspect {
             alarmDTO.setAlarmContent(userPoint + "POINT 충전이 완료되었습니다!");
             alarmDTO.setUserId(userId);
 
-//100000포인트 결제 고객에게 리워드 지급
-            if(userPoint >= 100000L){
+//100000포인트 결제 고객에게 리워드 지급(받은적이 없다면)
+            if(userPoint >= 100000L && achievementRepositoryImpl.checkDuplicatedById(userId, 252L)) {
                 User user = userRepository.findById(userId).get();
                 QuestAchievement questAchievement = new QuestAchievement();
                 questAchievement.setQuest(questRepository.findById(252L).get());
@@ -173,17 +176,38 @@ public class LogAspect {
                 pointDTO.setPointType("보상");
                 pointDTO.setPointMerchantUid(merchantUid);
                 pointDTO.setPointImpUid(impUid);
-                pointDTO.setPointContent("결제왕 퀘스트 보상 지급");
+                pointDTO.setPointContent("퀘스트 보상 지급");
                 pointDTO.setPointCheckType("보상");
                 pointDTO.setUserId(userId);
 
                 pointService.questReward(pointDTO);
 
+            }else if(achievementRepositoryImpl.checkDuplicatedById(userId, 320L)){
+//                첫 결제 && 이전 결제 보상이 없던 유저도 포함 보상
+                User user = userRepository.findById(userId).get();
+                QuestAchievement questAchievement = new QuestAchievement();
+                questAchievement.setQuest(questRepository.findById(252L).get());
+                questAchievement.setUser(user);
+                questAchievementRepository.save(questAchievement);
 
-                alarmDTO.setAlarmCategory("QUEST");
-                alarmDTO.setAlarmContent("퀘스트 달성! 어떤 보상을 받았는지 확인해보세요!");
-                alarmDTO.setUserId(userId);
+                PointDTO pointDTO = new PointDTO();
+                pointDTO.setPointAmountHistory(2000);
+                pointDTO.setPointType("보상");
+                pointDTO.setPointMerchantUid(merchantUid);
+                pointDTO.setPointImpUid(impUid);
+                pointDTO.setPointContent("퀘스트 보상 지급");
+                pointDTO.setPointCheckType("보상");
+                pointDTO.setUserId(userId);
+
+                pointService.questReward(pointDTO);
             }
+
+                AlarmDTO questAlarm = new AlarmDTO();
+
+                questAlarm.setAlarmCategory("QUEST");
+                questAlarm.setUserId(userId);
+
+                alarmService.addAlarm(questAlarm);
         }
     }catch(NullPointerException e){
         log.info("관리자 환불페이지");
@@ -241,6 +265,16 @@ public class LogAspect {
             alarmDTO.setContentId(group.getGroupId());
         }
             alarmService.addAlarm(alarmDTO);
+    }
+
+    @Around("@annotation(com.example.myoceanproject.aspect.annotation.JoinAlarm)")
+    public void joinAlarm(JoinPoint joinPoint){
+//        long userId = Long.parseLong(joinPoint.getArgs()[3].toString());
+        log.info("---------------------------------------------------");
+//        log.info("---" + userId);
+        Arrays.stream(joinPoint.getArgs()).forEach(v -> v.toString());
+        log.info("---------------------------------------------------");
+        AlarmDTO alarmDTO = new AlarmDTO();
     }
 
 }

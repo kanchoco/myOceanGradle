@@ -1,5 +1,6 @@
 package com.example.myoceanproject.controller.join;
 
+import com.example.myoceanproject.aspect.annotation.JoinAlarm;
 import com.example.myoceanproject.domain.QUserDTO;
 import com.example.myoceanproject.domain.UserDTO;
 import com.example.myoceanproject.entity.User;
@@ -145,6 +146,7 @@ public class JoinController {
     }
 
     @GetMapping("/googleJoin")
+    @JoinAlarm
     public String googleCallback(Model model, @RequestParam(value = "code") String authCode,HttpSession session) throws Exception{
 
         int exist=googleJoinService.getGoogleAccessTokenInfo(authCode);

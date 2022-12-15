@@ -9,4 +9,6 @@ import java.util.List;
 public interface QuestAchievementCustomRepository {
 
     Page<QuestDTO> findQuestAchievementByUserId(Long userId, Pageable pegeable);
+    Boolean checkDuplicatedById(Long userId, Long questId);
+    public int countBadge(Long userId);
 }

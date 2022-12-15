@@ -5,6 +5,7 @@ import com.example.myoceanproject.domain.AlarmDTO;
 import com.example.myoceanproject.domain.UserDTO;
 import com.example.myoceanproject.entity.Group;
 import com.example.myoceanproject.repository.GroupRepository;
+import com.example.myoceanproject.repository.quest.QuestAchievementRepositoryImpl;
 import com.example.myoceanproject.service.alarm.AlarmService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,7 @@ public class AlarmInterceptor implements HandlerInterceptor {
     private AlarmService alarmService;
     private MyAlarmRestController alarmRestController;
     private GroupRepository groupRepository;
+    private QuestAchievementRepositoryImpl questAchievementRepository;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -31,10 +33,7 @@ public class AlarmInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-//        log.info("------------------------------------");
-//        log.info("postHandle");
-//        log.info(request.getRequestURI().contains("disapproved") + "check");
-//        log.info(request.getRequestURI().split("/")[3]+ "groupId");
+//            response.sendRedirect("/login");
 //        Long groupId = Long.valueOf(request.getRequestURI().split("/")[3]);
 //        log.info(groupId + "id");
 //        Group group = groupRepository.findById(groupId).get();
