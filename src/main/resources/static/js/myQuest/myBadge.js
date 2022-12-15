@@ -33,6 +33,23 @@ let myBadgeService = (function(){
             }
         });
     }
+
+    function getMonthlyBadgeList(param, callback, error){
+        $.ajax({
+            url: encodeURI("/myCompleteQuest/mybadge/" + (param.page || 0)),
+            type: "get",
+            success: function (questDTOList,status, xhr) {
+                if(callback){
+                    callback(questDTOList);
+                }
+            },
+            error: function (xhr, status, err) {
+                if (error) {
+                    error(err);
+                }
+            }
+        });
+    }
     return {getBadgeList: getBadgeList}
 }) ();
 

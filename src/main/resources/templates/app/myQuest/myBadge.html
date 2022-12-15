@@ -313,7 +313,7 @@
 </div>
 </div>
 <!--페이징-->
-<footer class="Wrapper__PaginationWrapper-fk4uv4-0 hBVRcD">
+<!--<footer class="Wrapper__PaginationWrapper-fk4uv4-0 hBVRcD">-->
 <!--    <div class="PaginationButtonGroup__PrevButtonWrapper-x0iffd-0 gIsDDT">-->
 <!--        <button width="40px" height="40px" font-size="18px" disabled="" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">-->
 <!--            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns"></button>-->
@@ -327,7 +327,7 @@
 <!--        <button width="40px" height="40px" font-size="18px" disabled="" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">-->
 <!--            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu"></button>-->
 <!--    </div>-->
-</footer>
+<!--</footer>-->
 
 <!--모달화면-->
 <div class="BottomSheet__Container-e2nchk-0 cMKqKB" style="display:none;">
@@ -374,6 +374,13 @@
         myBadgeService.getBadgeList({
             page : page
         }, getList);
+    }
+
+    function showUnder(){
+        myBadgeService.getMonthlyBadgeList(
+            {
+                page:page
+            }, getUnderList);
     }
 
     //    페이지를 들어올 때, ajax로 restController의 데이터를 가져온다
@@ -436,8 +443,6 @@
 
             endNumber = realEnd == 0 ? '1' : realEnd;
         }
-
-
         let text ='';
         text += `<div id="page_changer_wrapper">`;
         text += `<div id="previous_button_wrapper">`;
@@ -471,6 +476,7 @@
         page = href;
         show();
     }
+
 
 
 </script>
