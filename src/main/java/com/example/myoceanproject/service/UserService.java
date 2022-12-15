@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Service
 @Transactional
@@ -32,5 +34,9 @@ public class UserService {
         userRepository.findById(userDTO.getUserId()).get().updateManager(UserAccountStatus.valueOf(userDTO.getUserAccountStatus()));
     }
 
+    public UserDTO findUser(Long userId) {
+        UserDTO userDTO = userRepositoryImpl.findByUserId(userId);
+        return userDTO;
+    }
 
 }

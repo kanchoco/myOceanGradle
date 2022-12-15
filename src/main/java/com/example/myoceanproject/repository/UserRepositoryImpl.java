@@ -1,9 +1,6 @@
 package com.example.myoceanproject.repository;
 
-import com.example.myoceanproject.domain.CommunityPostDTO;
-import com.example.myoceanproject.domain.Criteria;
-import com.example.myoceanproject.domain.QUserDTO;
-import com.example.myoceanproject.domain.UserDTO;
+import com.example.myoceanproject.domain.*;
 import com.example.myoceanproject.entity.QUser;
 import com.example.myoceanproject.entity.QUserFind;
 import com.example.myoceanproject.repository.community.post.CommunityPostRepositoryImpl;
@@ -262,4 +259,29 @@ public class UserRepositoryImpl implements UserCustomRepository {
         return userDTO;
     }
 
+    //  유저 조회하기
+    @Override
+    public UserDTO findByUserId(Long userId){
+        UserDTO searchUser = queryFactory.select(new QUserDTO(
+                user.userId,
+                user.userPassword,
+                user.userNickname,
+                user.userAccountStatus,
+                user.userFileName,
+                user.userFilePath,
+                user.userFileSize,
+                user.userFileUuid,
+                user.userEmail,
+                user.userLoginMethod,
+                user.userTotalPoint,
+                user.createDate,
+                user.updatedDate,
+                user.userOauthId
+        ))
+                .from(user)
+                .where(user.userId.eq(userId))
+                .fetchOne();
+
+        return searchUser;
+    }
 }

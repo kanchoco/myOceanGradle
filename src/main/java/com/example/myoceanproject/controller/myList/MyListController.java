@@ -56,6 +56,8 @@ public class MyListController {
         }
         log.info(endPage + "end");
 
+        log.info("diaryDTOPage:"+diaryDTOPage);
+
         model.addAttribute("diarys", diaryDTOPage);
         model.addAttribute("pagination", diaryDTOPage);
         model.addAttribute("pageable", pageable);
