@@ -2,10 +2,13 @@ package com.example.myoceanproject.controller.myQuest;
 
 import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.domain.QuestDTO;
+import com.example.myoceanproject.service.PointService;
+import com.example.myoceanproject.service.UserService;
 import com.example.myoceanproject.service.quest.QuestAchievementService;
 import com.querydsl.core.Tuple;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.data.repository.init.ResourceReader.Type.JSON;
@@ -35,6 +39,9 @@ public class MyQuestRestController {
 //    @RequestBody : 전달받은 데이터를 알맞는 매개변수로 주입
 //    ResponseEntity : 서버의 상태코드, 응답 메세지 등을 담을 수 있는 타입
     private final QuestAchievementService questAchievementService;
+    private final UserService userService;
+
+    private final PointService pointService;
     // 완료한 퀘스트 페이지
     @GetMapping(value = "/{page}")
     public QuestDTO completeQuest(@PathVariable int page,@PathVariable(required = false) String keyword, HttpServletRequest request){
@@ -61,16 +68,26 @@ public class MyQuestRestController {
         return questDTO;
     }
 
-//    @GetMapping(value = "/badge")
-//    public List<Tuple> myBadge(HttpServletRequest request){
-//        log.info("================================REST CONTROLLER 들어옴===================================");
-//        HttpSession session = request.getSession();
-//        Long userId = (Long) session.getAttribute("userId");
-//        List<Tuple> questAchievementCountList = questAchievementService.showMonthlyAchievementCount(userId);
-//        JSONObject json = new JSONObject();
-//        questAchievementCountList.stream().map(Tuple::JSON.par).forEach(v=>JSON.parse(v));
-//
-//        log.info("================================REST CONTROLLER 들어옴===================================");
-//        return questAchievementCountList;
-//    }
+    @GetMapping(value = "/badge")
+    public List<QuestDTO> myBadge(HttpServletRequest request) throws JSONException {
+        log.info("================================REST CONTROLLER 들어옴===================================");
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute("userId");
+        List<QuestDTO> questDTOList = new ArrayList<>();
+        for (int i = 0; i<12 ;i++) {
+            QuestDTO questDTO = new QuestDTO();
+            questDTO.setUserFilePath(userService.findUser(userId).getUserFilePath());
+            questDTO.setUserFileName(userService.findUser(userId).getUserFileName());
+            questDTO.setUserFileUuid(userService.findUser(userId).getUserFileUuid());
+            questDTO.setUserFileName(userService.findUser(userId).getUserFileName());
+            questDTO.setUserNickName(userService.findUser(userId).getUserNickname());
+            questDTO.setRewardPointTotal(pointService.showRewardPointTotal(userId));
+            questDTO.setMonth(i+1);
+            questDTO.setMonthlyCount(questAchievementService.showMonthlyAchievementCount(userId, i+1));
+            questDTO.setBadgeCount(questAchievementService.showMyBadgeNumber(userId));
+            questDTOList.add(questDTO);
+        }
+        log.info("================================REST CONTROLLER 들어옴===================================");
+        return questDTOList;
+    }
 }

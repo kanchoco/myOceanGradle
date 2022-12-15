@@ -2,6 +2,7 @@ package com.example.myoceanproject.repository;
 
 import com.example.myoceanproject.domain.PointDTO;
 import com.example.myoceanproject.domain.QPointDTO;
+import com.example.myoceanproject.entity.Point;
 import com.example.myoceanproject.type.PointCheckType;
 import com.example.myoceanproject.type.PointType;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -66,6 +67,14 @@ public class PointRepositoryImpl implements PointCustomRepository{
                 point.pointCheckType
         )).from(point).where(point.pointType.eq(pointType).and(point.pointCheckType.eq(PointCheckType.BEFOREREFUND))).orderBy(point.pointId.desc()).fetch();
         return pointDTOS;
+    }
+
+    @Override
+    public Integer findAllRewardPoint(Long userId){
+        return jpaQueryFactory.select(point.pointAmountHistory.sum())
+                .where(point.pointType.eq(PointType.REWARD).and(point.user.userId.eq(userId)))
+                .from(point)
+                .fetchOne();
     }
 
 }
