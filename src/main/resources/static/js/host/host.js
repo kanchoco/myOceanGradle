@@ -283,16 +283,15 @@ $(document).ready(
 
 function showPlaceDetail(){
     if($("#offline").attr("class") == "selectBox mx-2 selected"){
-        console.log("들어왔니");
         $(".place").show();
-        console.log("들어왔다")
     }
 }
 
-$("input[name='groupPoint']").keyup(function(){
+$("input[name='groupPoint']").blur(function(){
     if($("input[name='groupPoint']").val()>10000 || $("input[name='groupPoint']").val() <99){
-        alert("포인트는 100원 이상, 10,000원 미만으로 설정해주세요.");
+        $(".text-muted.text-sm.caption").text("포인트는 100원 이상, 10,000원 미만으로 설정해주세요.");
         $("input[name='groupPoint']").focus();
+        return;
     }
 })
 
