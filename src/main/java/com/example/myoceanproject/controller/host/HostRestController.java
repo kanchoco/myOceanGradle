@@ -1,5 +1,6 @@
 package com.example.myoceanproject.controller.host;
 
+import com.example.myoceanproject.aspect.annotation.GroupJoinAlarm;
 import com.example.myoceanproject.domain.GroupDTO;
 import com.example.myoceanproject.domain.GroupScheduleDTO;
 import com.example.myoceanproject.domain.PointDTO;
@@ -72,6 +73,7 @@ public class HostRestController {
 
     // 모임 멤버 테이블 생성
     @PostMapping("/group-member/{groupId}")
+    @GroupJoinAlarm
     public Boolean groupMember(@PathVariable("groupId") Long groupId, HttpServletRequest request) throws UnsupportedEncodingException {
         HttpSession session=request.getSession();
         GroupMember groupMember = new GroupMember();

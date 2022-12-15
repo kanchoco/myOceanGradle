@@ -256,6 +256,7 @@ public class GroupRepositoryImpl implements GroupCustomRepository {
                         group.reason
                 ))
                 .from(group)
+                .where(group.groupStatus.ne(GroupStatus.TEMPORARY))
                 .orderBy(group.createDate.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()).fetch();
@@ -298,6 +299,7 @@ public class GroupRepositoryImpl implements GroupCustomRepository {
                         group.reason
                 ))
                 .from(group)
+                .where(group.groupStatus.ne(GroupStatus.TEMPORARY))
                 .where(group.groupName.contains(criteria.getKeyword()))
                 .orderBy(group.createDate.desc())
                 .offset(pageable.getOffset())

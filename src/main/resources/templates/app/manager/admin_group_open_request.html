@@ -162,10 +162,10 @@
             text += `<td class="info_td">`+ group.minMember + ` ~ ` + group.maxMember +`</td>`;
             text += `<td class="info_td">`+ group.createDate +`</td>`;
             switch(group.groupStatus){
-                case "APPROVED":
+                case "승인완료":
                     text += `<td class="info_td active"> 승인 </td>`;
                     break;
-                case "DISAPPROVED":
+                case "승인거절":
                     text += `<td class="info_td banned"> 거절 </td>`;
                     break;
                 default :
@@ -174,7 +174,7 @@
             }
             text += `<td class="info_td">` + (group.reason === null ? '' : group.reason) + `</td>`;
             text += `<td class="info_td">`;
-            text += `<button class="more">상세보기</button>`;
+            text += `<button class="more" onclick="location.href='/host/read?groupId=${group.groupId}'">상세보기</button>`;
             text += `</td>`;
             text += `</tr>`;
         });

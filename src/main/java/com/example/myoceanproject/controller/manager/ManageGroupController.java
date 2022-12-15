@@ -1,6 +1,7 @@
 package com.example.myoceanproject.controller.manager;
 
 
+import com.example.myoceanproject.aspect.annotation.GroupAlarm;
 import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.domain.GroupDTO;
 import com.example.myoceanproject.domain.UserDTO;
@@ -16,6 +17,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
@@ -94,18 +97,17 @@ public class ManageGroupController {
 
         return groupDTO;
     }
+    @GroupAlarm
+    @PatchMapping(value = "/{status}/{groupId}")
+    public String disApprovedGroup(@PathVariable Long groupId, @PathVariable String status){
+        if(status.equals("disapprove")){
+            groupService.modifyStatus(groupId, "승인거절");
+        }else{
+            groupService.modifyStatus(groupId, "승인완료");
+        }
+        return "update success";
+    }
 
-//    @PatchMapping (value = "/{status}/{userId}")
-//    public String updateStatus(@RequestBody UserDTO userDTO, @PathVariable String status, @PathVariable Long userId){
-//        UserAccountStatus userStatus = status.equals("ACTIVE") ? UserAccountStatus.ACTIVE : UserAccountStatus.BANNED;
-//        log.info(userStatus + "status");
-//
-//        userDTO.setUserAccountStatus(userStatus);
-//        userDTO.setUserId(userId);
-//
-//        userService.modify(userDTO);
-//
-//        return "update success";
-//    }
+
 
 }
