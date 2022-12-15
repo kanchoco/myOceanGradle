@@ -143,6 +143,10 @@ public class LogAspect {
             String impUid=objectNode.get("impUid").asText();
             String content=objectNode.get("content").asText();
 
+            alarmDTO.setAlarmCategory("POINT");
+            alarmDTO.setAlarmContent(userPoint + "POINT 충전이 완료되었습니다!");
+            alarmDTO.setUserId(userId);
+
 //100000포인트 결제 고객에게 리워드 지급
             if(userPoint >= 100000L){
                 User user = userRepository.findById(userId).get();

@@ -57,4 +57,7 @@ public class AlarmService {
         alarmRepository.findById(alarmId).get().updateStatus();
     }
 
+    public boolean checkStatus(Long userId){
+        return alarmRepositoryImpl.checkRead(userId);
+    }
 }
