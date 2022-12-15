@@ -43,7 +43,7 @@ public class QuestAchievementRepositoryImpl implements QuestAchievementCustomRep
                 )).from(quest)
                 .join(questAchievement)
                 .on(questAchievement.quest.questId.eq(quest.questId))
-                .where(questAchievement.user.userId.eq(userId))
+                .where(questAchievement.user.userId.eq(userId).and(questAchievement.quest.questType.eq(QuestType.BASIC)))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()).fetch();
 

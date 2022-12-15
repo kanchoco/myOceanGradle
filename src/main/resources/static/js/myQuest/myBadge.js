@@ -19,7 +19,7 @@ let myBadgeService = (function(){
 
     function getBadgeList(param, callback, error){
         $.ajax({
-            url: encodeURI("/myCompleteQuest/" + (param.page || 0)),
+            url: encodeURI("/myCompleteQuest/myBadge/" + (param.page || 0)),
             type: "get",
             success: function (questDTOList,status, xhr) {
                 if(callback){
