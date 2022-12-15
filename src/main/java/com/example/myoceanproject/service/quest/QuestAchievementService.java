@@ -1,6 +1,7 @@
 package com.example.myoceanproject.service.quest;
 
 import com.example.myoceanproject.domain.QuestDTO;
+import com.example.myoceanproject.entity.QuestAchievement;
 import com.example.myoceanproject.repository.quest.QuestAchievementRepositoryImpl;
 import com.querydsl.core.Tuple;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,11 @@ public class QuestAchievementService {
 
     }
 
-    public List<Tuple> showMonthlyAchievementCount(Long userId){
-        return questAchievementRepositoryImpl.findMonthlyAchievementCount(userId);
+    public int showMonthlyAchievementCount(Long userId, int month){
+        return questAchievementRepositoryImpl.findMonthlyAchievementCount(userId, month);
+    }
+
+    public int showMyBadgeNumber(Long userId){
+        return questAchievementRepositoryImpl.countBadge(userId);
     }
 }

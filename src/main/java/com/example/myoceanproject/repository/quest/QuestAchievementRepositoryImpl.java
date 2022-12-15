@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.myoceanproject.domain.QQuestDTO;
 import com.example.myoceanproject.domain.QuestDTO;
+import com.example.myoceanproject.entity.QuestAchievement;
 import com.example.myoceanproject.type.QuestType;
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -67,14 +68,15 @@ public class QuestAchievementRepositoryImpl implements QuestAchievementCustomRep
 
 
     @Override
-    public List<Tuple> findMonthlyAchievementCount(Long userId){
-        return queryFactory.from(questAchievement)
-                .where(questAchievement.user.userId.eq(userId).and(questAchievement.quest.questType.eq(QuestType.TODAY)))
-                .groupBy(questAchievement.createDate.yearMonth())
-                .select(questAchievement.createDate.yearMonth(), questAchievement.createDate.yearMonth().count() )
-                .fetch();
+    public int findMonthlyAchievementCount(Long userId, int month){
+        return queryFactory.selectFrom(questAchievement)
+                .where(questAchievement.user.userId.eq(userId)
+                        .and(questAchievement.quest.questType.eq(QuestType.TODAY))
+                        .and(questAchievement.createDate.month().eq(month)))
+                .fetch().size();
 
     }
+
 
 
 

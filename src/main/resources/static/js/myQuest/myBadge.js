@@ -38,10 +38,10 @@ let myBadgeService = (function(){
         $.ajax({
             url: "/myCompleteQuest/badge",
             type: "get",
-            success: function (questAchievementCountList,status, xhr) {
+            success: function (questDTOList,status, xhr) {
                 if(callback){
-                    console.log(questAchievementCountList);
-                    callback(questAchievementCountList);
+                    console.log(questDTOList);
+                    callback(questDTOList);
                 }
             },
             error: function (xhr, status, err) {
