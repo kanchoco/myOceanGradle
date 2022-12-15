@@ -3,12 +3,16 @@ const $checkMonth = $(".month");
 const $categoryDate = $(".e12i9j8n1");
 const $prevDay = $(".prevArrow");
 const $nextDay = $(".nextArrow");
+
 let dayText = "";
 let yearText = "";
 let monthText = "";
 let dateText = "";
+let dayTempText="";
 
-
+globalThis.diaryAr=new Array();
+console.log(typeof globalThis.diaryAr);
+console.log(globalThis.diaryAr);
 // 캘린더 크기 미디어쿼리
 checkCalendar();
 
@@ -195,7 +199,11 @@ $checkMonth.on("click", function(){
     }
 })
 
+$(".arrow").on("click",function(){
+    dayTempText=$(".dayText").text();
+})
 $("button.eklkj752").on("click", function(){
+    globalThis.diaryAr=[];
     let today = new Date();
     let year = today.getFullYear();
     let month = ('0' + (today.getMonth() + 1)).slice(-2);
@@ -203,41 +211,127 @@ $("button.eklkj752").on("click", function(){
     yearText = $(".year.check").text();
     monthText = $(".month.check").text();
     dayText = $(".dayText").text();
-    if(!yearText && !monthText){
-        dateText = year +"년 " + month + "월 " + dayText + "일";
-        $(".selectDate").text(dateText);
-        return;
-    }
 
-    if(!yearText){
-        yearText = year + "년";
-    }
-    if(!monthText){
-        dateText = yearText;
-        $(".selectDate").text(dateText);
-        return;
-    }
+    // if(!yearText && !monthText){
+    //     dateText = year +"년 " + month + "월 " + dayText + "일";
+    //     $(".selectDate").text(dateText);
+    //     return;
+    // }
+    //
+    // if(!yearText){
+    //     console.log("yearText in");
+    //     yearText = year + "년";
+    //     return;
+    // }
+    // if(!monthText){
+    //     console.log("monthText in");
+    //     dateText = yearText;
+    //     $(".selectDate").text(dateText);
+    //     return;
+    // }
+    // if(!dayText){
+    //     dateText=yearText+monthText;
+    //     $(".selectDate").text(dateText);
+    //     return;
+    // }
+    dayText ="";
+    dateText="";
+    console.log("before transmit yearText:"+yearText);
+    console.log("before transmit monthText:"+monthText);
+    console.log("before transmit dayText:"+dayText);
+    console.log("before transmit dateText:"+dateText);
 
-    dateText = yearText + " " + monthText + " " + dayText+ "일";
-    $(".selectDate").text(dateText);
+    if((yearText) || (yearText && monthText) || (yearText && monthText && dayTempText)){
+
+        if(yearText){
+            dateText = yearText;
+            console.log("yearText:"+yearText);
+        }if(yearText && monthText){
+            dateText=yearText+monthText;
+            console.log("yearText && monthText:"+dateText);
+        }if(yearText && monthText && dayTempText){
+            dateText = yearText+monthText+dayTempText+"일";
+            console.log("yearText && monthText && dayText:"+dayTempText);
+        }
+        console.log("dateText:"+dateText);
+        $(".selectDate").text(dateText);
+
+        globalThis.diaryAr.push(yearText.substr(0,4)+"년");
+        globalThis.diaryAr.push(monthText.substr(0,2)+"월");
+        globalThis.diaryAr.push(dayTempText+"일");
+
+
+        $(".year.check").attr("class","css-vvmm1k e1k52epl0 year");
+        $(".month.check").attr("class","css-vvmm1k e1k52epl0 month");
+        dayTempText="";
+
+
+
+        let datas={"page":page,"dateData":globalThis.diaryAr};
+        diaryService.getList(datas,getList);
+        console.log("click method before array:"+globalThis.diaryAr);
+        console.log("click method after array:"+globalThis.diaryAr);
+    }else{alert("(월) 또는 (월,일) 클릭시 정확한 날짜를 조회할 수 없습니다. 정확한 날짜를 클릭해주세요.");}
+
+    // dateText = yearText + " " + monthText + " " + dayText+ "일";
+    // $(".selectDate").text(dateText);
 
     console.log("dateText:"+dateText);
     console.log("yearText:"+yearText);
     console.log("monthText:"+monthText);
-    console.log("dayText:"+dayText);
+    console.log("dayText:"+dayTempText);
     console.log(typeof dateText);
 
-    let dateData={"year":yearText,"month":monthText,"day":dayText};
-    $.ajax({
-        url:"calendar",
-        type:"post",
-        headers:{"Content-Type":"application/json"},
-        data:JSON.stringify(dateData),
-        dataType:"text",
-        success:function(result){
-            console.log(result);
-        },error:function(status,error){
-            console.log(status,error);
-        }
-    });
+    dayText = "";
+    yearText = "";
+    monthText = "";
+    dateText = "";
+    dayTempText="";
+
+    // let dateData={"page":page,"keyword":keyword,"year":yearText,"month":monthText,"day":dayText};
+
+
+    // $.ajax({
+    //     url:"calendar",
+    //     type:"post",
+    //     headers:{"Content-Type":"application/json"},
+    //     data:JSON.stringify(dateData),
+    //     dataType:"text",
+    //     success:function(result){
+    //         console.log(result);
+    //     },error:function(status,error){
+    //         console.log(status,error);
+    //     }
+    // });
+    // let datas={"page":page,"dateData":globalThis.diaryAr};
+    // diaryService.getList(datas,getList);
+    // globalThis.diaryAr=[];
 })
+
+console.log("outer click method per array:"+globalThis.diaryAr);
+// url: encodeURI("/myList/diary/" + (param.page || 0) + "/" + param.keyword),
+var test="";
+let diaryService = (function(){
+    function getList(param, callback, error){
+        $.ajax({
+            url: encodeURI("/myList/diary/" + (param.page || 0) + (globalThis.diaryAr != null ? "/"+param.dateData:"")),
+            // "/myList/diary/0/" + "dateData"
+            // "/myList/diary/0" + ""
+            type: "get",
+            async : false,
+            success: function(diaryDTO, status, xhr){
+                if(callback){
+                    callback(diaryDTO);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+
+
+    return {getList: getList}
+}) ();

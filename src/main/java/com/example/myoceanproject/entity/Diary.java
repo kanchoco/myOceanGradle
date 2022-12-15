@@ -27,8 +27,8 @@ public class Diary extends Period{
     @JoinColumn
     private User receiverUser; //아직 받을 사람이 없을 수도 있기 때문에 NotNull이 아님
 
-    @NotNull
-    private LocalDateTime localDateTime;
+//    @NotNull
+//    private LocalDateTime localDateTime;
 
 
 //  양방향
@@ -41,11 +41,11 @@ public class Diary extends Period{
     }
     
     @Builder
-    public Diary(String diaryTitle, String diaryContent, User receiverUser,LocalDateTime localDateTime) {
+    public Diary(String diaryTitle, String diaryContent, User receiverUser) {
         this.diaryTitle = diaryTitle;
         this.diaryContent = diaryContent;
         this.receiverUser = receiverUser;
-        this.localDateTime=localDateTime;
+//        this.localDateTime=localDateTime;
     }
     
 //  일기는 한 번 쓰면 수정이 불가하기 때문에 update가 없음 

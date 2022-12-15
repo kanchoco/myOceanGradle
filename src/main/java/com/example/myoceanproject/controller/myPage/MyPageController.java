@@ -1,9 +1,11 @@
 package com.example.myoceanproject.controller.myPage;
 
+import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.domain.QUserDTO;
 import com.example.myoceanproject.domain.UserDTO;
 import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.repository.UserRepository;
+import com.example.myoceanproject.service.UserService;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Ejb3TransactionAnnotationParser;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.crypto.Cipher;
@@ -21,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import java.util.Base64;
+import java.util.List;
 
 import static com.example.myoceanproject.entity.QUser.user;
 
@@ -34,33 +38,41 @@ public class MyPageController {
     private JPAQueryFactory jpaQueryFactory;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     // 마이 페이지
     @GetMapping("/index")
-    public String myPage(){
+    public String myPage(Model model,HttpServletRequest request){
+
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute("userId");
+
+        UserDTO userDTO= userService.findUser(userId);
+        model.addAttribute("userDTO",userDTO);
+
         return "app/myPage/myPage";
+
     }
 
     //  마이페이지에서 변경 버튼 클릭시 정보 저장하는 비동기 요청
-    @RequestMapping("/changeInfo")
-    @ResponseBody
-    @Transactional
-    @Modifying
-    public void changeInfo(@RequestBody String nickname, HttpServletRequest request){
-        HttpSession session=request.getSession();
-        session.setAttribute("userNickname",nickname);
-        Long userid=(Long)session.getAttribute("userId");
-
-        UserDTO userDTO=new UserDTO();
-        userDTO.setUserTotalPoint(0);
-        userDTO.setUserNickname("nickName");
-        User users=jpaQueryFactory.selectFrom(user).where(user.userId.eq(userid)).fetchOne();
-
-//      변경된 닉네임,파일 저장
-        users.updateNicknameFile(userDTO);
-
-    }
+//    @RequestMapping("/changeInfo")
+//    @ResponseBody
+//    @Transactional
+//    @Modifying
+//    public void changeInfo(@RequestBody String nickname, HttpServletRequest request){
+//        HttpSession session=request.getSession();
+//        session.setAttribute("userNickname",nickname);
+//        Long userid=(Long)session.getAttribute("userId");
+//
+//        UserDTO userDTO=new UserDTO();
+//        userDTO.setUserTotalPoint(0);
+//        userDTO.setUserNickname(nickname);
+//        User users=jpaQueryFactory.selectFrom(user).where(user.userId.eq(userid)).fetchOne();
+//
+////      변경된 닉네임,파일 저장
+//        users.updateNicknameFile(userDTO);
+//
+//    }
     // 비밀번호 변경 페이지
     @GetMapping("/passwordChange")
     public String passwordChange(){
