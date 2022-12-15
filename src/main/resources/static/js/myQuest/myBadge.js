@@ -15,27 +15,27 @@ $(".BottomSheet__CloseButton-e2nchk-6.fTfJGA").on("click", function(){
 
 
 
+let myBadgeService = (function(){
 
-
-
-let myQuestService = (function(){
-
-        function getQuestList(param, callback, error){
-            $.ajax({
-                url: encodeURI("/myCompleteQuest/" + (param.page || 0)),
-                type: "get",
-                success: function (questDTOList,status, xhr) {
-                    if(callback){
-                        callback(questDTOList);
-                    }
-                },
-                error: function (xhr, status, err) {
-                    if (error) {
-                        error(err);
-                    }
+    function getBadgeList(param, callback, error){
+        $.ajax({
+            url: encodeURI("/myCompleteQuest/mybadge/" + (param.page || 0)),
+            type: "get",
+            success: function (questDTOList,status, xhr) {
+                if(callback){
+                    callback(questDTOList);
                 }
-            });
-        }
-    return {getQuestList: getQuestList}
+            },
+            error: function (xhr, status, err) {
+                if (error) {
+                    error(err);
+                }
+            }
+        });
+    }
+    return {getBadgeList: getBadgeList}
 }) ();
+
+
+
 
