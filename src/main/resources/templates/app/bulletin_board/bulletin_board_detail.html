@@ -323,8 +323,9 @@
 
             <!--모임 신청 또는 마감 나타내기-->
             <!--관리자일 경우 모임 승인, 거절 버튼이 나오게 한다.-->
+            <!--이미 처리된 -->
             <div th:if="${session.userId}">
-                <div th:if="${session.userId == 1}">
+                <div th:if="${session.userId == 222}">
                     <div th:if="${#lists.size(groupScheduleDTO)>0}" class="Wrapper__FloatingActionBarWrapper-aopuoy-0 ifNxJR">
                         <!--기간이 이미 지났다면-->
                         <div th:if="${groupScheduleDTO[0].groupScheduleDate < localDateTime}" class="FloatingActionBar__FloatingButtonWrapper-a3gyda-0 dIeHJQ">
@@ -335,13 +336,13 @@
                         <!--기간이 아직 오지 않았다면-->
                         <div th:unless="${groupScheduleDTO[0].groupScheduleDate < localDateTime}" class="FloatingActionBar__FloatingButtonWrapper-a3gyda-0 dIeHJQ">
                             <!--모임 승인-->
-                            <button class="Button-bqxlp0-0 BUemN Button__StyledSubmitButton-sc-1dkzbac-0 eIJDxV" width="100%" height="56px" color="white" font-size="16px">
+                            <button class="Button-bqxlp0-0 BUemN Button__StyledSubmitButton-sc-1dkzbac-0 eIJDxV" width="100%" height="56px" color="white" font-size="16px" onclick="approve()">
                                 <div class="DefaultButton__ActionLabel-sc-4mlqfg-0 groupApply">
                                     모임 승인
                                 </div>
                             </button>
                             <!--모임 거절-->
-                            <button class="Button-bqxlp0-0 BUemN Button__StyledSubmitButton-sc-1dkzbac-0 eIJDxV" width="100%" height="56px" color="white" font-size="16px">
+                            <button class="Button-bqxlp0-0 BUemN Button__StyledSubmitButton-sc-1dkzbac-0 eIJDxV" width="100%" height="56px" color="white" font-size="16px" onclick="disapprove()">
                                 <div class="DefaultButton__ActionLabel-sc-4mlqfg-0 groupReject">
                                     모임 거절
                                 </div>
@@ -349,7 +350,7 @@
                         </div>
                     </div>
                 </div>
-                <div th:unless="${session.userId == 1}">
+                <div th:unless="${session.userId == 222}">
                     <!--자신이 작성한 글이면 신청/마감 나타나지 않도록 하기-->
                     <div th:if="${groupDTO.userId != session.userId}">
                         <!--모임 신청 기간 내면 활성화, 아니면 마감 이미지로-->
@@ -362,7 +363,7 @@
                             </div>
                             <!--기간이 아직 오지 않았다면-->
                             <div th:unless="${groupScheduleDTO[0].groupScheduleDate < localDateTime}" class="FloatingActionBar__FloatingButtonWrapper-a3gyda-0 dIeHJQ">
-                                <button class="Button-bqxlp0-0 BUemN Button__StyledSubmitButton-sc-1dkzbac-0 eIJDxV" width="100%" height="56px" color="white" font-size="16px">
+                                <button th:if="${groupJoinMember} < ${groupDTO.maxMember}" class="Button-bqxlp0-0 BUemN Button__StyledSubmitButton-sc-1dkzbac-0 eIJDxV" width="100%" height="56px" color="white" font-size="16px">
                                     <!--참여 취소-->
                                     <!--groupUserCheck가 true이면 아직 참여 안했다는 것-->
                                     <div th:if="${groupUserCheck}">
@@ -377,16 +378,44 @@
                                         </div>
                                     </div>
                                 </button>
+                                <button th:unless="${groupJoinMember} < ${groupDTO.maxMember}" class="Button-bqxlp0-0 BUemN Button__StyledSubmitButton-sc-1dkzbac-0 eIJDxV" width="100%" height="56px" color="white" font-size="16px">
+                                    <div th:if="${groupUserCheck}">
+                                        <div class="Button-bqxlp0-0 hhkUKM Button__StyledSubmitButton-sc-1dkzbac-0 eIJDxV" width="100%" height="56px" color="white" font-size="16px" disabled="">
+                                            신청 마감
+                                        </div>
+                                    </div>
+                                    <div th:unless="${groupUserCheck}">
+                                        <div class="DefaultButton__ActionLabel-sc-4mlqfg-0 cancelGroup">
+                                            참여 취소
+                                        </div>
+                                    </div>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div th:unless="${groupDTO.userId != session.userId}">
+                    <div class="Wrapper__FloatingActionBarWrapper-aopuoy-0 ifNxJR">
+                        <div class="FloatingActionBar__FloatingButtonWrapper-a3gyda-0 dIeHJQ">
+                            <button class="Button-bqxlp0-0 hhkUKM Button__StyledSubmitButton-sc-1dkzbac-0 eIJDxV" width="100%" height="56px" color="white" font-size="16px" disabled="">
+                                회원님께서 오픈하신 모임입니다.
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div th:unless="${session.userId}"></div>
+
+            <div th:unless="${session.userId}">
+                <div class="Wrapper__FloatingActionBarWrapper-aopuoy-0 ifNxJR">
+                    <div class="FloatingActionBar__FloatingButtonWrapper-a3gyda-0 dIeHJQ">
+                        <button class="Button-bqxlp0-0 hhkUKM Button__StyledSubmitButton-sc-1dkzbac-0 eIJDxV" width="100%" height="56px" color="white" font-size="16px" disabled="">
+                            로그인이 필요한 서비스입니다.
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-
 <footer th:replace="/app/fix/footer.html :: footer"></footer>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>

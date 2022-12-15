@@ -1,7 +1,10 @@
 package com.example.myoceanproject.interceptor;
 
 import com.example.myoceanproject.controller.myAlarm.MyAlarmRestController;
+import com.example.myoceanproject.domain.AlarmDTO;
 import com.example.myoceanproject.domain.UserDTO;
+import com.example.myoceanproject.entity.Group;
+import com.example.myoceanproject.repository.GroupRepository;
 import com.example.myoceanproject.service.alarm.AlarmService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,29 +22,36 @@ public class AlarmInterceptor implements HandlerInterceptor {
 
     private AlarmService alarmService;
     private MyAlarmRestController alarmRestController;
+    private GroupRepository groupRepository;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        try {
-            Long userId = ((Long)request.getSession().getAttribute("userId"));
-            if(userId != null){
-                log.info("-=----------------------------------------");
-                log.info("preHandler");
-                log.info("userId" + userId);
-                log.info("readCheck" + alarmService.checkStatus(userId));
-                log.info("-=----------------------------------------");
-//                request.getSession().setAttribute("readCheck", alarmService.checkStatus(userDTO.getUserId()));
-    //            alarmRestController.checkStatus(request);
-            }
-        }catch (NullPointerException e){
-            log.info("NPE");
-        }
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
+//        log.info("------------------------------------");
+//        log.info("postHandle");
+//        log.info(request.getRequestURI().contains("disapproved") + "check");
+//        log.info(request.getRequestURI().split("/")[3]+ "groupId");
+//        Long groupId = Long.valueOf(request.getRequestURI().split("/")[3]);
+//        log.info(groupId + "id");
+//        Group group = groupRepository.findById(groupId).get();
+//        log.info(group.toString());
+//        log.info("------------------------------------");
+//        AlarmDTO alarmDTO = new AlarmDTO();
+//        alarmDTO.setAlarmCategory("GROUP");
+//        if(request.getRequestURI().contains("disapproved")){
+//            alarmDTO.setAlarmContent("\""+ group.getGroupName() + "\" 모임이 거절되었습니다");
+//            alarmDTO.setUserId(group.getUser().getUserId());
+//            alarmDTO.setContentId(group.getGroupId());
+//        }else{
+//            alarmDTO.setAlarmContent("\""+ group.getGroupName() + "\" 모임이 승인되었습니다✨🎉");
+//            alarmDTO.setUserId(group.getUser().getUserId());
+//            alarmDTO.setContentId(group.getGroupId());
+//        }
+//            alarmService.addAlarm(alarmDTO);
     }
 
     @Override

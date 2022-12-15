@@ -146,5 +146,9 @@ public class GroupService implements GroupBoardService {
         GroupDTO groupDTO = groupRepositoryImpl.findByUserId(userId);
         return groupDTO;
     }
+    @Transactional
+    public void modifyStatus(Long groupId, String status){
+        groupRepository.findById(groupId).get().updateStatus(GroupStatus.change(status));
+    }
 
 }

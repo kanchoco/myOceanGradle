@@ -60,7 +60,34 @@ $(".cancelGroup").on("click", function(){
     }else{
         ;
     }
-
-
-
 })
+
+function approve(){
+    $.ajax({
+        url: "/group/"+ "approve" + "/" + $(".goUpdate").attr("href"),
+        type: "patch",
+        async: false,
+        success: function(result, status, xhr) {
+            alert("승인되었습니다.");
+        },
+        error: function(xhr, status, err){
+            if(error){
+                error(err);
+            }
+        }
+    });
+}
+function disapprove(){
+    $.ajax({
+        url: "/group/"+ "disapprove" + "/" + $(".goUpdate").attr("href"),
+        type: "patch",
+        success: function(result, status, xhr) {
+            alert("거절되었습니다.");
+        },
+        error: function(xhr, status, err){
+            if(error){
+                error(err);
+            }
+        }
+    });
+}

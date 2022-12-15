@@ -112,4 +112,8 @@ public class Group extends Period{
         this.groupFileUuid = groupDTO.getGroupFileUuid();
         this.reason = groupDTO.getReason();
     }
+    public void updateStatus(GroupStatus status){
+        this.groupStatus = status;
+    }
+
 }

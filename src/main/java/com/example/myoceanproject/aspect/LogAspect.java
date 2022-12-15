@@ -3,10 +3,8 @@ package com.example.myoceanproject.aspect;
 import com.example.myoceanproject.domain.AlarmDTO;
 import com.example.myoceanproject.domain.CommunityReplyDTO;
 import com.example.myoceanproject.domain.PointDTO;
-import com.example.myoceanproject.entity.Ask;
-import com.example.myoceanproject.entity.Point;
-import com.example.myoceanproject.entity.QuestAchievement;
-import com.example.myoceanproject.entity.User;
+import com.example.myoceanproject.entity.*;
+import com.example.myoceanproject.repository.GroupRepository;
 import com.example.myoceanproject.repository.PointRepository;
 import com.example.myoceanproject.repository.UserRepository;
 import com.example.myoceanproject.repository.ask.AskRepository;
@@ -47,6 +45,7 @@ public class LogAspect {
     private final QuestRepository questRepository;
 
     private final PointService pointService;
+    private final GroupRepository groupRepository;
 
 
 
@@ -97,7 +96,21 @@ public class LogAspect {
 //    그룹 참여 알람
     @After("@annotation(com.example.myoceanproject.aspect.annotation.GroupJoinAlarm)")
     public void joinGroup(JoinPoint joinPoint){
-        Arrays.stream(joinPoint.getArgs()).map(v->v.toString()).forEach(log::info);
+        Long groupId = Long.valueOf(joinPoint.getArgs()[0].toString());
+        HttpServletRequest request = (HttpServletRequest) joinPoint.getArgs()[1];
+        Long userId = (Long)request.getSession().getAttribute("userId");
+        log.info("------------------------------------------------------");
+        log.info("--"+ userId + "----" + groupId);
+        log.info("------------------------------------------------------");
+
+        Group group = groupRepository.findById(groupId).get();
+
+        AlarmDTO alarmDTO = new AlarmDTO();
+        alarmDTO.setAlarmCategory("GROUP");
+        alarmDTO.setAlarmContent("\"" + group.getGroupName() + "\" 에 참여하였습니다! 채팅방을 확인볼까요🙋‍♀️");
+        alarmDTO.setUserId(userId);
+        alarmDTO.setContentId(groupId);
+        alarmService.addAlarm(alarmDTO);
     }
 
     //관리자 답변 알림
@@ -210,6 +223,24 @@ public class LogAspect {
         log.info("-------------------------------------------------");
     }
 
+    @After("@annotation(com.example.myoceanproject.aspect.annotation.GroupAlarm)")
+    public void requestGroup(JoinPoint joinPoint){
+        Long groupId = Long.valueOf(joinPoint.getArgs()[0].toString());
+        String status = joinPoint.getArgs()[1].toString();
+        Group group = groupRepository.findById(groupId).get();
 
+        AlarmDTO alarmDTO = new AlarmDTO();
+        alarmDTO.setAlarmCategory("GROUP");
+        if(status.equals("disapprove")){
+            alarmDTO.setAlarmContent("\""+ group.getGroupName() + "\" 모임이 거절되었습니다");
+            alarmDTO.setUserId(group.getUser().getUserId());
+            alarmDTO.setContentId(group.getGroupId());
+        }else{
+            alarmDTO.setAlarmContent("\""+ group.getGroupName() + "\" 모임이 승인되었습니다✨🎉");
+            alarmDTO.setUserId(group.getUser().getUserId());
+            alarmDTO.setContentId(group.getGroupId());
+        }
+            alarmService.addAlarm(alarmDTO);
+    }
 
 }
