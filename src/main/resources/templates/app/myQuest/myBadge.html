@@ -563,10 +563,10 @@
                 realText+= `<div class="Month__ImageContainer-sc-10z0ekt-6 iialDB">`
                 if(questDTO.monthlyCount<14) {
                     console.log(questDTO.monthlyCount);
-                    realText += `<img src="/imgin/myQuest/calendar/january.png" width="100%" height="100%" alt="badge" class="monthlyBadge uncheckedBadge">`
+                    realText += `<img src="/imgin/myQuest/calendar/`+questDTO.month+`.png" width="100%" height="100%" alt="badge" class="monthlyBadge uncheckedBadge">`
                 }else{
                     console.log(questDTO.monthlyCount);
-                    realText += `<img src="/imgin/myQuest/calendar/january.png" width="100%" height="100%" alt="badge" class="monthlyBadge">`
+                    realText += `<img src="/imgin/myQuest/calendar/`+questDTO.month+`.png" width="100%" height="100%" alt="badge" class="monthlyBadge">`
                 }
                 realText+= `</div>`
                 realText+= `</div>`
