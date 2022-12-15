@@ -1,5 +1,6 @@
 package com.example.myoceanproject.service.community;
 
+import com.example.myoceanproject.aspect.annotation.PostAlarm;
 import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.entity.CommunityPost;

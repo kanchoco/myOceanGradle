@@ -115,6 +115,7 @@ public class JoinController {
 
     // 회원가입 버튼 클릭후 메인 홈페이지 이동
     @PostMapping("/joinOk")
+    @JoinAlarm
     public String joinOk(UserDTO userDTO){
         userDTO.setUserPassword(encryption(userDTO.getUserPassword()));
         userDTO.setUserTotalPoint(5000);
@@ -146,7 +147,6 @@ public class JoinController {
     }
 
     @GetMapping("/googleJoin")
-    @JoinAlarm
     public String googleCallback(Model model, @RequestParam(value = "code") String authCode,HttpSession session) throws Exception{
 
         int exist=googleJoinService.getGoogleAccessTokenInfo(authCode);

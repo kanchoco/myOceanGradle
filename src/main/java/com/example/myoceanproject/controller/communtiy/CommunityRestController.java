@@ -1,5 +1,6 @@
 package com.example.myoceanproject.controller.communtiy;
 
+import com.example.myoceanproject.aspect.annotation.PostAlarm;
 import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.domain.CommunityReplyDTO;
 import com.example.myoceanproject.domain.Criteria;
@@ -109,6 +110,7 @@ public class CommunityRestController {
 
     // 게시글 작성 후 커뮤니티 페이지로 이동
     @PostMapping(value="/index", consumes = "application/json", produces = "text/plain; charset=utf-8")
+    @PostAlarm
     public ResponseEntity<String> communityWriting(@RequestBody CommunityPostDTO communityPostDTO, HttpServletRequest request) throws UnsupportedEncodingException {
         HttpSession session = request.getSession();
 

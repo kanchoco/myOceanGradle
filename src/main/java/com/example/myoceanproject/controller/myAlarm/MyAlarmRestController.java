@@ -36,8 +36,6 @@ public class MyAlarmRestController {
         alarmDTO.setAlarmList(alarmDTOPage.getContent());
         alarmDTO.setEndPage(endPage);
 
-        alarmDTO.getAlarmList().stream().map(AlarmDTO::toString).forEach(log::info);
-
         return alarmDTO;
     }
 

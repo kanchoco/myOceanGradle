@@ -1,6 +1,7 @@
 package com.example.myoceanproject.aspect;
 
 import com.example.myoceanproject.domain.AlarmDTO;
+import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.domain.CommunityReplyDTO;
 import com.example.myoceanproject.domain.PointDTO;
 import com.example.myoceanproject.entity.*;
@@ -173,11 +174,6 @@ public class LogAspect {
 
                 PointDTO pointDTO = new PointDTO();
                 pointDTO.setPointAmountHistory(5000);
-                pointDTO.setPointType("보상");
-                pointDTO.setPointMerchantUid(merchantUid);
-                pointDTO.setPointImpUid(impUid);
-                pointDTO.setPointContent("퀘스트 보상 지급");
-                pointDTO.setPointCheckType("보상");
                 pointDTO.setUserId(userId);
 
                 pointService.questReward(pointDTO);
@@ -186,17 +182,12 @@ public class LogAspect {
 //                첫 결제 && 이전 결제 보상이 없던 유저도 포함 보상
                 User user = userRepository.findById(userId).get();
                 QuestAchievement questAchievement = new QuestAchievement();
-                questAchievement.setQuest(questRepository.findById(252L).get());
+                questAchievement.setQuest(questRepository.findById(320L).get());
                 questAchievement.setUser(user);
                 questAchievementRepository.save(questAchievement);
 
                 PointDTO pointDTO = new PointDTO();
                 pointDTO.setPointAmountHistory(2000);
-                pointDTO.setPointType("보상");
-                pointDTO.setPointMerchantUid(merchantUid);
-                pointDTO.setPointImpUid(impUid);
-                pointDTO.setPointContent("퀘스트 보상 지급");
-                pointDTO.setPointCheckType("보상");
                 pointDTO.setUserId(userId);
 
                 pointService.questReward(pointDTO);
@@ -204,10 +195,8 @@ public class LogAspect {
 
                 AlarmDTO questAlarm = new AlarmDTO();
 
-                questAlarm.setAlarmCategory("QUEST");
                 questAlarm.setUserId(userId);
-
-                alarmService.addAlarm(questAlarm);
+                alarmService.questAlarm(questAlarm);
         }
     }catch(NullPointerException e){
         log.info("관리자 환불페이지");
@@ -267,14 +256,77 @@ public class LogAspect {
             alarmService.addAlarm(alarmDTO);
     }
 
-    @Around("@annotation(com.example.myoceanproject.aspect.annotation.JoinAlarm)")
-    public void joinAlarm(JoinPoint joinPoint){
-//        long userId = Long.parseLong(joinPoint.getArgs()[3].toString());
+    @AfterReturning("@annotation(com.example.myoceanproject.aspect.annotation.PostAlarm)")
+    public void postAlarm(JoinPoint joinPoint){
         log.info("---------------------------------------------------");
-//        log.info("---" + userId);
-        Arrays.stream(joinPoint.getArgs()).forEach(v -> v.toString());
+        CommunityPostDTO postDTO = (CommunityPostDTO) joinPoint.getArgs()[0];
+        HttpServletRequest request = (HttpServletRequest) joinPoint.getArgs()[1];
+        Long userId = (Long)request.getSession().getAttribute("userId");
+        User user = userRepository.findById(userId).get();
+        String[] category = {"독서", "운동", "요리", "영화", "고민"};
+        int k = 0;
+
+        for(int i = 334; i <= 338; i++){
         log.info("---------------------------------------------------");
-        AlarmDTO alarmDTO = new AlarmDTO();
+            if(postDTO.getCommunityCategory().equals(category[k]) && achievementRepositoryImpl.checkDuplicatedById(userId, (long) i)){
+                QuestAchievement questAchievement = new QuestAchievement();
+                questAchievement.setQuest(questRepository.findById((long)i).get());
+                questAchievement.setUser(user);
+                questAchievementRepository.save(questAchievement);
+
+                PointDTO pointDTO = new PointDTO();
+                pointDTO.setPointAmountHistory(500);
+                pointDTO.setUserId(userId);
+
+                pointService.questReward(pointDTO);
+
+                AlarmDTO questAlarm = new AlarmDTO();
+
+                questAlarm.setUserId(userId);
+        log.info("---------------------------------------------------");
+        log.info("알람으로");
+        log.info(questAlarm.toString());
+                alarmService.questAlarm(questAlarm);
+            }
+            k++;
+        }
+//
+//        if(achievementRepositoryImpl.checkDuplicatedById(userId, 320L)){
+//            QuestAchievement questAchievement = new QuestAchievement();
+//            questAchievement.setQuest(questRepository.findById(320L).get());
+//            questAchievement.setUser(user);
+//            questAchievementRepository.save(questAchievement);
+//
+//            PointDTO pointDTO = new PointDTO();
+//            pointDTO.setPointAmountHistory(500);
+//            pointDTO.setUserId(userId);
+//
+//            pointService.questReward(pointDTO);
+//        }else if(achievementRepositoryImpl.checkDuplicatedById(userId, 320L)){
+//            QuestAchievement questAchievement = new QuestAchievement();
+//            questAchievement.setQuest(questRepository.findById(320L).get());
+//            questAchievement.setUser(user);
+//            questAchievementRepository.save(questAchievement);
+//
+//            PointDTO pointDTO = new PointDTO();
+//            pointDTO.setPointAmountHistory(500);
+//            pointDTO.setUserId(userId);
+//
+//            pointService.questReward(pointDTO);
+//        }
+
+
     }
+//    @After("@annotation(com.example.myoceanproject.aspect.annotation.JoinAlarm)")
+//    public void joinAlarm(JoinPoint joinPoint){
+////        long userId = Long.parseLong(joinPoint.getArgs()[3].toString());
+//        log.info("---------------------------------------------------");
+////        log.info("---" + userId);
+//        Arrays.stream(joinPoint.getArgs()).forEach(v -> v.toString());
+//        log.info("---------------------------------------------------");
+//        AlarmDTO alarmDTO = new AlarmDTO();
+//    }
+
+
 
 }
