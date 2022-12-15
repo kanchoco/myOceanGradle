@@ -1,3 +1,4 @@
+//  손호현, 나의공간 MySpaceService
 package com.example.myoceanproject.controller.mySpace;
 
 import com.example.myoceanproject.domain.ToDoListDTO;
@@ -26,54 +27,55 @@ public class MySpaceService {
     private final UserRepository userRepository;
     private final TodoListCustomRepository todoListCustomRepository;
 
-    //투두 리스트 작성
+//     현재 시간을 지정형식으로 변환하여 리턴
+    public String returnToday(){
+        // String 날짜를 LocalDateTime타입의 날짜로 바꾸는 과정
+        // 패턴을 정해준다.
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        // 현재기준을 2022-12-01 지정형식에 맞춰 반환
+        return formatter.format(LocalDateTime.now());
+    }
+
+//     투두리스트 등록
     public void post(String toDoListContent, String toDoListSelectDate, Long userId){
         ToDoListDTO toDoListDTO = new ToDoListDTO();
 
-        //회원가입된 유저 찾기
-//        HttpSession session = (HttpSession)request.getSession();
-//        session.getAttribute("loginUser");
+        // 회원가입된 유저 찾기
+        // HttpSession session = (HttpSession)request.getSession();
+        // session.getAttribute("loginUser");
 
-        //String 날짜를 LocalDateTime타입의 날짜로 바꾸는 과정
-        //패턴을 정해준다.
+        // String 날짜를 LocalDateTime타입의 날짜로 바꾸는 과정
+        // 패턴을 정해준다.
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        //LocalDateTime에 String 날짜와 패턴을 넘겨준다.
+        // LocalDateTime 타입에 (String날짜와 패턴)을 넘겨준다.
         LocalDateTime time = LocalDate.parse(toDoListSelectDate,formatter).atStartOfDay();
-        toDoListDTO.setToDoListContent(toDoListContent);
-        toDoListDTO.setToDoListSelectDate(time);
 
+        toDoListDTO.setToDoListSelectDate(time);
+        toDoListDTO.setToDoListContent(toDoListContent);
 
         ToDoList toDoList = toDoListDTO.toEntity();
         toDoList.setUser(userRepository.findById(userId).get());
 
         todoListRepository.save(toDoList);
-
-    }
-
-    public String returnToday(){
-//        로컬데이트타임(LocalDateTime)을 String으로 형변환
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        현재기준을 2022-12-01
-        return formatter.format(LocalDateTime.now());
     }
 
 
-    //    전체날짜 출력
+    //    전체 목록 출력
     public List<ToDoListDTO> showAll(Long userId){
         return todoListCustomRepository.findAllTodoList(userId);
     }
 
-    //    오늘 날짜로 출력
+//    오늘 날짜의 투두리스트 목록 출력
     public List<ToDoListDTO> showAllByToday(Long userId){
         return todoListCustomRepository.findAllByToday(userId);
     }
 
-    //    선택 월로 출력
+//    선택한 월의 투두리스트 목록 출력
     public List<ToDoListDTO> showAllByMonth(LocalDateTime time,Long userId) {
         return todoListCustomRepository.findAllByMonth(time,userId);
     }
 
-
+//    투두리스트 수정
     @Transactional
     public ToDoListDTO update(ToDoListDTO toDoListDTO){
         Long id = toDoListDTO.getToDoListId();
@@ -83,6 +85,7 @@ public class MySpaceService {
         return todoListCustomRepository.findById(id);
     }
 
+//    투두리스트 삭제
     public void delete(Long id){
         todoListRepository.deleteById(id);
     }

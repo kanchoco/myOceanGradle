@@ -95,3 +95,22 @@ function checking(callback, error) {
         }
     });
 }
+
+document.addEventListener('keydown', function(event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+    };
+}, true);
+
+
+$("input.KfNMI").on("keyup",function(key){
+    if(key.keyCode==13) {
+        if(!$(this).val()){
+            alert("검색어를 입력해주세요");
+        }else{
+            $("form.dLgpzE").submit();
+        }
+
+    }
+
+});

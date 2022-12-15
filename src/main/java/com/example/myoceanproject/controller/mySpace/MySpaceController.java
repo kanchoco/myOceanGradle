@@ -1,3 +1,4 @@
+//  손호현, 나의공간 MySpaceController
 package com.example.myoceanproject.controller.mySpace;
 
 import com.example.myoceanproject.domain.ToDoListDTO;
@@ -18,22 +19,20 @@ import java.time.format.DateTimeFormatter;
 @Slf4j
 public class MySpaceController {
     private final MySpaceService mySpaceService;
-    // 나만의 공간 페이지
+
+    // 나의공간 /myspace/index
     @GetMapping("/index")
     public String mySpace(Model model){
-        //모델(Model)은 자바쪽 내용을 화면으로 전달하는 역할을 한다.
-        //model.addAttribute("화면쪽에서 사용할 키 값", "전달할 내용")
-//        th:text=${키값}
-
-        model.addAttribute("noticeDayWrap",mySpaceService.returnToday());
+        // 모델(Model)은 자바쪽 내용을 화면으로 전달하는 역할을 한다.
+        // model.addAttribute("화면쪽에서 사용할 키 값", "전달할 내용")
+        // th:text=${키값}
+        // model.addAttribute("todayList",mySpaceService.showAllByToday());
         model.addAttribute("nowTime",mySpaceService.returnToday());
-//        model.addAttribute("todayList",mySpaceService.showAllByToday());
         return "app/mySpace/mySpace";
     }
 
     @PostMapping("/index")
     public RedirectView mySpaceResister(String toDoListContent, String toDoListSelectDate, Long userId) {
-
         mySpaceService.post(toDoListContent,toDoListSelectDate,userId);
         return new RedirectView("/myspace/index"); }
 
