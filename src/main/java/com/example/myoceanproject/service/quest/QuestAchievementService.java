@@ -2,6 +2,7 @@ package com.example.myoceanproject.service.quest;
 
 import com.example.myoceanproject.domain.QuestDTO;
 import com.example.myoceanproject.repository.quest.QuestAchievementRepositoryImpl;
+import com.querydsl.core.Tuple;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,5 +22,9 @@ public class QuestAchievementService {
     public Page<QuestDTO> showMyAchievement(Long userId, Pageable pageable){
         return questAchievementRepositoryImpl.findQuestAchievementByUserId(userId, pageable);
 
+    }
+
+    public List<Tuple> showMonthlyAchievementCount(Long userId){
+        return questAchievementRepositoryImpl.findMonthlyAchievementCount(userId);
     }
 }

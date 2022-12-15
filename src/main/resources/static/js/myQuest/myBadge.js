@@ -19,7 +19,7 @@ let myBadgeService = (function(){
 
     function getBadgeList(param, callback, error){
         $.ajax({
-            url: encodeURI("/myCompleteQuest/mybadge/" + (param.page || 0)),
+            url: encodeURI("/myCompleteQuest/" + (param.page || 0)),
             type: "get",
             success: function (questDTOList,status, xhr) {
                 if(callback){
@@ -36,11 +36,12 @@ let myBadgeService = (function(){
 
     function getMonthlyBadgeList(param, callback, error){
         $.ajax({
-            url: encodeURI("/myCompleteQuest/mybadge/" + (param.page || 0)),
+            url: "/myCompleteQuest/badge",
             type: "get",
-            success: function (questDTOList,status, xhr) {
+            success: function (questAchievementCountList,status, xhr) {
                 if(callback){
-                    callback(questDTOList);
+                    console.log(questAchievementCountList);
+                    callback(questAchievementCountList);
                 }
             },
             error: function (xhr, status, err) {
@@ -50,7 +51,7 @@ let myBadgeService = (function(){
             }
         });
     }
-    return {getBadgeList: getBadgeList}
+    return {getBadgeList: getBadgeList, getMonthlyBadgeList:getMonthlyBadgeList}
 }) ();
 
 
