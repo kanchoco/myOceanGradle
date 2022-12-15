@@ -10,6 +10,7 @@ import com.example.myoceanproject.repository.UserRepositoryImpl;
 import com.example.myoceanproject.repository.alarm.AlarmRepository;
 import com.example.myoceanproject.repository.alarm.AlarmRepositoryImpl;
 import com.example.myoceanproject.repository.community.post.CommunityPostRepository;
+import com.example.myoceanproject.repository.quest.QuestAchievementRepositoryImpl;
 import com.example.myoceanproject.type.AlarmCategory;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -32,12 +33,20 @@ public class AlarmService {
     private final UserRepositoryImpl userRepositoryImpl;
     private final AlarmRepositoryImpl alarmRepositoryImpl;
 
+    private final QuestAchievementRepositoryImpl achievementRepository;
+
     public void addAlarm(AlarmDTO alarmDTO){
         if(!alarmDTO.getAlarmCategory().equals(AlarmCategory.TODAY.name())){
             Alarm alarm = alarmDTO.toEntity();
             alarm.setUser(userRepository.findById(alarmDTO.getUserId()).get());
             alarmRepository.save(alarm);
-        }else{
+        }else if(alarmDTO.getAlarmCategory().equals(AlarmCategory.QUEST.name())){
+            alarmDTO.setAlarmContent("퀘스트 달성! 어떤 보상을 받았는지 확인해보세요!");
+            Alarm alarm = alarmDTO.toEntity();
+            alarm.setUser(userRepository.findById(alarmDTO.getUserId()).get());
+            alarmRepository.save(alarm);
+        }
+        else{
             List<UserDTO> users = userRepositoryImpl.findAllByActive();
             for(UserDTO user:users){
                 Alarm alarm = alarmDTO.toEntity();
@@ -60,4 +69,5 @@ public class AlarmService {
     public boolean checkStatus(Long userId){
         return alarmRepositoryImpl.checkRead(userId);
     }
+
 }

@@ -50,4 +50,17 @@ public class QuestAchievementRepositoryImpl implements QuestAchievementCustomRep
 
         return new PageImpl<>(questDTOList, pageable, total);
     }
+    @Override
+    public Boolean checkDuplicatedById(Long userId, Long questId){
+//        비어있으면 트루!!
+        return queryFactory.selectFrom(questAchievement)
+                .where(questAchievement.user.userId.eq(userId).and(questAchievement.quest.questId.eq(questId))).fetch().isEmpty();
+    }
+
+    @Override
+    public int countBadge(Long userId){
+        return Math.toIntExact(queryFactory.select(questAchievement.questAchievementId.count()).from(questAchievement)
+                .where(questAchievement.user.userId.eq(userId)).fetchFirst());
+    }
+
 }
