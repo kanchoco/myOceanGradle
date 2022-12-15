@@ -285,9 +285,9 @@ $("#groupList").on("click","li",function (e) {
 //         messageType : "대화"
 //     })
 // });
-
+let chat
 document.getElementById("sendButton").addEventListener("click",function(e){
-    let chat = document.getElementById("msg").value;
+    chat = document.getElementById("msg").value;
 
     // connect
     add({
@@ -298,6 +298,12 @@ document.getElementById("sendButton").addEventListener("click",function(e){
     })
 })
 
+document.getElementById('msg').addEventListener('keydown',function(event){
+    if (event.keyCode == 13) {
+        event.preventDefault();
+        document.getElementById('sendButton').click();
+    }
+})
 
 
 
@@ -405,6 +411,7 @@ function add(chatting, error){
         contentType: "application/json; charset=utf-8",
         success: function (status, xhr) {
             send();
+            document.getElementById("msg").value = '';
         },
         error: function(xhr, status, err){
             if(error){
@@ -430,6 +437,7 @@ function send(){
         senderUserId : userId,
         chattingContent : msg
     }))
+    msg.value ='';
 }
 function onOpen(){
     console.log("=============================자바스크립트 onOpen들어옴======================================")

@@ -58,29 +58,14 @@ public class MyQuestRestController {
         return questDTO;
     }
 
-    @GetMapping(value = "mybadge/{page}")
-    public QuestDTO myBadge(@PathVariable int page,@PathVariable(required = false) String keyword, HttpServletRequest request){
-        log.info("================================REST CONTROLLER 들어옴===================================");
-
-        Criteria criteria = new Criteria();
-        criteria.setPage(page);
-
-        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
-        HttpSession session = request.getSession();
-        Long userId = (Long) session.getAttribute("userId");
-        log.info(userId.toString());
-        Page<QuestDTO> questDTOList = questAchievementService.showMyAchievement(userId, pageable);
-        int endPage = (int)(Math.ceil(questDTOList.getNumber()+1 / (double)10)) * 10;
-        if(questDTOList.getTotalPages() < endPage){
-            endPage = questDTOList.getTotalPages() == 0 ? 1 : questDTOList.getTotalPages();
-        }
-
-        QuestDTO questDTO = new QuestDTO();
-
-        questDTO.setQuestList(questDTOList.getContent());
-        questDTO.setEndPage(endPage);
-
-
-        return questDTO;
-    }
+//    @GetMapping(value = "/mybadge")
+//    public QuestDTO myBadge(HttpServletRequest request){
+//        log.info("================================REST CONTROLLER 들어옴===================================");
+//        HttpSession session = request.getSession();
+//        Long userId = (Long) session.getAttribute("userId");
+//        questAchievementService.showMonthlyAchievementCount(userId);
+//
+//
+//
+//    }
 }
