@@ -1,3 +1,4 @@
+//  손호현, 메인 MainService
 package com.example.myoceanproject.service.main;
 
 import com.example.myoceanproject.domain.CommunityPostDTO;
@@ -8,6 +9,7 @@ import com.example.myoceanproject.entity.Group;
 import com.example.myoceanproject.entity.QCommunityPost;
 import com.example.myoceanproject.entity.QGroup;
 import com.example.myoceanproject.type.CommunityCategory;
+import com.example.myoceanproject.type.GroupStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,15 +26,24 @@ import java.util.List;
 public class MainService {
     private final JPAQueryFactory jpaQueryFactory;
 
+//    모임 최근 게시글 4개
     public List<GroupDTO> showGroupList(){
-        List<GroupDTO> list = jpaQueryFactory.select(new QGroupDTO(group.groupId,group.user.userId,group.user.userFileName,group.user.userFilePath,group.user.userFileSize,group.user.userFileUuid,group.user.userNickname,group.groupName,group.groupCategory
-        ,group.groupContent,group.groupPoint,group.groupOverSea,group.groupLocationName,group.groupLocation,group.groupLocationDetail,group.groupParkingAvailable,
-                group.groupMoreInformation,group.groupLocationType,group.groupStatus,group.groupFilePath,group.groupFileName,group.groupFileUuid,group.groupFileSize
-                ,group.groupMemberLimit.maxMember,group.groupMemberLimit.minMember,group. createDate,group. updatedDate,group.reason
-        )).from(group).orderBy(group.groupId.desc()).limit(4l).fetch();
+        List<GroupDTO> list = jpaQueryFactory.select(new QGroupDTO(group.groupId,group.user.userId,
+                group.user.userFileName,group.user.userFilePath,group.user.userFileSize,
+                group.user.userFileUuid,group.user.userNickname,group.groupName,
+                group.groupCategory,group.groupContent,group.groupPoint,
+                group.groupOverSea,group.groupLocationName,group.groupLocation,
+                group.groupLocationDetail,group.groupParkingAvailable,group.groupMoreInformation,
+                group.groupLocationType,group.groupStatus,group.groupFilePath,
+                group.groupFileName,group.groupFileUuid,group.groupFileSize,
+                group.groupMemberLimit.maxMember,group.groupMemberLimit.minMember,group. createDate,
+                group. updatedDate,group.reason
+        )).from(group).where(group.groupStatus.eq(GroupStatus.APPROVED))
+                .orderBy(group.groupId.desc()).limit(4l).fetch();
         return list;
     }
 
+//    이야기 최근 게시글 4개
     public List<CommunityPostDTO> showCommunityList(){
         List<CommunityPostDTO> list = jpaQueryFactory.select(new QCommunityPostDTO(
                 communityPost.communityPostId,
@@ -54,12 +65,11 @@ public class MainService {
                 communityPost.createDate,
                 communityPost.updatedDate
         )).from(communityPost)
-//                .where(communityPost.communityCategory.eq(CommunityCategory.FREEBOARD))
                 .orderBy(communityPost.communityPostId.desc()).limit(4l).fetch();
         return list;
     }
 
-
+//    운동 최근 게시글 4개
     public List<CommunityPostDTO> showExerciseList(){
         List<CommunityPostDTO> list = jpaQueryFactory.select(new QCommunityPostDTO(communityPost.communityPostId,
                 communityPost.user.userId,
@@ -84,6 +94,7 @@ public class MainService {
         return list;
     }
 
+//    요리 최근 게시글 4개
     public List<CommunityPostDTO> showCookList(){
         List<CommunityPostDTO> list = jpaQueryFactory.select(new QCommunityPostDTO(communityPost.communityPostId,
                 communityPost.user.userId,
@@ -108,6 +119,7 @@ public class MainService {
         return list;
     }
 
+//    고민 최근 게시글 4개
     public List<CommunityPostDTO> showAnonymousList(){
         List<CommunityPostDTO> list = jpaQueryFactory.select(new QCommunityPostDTO(communityPost.communityPostId,
                 communityPost.user.userId,
@@ -132,6 +144,7 @@ public class MainService {
         return list;
     }
 
+//    책,영화 최근 게시글 3개
     public List<CommunityPostDTO> showReviewList(){
         List<CommunityPostDTO> list = jpaQueryFactory.select(new QCommunityPostDTO(communityPost.communityPostId,
                 communityPost.user.userId,
