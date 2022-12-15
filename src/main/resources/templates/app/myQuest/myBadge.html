@@ -385,6 +385,7 @@
 
     //    페이지를 들어올 때, ajax로 restController의 데이터를 가져온다
     show();
+    showUnder();
 
     //    리스트 뽑기
     function getList(questDTO){
@@ -470,6 +471,16 @@
         text += `</div>`;
 
         $('.Wrapper__PaginationWrapper-fk4uv4-0').html(text);
+    }
+
+    function getUnderList(questAchievementCountList){
+        console.log(questAchievementCountList);
+        // for (let c = 0; c < 12 ; c++){
+        //     if(questAchievementCountList.)
+        // }
+        // questAchievementCountList.forEach(monthlyCount =>{
+        //
+        // })
     }
 
     function changePage(href){

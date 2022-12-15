@@ -3,8 +3,10 @@ package com.example.myoceanproject.controller.myQuest;
 import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.domain.QuestDTO;
 import com.example.myoceanproject.service.quest.QuestAchievementService;
+import com.querydsl.core.Tuple;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +22,8 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import static org.springframework.data.repository.init.ResourceReader.Type.JSON;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -34,7 +38,6 @@ public class MyQuestRestController {
     // 완료한 퀘스트 페이지
     @GetMapping(value = "/{page}")
     public QuestDTO completeQuest(@PathVariable int page,@PathVariable(required = false) String keyword, HttpServletRequest request){
-        log.info("================================REST CONTROLLER 들어옴===================================");
 
         Criteria criteria = new Criteria();
         criteria.setPage(page);
@@ -58,14 +61,16 @@ public class MyQuestRestController {
         return questDTO;
     }
 
-//    @GetMapping(value = "/mybadge")
-//    public QuestDTO myBadge(HttpServletRequest request){
+//    @GetMapping(value = "/badge")
+//    public List<Tuple> myBadge(HttpServletRequest request){
 //        log.info("================================REST CONTROLLER 들어옴===================================");
 //        HttpSession session = request.getSession();
 //        Long userId = (Long) session.getAttribute("userId");
-//        questAchievementService.showMonthlyAchievementCount(userId);
+//        List<Tuple> questAchievementCountList = questAchievementService.showMonthlyAchievementCount(userId);
+//        JSONObject json = new JSONObject();
+//        questAchievementCountList.stream().map(Tuple::JSON.par).forEach(v=>JSON.parse(v));
 //
-//
-//
+//        log.info("================================REST CONTROLLER 들어옴===================================");
+//        return questAchievementCountList;
 //    }
 }
