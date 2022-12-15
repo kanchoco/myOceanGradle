@@ -33,7 +33,8 @@ public class AlarmInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-//            response.sendRedirect("/login");
+
+//            response.sendRedirect("/alarm/update/25");
 //        Long groupId = Long.valueOf(request.getRequestURI().split("/")[3]);
 //        log.info(groupId + "id");
 //        Group group = groupRepository.findById(groupId).get();

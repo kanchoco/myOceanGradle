@@ -10,6 +10,8 @@ import com.example.myoceanproject.type.PointType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -25,6 +27,10 @@ public class PointService {
     public List<PointDTO> findAllRefundPointByAllUser(PointType pointType){return pointRepositoryImpl.findAllRefundPoint(pointType);}
 
     public void questReward(PointDTO pointDTO){
+        pointDTO.setPointType("보상");
+        pointDTO.setPointMerchantUid(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초")));
+        pointDTO.setPointContent("퀘스트 보상 지급");
+        pointDTO.setPointCheckType("보상");
         Point point = pointDTO.toEntity();
         point.changeUser(userRepository.findById(pointDTO.getUserId()).get());
 
