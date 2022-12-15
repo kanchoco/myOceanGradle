@@ -48,7 +48,6 @@ let groupService = (function(){
                 }
             },
             error: function (xhr, status, err){
-                console.log("완전 실패");
                 if(error){
                     error(err);
                 }

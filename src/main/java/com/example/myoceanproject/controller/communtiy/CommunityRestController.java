@@ -160,7 +160,6 @@ public class CommunityRestController {
             try{
                 File saveCommunityFile = new File(uploadPath, uploadFileName);
                 multipartFile.transferTo(saveCommunityFile);
-
             } catch(Exception e){
                 log.error(e.getMessage());
             }

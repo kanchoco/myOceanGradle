@@ -105,11 +105,10 @@
 												<li role="presentation" class="nav-item">
 													<a role="tab" tabindex="-1" aria-selected="false"aria-setsize="5" aria-posinset="3" href="#" target="_self"class="nav-link" id="__BVID__696___BV_tab_button__"aria-controls="__BVID__696">
 														<div data-v-59b7de29="" class="py-2 px-0 container ex">
-															<span data-v-59b7de29="">모임 설명</span>
+															<span data-v-59b7de29="">상세 정보</span>
 														</div>
 													</a>
 												</li>
-												<!---->
 											</ul>
 										</div>
 										<div class="tab-content" id="__BVID__561__BV_tab_container_">
@@ -139,7 +138,6 @@
 																									<button data-v-292c0328="" class="removeImg">
 																										<img data-v-292c0328="" src="https://frip.host/img/delete-white.d7c8ddda.svg" width="24" height="24">
 																									</button>
-																									<img data-v-292c0328="" src="https://frip.host/img/bullet-list-text-white.6124978a.svg" width="24" height="24" style="display:hidden;">
 																								</div>
 																								<div data-v-292c0328="" class="img-text container"  onclick="$('.plusThumb').click()">
 																									<div data-v-292c0328="">
@@ -172,8 +170,137 @@
 															<label for="editor">모임 상세 설명</label>
 															<div id="summernote"></div>
 														</div>
-													</div>
+														<!-- 일정 선택 -->
+														<div class="calendarWrap" id="calendarWrap">
+															<hr>
+															<div class="px-4 py-2">
+																<h2>일정 설정</h2>
+															</div>
+															<div data-v-2c2bef28="" class="description px-4">
+																[일정 추가] 버튼을 클릭하거나, 달력의 날짜를 클릭하여 일정을 등록할 수 있어요.
+																<p class="alertMsg" style="display:none;"></p>
+															</div>
+															<div data-v-1e397a0c="" class="m-3">
+																<div data-v-1e397a0c="" class="mb-3">
+																	<div data-v-1e397a0c="" class="my-3">
+																		<div data-v-1e397a0c="" class="row">
+																			<div data-v-1e397a0c="" class="col"></div>
+																			<div data-v-1e397a0c="" class="col">
+																				<button data-v-1e397a0c="" type="button" class="prevDay btn frip-button btn-outline-frip-default btn-sm">
+																					<!---->
+																					<img data-v-1e397a0c="" src="https://frip.host/img/left-arrow.04832fdb.svg" width="24" height="24">
+																				</button>
+																				<h2 data-v-1e397a0c="" class="mx-3 dateTitle" style="display: inline;"> 2022년 11월 </h2>
+																				<button data-v-1e397a0c="" type="button" class="nextDay btn frip-button btn-outline-frip-default btn-sm">
+																					<!---->
+																					<img data-v-1e397a0c="" src="https://frip.host/img/right-arrow.10fee101.svg" width="24" height="24">
+																				</button>
+																			</div>
+																			<div data-v-1e397a0c="" class="col">
+																				<div data-v-1e397a0c="" class="text-right mx-3">
+																					<button data-v-1e397a0c="" onclick="addSchedule();" type="button" class="btn frip-button btn-outline-frip-primary" style="display:none;">
+																						<!---->
+																						일정 추가
+																					</button>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<table data-v-1e397a0c="" border="" class="table">
+																		<thead data-v-1e397a0c="">
+																		<tr data-v-1e397a0c="" class="text-center">
+																			<th data-v-1e397a0c="">일</th>
+																			<th data-v-1e397a0c="">월</th>
+																			<th data-v-1e397a0c="">화</th>
+																			<th data-v-1e397a0c="">수</th>
+																			<th data-v-1e397a0c="">목</th>
+																			<th data-v-1e397a0c="">금</th>
+																			<th data-v-1e397a0c="">토</th>
+																		</tr>
+																		</thead>
+																		<tbody data-v-1e397a0c="" class="calendar">
+																		<tr data-v-1e397a0c="" class="week">
+																			<td data-v-1e397a0c="">
+																				<div data-v-3655f65c="" data-v-1e397a0c="" class="day">
+																					<div data-v-3655f65c="" class="clearfix px-2 pt-2">
+																						<div data-v-3655f65c="" class="float-left">
+																							<div data-v-3655f65c="" class="day-btn">+</div>
+																						</div>
+																						<div data-v-3655f65c="" class="text-gray float-right">
+																							<!----> 30일
+																						</div>
+																						<!--after-->
+																					</div>
+																					<div data-v-3655f65c="" class="px-2">
+																						<div data-v-3655f65c="" class="bg-frip-primary-50 text-frip-primary rounded p-1 my-2 wg-100" style="cursor: pointer;">
+																							<div class="clearfix">
+																								<div class="float-left">18:48</div>
+																								<div class="float-right">  </div>
+																								<!--after-->
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																			</td>
+																			<td data-v-1e397a0c="">
+																				<div data-v-3655f65c="" data-v-1e397a0c="" class="day">
+																					<div data-v-3655f65c="" class="clearfix px-2 pt-2">
+																						<div data-v-3655f65c="" class="float-left">
+																							<div data-v-3655f65c="" class="day-btn">+</div>
+																						</div>
+																						<div data-v-3655f65c="" class="text-gray float-right">
+																							<!----> 31일
+																						</div>
+																					</div>
+																					<div data-v-3655f65c="" class="px-2"></div>
+																				</div>
+																			</td>
+																			<td data-v-1e397a0c="">
+																				<div data-v-3655f65c="" data-v-1e397a0c="" class="day">
+																					<div data-v-3655f65c="" class="clearfix px-2 pt-2">
+																						<div data-v-3655f65c="" class="float-left">
+																							<div data-v-3655f65c="" class="day-btn">+</div>
+																						</div>
+																						<div data-v-3655f65c="" class="float-right">
+																							<!----> 1일
+																						</div>
+																					</div>
+																					<div data-v-3655f65c="" class="px-2"></div>
+																				</div>
+																			</td>
+																			<td data-v-1e397a0c="">
+																				<div data-v-3655f65c="" data-v-1e397a0c="" class="day">
+																					<div data-v-3655f65c="" class="clearfix px-2 pt-2">
+																						<div data-v-3655f65c="" class="float-left">
+																							<div data-v-3655f65c="" class="day-btn">+</div>
+																						</div>
+																						<div data-v-3655f65c="" class="float-right">
+																							<!----> 2일
+																						</div>
+																					</div>
+																					<div data-v-3655f65c="" class="px-2"></div>
+																				</div>
+																			</td>
+																			<td data-v-1e397a0c="">
+																				<div data-v-3655f65c="" data-v-1e397a0c="" class="day">
+																					<div data-v-3655f65c="" class="clearfix px-2 pt-2">
+																						<div data-v-3655f65c="" class="float-left">
+																							<div data-v-3655f65c="" class="day-btn">+</div>
+																						</div>
+																						<div data-v-3655f65c="" class="float-right"><!----> 3일 </div>
+																					</div>
+																					<div data-v-3655f65c="" class="px-2"></div>
+																				</div>
+																			</td>
+																			<td data-v-1e397a0c="">
+																				<div data-v-3655f65c="" data-v-1e397a0c="" class="day">
+																					<div data-v-3655f65c="" class="clearfix px-2 pt-2">
+																						<div data-v-3655f65c="" class="float-left">
+																							<div data-v-3655f65c="" class="day-btn">+</div>
+																						</div>
+																						<div data-v-3655f65c="" class="float-right"><!----> 4일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="text-frip-primary float-right"><!----> 5일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td></tr><tr data-v-1e397a0c=""><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="text-danger float-right"><!----> 6일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 7일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 8일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 9일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 10일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 11일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="text-frip-primary float-right"><!----> 12일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td></tr><tr data-v-1e397a0c=""><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="text-danger float-right"><!----> 13일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day today"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><span data-v-3655f65c="">오늘</span> 14일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 15일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 16일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 17일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 18일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="text-frip-primary float-right"><!----> 19일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td></tr><tr data-v-1e397a0c=""><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="text-danger float-right"><!----> 20일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 21일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 22일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 23일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 24일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 25일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="text-frip-primary float-right"><!----> 26일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td></tr><tr data-v-1e397a0c=""><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="text-danger float-right"><!----> 27일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 28일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 29일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 30일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="text-gray float-right"><!----> 1일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="text-gray float-right"><!----> 2일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="text-gray float-right"><!----> 3일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td></tr></tbody></table></div><!----><!----><!----></div></div>
 
+													</div>
 													<!-- 기본정보 선택 시 -->
 													<div data-v-217c2c81="" class="px-4 py-2 basic-info">
 														<h2>기본정보</h2>
@@ -443,10 +570,8 @@
 																			<div class="form-row">
 																				<legend tabindex="-1" class="col-lg-2 bv-no-focus-ring col-form-label" id="__BVID__243__BV_label_">
 																					<div data-v-260b6a70="">
-																						<!---->
 																						<span data-v-72dffd28="" class="text-danger position-absolute ml-2">*</span>
 																						<div data-v-260b6a70="" class="pl-3" style="font-size: 0.9rem; word-break: keep-all;"> 금액설정 </div>
-																						<!---->
 																					</div>
 																				</legend>
 																				<div class="col-lg-10">
@@ -472,133 +597,6 @@
 																			</div>
 																		</fieldset>
 																	</div>
-
-																	<!-- 일정 선택 -->
-																	<div>
-																		<hr>
-																		<div class="px-4 py-2">
-																			<h2>일정 설정</h2>
-																		</div>
-																		<div data-v-2c2bef28="" class="description px-4">[일정 추가] 버튼을 클릭하거나, 달력의 날짜를 클릭하여 일정을 등록할 수 있어요.</div>
-																		<div data-v-1e397a0c="" class="m-3">
-																			<div data-v-1e397a0c="" class="mb-3">
-																				<div data-v-1e397a0c="" class="my-3">
-																					<div data-v-1e397a0c="" class="row">
-																						<div data-v-1e397a0c="" class="col"></div>
-																						<div data-v-1e397a0c="" class="col">
-																							<button data-v-1e397a0c="" type="button" class="prevDay btn frip-button btn-outline-frip-default btn-sm">
-																								<!---->
-																								<img data-v-1e397a0c="" src="https://frip.host/img/left-arrow.04832fdb.svg" width="24" height="24">
-																							</button>
-																							<h2 data-v-1e397a0c="" class="mx-3 dateTitle" style="display: inline;"> 2022년 11월 </h2>
-																							<button data-v-1e397a0c="" type="button" class="nextDay btn frip-button btn-outline-frip-default btn-sm">
-																								<!---->
-																								<img data-v-1e397a0c="" src="https://frip.host/img/right-arrow.10fee101.svg" width="24" height="24">
-																							</button>
-																						</div>
-																						<div data-v-1e397a0c="" class="col">
-																							<div data-v-1e397a0c="" class="text-right mx-3">
-																								<button data-v-1e397a0c="" onclick="addSchedule();" type="button" class="btn frip-button btn-outline-frip-primary" style="display:none;">
-																									<!---->
-																									일정 추가
-																								</button>
-																							</div>
-																						</div>
-																					</div>
-																				</div>
-																				<table data-v-1e397a0c="" border="" class="table">
-																					<thead data-v-1e397a0c="">
-																						<tr data-v-1e397a0c="" class="text-center">
-																							<th data-v-1e397a0c="">일</th>
-																							<th data-v-1e397a0c="">월</th>
-																							<th data-v-1e397a0c="">화</th>
-																							<th data-v-1e397a0c="">수</th>
-																							<th data-v-1e397a0c="">목</th>
-																							<th data-v-1e397a0c="">금</th>
-																							<th data-v-1e397a0c="">토</th>
-																						</tr>
-																					</thead>
-																					<tbody data-v-1e397a0c="" class="calendar">
-																						<tr data-v-1e397a0c="" class="week">
-																							<td data-v-1e397a0c="">
-																								<div data-v-3655f65c="" data-v-1e397a0c="" class="day">
-																									<div data-v-3655f65c="" class="clearfix px-2 pt-2">
-																										<div data-v-3655f65c="" class="float-left">
-																											<div data-v-3655f65c="" class="day-btn">+</div>
-																										</div>
-																										<div data-v-3655f65c="" class="text-gray float-right">
-																											<!----> 30일
-																										</div>
-																										<!--after-->
-																									</div>
-																									<div data-v-3655f65c="" class="px-2">
-																										<div data-v-3655f65c="" class="bg-frip-primary-50 text-frip-primary rounded p-1 my-2 wg-100" style="cursor: pointer;">
-																											<div class="clearfix">
-																												<div class="float-left">18:48</div>
-																												<div class="float-right">  </div>
-																												<!--after-->
-																											</div>
-																										</div>
-																									</div>
-																								</div>
-																							</td>
-																							<td data-v-1e397a0c="">
-																								<div data-v-3655f65c="" data-v-1e397a0c="" class="day">
-																									<div data-v-3655f65c="" class="clearfix px-2 pt-2">
-																										<div data-v-3655f65c="" class="float-left">
-																											<div data-v-3655f65c="" class="day-btn">+</div>
-																										</div>
-																										<div data-v-3655f65c="" class="text-gray float-right">
-																											<!----> 31일
-																										</div>
-																									</div>
-																									<div data-v-3655f65c="" class="px-2"></div>
-																								</div>
-																							</td>
-																							<td data-v-1e397a0c="">
-																								<div data-v-3655f65c="" data-v-1e397a0c="" class="day">
-																									<div data-v-3655f65c="" class="clearfix px-2 pt-2">
-																										<div data-v-3655f65c="" class="float-left">
-																											<div data-v-3655f65c="" class="day-btn">+</div>
-																										</div>
-																										<div data-v-3655f65c="" class="float-right">
-																											<!----> 1일
-																										</div>
-																									</div>
-																									<div data-v-3655f65c="" class="px-2"></div>
-																								</div>
-																							</td>
-																							<td data-v-1e397a0c="">
-																								<div data-v-3655f65c="" data-v-1e397a0c="" class="day">
-																									<div data-v-3655f65c="" class="clearfix px-2 pt-2">
-																										<div data-v-3655f65c="" class="float-left">
-																											<div data-v-3655f65c="" class="day-btn">+</div>
-																										</div>
-																										<div data-v-3655f65c="" class="float-right">
-																											<!----> 2일
-																										</div>
-																									</div>
-																									<div data-v-3655f65c="" class="px-2"></div>
-																								</div>
-																							</td>
-																							<td data-v-1e397a0c="">
-																								<div data-v-3655f65c="" data-v-1e397a0c="" class="day">
-																									<div data-v-3655f65c="" class="clearfix px-2 pt-2">
-																										<div data-v-3655f65c="" class="float-left">
-																											<div data-v-3655f65c="" class="day-btn">+</div>
-																										</div>
-																										<div data-v-3655f65c="" class="float-right"><!----> 3일 </div>
-																									</div>
-																									<div data-v-3655f65c="" class="px-2"></div>
-																								</div>
-																							</td>
-																							<td data-v-1e397a0c="">
-																								<div data-v-3655f65c="" data-v-1e397a0c="" class="day">
-																									<div data-v-3655f65c="" class="clearfix px-2 pt-2">
-																										<div data-v-3655f65c="" class="float-left">
-																											<div data-v-3655f65c="" class="day-btn">+</div>
-																										</div>
-																										<div data-v-3655f65c="" class="float-right"><!----> 4일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="text-frip-primary float-right"><!----> 5일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td></tr><tr data-v-1e397a0c=""><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="text-danger float-right"><!----> 6일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 7일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 8일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 9일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 10일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 11일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="text-frip-primary float-right"><!----> 12일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td></tr><tr data-v-1e397a0c=""><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="text-danger float-right"><!----> 13일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day today"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><span data-v-3655f65c="">오늘</span> 14일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 15일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 16일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 17일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 18일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="text-frip-primary float-right"><!----> 19일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td></tr><tr data-v-1e397a0c=""><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="text-danger float-right"><!----> 20일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 21일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 22일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 23일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 24일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 25일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="text-frip-primary float-right"><!----> 26일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td></tr><tr data-v-1e397a0c=""><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="text-danger float-right"><!----> 27일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 28일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 29일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="float-right"><!----> 30일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="text-gray float-right"><!----> 1일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="text-gray float-right"><!----> 2일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td><td data-v-1e397a0c=""><div data-v-3655f65c="" data-v-1e397a0c="" class="day"><div data-v-3655f65c="" class="clearfix px-2 pt-2"><div data-v-3655f65c="" class="float-left"><div data-v-3655f65c="" class="day-btn">+</div></div><div data-v-3655f65c="" class="text-gray float-right"><!----> 3일 </div></div><div data-v-3655f65c="" class="px-2"></div></div></td></tr></tbody></table></div><!----><!----><!----></div></div>
 																</div>
 															</form>
 														</span>
@@ -1157,7 +1155,7 @@
 																		<div class="ml-3 my-auto">
 																		</div>
 																	</div>
-																	<div class="timeNotice mt-2 text-sm text-frip-danger" style="display: none"> 종료시간은 시작시간보다 빠를 수 없습니다. </div>
+																	<div class="timeNotice mt-2 text-sm text-frip-danger" style="display: none"></div>
 																</div>
 															</div>
 														</div>
@@ -1390,7 +1388,6 @@
 	function resizeApply() {
 		var minWidth = 1350;
 		var calender = document.getElementsByClassName('m-3')[1];
-		console.log(calender);
 		if (window.innerWidth < minWidth) { calender.style.zoom = (window.innerWidth / minWidth); }
 		else calender.style.zoom = 1;
 	}
@@ -1402,11 +1399,6 @@
 	}
 
 	resizeApply();
-
-	function showHeader(){
-		groupSave.hostHeader(param, hostHeader);
-	}
-
 
 
 </script>

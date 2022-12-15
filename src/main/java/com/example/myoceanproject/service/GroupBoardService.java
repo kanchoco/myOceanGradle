@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface GroupBoardService {
     //  게시글 등록
-    public void add(GroupDTO groupDTO);
+    public GroupDTO add(GroupDTO groupDTO);
 
     // 모임 일정 등록
     public void addSchedule(GroupScheduleDTO groupScheduleDTO);

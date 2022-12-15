@@ -3,11 +3,14 @@ package com.example.myoceanproject.service;
 import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.domain.GroupDTO;
 import com.example.myoceanproject.domain.GroupScheduleDTO;
+import com.example.myoceanproject.domain.QGroupDTO;
 import com.example.myoceanproject.entity.Group;
 import com.example.myoceanproject.entity.GroupMember;
 import com.example.myoceanproject.entity.GroupSchedule;
+import com.example.myoceanproject.entity.QGroup;
 import com.example.myoceanproject.repository.*;
 import com.example.myoceanproject.type.GroupStatus;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,6 +22,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.example.myoceanproject.entity.QGroup.*;
+import static com.example.myoceanproject.entity.QGroup.group;
+
 @Service @Qualifier("group") @Primary
 @RequiredArgsConstructor
 public class GroupService implements GroupBoardService {
@@ -28,13 +34,44 @@ public class GroupService implements GroupBoardService {
     private final UserRepository userRepository;
     private final GroupScheduleRepository groupScheduleRepository;
 
+    private final JPAQueryFactory jpaQueryFactory;
+
 //  게시글 등록
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void add(GroupDTO groupDTO){
-        Group group = groupDTO.toEntity();
-        group.setUser(userRepository.findById(groupDTO.getUserId()).get());
-        groupRepository.save(group);
+    public GroupDTO add(GroupDTO groupDTO){
+        Group dto = groupDTO.toEntity();
+        dto.setUser(userRepository.findById(groupDTO.getUserId()).get());
+        Group groupEntity = groupRepository.save(dto);
+        GroupDTO anyone = jpaQueryFactory.select(new QGroupDTO(group.groupId,
+               group.user.userId,
+               group.user.userFileName,
+               group.user.userFilePath,
+               group.user.userFileSize,
+               group.user.userFileUuid,
+               group.user.userNickname,
+               group.groupName,
+               group.groupCategory,
+               group.groupContent,
+               group.groupPoint,
+               group.groupOverSea,
+               group.groupLocationName,
+               group.groupLocation,
+               group.groupLocationDetail,
+               group.groupParkingAvailable,
+               group.groupMoreInformation,
+               group.groupLocationType,
+               group.groupStatus,
+               group.groupFilePath,
+               group.groupFileName,
+               group.groupFileUuid,
+               group.groupFileSize,
+               group.groupMemberLimit.maxMember,
+               group.groupMemberLimit.minMember,
+               group.createDate,
+               group.updatedDate,
+               group.reason)).from(group).where(group.groupId.eq(groupEntity.getGroupId())).fetchOne();
+       return anyone;
     }
 
 //  모임 일정 등록

@@ -2,13 +2,19 @@ package com.example.myoceanproject.controller.host;
 
 import com.example.myoceanproject.domain.GroupDTO;
 import com.example.myoceanproject.domain.GroupScheduleDTO;
+import com.example.myoceanproject.domain.PointDTO;
 import com.example.myoceanproject.entity.Group;
 import com.example.myoceanproject.entity.GroupMember;
+import com.example.myoceanproject.entity.Point;
+import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.repository.GroupMemberRepository;
 import com.example.myoceanproject.repository.GroupRepository;
+import com.example.myoceanproject.repository.PointRepository;
 import com.example.myoceanproject.repository.UserRepository;
 import com.example.myoceanproject.service.GroupScheduleService;
 import com.example.myoceanproject.service.GroupService;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -24,10 +30,17 @@ import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+
+import static com.example.myoceanproject.entity.QPoint.point;
+import static com.example.myoceanproject.entity.QUser.user;
 
 @Slf4j
 @RestController
@@ -40,38 +53,70 @@ public class HostRestController {
     private final GroupScheduleService groupScheduleService;
     private final GroupMemberRepository groupMemberRepository;
     private final UserRepository userRepository;
-
+    private final JPAQueryFactory jpaQueryFactory;
+    private final PointRepository pointRepository;
 
     // 모임 게시글 임시 저장
-    @PostMapping(value="/index", consumes = "application/json", produces = "text/plain; charset=utf-8")
-    public Long host(@RequestBody GroupDTO groupDTO, HttpServletRequest request) throws UnsupportedEncodingException {
+    @PostMapping(value="/index", consumes = "application/json", produces = "application/json; charset=utf-8")
+    public GroupDTO host(@RequestBody GroupDTO groupDTO, HttpServletRequest request) throws UnsupportedEncodingException {
         HttpSession session=request.getSession();
 
         Long userId = (Long) session.getAttribute("userId");
         groupDTO.setUserId(userId);
 
         /*Group 테이블 저장*/
-        groupService.add(groupDTO);
-//        return new ResponseEntity<>(new String("register success".getBytes(), "UTF-8"), HttpStatus.OK);
-        return groupDTO.getGroupId();
+       GroupDTO dto = groupService.add(groupDTO);
+
+        return dto;
     }
 
     // 모임 멤버 테이블 생성
     @PostMapping("/group-member/{groupId}")
-    public ResponseEntity<String> groupMember(@PathVariable("groupId") Long groupId, HttpServletRequest request) throws UnsupportedEncodingException {
+    public Boolean groupMember(@PathVariable("groupId") Long groupId, HttpServletRequest request) throws UnsupportedEncodingException {
         HttpSession session=request.getSession();
         GroupMember groupMember = new GroupMember();
 
-        /*user 저장*/
-        Long userId = (Long) session.getAttribute("userId");
-        groupMember.setUser(userRepository.findById(userId).get());
+        log.info("===========들어옴");
 
-        /*Group 저장*/
+        /*유저 아이디값 설정*/
+        Long userId = (Long) session.getAttribute("userId");
+        
+        /*포인트를 사용한 유저 정보 업데이트를 위해 변수 설정*/
+        User updateUser = jpaQueryFactory.selectFrom(user).where(user.userId.eq(userId)).fetchOne();
+        int userPoint = updateUser.getUserTotalPoint();
+        int groupPayPoint = groupRepository.findById(groupId).get().getGroupPoint();
+        int updateTotalPoint = userPoint - groupPayPoint;
+
+        /*포인트 사용을 위한 유효성 검사*/
+        if(updateTotalPoint<0){
+            return false;
+        }
+
+        LocalDateTime now = LocalDateTime.now();
+
+        /*포인트 깎기*/
+        updateUser.updateUserTotalPoint(updateTotalPoint);
+
+        /*포인트 테이블에 추가*/
+        PointDTO pointDTO = new PointDTO();
+        pointDTO.setPointAmountHistory(groupPayPoint);
+        pointDTO.setPointType("결제");
+        pointDTO.setPointMerchantUid(now.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초")));
+        pointDTO.setPointImpUid("group");
+        pointDTO.setPointContent("모임 포인트 결제 완료");
+        pointDTO.setPointCheckType("처음");
+        pointDTO.setGroupName(groupRepository.findById(groupId).get().getGroupName());
+        Point point=pointDTO.toEntity();
+        point.changeUser(updateUser);
+
+        pointRepository.save(point);
+
+        /*groupMember에 user 정보 저장*/
+        groupMember.setUser(userRepository.findById(userId).get());
         groupMember.setGroup(groupRepository.findById(groupId).get());
         groupMemberRepository.save(groupMember);
-        log.info(groupMember.toString());
 
-        return new ResponseEntity<>(new String("register success".getBytes(), "UTF-8"), HttpStatus.OK);
+        return true;
     }
 
     // 모임 멤버 취소 시 테이블에서 삭제
@@ -82,6 +127,27 @@ public class HostRestController {
         /*user 저장*/
         Long userId = (Long) session.getAttribute("userId");
 
+        /*포인트를 사용한 유저 정보 업데이트를 위해 변수 설정*/
+        User updateUser = jpaQueryFactory.selectFrom(user).where(user.userId.eq(userId)).fetchOne();
+        int userPoint = updateUser.getUserTotalPoint();
+        int groupPayPoint = groupRepository.findById(groupId).get().getGroupPoint();
+
+        LocalDateTime now = LocalDateTime.now();
+
+        /*포인트 테이블에 추가*/
+        PointDTO pointDTO = new PointDTO();
+        pointDTO.setPointAmountHistory(groupPayPoint);
+        pointDTO.setPointType("환불대기");
+        pointDTO.setPointMerchantUid(now.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초")));
+        pointDTO.setPointImpUid("group");
+        pointDTO.setPointContent("모임 포인트 환불 요청");
+        pointDTO.setPointCheckType("이후");
+        pointDTO.setGroupName(groupRepository.findById(groupId).get().getGroupName());
+        Point point=pointDTO.toEntity();
+        point.changeUser(updateUser);
+
+        pointRepository.save(point);
+
         /*멤버삭제*/
         groupService.deleteMember(userId, groupId);
 
@@ -89,9 +155,19 @@ public class HostRestController {
     }
 
     // 스케줄 저장
-    @PostMapping(value="/addDate/{groupId}", consumes = "application/json", produces = "text/plain; charset=utf-8")
-    public ResponseEntity<String> schedule(@RequestBody GroupScheduleDTO groupScheduleDTO, @PathVariable("groupId") Long groupId) throws UnsupportedEncodingException {
+    @PostMapping(value="/addDate/{groupId}/{groupScheduleStartTime}/{groupScheduleEndTime}", consumes = "application/json", produces = "text/plain; charset=utf-8")
+    public ResponseEntity<String> schedule(@RequestBody GroupScheduleDTO groupScheduleDTO, @PathVariable("groupId") Long groupId, @PathVariable("groupScheduleStartTime") Date groupScheduleStartTime, @PathVariable("groupScheduleEndTime")Date groupScheduleEndTime) throws UnsupportedEncodingException {
+        log.info("==================================================");
+        log.info("groupScheduleStartTime" + groupScheduleStartTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+        log.info("groupScheduleEndTime" + groupScheduleEndTime.toInstant());
+        log.info("==================================================");
+        groupScheduleDTO.setGroupScheduleStartTime(groupScheduleStartTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+        groupScheduleDTO.setGroupScheduleEndTime(groupScheduleEndTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+
         log.info(groupScheduleDTO.toString());
+
+
+
         groupScheduleDTO.setGroupId(groupId);
 
         groupService.addSchedule(groupScheduleDTO);
@@ -204,17 +280,16 @@ public class HostRestController {
     public void deleteSchedule(@PathVariable("groupId") Long groupId, @PathVariable("scheduleDate") String scheduleDate){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyy-MM-dd");
         List<GroupScheduleDTO> groupScheduleDTOs = groupService.findAllByGroupId(groupId);
-        Long groupScheduleId=0L;
         for(GroupScheduleDTO groupScheduleDTO : groupScheduleDTOs){
             Date date = java.sql.Timestamp.valueOf(groupScheduleDTO.getGroupScheduleDate());
             String simpleDate = String.valueOf(date).split(" ")[0];
             log.info("simpleDate: " + simpleDate);
             log.info("scheduleDate" + scheduleDate);
             if(simpleDate.equals(scheduleDate)){
-                groupScheduleId = groupScheduleDTO.getGroupScheduleId();
+                Long groupScheduleId = groupScheduleDTO.getGroupScheduleId();
+                groupScheduleService.delete(groupScheduleId);
             }
         }
-        groupScheduleService.delete(groupScheduleId);
     }
 
     public String createDirectoryByNow(){
@@ -249,22 +324,5 @@ public class HostRestController {
         out.close();
     }
 
-    // 게시글 임시 저장 시 모임 등록 헤더 변경
-    @GetMapping("/header")
-    public GroupDTO getHeader(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        Long userId = (Long) session.getAttribute("userId");
-        log.info("============================");
-        log.info("============================");
-        log.info("============================");
-        log.info("============================");
-        log.info("여기로 들어옴");
-        GroupDTO groupDTO = groupService.findByUserId(userId);
-        log.info(groupDTO.toString());
 
-        return groupDTO;
-    }
 }
-
-
-

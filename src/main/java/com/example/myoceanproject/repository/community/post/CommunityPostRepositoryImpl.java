@@ -229,7 +229,6 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
     }
 
 
-
     @Override
     public List<CommunityPostDTO> filterCommunityBoard(List<String> communityCategories, Long userId) {
         List<CommunityPostDTO> communityBoards = jpaQueryFactory.select(new QCommunityPostDTO(
@@ -262,6 +261,7 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
 
         communityBoards.stream().forEach(communityPostDTO -> {
             communityPostDTO.setCommunityReplyCount(replyRepositoryImpl.countReplyByCommunityPost(communityPostDTO.getCommunityPostId()));
+            communityPostDTO.setCheckLike(likeRepositoryImpl.findByCommunityPostAndUser(userId,communityPostDTO.getCommunityPostId()));
         });
 
         return communityBoards;

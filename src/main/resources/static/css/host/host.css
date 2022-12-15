@@ -2262,3 +2262,11 @@ tr th[data-v-52931a0e] {
     background-image: none;
     border-color: #eb385e;
 }
+
+.alertMsg {
+    display: block;
+    font-size: .8rem;
+    color: red;
+    margin-right: 1.5rem!important;
+    letter-spacing: -.5px;
+}
