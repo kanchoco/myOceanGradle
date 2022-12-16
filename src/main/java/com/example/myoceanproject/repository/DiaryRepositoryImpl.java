@@ -279,28 +279,28 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
         return diaries.size();
     }
 
-    @Override
-    public int searchMyDiaryCount(Long userId, DiaryCategory diaryCategory) {
-        List<DiaryDTO> diaries=null;
-        try {
-            diaries = jpaQueryFactory.select(new QDiaryDTO(
-                    diary.user.userId,
-                    diary.diaryTitle,
-                    diary.diaryContent,
-                    diary.receiverUser.userId,
-                    diary.createDate,
-                    diary.updatedDate,
-                    diary.diaryCategory
-            ))
-                    .from(diary)
-                    .where(diary.receiverUser.isNull().and(diary.user.userId.ne(userId)).and(diary.diaryCategory.eq(diaryCategory)))
-                    .fetch();
-        } catch (Exception e) {
-            return 0;
-        }
-        log.info("diaries:"+diaries);
-        return diaries.size();
-    }
+//    @Override
+//    public int searchMyDiaryCount(Long userId, DiaryCategory diaryCategory) {
+//        List<DiaryDTO> diaries=null;
+//        try {
+//            diaries = jpaQueryFactory.select(new QDiaryDTO(
+//                    diary.user.userId,
+//                    diary.diaryTitle,
+//                    diary.diaryContent,
+//                    diary.receiverUser.userId,
+//                    diary.createDate,
+//                    diary.updatedDate,
+//                    diary.diaryCategory
+//            ))
+//                    .from(diary)
+//                    .where(diary.receiverUser.isNull().and(diary.user.userId.ne(userId)).and(diary.diaryCategory.eq(diaryCategory)))
+//                    .fetch();
+//        } catch (Exception e) {
+//            return 0;
+//        }
+//        log.info("diaries:"+diaries);
+//        return diaries.size();
+//    }
 
     //
     @Override
@@ -347,7 +347,7 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
     }
 
     @Override
-    public int checkSameUser(Long userId) {
+    public int checkSameUser(Long userId,DiaryCategory diaryCategory) {
         List<DiaryDTO> diaryDTO=null;
         try {
             diaryDTO=jpaQueryFactory.select(new QDiaryDTO(
@@ -360,12 +360,29 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
                     diary.diaryCategory
             ))
                     .from(diary)
-                    .where(diary.user.userId.eq(userId))
+                    .where(diary.user.userId.eq(userId).and(diary.diaryCategory.eq(diaryCategory)).and(diary.receiverUser.userId.isNull()))
                     .fetch();
         } catch (NonUniqueResultException e) {
             return 0;
         }
         return diaryDTO.size();
+    }
+
+    @Override
+    public List<DiaryDTO> checkTodayWriteDiary(Long userId, DiaryCategory diaryCategory) {
+        List<DiaryDTO> diaryDTOS=jpaQueryFactory.select(new QDiaryDTO(
+                diary.user.userId,
+                diary.diaryTitle,
+                diary.diaryContent,
+                diary.receiverUser.userId,
+                diary.createDate,
+                diary.updatedDate,
+                diary.diaryCategory
+        ))
+                .from(diary)
+                .where(diary.user.userId.eq(userId).and(diary.diaryCategory.eq(diaryCategory)))
+                .fetch();
+        return diaryDTOS;
     }
 
 
