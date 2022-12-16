@@ -67,7 +67,13 @@ public class CommunityReplyRepositoryImpl implements CommunityReplyCustomReposit
                 .where(communityReply.communityPost.communityPostId.eq(communityPostId))
                 .fetchFirst());
     }
-    
+    public Integer countCounselingReplyById(Long userId){
+        return Math.toIntExact(queryFactory.select(communityReply.communityReplyId.count())
+                .from(communityReply)
+                .where(communityReply.user.userId.eq(userId).and(communityReply.communityPost.communityCategory.eq(CommunityCategory.COUNSELING)))
+                .fetchFirst());
+    }
+
     @Override
     public Integer countReplyByUser(Long userId){
         return Math.toIntExact(queryFactory.select(communityReply.communityReplyId.count())
