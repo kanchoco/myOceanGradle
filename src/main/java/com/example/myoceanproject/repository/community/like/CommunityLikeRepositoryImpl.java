@@ -45,4 +45,10 @@ public class CommunityLikeRepositoryImpl implements CommunityLikeCustomRepositor
     public List<CommunityLike> findByCommunityPost(CommunityPost communityPost){
         return queryFactory.selectFrom(communityLike).where(communityLike.communityPost.communityPostId.eq(communityPost.getCommunityPostId())).fetch();
     }
+
+//    해당 회원이 좋아요를 누른 갯수
+    public int countLikeByUserId(Long userId){
+        return Math.toIntExact(queryFactory.select(communityLike.communityLikeId.count()).from(communityLike)
+                .where(communityLike.userId.eq(userId)).fetchFirst());
+    }
 }

@@ -1,6 +1,7 @@
 //  손호현, 나의공간 MySpaceController
 package com.example.myoceanproject.controller.mySpace;
 
+import com.example.myoceanproject.aspect.annotation.TodoAlarm;
 import com.example.myoceanproject.domain.ToDoListDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,7 @@ public class MySpaceController {
     }
 
     @PostMapping("/index")
+    @TodoAlarm
     public RedirectView mySpaceResister(String toDoListContent, String toDoListSelectDate, Long userId) {
         mySpaceService.post(toDoListContent,toDoListSelectDate,userId);
         return new RedirectView("/myspace/index"); }

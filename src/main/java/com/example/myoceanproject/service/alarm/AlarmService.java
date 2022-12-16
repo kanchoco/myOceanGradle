@@ -2,11 +2,14 @@ package com.example.myoceanproject.service.alarm;
 
 import com.example.myoceanproject.domain.*;
 import com.example.myoceanproject.entity.Alarm;
+import com.example.myoceanproject.entity.Quest;
 import com.example.myoceanproject.repository.UserRepository;
 import com.example.myoceanproject.repository.UserRepositoryImpl;
 import com.example.myoceanproject.repository.alarm.AlarmRepository;
 import com.example.myoceanproject.repository.alarm.AlarmRepositoryImpl;
+import com.example.myoceanproject.repository.community.like.CommunityLikeRepositoryImpl;
 import com.example.myoceanproject.repository.community.post.CommunityPostRepository;
+import com.example.myoceanproject.repository.community.reply.CommunityReplyRepositoryImpl;
 import com.example.myoceanproject.repository.quest.QuestAchievementRepositoryImpl;
 import com.example.myoceanproject.service.PointService;
 import com.example.myoceanproject.type.AlarmCategory;
@@ -28,14 +31,15 @@ import java.util.List;
 @Transactional
 @Slf4j
 public class AlarmService {
-
-    private final JPAQueryFactory queryFactory;
     private final AlarmRepository alarmRepository;
     private final UserRepository userRepository;
     private final UserRepositoryImpl userRepositoryImpl;
     private final AlarmRepositoryImpl alarmRepositoryImpl;
-
     private final QuestAchievementRepositoryImpl achievementRepository;
+
+    private final CommunityLikeRepositoryImpl likeRepositoryImpl;
+
+    private final CommunityReplyRepositoryImpl replyRepositoryImpl;
 
     private final PointService pointService;
 
@@ -54,9 +58,9 @@ public class AlarmService {
         }
     }
 
-    public void questAlarm(AlarmDTO alarmDTO){
+    public void questAlarm(AlarmDTO alarmDTO, Quest quest){
             alarmDTO.setAlarmCategory("QUEST");
-            alarmDTO.setAlarmContent("퀘스트 달성! 어떤 보상을 받았는지 확인해보세요!");
+            alarmDTO.setAlarmContent(quest.getQuestName() + " 퀘스트 달성! 어떤 보상을 받았는지 확인해보세요!");
             Alarm alarm = alarmDTO.toEntity();
             alarm.setUser(userRepository.findById(alarmDTO.getUserId()).get());
             alarmRepository.save(alarm);
@@ -70,7 +74,7 @@ public class AlarmService {
                 pointDTO.setPointAmountHistory(1000);
                 pointDTO.setUserId(alarmDTO.getUserId());
 
-                pointService.questReward(pointDTO);
+                pointService.questReward(pointDTO, quest);
 
             }else if(achievementRepository.countBadge(alarmDTO.getUserId()) >= 10){
                 alarmDTO.setAlarmContent("뱃지콜렉터 퀘스트 달성!");
@@ -80,7 +84,7 @@ public class AlarmService {
                 PointDTO pointDTO = new PointDTO();
                 pointDTO.setPointAmountHistory(2000);
                 pointDTO.setUserId(alarmDTO.getUserId());
-                pointService.questReward(pointDTO);
+                pointService.questReward(pointDTO, quest);
             }
     }
 
