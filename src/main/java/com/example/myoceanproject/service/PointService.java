@@ -2,6 +2,7 @@ package com.example.myoceanproject.service;
 
 import com.example.myoceanproject.domain.PointDTO;
 import com.example.myoceanproject.entity.Point;
+import com.example.myoceanproject.entity.Quest;
 import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.repository.PointRepository;
 import com.example.myoceanproject.repository.PointRepositoryImpl;
@@ -26,10 +27,10 @@ public class PointService {
     public List<PointDTO> findAllPayPointByUser(Long userId,PointType pointType){return pointRepositoryImpl.findAllPayPoint(userId,pointType);}
     public List<PointDTO> findAllRefundPointByAllUser(PointType pointType){return pointRepositoryImpl.findAllRefundPoint(pointType);}
 
-    public void questReward(PointDTO pointDTO){
+    public void questReward(PointDTO pointDTO, Quest quest){
         pointDTO.setPointType("보상");
         pointDTO.setPointMerchantUid(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초")));
-        pointDTO.setPointContent("퀘스트 보상 지급");
+        pointDTO.setPointContent(quest.getQuestName() + " 퀘스트 보상 지급");
         pointDTO.setPointCheckType("보상");
         Point point = pointDTO.toEntity();
         point.changeUser(userRepository.findById(pointDTO.getUserId()).get());

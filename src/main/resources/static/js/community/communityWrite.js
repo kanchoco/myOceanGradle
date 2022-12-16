@@ -11,13 +11,18 @@ let text ="";
 
 $postFilterLi.click(function () {
     var text = $(this).text();
+    console.log($(this).text());
     $(this).parent().find(".post_filter_input").val(text);
     $(this).parent().parent().removeClass('active');
     $(this).parent().prev().text(text);
 
     if(text=='일기'){
+        console.log("일기들어옴");
+        $("div.px-3").attr("style","display:none;");
         $exchangeFilter.show();
     }else{
+        console.log("일기아님 들어옴");
+        $("div.px-3").attr("style","display:block;");
         $exchangeFilter.hide();
     }
 })
@@ -172,9 +177,54 @@ let communitySave = (function(){
     return {add: add, update: update}
 })();
 
+let diarySave = (function(){
+    function diaryadd(diaryContents, callback, error){
+        $.ajax({
+            url: "/myList/index",
+            async: false,
+            type: "post",
+            data: JSON.stringify(diaryContents),
+            contentType: "application/json; charset=utf-8",
+            success: function(result, status, xhr){
+                if(callback){
+                    callback(result);
+                }
+                if(result=="standby"){
+                    alert("교환일기를 전달할 회원이 없습니다. 다른회원이 교환일기 신청시 확인하실 수 있습니다.");
+                    location.href="/community/index";
+                }else if(result=="exchangeDiary"){
+                    alert("신청한 교환일기가 다른 회원과 교환되었습니다.");
+                    location.href="/community/index";
+                }else if(result=="MyDiary") {
+                    alert("나의 일기가 작성되었습니다.");
+                    location.href = "/community/index";
+                }else if(result=="duplicate"){
+                    alert("나의 일기는 1번만 작성이 가능합니다.");
+                }else if(result=="alreadyRegistered"){
+                    alert("교환 일기는 1번만 작성이 가능합니다.");
+                }else{
+                    alert("뭘까요?????????");
+                }
+            },
+            error: function(xhr, status, err)
+            {
+                if(error){
+                    error(err);
+                }
+            }
+        });
+    }
+    return {diaryadd: diaryadd}
+})();
+
+
+
 // 게시글 작성 진행 후 등록 버튼 눌렀을 때
 $(".Button-bqxlp0-0.fFBpBV").on("click", function(e){
     e.preventDefault();
+
+    // 카테고리 설정
+    let category = $(".post_filter .label").text();
 
     // 유효성 검사
 
@@ -195,15 +245,20 @@ $(".Button-bqxlp0-0.fFBpBV").on("click", function(e){
         alert("내용을 기재해주세요");
         return;
     }
-    
-    // 썸네일 이미지가 없을 때
-    if($("input[name=communityFileName]").val()==""){
-        alert("썸네일 이미지를 입력해주세요");
-        return;
+
+    if(category!="일기") {
+        // 썸네일 이미지가 없을 때
+        if ($("input[name=communityFileName]").val() == "") {
+            alert("썸네일 이미지를 입력해주세요");
+            return;
+        }
     }
-    
-    // 카테고리 설정
-    let category = $(".post_filter .label").text();
+
+    // 나의 일기,교환 일기 설정
+    let diaryCategory=$(".exchange_filter_1h .label").text();
+
+    console.log("diaryCategory:"+diaryCategory);
+    console.log("category:"+category);
 
     /*작성 내용*/
     /*업데이트 체크*/
@@ -223,7 +278,7 @@ $(".Button-bqxlp0-0.fFBpBV").on("click", function(e){
 
     else{
         /*추가*/
-        if(category != "DIARY"){
+        if(category != "일기"){
             communitySave.add({
                 communityCategory : category,
                 communityContent : $(".note-editable").html(),
@@ -232,6 +287,13 @@ $(".Button-bqxlp0-0.fFBpBV").on("click", function(e){
                 communityFileUuid: $("input[name=communityFileUuid]").val(),
                 communityFileSize: $("input[name=communityFileSize]").val(),
                 communityFilePath: $("input[name=communityFilePath]").val()
+            })
+        }else{
+            console.log("category diary trans ajax");
+            diarySave.diaryadd({
+                diaryCategory : diaryCategory,
+                diaryContent : $(".note-editable").html(),
+                diaryTitle: $(".SocialFeedPage__Title-ky5ymg-2.gVPyuz").val()
             })
         }
     }

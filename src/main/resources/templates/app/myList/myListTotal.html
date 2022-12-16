@@ -25,18 +25,20 @@
     <th:block th:each="listTotal:${listTotals}">
       <ul th:object="${listTotal}">
         <li>
-          <div class="my_list" th:switch="${#strings.toString(listTotal.communityCategory)}">
-            <!--          th:text="${#dates.format(user.createDt, 'yyyy-MM-dd HH:mm')}"-->
-            <div th:case="자유" class="badge free" th:text="*{communityCategory}"/>
-            <div th:case="요리" class="badge cook" th:text="*{communityCategory}"/>
-            <div th:case="운동" class="badge exercise" th:text="*{communityCategory}"/>
-            <div th:case="영화" class="badge movie" th:text="*{communityCategory}"/>
-            <div th:case="책" class="badge book" th:text="*{communityCategory}"/>
-            <div th:case="고민" class="badge counseling" th:text="*{communityCategory}"/>
-            <div th:case="*" class="badge cook" th:text="*{communityCategory}"/>
-            <div class="list_title" th:text="*{communityTitle}"></div>
-            <div class="list_date" th:text="*{createDate}"></div>
-          </div>
+          <a th:href="@{/community/read(communityPostId=${listTotal.communityPostId})}">
+            <div class="my_list" th:switch="${#strings.toString(listTotal.communityCategory)}">
+              <!--            &lt;!&ndash;          th:text="${#dates.format(user.createDt, 'yyyy-MM-dd HH:mm')}"&ndash;&gt;http://localhost:15000/community/read?communityPostId=4486 (id = ${board.id})-->
+              <div th:case="자유" class="badge free" th:text="*{communityCategory}"/>
+              <div th:case="요리" class="badge cook" th:text="*{communityCategory}"/>
+              <div th:case="운동" class="badge exercise" th:text="*{communityCategory}"/>
+              <div th:case="영화" class="badge movie" th:text="*{communityCategory}"/>
+              <div th:case="책" class="badge book" th:text="*{communityCategory}"/>
+              <div th:case="고민" class="badge counseling" th:text="*{communityCategory}"/>
+              <div th:case="*" class="badge cook" th:text="*{communityCategory}"/>
+              <div class="list_title" th:text="*{communityTitle}"></div>
+              <div class="list_date" th:text="*{createDate}"></div>
+            </div>
+          </a>
         </li>
       </ul>
     </th:block>

@@ -66,6 +66,7 @@ public class QuestDTO {
 
     public Quest toEntity() {
         return Quest.builder()
+                .questId(questId)
                 .questCategory(questCategory)
                 .questName(questName)
                 .questType(QuestType.change(questType))

@@ -1,6 +1,6 @@
 let filterCheck = false;
 //모달창열기
-$(".badgeList").on("click", function(){
+$("#badgeSpace").on("click",".badgeList", function(){
     if(!filterCheck){
         $(".BottomSheet__Container-e2nchk-0.cMKqKB").show();
         filterCheck = true;
@@ -19,7 +19,7 @@ let myBadgeService = (function(){
 
     function getBadgeList(param, callback, error){
         $.ajax({
-            url: encodeURI("/myCompleteQuest/" + (param.page || 0)),
+            url: encodeURI("/myCompleteQuest/myBadge/" + (param.page || 0)),
             type: "get",
             success: function (questDTOList,status, xhr) {
                 if(callback){

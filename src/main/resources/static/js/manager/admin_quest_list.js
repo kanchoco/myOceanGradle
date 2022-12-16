@@ -81,13 +81,13 @@ function modifyQuest(tag){
             $('#quest-register-wrapper').show();
             //수정창에 수정할 정보 넣기
             // $('.register td:nth-child(1)').attr("value", $(this).closest('tr').children('td:eq(1)').text())
-            questId = $(tag).closest('tr').children('.questId').text();
-            $('.register td:nth-child(1) input').val($(tag).closest('tr').children('td:eq(1)').text())
-            $('.register td:nth-child(2) input').val($(tag).closest('tr').children('td:eq(2)').text())
-            $('.register td:nth-child(3) input').val($(tag).closest('tr').children('td:eq(3)').text())
-            $('.register td:nth-child(4) input').val($(tag).closest('tr').children('td:eq(4)').text())
-            $('.register td:nth-child(5) input').val($(tag).closest('tr').children('td:eq(5)').text())
-            $('.register td:nth-child(6) input').val($(tag).closest('tr').children('td:eq(6)').text())
+            $('.register td:nth-child(1) input').val($(tag).closest('tr').children('.questId').text())
+            $('.register td:nth-child(2) input').val($(tag).closest('tr').children('td:eq(1)').text())
+            $('.register td:nth-child(3) input').val($(tag).closest('tr').children('td:eq(2)').text())
+            $('.register td:nth-child(4) input').val($(tag).closest('tr').children('td:eq(3)').text())
+            $('.register td:nth-child(5) input').val($(tag).closest('tr').children('td:eq(4)').text())
+            $('.register td:nth-child(6) input').val($(tag).closest('tr').children('td:eq(5)').text())
+            $('.register td:nth-child(7) input').val($(tag).closest('tr').children('td:eq(6)').text())
             $('#preview').attr('src', $(this).closest('tr').children('td:eq(7)').find('img').attr('src'))
             //수정 모달창과 버튼 삭제
             $(tag).next().remove();
@@ -105,6 +105,7 @@ $('.close').click(function (){
     $('.register td:nth-child(4) input').val('')
     $('.register td:nth-child(5) input').val('')
     $('.register td:nth-child(6) input').val('')
+    $('.register td:nth-child(7) input').val('')
     $('#preview').attr('src', '/imgin/admin_file.png')
     if(temp === 1){
         temp--;}else if (moreButtonTemp === 1){
@@ -129,16 +130,18 @@ let checkModifying = false;
 
 $('.regist').click(function (){
     alert("퀘스트가 등록됐습니다.");
-    questName = $('.register td:nth-child(1) input').val();
-    questCategory = $('.register td:nth-child(2) input').val();
-    questType = $('.register td:nth-child(3) input').val();
-    questDeadLine = $('.register td:nth-child(4) input').val();
-    questContent = $('.register td:nth-child(5) input').val();
-    questPoint = $('.register td:nth-child(6) input').val();
+    questId = $('.register td:nth-child(1) input').val();
+    questName = $('.register td:nth-child(2) input').val();
+    questCategory = $('.register td:nth-child(3) input').val();
+    questType = $('.register td:nth-child(4) input').val();
+    questDeadLine = $('.register td:nth-child(5) input').val();
+    questContent = $('.register td:nth-child(6) input').val();
+    questPoint = $('.register td:nth-child(7) input').val();
 
     console.log(checkModifying);
     if(!checkModifying){
         questService.add({
+            questId : questId,
             questName : questName,
             questCategory : questCategory,
             questType : questType,
@@ -172,7 +175,8 @@ $('.regist').click(function (){
     $('.register td:nth-child(3) input').val('');
     $('.register td:nth-child(4) input').val('');
     $('.register td:nth-child(5) input').val('');
-    $('.register td:nth-child(6) input').val('');
+    $('.register td:nth-child(7) input').val('');
+    $('.register td:nth-child(7) input').val('');
 
     $('#preview').attr('src', '/imgin/admin_file.png')
     if(temp === 1){
