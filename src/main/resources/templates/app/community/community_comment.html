@@ -51,7 +51,7 @@
         </div>
         <!--댓글창 전체 wrap-->
         <input th:field="*{userId}" name="userId" type="text" class="userId" style="display:none;">
-        <input th:field="*{communityTitle}" name="postTitle" type="text" class="postTitle" style="display:none;">
+        <input th:field="*{communityCategory}" name="communityCategory" type="text" class="postCategory" style="display:none;">
         <input th:field="*{communityPostId}" name="communityPostId" type="text" class="communityPostId" style="display:none;">
         <div class="SocialFeedReplyList__Wrapper-sc-1vuk2zv-0 eKpsNP">
             <!--댓글 한 개 wrap-->
@@ -97,11 +97,9 @@
 <script>
     let postUserId = $("input[name='userId']").val();
     let postTitle = $("input[name='communityTitle']").val();
-    console.log(postTitle);
 
     // 화면 출력 함수 호출
     function show(){
-        console.log(replyService)
         replyService.getReplyList({
             communityPostId: $("input[name='communityPostId']").val()
         }, getReplyList);
@@ -113,7 +111,6 @@
         let text ="";
         communityReplyDTO.forEach(reply => {
             let userImageSrc = "/community/display?fileName=" + reply.userFilePath + "/" + reply.userFileUuid + "_" + reply.userFileName;
-            console.log(communityReplyDTO);
             text +=`<div><div class="FeedReplyCard__Wrapper-sc-1wg24nj-0 kDLQhH"><div class="FeedReplyCard__Profile-sc-1wg24nj-1 fcEtFP">`;
             text +=`<div class="Image__Wrapper-v97gyx-0 gDuKGF">`;
             text +=`<div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">`;
@@ -122,7 +119,7 @@
             text +=`<div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">`;
             text +=`<img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36" src="`;
             // 유저 이미지 사진
-            if(reply.communityPostTitle == '고민'){
+            if($("input[name='communityCategory']").val() == '고민'){
                 text +=`/imgin/user.png`;
             } else{
                 if(reply.userFileName){
@@ -135,17 +132,15 @@
             text +=`</div></div></div></div></div>`;
             text +=`<div class="FeedReplyCard__Container-sc-1wg24nj-2 hjlSSA"><div class="FeedReplyCard__Name-sc-1wg24nj-3 bUesVF">`;
             // 작성자 닉네임
-            console.log(postUserId);
-            console.log(reply.userId);
             let myId = $("input[name='myId']").val();
             if(postUserId == reply.userId){
-                if(reply.communityPostTitle == '고민상담'){
+                if($("input[name='communityCategory']").val() == '고민'){
                     text += "익명" + reply.communityReplyId + "     (작성자)";
                 } else{
                     text += reply.userNickName + "     (작성자)";
                 }
             } else{
-                if(reply.communityPostTitle == '고민상담'){
+                if($("input[name='communityCategory']").val() == '고민'){
                     text += "익명" + reply.communityReplyId;
                 } else{
                     text +=reply.userNickName;

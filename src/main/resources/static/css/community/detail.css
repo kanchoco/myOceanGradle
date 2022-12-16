@@ -1856,6 +1856,40 @@ td{
     transform: translateY(0px) scale(1, 1);
 }
 
+.cXiDYn {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: 500;
+    color: rgb(78, 89, 104);
+}
+
+.jxmvcs {
+    height: 24px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 0px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.grCiwo {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    color: inherit;
+    text-decoration: none;
+    touch-action: manipulation;
+    margin-right:7px;
+}
+
+.likeNumber{
+    margin-left: 7px;
+}
+
 
 
 

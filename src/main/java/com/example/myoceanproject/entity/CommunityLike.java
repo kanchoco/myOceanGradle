@@ -2,6 +2,8 @@ package com.example.myoceanproject.entity;
 
 import com.sun.istack.NotNull;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -19,6 +21,7 @@ public class CommunityLike extends Period{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COMMUNITY_POST_ID")
     @NotNull
+    @OnDelete(action= OnDeleteAction.CASCADE)
     private CommunityPost communityPost;
 
     @NotNull

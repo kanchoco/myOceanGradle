@@ -529,6 +529,7 @@ public class CommunityPostRepositoryImpl implements CommunityPostCustomRepositor
     }
 
 
+
     // 무한스크롤
     // 처음에 10개를 뿌려주고, 스크롤이 맨 끝 단에 닿으면 다음의 10개가 뿌려짐
     public List<CommunityPostDTO> selectScrollBoards(int page){

@@ -60,7 +60,7 @@ public class User extends Period {
     private List<Ask> asks;
 
     //    커뮤니티 포스트 양방향
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<CommunityPost> communityPosts;
 
     //    퀘스트 달성 테이블과 양방향
