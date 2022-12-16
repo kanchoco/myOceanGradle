@@ -22,4 +22,6 @@ public interface UserCustomRepository {
     public UserDTO findUserById(Long userId);
 
     public UserDTO findAllByDashboard();
+
+    public UserDTO findByUserId(Long userId);
 }

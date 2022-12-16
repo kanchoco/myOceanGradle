@@ -13,4 +13,6 @@ public interface QuestCustomRepository {
     public Page<QuestDTO> findAll(Pageable pageable, Criteria criteria);
 
     public Integer countQuestByUser(Long userId);
+
+    QuestDTO findTodayQuest();
 }

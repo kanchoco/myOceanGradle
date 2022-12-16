@@ -1,3 +1,4 @@
+//  손호현, 나의공간 MySpaceMonthController
 package com.example.myoceanproject.controller.mySpace;
 
 import com.example.myoceanproject.domain.ToDoListDTO;
@@ -23,13 +24,21 @@ public class MySpaceMonthController {
     private final MySpaceService mySpaceService;
 
     //    /month/?
-    @GetMapping("{month}")
-    public List<Object> getMonth(@PathVariable String month, HttpServletRequest request){
-        HttpSession session = (HttpSession)request.getSession();
+    @PutMapping("{now}")
+    public List<ToDoListDTO> getNow(HttpSession session){
+        // HttpSession session = (HttpSession)request.getSession();  =>(HttpServletRequest request)
         Long userId = (Long)session.getAttribute("userId");
-//        String을 LocalDateTime으로 형변환
+        return mySpaceService.showAllByToday(userId);
+    }
+
+    //    /month/?
+    @GetMapping("{month}")
+    public List<Object> getMonth(@PathVariable String month, HttpSession session){
+        Long userId = (Long)session.getAttribute("userId");
+
+        // String을 LocalDateTime으로 형변환
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        화면에서 받아온 값(String) month를 LocalDateTime 타입의 time으로 변환.
+        // 화면에서 받아온 값(String) month를 LocalDateTime 타입의 time에 저장.
         LocalDateTime time = LocalDate.parse(month,formatter).atStartOfDay();
 
         // 해당 날짜의 월별 DTO 목록 List
@@ -43,7 +52,7 @@ public class MySpaceMonthController {
         // 내림차순으로 정렬
         Collections.sort(finalTime, Collections.reverseOrder());
 
-        //onepiece [0]: 월별 DTO 목록 / [1]: 중복제거한 시간 목록
+        // onepiece [0]: 월별 DTO 목록 / [1]: 중복제거한 시간 목록
         List<Object> onepiece = List.of(list,finalTime);
 
         return onepiece;
@@ -55,13 +64,7 @@ public class MySpaceMonthController {
     public ToDoListDTO update(@PathVariable Long bno,ToDoListDTO toDoListDTO){
         return mySpaceService.update(toDoListDTO);
     }
-    //    /month/?
-    @PutMapping("{now}")
-    public List<ToDoListDTO> getNow(HttpServletRequest request){
-        HttpSession session = (HttpSession)request.getSession();
-        Long userId = (Long)session.getAttribute("userId");
-        return mySpaceService.showAllByToday(userId);
-    }
+
 
     //    /month/?
     @DeleteMapping("{bno}")

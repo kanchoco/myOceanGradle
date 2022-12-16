@@ -108,7 +108,7 @@
                                                             <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
                                                                 <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
                                                                     <!--유저 프로필 사진--> <!--사진 없을 때 들어갈 디폴트 이미지도 있어야함-->
-                                                                    <img th:if="*{userFileName}" th:src="{/host/display(fileName=${groupDTO.userFilePath} + '/' + ${groupDTO.userFileUuid} + '_' + ${groupDTO.userFileName})}" class="Image__StyledImage-v97gyx-1 VUNpu" width="56" height="56">
+                                                                    <img th:if="*{userFileName}" th:src="@{/mypage/display(fileName=${groupDTO.userFilePath} + '/' + ${groupDTO.userFileUuid} + '_' + ${groupDTO.userFileName})}" class="Image__StyledImage-v97gyx-1 VUNpu" width="56" height="56">
                                                                     <img th:unless="*{userFileName}" th:src="@{/imgin/user.png}" class="Image__StyledImage-v97gyx-1 VUNpu" width="56" height="56">
                                                                 </div>
                                                             </div>
@@ -122,8 +122,8 @@
                                                 <!--유저 정보--> <!--유저 정보 받은 후에 넣기-->
                                                 <span class="Profile__NickName-sc-18xe7ny-7 cZgpqN">
                                                     <!--유저 닉네임-->
-                                                        <span th:text="*{userNickName}"></span>
-                                                    </span>
+                                                    <span th:text="*{userNickName}"></span>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -366,30 +366,24 @@
                                 <button th:if="${groupJoinMember} < ${groupDTO.maxMember}" class="Button-bqxlp0-0 BUemN Button__StyledSubmitButton-sc-1dkzbac-0 eIJDxV" width="100%" height="56px" color="white" font-size="16px">
                                     <!--참여 취소-->
                                     <!--groupUserCheck가 true이면 아직 참여 안했다는 것-->
-                                    <div th:if="${groupUserCheck}">
-                                        <div class="DefaultButton__ActionLabel-sc-4mlqfg-0 joinGroup">
-                                            참여 하기
-                                        </div>
+                                    <div th:if="${groupUserCheck}" class="DefaultButton__ActionLabel-sc-4mlqfg-0 joinGroup">
+                                        참여 하기
                                     </div>
                                     <!--해당 모임에 아직 않았다면-->
-                                    <div th:unless="${groupUserCheck}">
+                                    <div th:unless="${groupUserCheck}" class="DefaultButton__ActionLabel-sc-4mlqfg-0 cancelGroup">
+                                        참여 취소
+                                    </div>
+                                </button>
+                                <div th:unless="${groupJoinMember} < ${groupDTO.maxMember}" style="width:100%;">
+                                    <button th:if="${groupUserCheck}" class="Button-bqxlp0-0 hhkUKM Button__StyledSubmitButton-sc-1dkzbac-0 eIJDxV">
+                                        신청 마감
+                                    </button>
+                                    <button th:unless="${groupUserCheck}" class="Button-bqxlp0-0 BUemN Button__StyledSubmitButton-sc-1dkzbac-0 eIJDxV" width="100%" height="56px" color="white" font-size="16px">
                                         <div class="DefaultButton__ActionLabel-sc-4mlqfg-0 cancelGroup">
                                             참여 취소
                                         </div>
-                                    </div>
-                                </button>
-                                <button th:unless="${groupJoinMember} < ${groupDTO.maxMember}" class="Button-bqxlp0-0 BUemN Button__StyledSubmitButton-sc-1dkzbac-0 eIJDxV" width="100%" height="56px" color="white" font-size="16px">
-                                    <div th:if="${groupUserCheck}">
-                                        <div class="Button-bqxlp0-0 hhkUKM Button__StyledSubmitButton-sc-1dkzbac-0 eIJDxV" width="100%" height="56px" color="white" font-size="16px" disabled="">
-                                            신청 마감
-                                        </div>
-                                    </div>
-                                    <div th:unless="${groupUserCheck}">
-                                        <div class="DefaultButton__ActionLabel-sc-4mlqfg-0 cancelGroup">
-                                            참여 취소
-                                        </div>
-                                    </div>
-                                </button>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

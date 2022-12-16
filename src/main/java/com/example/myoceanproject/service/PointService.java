@@ -40,4 +40,8 @@ public class PointService {
         int updateTotalPoint=point.getUser().getUserTotalPoint()+Integer.parseInt(String.valueOf(pointDTO.getPointAmountHistory()));
         point.getUser().updateUserTotalPoint(updateTotalPoint);
     }
+
+    public Integer showRewardPointTotal(Long userId){
+        return pointRepositoryImpl.findAllRewardPoint(userId);
+    }
 }

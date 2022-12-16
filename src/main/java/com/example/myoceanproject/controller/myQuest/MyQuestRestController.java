@@ -2,9 +2,15 @@ package com.example.myoceanproject.controller.myQuest;
 
 import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.domain.QuestDTO;
+import com.example.myoceanproject.service.PointService;
+import com.example.myoceanproject.service.UserService;
 import com.example.myoceanproject.service.quest.QuestAchievementService;
+import com.example.myoceanproject.service.quest.QuestService;
+import com.querydsl.core.Tuple;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +24,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.data.repository.init.ResourceReader.Type.JSON;
 
 @Slf4j
 @RestController
@@ -31,10 +40,14 @@ public class MyQuestRestController {
 //    @RequestBody : 전달받은 데이터를 알맞는 매개변수로 주입
 //    ResponseEntity : 서버의 상태코드, 응답 메세지 등을 담을 수 있는 타입
     private final QuestAchievementService questAchievementService;
+    private final UserService userService;
+
+    private final PointService pointService;
+
+    private final QuestService questService;
     // 완료한 퀘스트 페이지
     @GetMapping(value = "/{page}")
     public QuestDTO completeQuest(@PathVariable int page,@PathVariable(required = false) String keyword, HttpServletRequest request){
-        log.info("================================REST CONTROLLER 들어옴===================================");
 
         Criteria criteria = new Criteria();
         criteria.setPage(page);
@@ -55,6 +68,61 @@ public class MyQuestRestController {
         questDTO.setEndPage(endPage);
 
 
+        return questDTO;
+    }
+
+
+    @GetMapping(value = "myBadge/{page}")
+    public QuestDTO myBadge(@PathVariable int page,@PathVariable(required = false) String keyword, HttpServletRequest request){
+        log.info("================================REST CONTROLLER 들어옴===================================");
+
+        Criteria criteria = new Criteria();
+        criteria.setPage(page);
+
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute("userId");
+        log.info(userId.toString());
+        Page<QuestDTO> questDTOList = questAchievementService.showMyAchievement(userId, pageable);
+        int endPage = (int)(Math.ceil(questDTOList.getNumber()+1 / (double)10)) * 10;
+        if(questDTOList.getTotalPages() < endPage){
+            endPage = questDTOList.getTotalPages() == 0 ? 1 : questDTOList.getTotalPages();
+        }
+
+        QuestDTO questDTO = new QuestDTO();
+
+        questDTO.setQuestList(questDTOList.getContent());
+        questDTO.setEndPage(endPage);
+
+
+        return questDTO;
+    }
+
+    @GetMapping(value = "/badge")
+    public List<QuestDTO> myBadge(HttpServletRequest request) throws JSONException {
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute("userId");
+        List<QuestDTO> questDTOList = new ArrayList<>();
+        for (int i = 0; i<12 ;i++) {
+            QuestDTO questDTO = new QuestDTO();
+            questDTO.setUserFilePath(userService.findUser(userId).getUserFilePath());
+            questDTO.setUserFileName(userService.findUser(userId).getUserFileName());
+            questDTO.setUserFileUuid(userService.findUser(userId).getUserFileUuid());
+            questDTO.setUserFileName(userService.findUser(userId).getUserFileName());
+            questDTO.setUserNickName(userService.findUser(userId).getUserNickname());
+            questDTO.setRewardPointTotal(pointService.showRewardPointTotal(userId));
+            questDTO.setMonth(i+1);
+            questDTO.setMonthlyCount(questAchievementService.showMonthlyAchievementCount(userId, i+1));
+            questDTO.setBadgeCount(questAchievementService.showMyBadgeNumber(userId));
+            questDTOList.add(questDTO);
+
+        }
+        return questDTOList;
+    }
+
+    @GetMapping(value = "/todayQuest")
+    public QuestDTO todayQuest() throws JSONException {
+        QuestDTO questDTO = questService.showTodayQuest();
         return questDTO;
     }
 }

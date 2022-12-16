@@ -9,4 +9,5 @@ public interface PointCustomRepository {
     public List<PointDTO> findAllPointByUser(Long userId);
     public List<PointDTO> findAllPayPoint(Long userId,PointType pointType);
     public List<PointDTO> findAllRefundPoint(PointType pointType);
+    Integer findAllRewardPoint(Long userId);
 }

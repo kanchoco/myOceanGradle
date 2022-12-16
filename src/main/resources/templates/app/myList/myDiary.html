@@ -62,7 +62,7 @@
                 </div>
                 <div class="css-oys1qn e14wlar0" id="dayCheck" style="display:none;">
                     <div class="dateText" style="text-align: center;line-height: 21.5px;margin-top:15px;">찾고 싶은 날짜를 선택하세요!<br>일자만 선택해도 자동 입력됩니다.</div>
-                    <span class="dayText">15</span>
+                    <span class="dayText">01</span>
                     <div class="dayTextArrow" style="text-align:center;">
                         <div class="prevArrow arrow"> ◀ </div>
                         <div class="nextArrow arrow"> ▶ </div>
@@ -77,7 +77,7 @@
                     </button>
                 </div>
                 <div class="css-1m0g4m6 e1z35r50">
-                    <button role="button" color="default" class="e1z35r53 css-1kz857u eklkj752" aria-expanded="false">
+                    <button role="button" type="button" color="default" class="e1z35r53 css-1kz857u eklkj752" aria-expanded="false">
                         <span class="css-1oteowz eklkj751 selectDate"></span></button>
                 </div>
             </div>
@@ -92,47 +92,20 @@
         </div>
         <div th:replace="/app/myList/myList.html :: myListCategory"></div>
         <div id="table_wrapper">
-            <th:block th:each="diary:${diarys}">
-                <ul th:object="${diary}">
-                    <li>
-                        <div class="my_list">
-                            <div class="list_title" th:text="*{diaryTitle}"></div>
-                            <div class="list_date" th:text="*{createDate}"></div>
-                        </div>
-                    </li>
-                </ul>
-            </th:block>
+            <div class="content"></div>
+<!--                <th:block th:each="diary:${diarys}">-->
+<!--                    <ul th:object="${diary}">-->
+<!--                        <li>-->
+<!--                            <div class="my_list">-->
+<!--                                <div class="list_title" th:text="*{diaryTitle}"></div>-->
+<!--                                <div class="list_date" th:text="*{createDate}"></div>-->
+<!--                            </div>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </th:block>-->
+<!--    </div>-->
 
-            <div id = "page_changer_wrapper" th:object="${pagination}">
-                <div id="previous_button_wrapper">
-                    <a class="previous_buttons changePage"  th:href="${1}">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-                             class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
-                    </a>
-                    <a class="previous_buttons changePage" th:href="${pagination.getNumber()}">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-                             class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
-                    </a>
-                </div>
-                <th:block th:each="page:${#numbers.sequence((endPage == 10 ? endPage - 10 + 1 : 1), endPage)}">
-                    <a th:if="${pagination.getNumber()+1 != page}" th:href="${page}" class="page changePage" th:text="${page}"></a>
-                    <a th:unless="${pagination.getNumber()+1 != page}" th:href="${page}" class="page active" th:text="${page}"></a>
-                </th:block>
-
-                <div id="next_button_wrapper">
-                    <a class="next_buttons changePage" th:href="${(pageable.getPageNumber()+2 > endPage? endPage : pageable.getPageNumber()+2)}">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-                             class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
-                    </a>
-                    <a class="next_buttons changePage"  th:href="${pagination.getTotalPages()}">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-                             class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">
-                    </a>
-                </div>
-                <form th:action="@{/myList/myDiary}" th:object="${criteria}" name="pageForm">
-                    <input type="hidden" th:field="*{page}">
-                    <input type="hidden" th:field="*{keyword}">
-                </form>
+            <div class="pageBody">
             </div>
         </div>
     </div>
@@ -144,19 +117,88 @@
 <script src="/js/myList/myList.js"></script>
 <script src="/js/myList/myDiary.js"></script>
 <script>
+    let page = 1;
+    let keyword = 'null';
     const $pages = $('a.changePage');
 
-    $("#search_input").on("keyup",function(key){
-        if(key.keyCode === 13) {
-            $(document.pageForm.keyword).val($(this).val());
-            document.pageForm.submit();
-        }
-    });
+    //ajax 호출
+    function show(){
+        diaryService.getList({
+            page : page,
+            // keyword : keyword,
+            dateData:globalThis.diaryAr
+        }, getList);
+    }
 
-    $pages.on("click", function(e){
-        e.preventDefault();
-        $(document.pageForm.page).val($(this).attr("href"));
-        document.pageForm.submit();
-    });
+    //    페이지를 들어올 때, ajax로 restController의 데이터를 가져온다
+    show();
+
+    //    리스트 뽑기
+    function getList(diaryDTO){
+        let text = '';
+
+        diaryDTO.diaryList.forEach(diary => {
+            console.log("diary.createDate:"+diary.createDate);
+            // ISO -> 문자열 형식의 yyyy-MM-dd HH:mm:ss
+            var changeDate = new Date(diary.createDate);
+            changeDate.setHours(changeDate.getHours() + 9);
+            changeDate=changeDate.toISOString().replace('T', ' ').substring(0, 19);
+            console.log(typeof changeDate);
+
+            text += `<ul><li><div class="my_list">`;
+            text += `<div class="list_title">`+ diary.diaryTitle +`</div>`;
+            text += `<div class="list_date">`+ diary.createDate +`</div>`;
+            text += `</div></li></ul>`;
+        });
+
+        $(".content").html(text);
+
+        showPage(diaryDTO.endPage);
+    }
+    //페이징
+    function showPage(endPage){
+        let endNumber = Math.ceil(page / 10) * 10;
+        let realEnd = endPage;
+        let startNumber = endNumber -9;
+        if(endNumber > realEnd){
+
+            endNumber = realEnd == 0 ? '1' : realEnd;
+        }
+
+
+        let text ='';
+        text += `<div id="page_changer_wrapper">`;
+        text += `<div id="previous_button_wrapper">`;
+        text += `<a class="previous_buttons changePage" onclick="changePage(${startNumber})">`;
+        text += `<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">`;
+        text += `</a>`;
+        text += `<a class="previous_buttons changePage" onclick="changePage(${page>1? page-1 : page})">`;
+        text += `<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">`;
+        text += `</a>`;
+        text += `</div>`;
+        for (let i=startNumber; i<=endNumber; i++){
+            if(page === i){
+                text += `<a class="page active">${i}</a>`;
+                continue;
+            }
+            text += `<a class="page changePage" onclick="changePage(${i})">${i}</a>`;
+        }
+        text += `<div id="next_button_wrapper">`;
+        text += `<a class="next_buttons changePage" onclick="changePage(${page + 1 > realEnd? realEnd : page+1})">`;
+        text += `<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">`;
+        text += `</a>`;
+        text += `<a class="next_buttons changePage" onclick="changePage(${endPage})">`;
+        text += `<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">`;
+        text += `</a>`;
+        text += `</div>`;
+
+        $('.pageBody').html(text);
+    }
+
+    //페이지버튼 클릭 시
+    function changePage(href){
+        page = href;
+        show();
+    }
 </script>
 </html>

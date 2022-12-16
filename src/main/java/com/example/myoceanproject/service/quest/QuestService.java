@@ -37,4 +37,8 @@ public class QuestService {
         }
     }
 
+    public QuestDTO showTodayQuest(){
+        return questRepositoryImpl.findTodayQuest();
+    }
+
 }

@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.example.myoceanproject.domain.QQuestDTO;
 import com.example.myoceanproject.domain.QuestDTO;
+import com.example.myoceanproject.entity.QuestAchievement;
+import com.example.myoceanproject.type.QuestType;
+import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -40,12 +43,12 @@ public class QuestAchievementRepositoryImpl implements QuestAchievementCustomRep
                 )).from(quest)
                 .join(questAchievement)
                 .on(questAchievement.quest.questId.eq(quest.questId))
-                .where(questAchievement.user.userId.eq(userId))
+                .where(questAchievement.user.userId.eq(userId).and(questAchievement.quest.questType.eq(QuestType.BASIC)))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()).fetch();
 
         long total = queryFactory.selectFrom(questAchievement)
-                .where(questAchievement.user.userId.eq(userId))
+                .where(questAchievement.user.userId.eq(userId).and(questAchievement.quest.questType.eq(QuestType.BASIC)))
                 .fetch().size();
 
         return new PageImpl<>(questDTOList, pageable, total);
@@ -62,5 +65,20 @@ public class QuestAchievementRepositoryImpl implements QuestAchievementCustomRep
         return Math.toIntExact(queryFactory.select(questAchievement.questAchievementId.count()).from(questAchievement)
                 .where(questAchievement.user.userId.eq(userId)).fetchFirst());
     }
+
+
+    @Override
+    public int findMonthlyAchievementCount(Long userId, int month){
+        return queryFactory.selectFrom(questAchievement)
+                .where(questAchievement.user.userId.eq(userId)
+                        .and(questAchievement.quest.questType.eq(QuestType.TODAY))
+                        .and(questAchievement.createDate.month().eq(month)))
+                .fetch().size();
+
+    }
+
+
+
+
 
 }

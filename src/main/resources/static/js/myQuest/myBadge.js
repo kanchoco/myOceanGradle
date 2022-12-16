@@ -1,6 +1,6 @@
 let filterCheck = false;
 //모달창열기
-$(".badgeList").on("click", function(){
+$("#badgeSpace").on("click",".badgeList", function(){
     if(!filterCheck){
         $(".BottomSheet__Container-e2nchk-0.cMKqKB").show();
         filterCheck = true;
@@ -15,27 +15,45 @@ $(".BottomSheet__CloseButton-e2nchk-6.fTfJGA").on("click", function(){
 
 
 
+let myBadgeService = (function(){
 
-
-
-let myQuestService = (function(){
-
-        function getQuestList(param, callback, error){
-            $.ajax({
-                url: encodeURI("/myCompleteQuest/" + (param.page || 0)),
-                type: "get",
-                success: function (questDTOList,status, xhr) {
-                    if(callback){
-                        callback(questDTOList);
-                    }
-                },
-                error: function (xhr, status, err) {
-                    if (error) {
-                        error(err);
-                    }
+    function getBadgeList(param, callback, error){
+        $.ajax({
+            url: encodeURI("/myCompleteQuest/myBadge/" + (param.page || 0)),
+            type: "get",
+            success: function (questDTOList,status, xhr) {
+                if(callback){
+                    callback(questDTOList);
                 }
-            });
-        }
-    return {getQuestList: getQuestList}
+            },
+            error: function (xhr, status, err) {
+                if (error) {
+                    error(err);
+                }
+            }
+        });
+    }
+
+    function getMonthlyBadgeList(param, callback, error){
+        $.ajax({
+            url: "/myCompleteQuest/badge",
+            type: "get",
+            success: function (questDTOList,status, xhr) {
+                if(callback){
+                    console.log(questDTOList);
+                    callback(questDTOList);
+                }
+            },
+            error: function (xhr, status, err) {
+                if (error) {
+                    error(err);
+                }
+            }
+        });
+    }
+    return {getBadgeList: getBadgeList, getMonthlyBadgeList:getMonthlyBadgeList}
 }) ();
+
+
+
 

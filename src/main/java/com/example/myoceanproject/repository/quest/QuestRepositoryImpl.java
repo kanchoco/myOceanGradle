@@ -13,6 +13,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static com.example.myoceanproject.entity.QCommunityLike.communityLike;
@@ -95,6 +97,25 @@ public class QuestRepositoryImpl implements QuestCustomRepository {
                 .from(questAchievement)
                 .where(questAchievement.user.userId.eq(userId))
                 .fetchFirst());
+    }
+
+    @Override
+    public QuestDTO findTodayQuest(){
+        return jpaQueryFactory.select(new QQuestDTO(
+                    quest.questId,
+                    quest.questCategory,
+                    quest.questName,
+                    quest.questContent,
+                    quest.questType,
+                    quest.questDeadLine,
+                    quest.questPoint,
+                    quest.questFilePath,
+                    quest.questFileName,
+                    quest.questFileUuid,
+                    quest.questFileSize,
+                    quest.createDate
+        )).from(quest).where(quest.questDeadLine.eq(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))))
+                .fetchOne();
     }
 
 }

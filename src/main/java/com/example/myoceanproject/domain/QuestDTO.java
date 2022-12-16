@@ -37,6 +37,17 @@ public class QuestDTO {
 
     private String createDate;
 
+    private int monthlyCount;
+    private int month;
+    private String userNickName;
+    private Integer rewardPointTotal;
+    private int badgeCount;
+    private String userFileName;
+    private String userFilePath;
+    private Long userFileSize;
+    private String userFileUuid;
+
+
     @QueryProjection
     public QuestDTO(Long questId, String questCategory, String questName, String questContent,QuestType questType, String questDeadLine, int questPoint, String questFilePath, String questFileName, String questFileUuid, Long questFileSize, LocalDateTime createDate) {
         this.questId = questId;
