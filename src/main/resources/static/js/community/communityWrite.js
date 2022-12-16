@@ -200,8 +200,11 @@ let diarySave = (function(){
                     location.href = "/community/index";
                 }else if(result=="duplicate"){
                     alert("나의 일기는 1번만 작성이 가능합니다.");
-                }else if(result=="alreadyRegistered"){
-                    alert("교환 일기는 1번만 작성이 가능합니다.");
+                }else if(result=="alreadyRegisterToday"){
+                    alert("교환 일기는 하루에 한번만 작성이 가능합니다.");
+                }else if(result=="otherDayWriteExDiary"){
+                    alert("교환 일기 작성이 완료되었습니다. 다른 날짜에 작성한 교환일기 목록은 마이페이지에서 확인이 가능합니다.");
+                    location.href = "/community/index";
                 }else{
                     alert("뭘까요?????????");
                 }

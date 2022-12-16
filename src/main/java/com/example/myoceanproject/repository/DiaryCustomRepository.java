@@ -23,8 +23,9 @@ public interface DiaryCustomRepository {
     public Page<DiaryDTO> findAllByDiaryByUser(Pageable pageable, Long userId);
     public Page<DiaryDTO> findAllByDiaryByUser(Pageable pageable, Long userId,Criteria criteria);
     public int registerReceiverByUser(Long userId,DiaryCategory diaryCategory);
-    public int searchMyDiaryCount(Long userId,DiaryCategory diaryCategory);
+    //    public int searchMyDiaryCount(Long userId,DiaryCategory diaryCategory);
     public DiaryDTO findBeforeShareWriter(DiaryCategory diaryCategory);
     public UserDTO findByUserId(Long userId);
-    public int checkSameUser(Long userId);
+    public int checkSameUser(Long userId,DiaryCategory diaryCategory);
+    public List<DiaryDTO> checkTodayWriteDiary(Long userId,DiaryCategory diaryCategory);
 }
