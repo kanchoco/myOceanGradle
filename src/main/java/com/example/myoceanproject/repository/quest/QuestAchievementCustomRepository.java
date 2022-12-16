@@ -1,6 +1,7 @@
 package com.example.myoceanproject.repository.quest;
 
 import com.example.myoceanproject.domain.QuestDTO;
+import com.example.myoceanproject.entity.Quest;
 import com.example.myoceanproject.entity.QuestAchievement;
 import com.querydsl.core.Tuple;
 import org.springframework.data.domain.Page;
@@ -14,4 +15,6 @@ public interface QuestAchievementCustomRepository {
     Boolean checkDuplicatedById(Long userId, Long questId);
     int countBadge(Long userId);
     int findMonthlyAchievementCount(Long userId, int month);
+
+    QuestAchievement findQuestAchievementByUserIdAndQuest(Long userId, Quest quest);
 }

@@ -3,6 +3,8 @@ package com.example.myoceanproject.serviceTest;
 import com.example.myoceanproject.domain.QuestDTO;
 import com.example.myoceanproject.entity.Quest;
 import com.example.myoceanproject.entity.QuestAchievement;
+import com.example.myoceanproject.repository.PointRepository;
+import com.example.myoceanproject.repository.PointRepositoryImpl;
 import com.example.myoceanproject.repository.quest.QuestAchievementRepositoryImpl;
 import com.example.myoceanproject.repository.quest.QuestRepository;
 import com.example.myoceanproject.repository.quest.QuestRepositoryImpl;
@@ -32,6 +34,9 @@ public class QuestServiceTest {
     @Autowired
     private QuestService questService;
 
+    @Autowired
+    private PointRepositoryImpl pointRepositoryImpl;
+
 //    @Test
 //    public void showTest(){
 //        List<QuestDTO> questDTOS = questAchievementService.showMyAchievement(2L);
@@ -53,6 +58,12 @@ public class QuestServiceTest {
     public void showTest(){
 //        log.info(questRepositoryImpl.findTodayQuest().toString());
         log.info(questService.showTodayQuest().toString());
+    }
+
+    @Test
+    public void findTest(){
+        Quest quest = questRepository.findById(20001L).get();
+        log.info(pointRepositoryImpl.findRewardPoint(1L,quest).toString());
     }
 
 //    @Test
