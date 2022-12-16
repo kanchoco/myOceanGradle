@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 
 public interface AlarmRepository extends JpaRepository<Alarm, Long> {
-    
+    public int countAllByUser_UserId(Long userId);
 }

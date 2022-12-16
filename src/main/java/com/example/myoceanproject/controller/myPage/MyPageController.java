@@ -1,18 +1,20 @@
 package com.example.myoceanproject.controller.myPage;
 
-import com.example.myoceanproject.domain.CommunityPostDTO;
 import com.example.myoceanproject.domain.QUserDTO;
 import com.example.myoceanproject.domain.UserDTO;
 import com.example.myoceanproject.entity.User;
-import com.example.myoceanproject.repository.UserRepository;
+import com.example.myoceanproject.repository.GroupMemberRepository;
+import com.example.myoceanproject.repository.GroupRepository;
+import com.example.myoceanproject.repository.alarm.AlarmRepository;
+import com.example.myoceanproject.repository.quest.QuestAchievementRepository;
+import com.example.myoceanproject.service.DiaryService;
 import com.example.myoceanproject.service.UserService;
+import com.example.myoceanproject.service.community.CommunityPostService;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Ejb3TransactionAnnotationParser;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import java.util.Base64;
-import java.util.List;
 
 import static com.example.myoceanproject.entity.QUser.user;
 
@@ -40,6 +41,24 @@ public class MyPageController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CommunityPostService communityPostService;
+
+    @Autowired
+    private DiaryService diaryService;
+
+    @Autowired
+    private QuestAchievementRepository questAchievementRepositoryRepository;
+
+    @Autowired
+    private GroupRepository groupRepository;
+
+    @Autowired
+    private AlarmRepository alarmRepository;
+
+    @Autowired
+    private GroupMemberRepository groupMemberRepository;
+
     // 마이 페이지
     @GetMapping("/index")
     public String myPage(Model model,HttpServletRequest request){
@@ -48,7 +67,18 @@ public class MyPageController {
         Long userId = (Long) session.getAttribute("userId");
 
         UserDTO userDTO= userService.findUser(userId);
+        int diaryCount=diaryService.findAllDiary(userId);
+        int communityPostCount=communityPostService.findAllByList(userId).size();
+        int questAchievementCount=questAchievementRepositoryRepository.countAllByUser_UserId(userId);
+        int groupCount=groupRepository.countAllByUser_UserId(userId)+groupMemberRepository.countAllByUser_UserId(userId);
+        int alarmCount=alarmRepository.countAllByUser_UserId(userId);
+
         model.addAttribute("userDTO",userDTO);
+        model.addAttribute("diaryCount",diaryCount);
+        model.addAttribute("communityPostCount",communityPostCount);
+        model.addAttribute("questAchievementCount",questAchievementCount);
+        model.addAttribute("groupCount",groupCount);
+        model.addAttribute("alarmCount",alarmCount);
 
         return "app/myPage/myPage";
 

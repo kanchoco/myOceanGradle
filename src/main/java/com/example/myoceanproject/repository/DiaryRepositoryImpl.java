@@ -1,15 +1,11 @@
 package com.example.myoceanproject.repository;
 
 import com.example.myoceanproject.domain.*;
-import com.example.myoceanproject.entity.User;
-import com.example.myoceanproject.type.CommunityCategory;
 import com.example.myoceanproject.type.DiaryCategory;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.NonUniqueResultException;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.sun.istack.Nullable;
 import lombok.extern.slf4j.Slf4j;
-import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,9 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
-import static com.example.myoceanproject.entity.QCommunityPost.communityPost;
 import static com.example.myoceanproject.entity.QDiary.diary;
 import static com.example.myoceanproject.entity.QUser.user;
 

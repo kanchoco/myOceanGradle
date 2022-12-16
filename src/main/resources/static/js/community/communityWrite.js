@@ -191,20 +191,20 @@ let diarySave = (function(){
                 }
                 if(result=="standby"){
                     alert("교환일기를 전달할 회원이 없습니다. 다른회원이 교환일기 신청시 확인하실 수 있습니다.");
-                    location.href="/community/index";
+                    location.href="/myList/myExchangeDiary";
                 }else if(result=="exchangeDiary"){
                     alert("신청한 교환일기가 다른 회원과 교환되었습니다.");
-                    location.href="/community/index";
+                    location.href="/myList/myExchangeDiary";
                 }else if(result=="MyDiary") {
                     alert("나의 일기가 작성되었습니다.");
-                    location.href = "/community/index";
+                    location.href = "/myList/myDiary";
                 }else if(result=="duplicate"){
                     alert("나의 일기는 1번만 작성이 가능합니다.");
                 }else if(result=="alreadyRegisterToday"){
                     alert("교환 일기는 하루에 한번만 작성이 가능합니다.");
                 }else if(result=="otherDayWriteExDiary"){
                     alert("교환 일기 작성이 완료되었습니다. 다른 날짜에 작성한 교환일기 목록은 마이페이지에서 확인이 가능합니다.");
-                    location.href = "/community/index";
+                    location.href = "/myList/myExchangeDiary";
                 }else{
                     alert("뭘까요?????????");
                 }

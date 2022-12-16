@@ -28,37 +28,33 @@
       <div class="PageWrapper-sc-1w87j10-0 ToastContainer__ToastPageWrapper-sqfjqn-1 eskQgv"></div>
     </div>
     <div class="PageWrapper-sc-1w87j10-0 bScXKt">
-      <div class="MyPage__UserPropertyContainer-sc-8hrgc7-1 dduMk">
-        <div th:if="${session.userId}=='1'">
-          <a href="/myPoint/managerRefund">
-            <div class="UserProperty__Title-xpx7mx-0 eFrFPC">포인트</div>
-          </a>
-        </div>
-        <div th:unless="${session.userId}=='1'">
+      <a th:if="${session.userId}=='1'" class="MyPage__UserPropertyContainer-sc-8hrgc7-1 dDCuWg" width="100%" height="56px" font-size="16px" color="#f4f4f4" th:href="@{/manager/index}">관리자 페이지</a>
+      <div th:unless="${session.userId}=='1'" class="MyPage__UserPropertyContainer-sc-8hrgc7-1 dduMk">
+        <div>
           <a href="/myPoint/index">
             <div class="UserProperty__Title-xpx7mx-0 eFrFPC">포인트</div>
-            <div class="UserProperty__Value-xpx7mx-1 yiVA-d">0</div>
+            <div class="UserProperty__Value-xpx7mx-1 yiVA-d" th:text="${userDTO.userTotalPoint}"></div>
           </a>
         </div>
         <a href="/myList/myDiary">
           <div class="UserProperty__Title-xpx7mx-0 eFrFPC">일기</div>
-          <div class="UserProperty__Value-xpx7mx-1 yiVA-d">2</div>
+          <div class="UserProperty__Value-xpx7mx-1 yiVA-d" th:text="${diaryCount}"></div>
         </a>
         <a href="/myList/myListTotal">
           <div class="UserProperty__Title-xpx7mx-0 fbNqgy">커뮤니티</div>
-          <div class="UserProperty__Value-xpx7mx-1 yiVA-d">0</div>
+          <div class="UserProperty__Value-xpx7mx-1 yiVA-d" th:text="${communityPostCount}"></div>
         </a>
         <a href="/myQuest/completeQuest">
           <div class="UserProperty__Title-xpx7mx-0 eFrFPC">달성퀘스트</div>
-          <div class="UserProperty__Value-xpx7mx-1 yiVA-d">0</div>
+          <div class="UserProperty__Value-xpx7mx-1 yiVA-d" th:text="${questAchievementCount}"></div>
         </a>
         <a href="/myGroup/joinGroup">
           <div class="UserProperty__Title-xpx7mx-0 eFrFPC">모임</div>
-          <div class="UserProperty__Value-xpx7mx-1 yiVA-d">0</div>
+          <div class="UserProperty__Value-xpx7mx-1 yiVA-d" th:text="${groupCount}"></div>
         </a>
         <a href="/myAlarm/myAlarm">
           <div class="UserProperty__Title-xpx7mx-0 eFrFPC">알림</div>
-          <div class="UserProperty__Value-xpx7mx-1 yiVA-d">0</div>
+          <div class="UserProperty__Value-xpx7mx-1 yiVA-d" th:text="${alarmCount}"></div>
         </a>
       </div>
       <div class="MyPage__FripBadgeContainer-sc-8hrgc7-2 jBoTV">
