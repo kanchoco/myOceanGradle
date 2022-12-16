@@ -2,6 +2,7 @@ package com.example.myoceanproject.repository.chatting;
 
 import com.example.myoceanproject.domain.*;
 import com.example.myoceanproject.entity.ChattingStatus;
+import com.example.myoceanproject.type.GroupStatus;
 import com.example.myoceanproject.type.ReadStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -64,7 +65,7 @@ public class ChattingRepositoryImpl implements ChattingCustomRepository {
                 )).from(group)
                 .join(groupMember)
                 .on(groupMember.group.groupId.eq(group.groupId))
-                .where(groupMember.user.userId.eq(userId)).fetch();
+                .where(groupMember.user.userId.eq(userId).and(group.groupStatus.eq(GroupStatus.APPROVED))).fetch();
     }
 
     //    채팅 목록 클릭시 그룹 아이디를 넘겨받음. 이를 통해서 해당 그룹의 채팅 내용을 조회한다.
