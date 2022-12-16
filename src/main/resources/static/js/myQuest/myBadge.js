@@ -1,6 +1,6 @@
 let filterCheck = false;
 //모달창열기
-$(".badgeList").on("click", function(){
+$("#badgeSpace").on("click",".badgeList", function(){
     if(!filterCheck){
         $(".BottomSheet__Container-e2nchk-0.cMKqKB").show();
         filterCheck = true;

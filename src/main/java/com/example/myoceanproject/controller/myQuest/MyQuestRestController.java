@@ -5,6 +5,7 @@ import com.example.myoceanproject.domain.QuestDTO;
 import com.example.myoceanproject.service.PointService;
 import com.example.myoceanproject.service.UserService;
 import com.example.myoceanproject.service.quest.QuestAchievementService;
+import com.example.myoceanproject.service.quest.QuestService;
 import com.querydsl.core.Tuple;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +43,8 @@ public class MyQuestRestController {
     private final UserService userService;
 
     private final PointService pointService;
+
+    private final QuestService questService;
     // 완료한 퀘스트 페이지
     @GetMapping(value = "/{page}")
     public QuestDTO completeQuest(@PathVariable int page,@PathVariable(required = false) String keyword, HttpServletRequest request){
@@ -97,7 +100,6 @@ public class MyQuestRestController {
 
     @GetMapping(value = "/badge")
     public List<QuestDTO> myBadge(HttpServletRequest request) throws JSONException {
-        log.info("================================REST CONTROLLER 들어옴===================================");
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute("userId");
         List<QuestDTO> questDTOList = new ArrayList<>();
@@ -113,16 +115,14 @@ public class MyQuestRestController {
             questDTO.setMonthlyCount(questAchievementService.showMonthlyAchievementCount(userId, i+1));
             questDTO.setBadgeCount(questAchievementService.showMyBadgeNumber(userId));
             questDTOList.add(questDTO);
-            log.info("============================================================================");
-            log.info("============================================================================");
-            log.info("============================================================================");
-            log.info(String.valueOf(questAchievementService.showMonthlyAchievementCount(userId, i+1)));
-            log.info("============================================================================");
-            log.info("============================================================================");
-            log.info("============================================================================");
 
         }
-        log.info("================================REST CONTROLLER 들어옴===================================");
         return questDTOList;
+    }
+
+    @GetMapping(value = "/todayQuest")
+    public QuestDTO todayQuest() throws JSONException {
+        QuestDTO questDTO = questService.showTodayQuest();
+        return questDTO;
     }
 }

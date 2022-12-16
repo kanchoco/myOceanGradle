@@ -5,7 +5,9 @@ import com.example.myoceanproject.entity.Quest;
 import com.example.myoceanproject.entity.QuestAchievement;
 import com.example.myoceanproject.repository.quest.QuestAchievementRepositoryImpl;
 import com.example.myoceanproject.repository.quest.QuestRepository;
+import com.example.myoceanproject.repository.quest.QuestRepositoryImpl;
 import com.example.myoceanproject.service.quest.QuestAchievementService;
+import com.example.myoceanproject.service.quest.QuestService;
 import com.example.myoceanproject.type.QuestType;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -21,9 +23,14 @@ public class QuestServiceTest {
 
     @Autowired
     private QuestAchievementRepositoryImpl questAchievementRepositoryImpl;
+    @Autowired
+    private QuestRepositoryImpl questRepositoryImpl;
 
     @Autowired
     private QuestRepository questRepository;
+
+    @Autowired
+    private QuestService questService;
 
 //    @Test
 //    public void showTest(){
@@ -40,6 +47,12 @@ public class QuestServiceTest {
             Quest quest = questDTO.toEntity();
             questRepository.save(quest);
         }
+    }
+
+    @Test
+    public void showTest(){
+//        log.info(questRepositoryImpl.findTodayQuest().toString());
+        log.info(questService.showTodayQuest().toString());
     }
 
 //    @Test
