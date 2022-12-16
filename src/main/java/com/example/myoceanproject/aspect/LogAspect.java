@@ -1,11 +1,9 @@
 package com.example.myoceanproject.aspect;
 
 import com.example.myoceanproject.controller.mySpace.MySpaceService;
-import com.example.myoceanproject.domain.AlarmDTO;
-import com.example.myoceanproject.domain.CommunityPostDTO;
-import com.example.myoceanproject.domain.CommunityReplyDTO;
-import com.example.myoceanproject.domain.PointDTO;
+import com.example.myoceanproject.domain.*;
 import com.example.myoceanproject.entity.*;
+import com.example.myoceanproject.repository.DiaryRepositoryImpl;
 import com.example.myoceanproject.repository.GroupRepository;
 import com.example.myoceanproject.repository.PointRepository;
 import com.example.myoceanproject.repository.UserRepository;
@@ -21,6 +19,7 @@ import com.example.myoceanproject.service.PointService;
 import com.example.myoceanproject.service.alarm.AlarmService;
 import com.example.myoceanproject.service.quest.QuestAchievementService;
 import com.example.myoceanproject.service.quest.QuestService;
+import com.example.myoceanproject.type.DiaryCategory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -70,6 +69,8 @@ public class LogAspect {
 
     private final MySpaceService mySpaceService;
 
+    private final DiaryRepositoryImpl diaryRepositoryImpl;
+
 
 
 //    댓글 알림
@@ -100,7 +101,7 @@ public class LogAspect {
             achievementService.save(replyDTO.getWriterId(), quest);
 
             PointDTO pointDTO = new PointDTO();
-            pointDTO.setPointAmountHistory(2000);
+            pointDTO.setPointAmountHistory(quest.getQuestPoint());
             pointDTO.setUserId(replyDTO.getWriterId());
 
             pointService.questReward(pointDTO, quest);
@@ -117,7 +118,7 @@ public class LogAspect {
             achievementService.save(replyDTO.getUserId(), quest);
 
             PointDTO pointDTO = new PointDTO();
-            pointDTO.setPointAmountHistory(5000);
+            pointDTO.setPointAmountHistory(quest.getQuestPoint());
             pointDTO.setUserId(replyDTO.getUserId());
 
             pointService.questReward(pointDTO, quest);
@@ -133,7 +134,7 @@ public class LogAspect {
             achievementService.save(replyDTO.getUserId(), quest);
 
             PointDTO pointDTO = new PointDTO();
-            pointDTO.setPointAmountHistory(3000);
+            pointDTO.setPointAmountHistory(quest.getQuestPoint());
             pointDTO.setUserId(replyDTO.getUserId());
 
             pointService.questReward(pointDTO, quest);
@@ -167,7 +168,7 @@ public class LogAspect {
                 achievementService.save(postUserId, quest);
 
                 PointDTO pointDTO = new PointDTO();
-                pointDTO.setPointAmountHistory(1500);
+                pointDTO.setPointAmountHistory(quest.getQuestPoint());
                 pointDTO.setUserId(postUserId);
 
                 pointService.questReward(pointDTO, quest);
@@ -184,7 +185,7 @@ public class LogAspect {
                 achievementService.save(userId, quest);
 
                 PointDTO pointDTO = new PointDTO();
-                pointDTO.setPointAmountHistory(1500);
+                pointDTO.setPointAmountHistory(quest.getQuestPoint());
                 pointDTO.setUserId(userId);
 
                 pointService.questReward(pointDTO, quest);
@@ -219,7 +220,7 @@ public class LogAspect {
             achievementService.save(userId, quest);
 
             PointDTO pointDTO = new PointDTO();
-            pointDTO.setPointAmountHistory(2000);
+            pointDTO.setPointAmountHistory(quest.getQuestPoint());
             pointDTO.setUserId(userId);
 
             pointService.questReward(pointDTO, quest);
@@ -232,7 +233,7 @@ public class LogAspect {
     }
 
     //관리자 답변 알림
-    @After("@annotation(com.example.myoceanproject.aspect.annotation.AskAlarm)")
+    @AfterReturning("@annotation(com.example.myoceanproject.aspect.annotation.AskAlarm)")
     public void answer(JoinPoint joinPoint){
         ObjectNode objectNode = Arrays.stream(joinPoint.getArgs())
                 .filter(ObjectNode.class::isInstance)
@@ -251,7 +252,7 @@ public class LogAspect {
     }
 
 //포인트 충전 알람
-    @After("@annotation(com.example.myoceanproject.aspect.annotation.PointAlarm)")
+    @AfterReturning("@annotation(com.example.myoceanproject.aspect.annotation.PointAlarm)")
     public void point(JoinPoint joinPoint){
         ObjectNode objectNode = Arrays.stream(joinPoint.getArgs())
                 .filter(ObjectNode.class::isInstance)
@@ -277,7 +278,7 @@ public class LogAspect {
                 achievementService.save(userId, quest);
 
                 PointDTO pointDTO = new PointDTO();
-                pointDTO.setPointAmountHistory(5000);
+                pointDTO.setPointAmountHistory(quest.getQuestPoint());
                 pointDTO.setUserId(userId);
 
                 pointService.questReward(pointDTO, quest);
@@ -293,7 +294,7 @@ public class LogAspect {
                 achievementService.save(userId, quest);
 
                 PointDTO pointDTO = new PointDTO();
-                pointDTO.setPointAmountHistory(2000);
+                pointDTO.setPointAmountHistory(quest.getQuestPoint());
                 pointDTO.setUserId(userId);
 
                 pointService.questReward(pointDTO, quest);
@@ -321,7 +322,7 @@ public class LogAspect {
         alarmService.addAlarm(alarmDTO);
     }
 
-    @After("@annotation(com.example.myoceanproject.aspect.annotation.RefundAlarm)")
+    @AfterReturning("@annotation(com.example.myoceanproject.aspect.annotation.RefundAlarm)")
     public void refund(JoinPoint joinPoint){
         Long pointId = Long.valueOf(joinPoint.getArgs()[0].toString());
         HttpServletRequest request = (HttpServletRequest) joinPoint.getArgs()[1];
@@ -360,7 +361,7 @@ public class LogAspect {
                 achievementService.save(userId, quest);
 
                 PointDTO pointDTO = new PointDTO();
-                pointDTO.setPointAmountHistory(2000);
+                pointDTO.setPointAmountHistory(quest.getQuestPoint());
                 pointDTO.setUserId(userId);
 
                 pointService.questReward(pointDTO, quest);
@@ -389,7 +390,7 @@ public class LogAspect {
                 achievementService.save(userId, quest);
 
                 PointDTO pointDTO = new PointDTO();
-                pointDTO.setPointAmountHistory(500);
+                pointDTO.setPointAmountHistory(quest.getQuestPoint());
                 pointDTO.setUserId(userId);
 
                 pointService.questReward(pointDTO, quest);
@@ -408,7 +409,7 @@ public class LogAspect {
             achievementService.save(userId, quest);
 
             PointDTO pointDTO = new PointDTO();
-            pointDTO.setPointAmountHistory(5000);
+            pointDTO.setPointAmountHistory(quest.getQuestPoint());
             pointDTO.setUserId(userId);
 
             pointService.questReward(pointDTO, quest);
@@ -420,30 +421,41 @@ public class LogAspect {
         }
     }
 
-//    @After("@annotation(com.example.myoceanproject.aspect.annotation.JoinAlarm)")
-//    public void joinAlarm(JoinPoint joinPoint){
-////        long userId = Long.parseLong(joinPoint.getArgs()[3].toString());
-//        log.info("---------------------------------------------------");
-////        log.info("---" + userId);
-//        Arrays.stream(joinPoint.getArgs()).forEach(v -> v.toString());
-//        log.info("---------------------------------------------------");
-//        AlarmDTO alarmDTO = new AlarmDTO();
-//    }
+//    회원가입 알림, 회원가입 축하 리워드
+    @After("@annotation(com.example.myoceanproject.aspect.annotation.JoinAlarm)")
+    public void joinAlarm(JoinPoint joinPoint){
+        UserDTO userDTO = (UserDTO) joinPoint.getArgs()[0];
+
+        AlarmDTO alarmDTO = new AlarmDTO();
+        alarmDTO.setAlarmContent("🎉✨" + userDTO.getUserNickname() + "님 회원가입을 환영합니다✨🎉");
+        alarmDTO.setUserId(userDTO.getUserId());
+        alarmService.addAlarm(alarmDTO);
+
+        Quest quest = questRepository.findById(10001L).get();
+        achievementService.save(userDTO.getUserId(), quest);
+
+        PointDTO pointDTO = new PointDTO();
+        pointDTO.setPointAmountHistory(quest.getQuestPoint());
+        pointDTO.setUserId(userDTO.getUserId());
+
+        pointService.questReward(pointDTO, quest);
+
+        AlarmDTO questAlarm = new AlarmDTO();
+
+        questAlarm.setUserId(userDTO.getUserId());
+        alarmService.questAlarm(questAlarm, quest);
+    }
 
     @After("@annotation(com.example.myoceanproject.aspect.annotation.TodoAlarm)")
     public void toDoList(JoinPoint joinPoint){
-        log.info("---------------------------------------------------");
-        Arrays.stream(joinPoint.getArgs()).forEach(v -> log.info(v.toString()));
-        log.info("---------------------------------------------------");
-        LocalDateTime date = (LocalDateTime) joinPoint.getArgs()[1];
         Long userId = (long) joinPoint.getArgs()[2];
-
+//        하루에 투두리스트 10개 작성 시
         if(mySpaceService.showAllByToday(userId).size() >= 10){
             Quest quest = questRepository.findById(10010L).get();
             achievementService.save(userId, quest);
 
             PointDTO pointDTO = new PointDTO();
-            pointDTO.setPointAmountHistory(2000);
+            pointDTO.setPointAmountHistory(quest.getQuestPoint());
             pointDTO.setUserId(userId);
 
             pointService.questReward(pointDTO, quest);
@@ -455,6 +467,54 @@ public class LogAspect {
         };
     }
 
+    @AfterReturning("@annotation(com.example.myoceanproject.aspect.annotation.DiaryAlarm)")
+    public void diary(JoinPoint joinPoint){
+//        log.info("---------------------------------------------------");
+//        Arrays.stream(joinPoint.getArgs()).forEach(v -> log.info(v.toString()));
+//        log.info("---------------------------------------------------");
+//        DiaryDTO diaryDTO = (DiaryDTO) joinPoint.getArgs()[0];
+//        HttpServletRequest request = (HttpServletRequest) joinPoint.getArgs()[1];
+//        long userId = (long) request.getSession().getAttribute("userId");
+//        diaryDTO.setUserId(userId);
+//        // 나만의 일기 3회 작성 시
+//        if(diaryRepositoryImpl.countDiaryByuserId(DiaryCategory.CLOSEDIARY, diaryDTO.getUserId()) >= 2 && achievementRepositoryImpl.checkDuplicatedById(diaryDTO.getUserId(), 10012L)){
+//            Quest quest = questRepository.findById(10012L).get();
+//            achievementService.save(diaryDTO.getUserId(), quest);
+//
+//            PointDTO pointDTO = new PointDTO();
+//            pointDTO.setPointAmountHistory(quest.getQuestPoint());
+//            pointDTO.setUserId(diaryDTO.getUserId());
+//
+//            pointService.questReward(pointDTO, quest);
+//
+//            AlarmDTO questAlarm = new AlarmDTO();
+//
+//            questAlarm.setUserId(diaryDTO.getUserId());
+//            alarmService.questAlarm(questAlarm, quest);
+//        }
+//        if(diaryDTO.getDiaryCategory().equals(DiaryCategory.OPENDIARY.toString())){
+//            // 교환 일기 3회 작성 시
+//            if(diaryRepositoryImpl.countDiaryByuserId(DiaryCategory.OPENDIARY,diaryDTO.getUserId()) >= 2 && achievementRepositoryImpl.checkDuplicatedById(diaryDTO.getUserId(), 10011L)){
+//                Quest quest = questRepository.findById(10011L).get();
+//                achievementService.save(diaryDTO.getUserId(), quest);
+//
+//                PointDTO pointDTO = new PointDTO();
+//                pointDTO.setPointAmountHistory(quest.getQuestPoint());
+//                pointDTO.setUserId(diaryDTO.getUserId());
+//
+//                pointService.questReward(pointDTO, quest);
+//
+//                AlarmDTO questAlarm = new AlarmDTO();
+//
+//                questAlarm.setUserId(diaryDTO.getUserId());
+//                alarmService.questAlarm(questAlarm, quest);
+//            }
+
+
+        }
+
+
+    }
 
 
 
