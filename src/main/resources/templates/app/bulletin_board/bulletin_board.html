@@ -229,16 +229,21 @@
     }
 
 </script>
+<!--손호현 모임 검색-->
 <script th:inline="javascript">
+    // 헤더의 검색 form의 기능을 막는다 (모임 검색을 하기 위함)
+    // 기존 헤더의 검색바는 페이지 이동, 즉 커뮤니티 검색인데 모임페이지에서는 모임만 검색을 하기 위해 rest방식으로 구현하기 위한 기초작업.
     $("form.dLgpzE").attr('onsubmit','return false;');
 
+    //전역 변수 설정
     globalThis.searchPage = 1;
     globalThis.keyword = '';
 
 
+    // 헤더의 input태그에 엔터이벤트 추가
     $("input.KfNMI").on("keyup",function(key){
 
-
+        // 엔터를 눌렀을 시 , 페이지 초기화와 keyword, input태그의 값을 저장한다.
         if(key.keyCode==13) {
             if($(this).val()){
                 var search = $(this).val();
@@ -251,8 +256,12 @@
         }
 
     });
+
+    //검색 시작
     function searchShow(obj){
+        //전역변수인 globalThis.keyword 값
         var keyword = obj
+        //pageable의 page값은 0부터시작.
         $.ajax({
             url:"/search-host/"+keyword+"?page="+(globalThis.searchPage-1),
             type:"get",
@@ -261,12 +270,16 @@
         })
     }
 
+    // searchShow의 success시 실행되는 함수
     function showList(result){
         let text ='';
+        //검색 총 결과 갯수
         var count= result.totalElements;
+        //검색 시 pageable이 구해준 총 페이지 갯수
         var end = result.totalPages;
         console.log(result)
 
+        //검색 결과가 0일 시
         if(result.content.length == 0){
 
             text += `<div style="display:flex;justify-content: center;width: 100%">`
@@ -288,6 +301,7 @@
             return;
 
         }
+        //검색 결과 있을 시
         $(result.content).each((i,group)=>{
             thumbnailImage = "/host/display?fileName=" + group.groupFilePath + "/" + group.groupFileUuid + "_" + group.groupFileName;
 
@@ -336,13 +350,19 @@
         $(".ProductList__ProductWrapper-sc-1lo0q2y-0").html(text);
         $(".eXzlnr").text(count);
         $(".hBVRcD").show();
+        //검색 시 pageable이 구해준 총 페이지 갯수를 통해 페이지네이션 구현.
         showSearchPage(end);
     }
 
+    // 페이지네이션 구현함수
     function showSearchPage(endPage){
+        //화면에서 보여질 페이지 갯수
         let endNumber = Math.ceil(globalThis.searchPage / 10) * 10;
+        //실제 페이지 총 갯수.
         let realEnd = endPage;
+        //화면에서 보여질 시작점은 총페이지 갯수에서 -9한 값
         let startNumber = endNumber -9;
+        //만약 realEnd값이 0이라면, 즉 검색결과가 없다면 화면에 1페이지만 띄운다.
         if(endNumber > realEnd){
             endNumber = realEnd ==0? '1' : realEnd;
         }
@@ -412,6 +432,7 @@
         $('.Wrapper__PaginationWrapper-fk4uv4-0').html(text);
     }
 
+    // 화면에 페이지 번호를 클릭했을 시 전역변수 페이지를 변화시킨다.
     function searchPageChange(href){
         globalThis.searchPage = href;
         searchShow(globalThis.keyword);

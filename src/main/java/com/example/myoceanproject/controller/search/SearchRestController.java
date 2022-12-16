@@ -32,6 +32,7 @@ public class SearchRestController {
     public Slice<CommunityPostDTO> showList(@PageableDefault(size = 10, sort = "id",  direction = Sort.Direction.DESC) Pageable pageable, String search, String[] categoriesList, HttpSession session){
         ArrayList<CommunityCategory> categories = new ArrayList<>();
         if(categoriesList != null){
+            //화면에서는 String, 문자열만 넘어오기 때문에 우리가 원하는 ENUM타입으로 변경해주는 작업
             for(String category : categoriesList){
                 if(category.equals("EXERCISE")){ // 사용자가 요청한 값 중 운동이 있다면
                     categories.add(CommunityCategory.EXERCISE);
