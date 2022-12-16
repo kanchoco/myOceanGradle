@@ -283,9 +283,6 @@ public class LogAspect {
                 AlarmDTO questAlarm = new AlarmDTO();
 
                 questAlarm.setUserId(userId);
-        log.info("---------------------------------------------------");
-        log.info("알람으로");
-        log.info(questAlarm.toString());
                 alarmService.questAlarm(questAlarm);
             }
             k++;
