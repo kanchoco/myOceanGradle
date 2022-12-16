@@ -14,7 +14,6 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Quest extends Period{
     @Id
-    @GeneratedValue
     private long questId; //PK
     @NotNull
     @Enumerated(value = EnumType.STRING)
@@ -37,7 +36,8 @@ public class Quest extends Period{
     private Long questFileSize;
 
     @Builder
-    public Quest(String questCategory, String questName, String questContent,int questPoint, QuestType questType, String questDeadLine, String questFileName, String questFilePath, Long questFileSize, String questFileUuid) {
+    public Quest(Long questId, String questCategory, String questName, String questContent,int questPoint, QuestType questType, String questDeadLine, String questFileName, String questFilePath, Long questFileSize, String questFileUuid) {
+        this.questId = questId;
         this.questCategory = questCategory;
         this.questName = questName;
         this.questContent = questContent;
