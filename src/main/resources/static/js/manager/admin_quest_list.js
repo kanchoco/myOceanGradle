@@ -170,13 +170,13 @@ $('.regist').click(function (){
     }
 
     $('#quest-register-wrapper').hide();
-    $('.register td:nth-child(1) input').val('');
-    $('.register td:nth-child(2) input').val('');
-    $('.register td:nth-child(3) input').val('');
-    $('.register td:nth-child(4) input').val('');
-    $('.register td:nth-child(5) input').val('');
-    $('.register td:nth-child(7) input').val('');
-    $('.register td:nth-child(7) input').val('');
+    $('.register td:nth-child(1) input').val('')
+    $('.register td:nth-child(2) input').val('')
+    $('.register td:nth-child(3) input').val('')
+    $('.register td:nth-child(4) input').val('')
+    $('.register td:nth-child(5) input').val('')
+    $('.register td:nth-child(6) input').val('')
+    $('.register td:nth-child(7) input').val('')
 
     $('#preview').attr('src', '/imgin/admin_file.png')
     if(temp === 1){
