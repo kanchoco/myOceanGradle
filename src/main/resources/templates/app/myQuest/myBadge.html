@@ -393,7 +393,6 @@
             text += `<div class="addBadgeList">`
             console.log(questDTO.questList);
             console.log(Math.ceil(length/5.0));
-            if(length%5 == 0){
                 for(let i = 0; i<5; i++) {
                     console.log(i+j*5);
                     let quest = questDTO.questList[i+j*5];
@@ -404,7 +403,7 @@
                     questFileSize = questDTO.questList[i+j*5].questFileSize;
                     let src = "/quest/display?fileName=" + questFilePath + "/" + questFileUuid + "_" + questFileName;
                     text += `<div class="badgeList">`
-                    text += `<img width="55" height="55" src=` + src + `>`
+                    text += `<img width="55" height="55" src="/imgin/myQuest/questBadge/10001.png">`
                     text += `</div>`
                 }
             }else{
