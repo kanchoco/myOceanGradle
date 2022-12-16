@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -186,8 +187,10 @@
 
 
 <script th:inline="javascript">
+    //thinline은 타임리프를 사용할수 있게 해준다.
     const keyword = [[${keyword}]];
     globalThis.size = 10;
+    //필터 값을 넘겨주기 위한 배열을 생성한다.
     globalThis.communityAr = new Array();
     // 첫 검색결과가 없을 때
     let firstCheck =false;
@@ -196,7 +199,9 @@
 
 
     show();
+    //ajax 검색 실행
     function show(){
+        //keyword값을 넘겨주는 이유는 페이지 이동시 keyword, 검색 키워드를 유지하기 위함이다.
         $.ajax({
             url:"/community-search/list?page=0&size="+globalThis.size+"&search="+keyword+"&categoriesList="+globalThis.communityAr,
             type:"post",
@@ -221,7 +226,7 @@
             // 첫 검색시 결과 O, 필터 선택시 결과 X => 필터
             if(!firstCheck){
                 $(".gRnEmw").html(text);
-            // 첫 검색시 결과 x
+                // 첫 검색시 결과 x
             }else{
                 // $(".view__FeedListWrapper-sc-1fff32g-0.ciajVR").html(text);
                 $(".koasSX").html(text);
@@ -298,7 +303,7 @@
             text+=`</span><button class="Description__ExpandButton-ogh69p-1 djffyn"></button></div></a>`;
             // 좋아요, 댓글
             text+=`<div class="ActionGroup__Wrapper-sg91np-0 cXiDYn">`;
-            text+=`<a class="ActionGroup__LikeButton-sg91np-1 jxmvcs" onclick="return false" href="`;
+            text+=`<a class="ActionGroup__LikeButton-sg91np-1 jxmvcs" onclick="return false" href=""`;
             text+=post.communityPostId + `">`;
             // 좋아요 눌렀을 때 이미지
             if($("input[name='userId']").val()==""){
@@ -315,9 +320,8 @@
             // 좋아요 개수
             text+= post.communityLikeNumber;
             text+=`</span></a>`;
-            text+=`<a class="goReplyBoard" style="display: flex;margin-top: 1px;" href=`;
-            text+=post.communityPostId;
-            text+=`>`;
+            text+=`<a class="goReplyBoard" style="display: flex;margin-top: 1px;" href="/reply/index?communityPostId=`+post.communityPostId+`">`;
+
             text+=`<img class="ActionGroup__ReplyLink-sg91np-2 grCiwo" src="`;
             text+=`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='18' viewBox='0 0 21 18'%3E %3Cpath fill='none' stroke='%234E5968' stroke-width='1.5' d='M20.25.75H.75v11.818h3.842v4.015l5.9-4.015h9.758V.75z'/%3E %3C/svg%3E`;
             text+=`" alt="댓글">`;

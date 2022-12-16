@@ -1,4 +1,3 @@
-
 const $nav = $("nav.ciqvqE");
 const $section = $("section.lkrzmV");
 const $windowWidth = $(window).width();
@@ -95,12 +94,12 @@ function checking(callback, error) {
         }
     });
 }
-
-document.addEventListener('keydown', function(event) {
-    if (event.keyCode === 13) {
-        event.preventDefault();
-    };
-}, true);
+//
+// document.addEventListener('keydown', function(event) {
+//     if (event.keyCode === 13) {
+//         event.preventDefault();
+//     };
+// }, true);
 
 
 $("input.KfNMI").on("keyup",function(key){
@@ -110,7 +109,6 @@ $("input.KfNMI").on("keyup",function(key){
         }else{
             $("form.dLgpzE").submit();
         }
-
     }
 
 });

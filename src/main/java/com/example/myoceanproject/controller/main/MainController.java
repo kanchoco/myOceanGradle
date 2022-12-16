@@ -26,8 +26,8 @@ public class MainController {
     public String main(HttpServletRequest request, Model model){
         HttpSession session=request.getSession();
         Long userId = (Long)session.getAttribute("userId");
-
         model.addAttribute("groupList",mainService.showGroupList());
+
         model.addAttribute("communityList",mainService.showCommunityList());
         model.addAttribute("exerciseList",mainService.showExerciseList());
         model.addAttribute("cookList",mainService.showCookList());
@@ -39,7 +39,7 @@ public class MainController {
 //            model.addAttribute("groupDTOList", groupDTOList);
 //            return "app/Main/main";
 //        }else {
-            return "app/Main/main";
+        return "app/Main/main";
 //        }
     }
 
