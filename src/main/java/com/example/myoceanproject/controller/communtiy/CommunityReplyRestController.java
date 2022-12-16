@@ -36,8 +36,8 @@ public class CommunityReplyRestController {
     //  댓글 목록 출력
     @GetMapping("/list/{bno}")
     public List<CommunityReplyDTO> getReplyList(@PathVariable("bno") Long communityPostId){
-        log.info("컨트롤러까지는 옴");
         List<CommunityReplyDTO> communityReplyDTOList = communityReplyService.findAllByCommunityId(communityPostId);
+
         return communityReplyDTOList;
     }
 

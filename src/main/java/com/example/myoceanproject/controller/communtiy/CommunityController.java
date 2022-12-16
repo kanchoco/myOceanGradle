@@ -1,14 +1,20 @@
 package com.example.myoceanproject.controller.communtiy;
 
 import com.example.myoceanproject.domain.CommunityPostDTO;
+import com.example.myoceanproject.repository.community.like.CommunityLikeRepositoryImpl;
+import com.example.myoceanproject.repository.community.reply.CommunityReplyRepositoryImpl;
 import com.example.myoceanproject.service.community.CommunityPostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Controller
@@ -17,6 +23,8 @@ import org.springframework.web.servlet.view.RedirectView;
 public class CommunityController {
 
     private final CommunityPostService communityPostService;
+    private final CommunityReplyRepositoryImpl communityReplyRepositoryImpl;
+    private final CommunityLikeRepositoryImpl communityLikeRepositoryImpl;
 
     // 커뮤니티 페이지
     @GetMapping("/index")
@@ -26,8 +34,18 @@ public class CommunityController {
 
     // 커뮤니티 상세 페이지
     @GetMapping("/read")
-    public String communityDetail(Long communityPostId, Model model){
-        model.addAttribute("communityPostDTO", communityPostService.find(communityPostId));
+    public String communityDetail(Long communityPostId, Model model, HttpServletRequest request){
+        CommunityPostDTO communityPostDTO = new CommunityPostDTO();
+        communityPostDTO = communityPostService.find(communityPostId);
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute("userId");
+        if(userId != null){
+            communityPostDTO.setCheckLike(communityLikeRepositoryImpl.findByCommunityPostAndUser(userId,communityPostDTO.getCommunityPostId()));
+        }
+        communityPostDTO.setCommunityReplyCount(communityReplyRepositoryImpl.countReplyByCommunityPost(communityPostDTO.getCommunityPostId()));
+
+        model.addAttribute("communityPostDTO", communityPostDTO);
+
         return "app/community/detail";
     }
 
@@ -48,8 +66,10 @@ public class CommunityController {
 
     // 게시글 삭제하기
     @GetMapping("/deleteBoard")
+    @Transactional
     public RedirectView delete(Long communityPostId){
-        communityPostService.delete(communityPostId);
+//        communityPostService.delete(communityPostId);
+        communityPostService.remove(communityPostId);
         return new RedirectView("/community/index");
     }
 
