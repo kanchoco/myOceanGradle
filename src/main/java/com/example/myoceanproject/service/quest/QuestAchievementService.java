@@ -48,4 +48,9 @@ public class QuestAchievementService {
     public int showMyBadgeNumber(Long userId){
         return questAchievementRepositoryImpl.countBadge(userId);
     }
+
+    public void deleteQuestAchievement(Long userId, Quest quest){
+        QuestAchievement achievement = questAchievementRepositoryImpl.findQuestAchievementByUserIdAndQuest(userId, quest);
+        questAchievementRepository.deleteById(achievement.getQuestAchievementId());
+    }
 }

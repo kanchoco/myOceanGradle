@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.myoceanproject.domain.QQuestDTO;
 import com.example.myoceanproject.domain.QuestDTO;
+import com.example.myoceanproject.entity.Quest;
 import com.example.myoceanproject.entity.QuestAchievement;
 import com.example.myoceanproject.type.QuestType;
 import com.querydsl.core.Tuple;
@@ -44,6 +45,7 @@ public class QuestAchievementRepositoryImpl implements QuestAchievementCustomRep
                 .join(questAchievement)
                 .on(questAchievement.quest.questId.eq(quest.questId))
                 .where(questAchievement.user.userId.eq(userId).and(questAchievement.quest.questType.eq(QuestType.BASIC)))
+                .orderBy(questAchievement.quest.questId.asc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()).fetch();
 
@@ -74,6 +76,16 @@ public class QuestAchievementRepositoryImpl implements QuestAchievementCustomRep
                         .and(questAchievement.quest.questType.eq(QuestType.TODAY))
                         .and(questAchievement.createDate.month().eq(month)))
                 .fetch().size();
+
+    }
+
+    @Override
+    public QuestAchievement findQuestAchievementByUserIdAndQuest(Long userId, Quest quest){
+        return queryFactory.selectFrom(questAchievement)
+                .where(questAchievement.user.userId.eq(userId)
+                        .and(questAchievement.quest.questType.eq(QuestType.TODAY))
+                        .and(questAchievement.quest.questId.eq(quest.getQuestId())))
+                .fetchOne();
 
     }
 

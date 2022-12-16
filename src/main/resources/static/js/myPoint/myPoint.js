@@ -52,3 +52,4 @@ $todayBadgeClick.on("click", function(){
         $(".completeWrap").hide();
     }
 })
+

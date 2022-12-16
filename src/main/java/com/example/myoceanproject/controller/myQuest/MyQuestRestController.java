@@ -1,11 +1,14 @@
 package com.example.myoceanproject.controller.myQuest;
 
 import com.example.myoceanproject.domain.Criteria;
+import com.example.myoceanproject.domain.PointDTO;
 import com.example.myoceanproject.domain.QuestDTO;
+import com.example.myoceanproject.entity.Quest;
 import com.example.myoceanproject.service.PointService;
 import com.example.myoceanproject.service.UserService;
 import com.example.myoceanproject.service.quest.QuestAchievementService;
 import com.example.myoceanproject.service.quest.QuestService;
+import com.example.myoceanproject.type.PointType;
 import com.querydsl.core.Tuple;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -124,5 +127,32 @@ public class MyQuestRestController {
     public QuestDTO todayQuest() throws JSONException {
         QuestDTO questDTO = questService.showTodayQuest();
         return questDTO;
+    }
+
+    @GetMapping(value = "/todayQuestAdd")
+    public void todayQuestAdd(HttpServletRequest request) throws JSONException {
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute("userId");
+        QuestDTO questDTO = questService.showTodayQuest();
+        Quest quest = questDTO.toEntity();
+        questAchievementService.save(userId,quest);
+
+        PointDTO pointDTO = new PointDTO();
+        pointDTO.setPointAmountHistory(questDTO.getQuestPoint());
+        pointDTO.setUserId(userId);
+        pointService.questReward(pointDTO, quest);
+    }
+
+    @GetMapping(value = "/todayQuestDelete")
+    public void todayQuestDelete(HttpServletRequest request) throws JSONException {
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute("userId");
+        QuestDTO questDTO = questService.showTodayQuest();
+        Quest quest = questDTO.toEntity();
+
+        questAchievementService.deleteQuestAchievement(userId,quest);
+
+        pointService.deleteRewardPoint(userId, quest);
+
     }
 }
