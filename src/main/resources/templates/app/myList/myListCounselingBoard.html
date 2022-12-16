@@ -25,11 +25,13 @@
     <th:block th:each="counseling:${counselings}">
       <ul th:object="${counseling}">
         <li>
-          <div class="my_list">
-            <div class="badge counseling" th:text="*{communityCategory}"></div>
-            <div class="list_title" th:text="*{communityTitle}"></div>
-            <div class="list_date" th:text="*{createDate}"></div>
-          </div>
+          <a th:href="@{/community/read(communityPostId=${counseling.communityPostId})}">
+            <div class="my_list">
+              <div class="badge counseling" th:text="*{communityCategory}"></div>
+              <div class="list_title" th:text="*{communityTitle}"></div>
+              <div class="list_date" th:text="*{createDate}"></div>
+            </div>
+          </a>
         </li>
       </ul>
     </th:block>

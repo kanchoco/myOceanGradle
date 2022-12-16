@@ -3,8 +3,11 @@ package com.example.myoceanproject.repository;
 import com.example.myoceanproject.domain.*;
 import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.type.CommunityCategory;
+import com.example.myoceanproject.type.DiaryCategory;
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.NonUniqueResultException;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.sun.istack.Nullable;
 import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +18,11 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import static com.example.myoceanproject.entity.QCommunityPost.communityPost;
 import static com.example.myoceanproject.entity.QDiary.diary;
+import static com.example.myoceanproject.entity.QUser.user;
 
 @Repository
 @Slf4j
@@ -35,7 +40,8 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
                 diary.diaryContent,
                 diary.receiverUser.userId,
                 diary.createDate,
-                diary.updatedDate
+                diary.updatedDate,
+                diary.diaryCategory
         ))
                 .from(diary)
                 .where(diary.user.userId.eq(userId).and(diary.receiverUser.userId.isNull()))
@@ -59,7 +65,8 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
                 diary.diaryContent,
                 diary.receiverUser.userId,
                 diary.createDate,
-                diary.updatedDate
+                diary.updatedDate,
+                diary.diaryCategory
         ))
                 .from(diary)
                 .where(diary.user.userId.eq(userId).and(diary.receiverUser.userId.isNull()))
@@ -83,14 +90,14 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
                 diary.diaryContent,
                 diary.receiverUser.userId,
                 diary.createDate,
-                diary.updatedDate
+                diary.updatedDate,
+                diary.diaryCategory
         ))
                 .from(diary)
                 .where(diary.user.userId.eq(userId).and(diary.receiverUser.userId.isNotNull()))
                 .orderBy(diary.diaryId.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()).fetch();
-
 
         long total = jpaQueryFactory.selectFrom(diary)
                 .where(diary.user.userId.eq(userId))
@@ -107,7 +114,8 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
                 diary.diaryContent,
                 diary.receiverUser.userId,
                 diary.createDate,
-                diary.updatedDate
+                diary.updatedDate,
+                diary.diaryCategory
         ))
                 .from(diary)
                 .where(diary.user.userId.eq(userId).and(diary.receiverUser.userId.isNotNull()))
@@ -154,7 +162,8 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
                 diary.diaryContent,
                 diary.receiverUser.userId,
                 diary.createDate,
-                diary.updatedDate
+                diary.updatedDate,
+                diary.diaryCategory
         ))
                 .from(diary)
                 .where(dateFilter(dateData).and(diary.user.userId.eq(userId)))
@@ -171,13 +180,14 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
 
     @Override
     public Page<DiaryDTO> findAllByDiaryDuration(Pageable pageable, List<String> dateData, Long userId, Criteria criteria) {
-               List<DiaryDTO> diaries = jpaQueryFactory.select(new QDiaryDTO(
-                       diary.user.userId,
-                       diary.diaryTitle,
-                       diary.diaryContent,
-                       diary.receiverUser.userId,
-                       diary.createDate,
-                       diary.updatedDate
+        List<DiaryDTO> diaries = jpaQueryFactory.select(new QDiaryDTO(
+                diary.user.userId,
+                diary.diaryTitle,
+                diary.diaryContent,
+                diary.receiverUser.userId,
+                diary.createDate,
+                diary.updatedDate,
+                diary.diaryCategory
         ))
                 .from(diary)
                 .where(dateFilter(dateData).and(diary.user.userId.eq(userId)))
@@ -200,7 +210,8 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
                 diary.diaryContent,
                 diary.receiverUser.userId,
                 diary.createDate,
-                diary.updatedDate
+                diary.updatedDate,
+                diary.diaryCategory
         ))
                 .from(diary)
                 .where(diary.user.userId.eq(userId))
@@ -226,7 +237,8 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
                 diary.diaryContent,
                 diary.receiverUser.userId,
                 diary.createDate,
-                diary.updatedDate
+                diary.updatedDate,
+                diary.diaryCategory
         ))
                 .from(diary)
                 .where(diary.user.userId.eq(userId))
@@ -243,8 +255,121 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
         return new PageImpl<>(diaries, pageable, total);
     }
 
+    //  receiverUser가 null인 회원들의 수 조회
+    @Override
+    public int registerReceiverByUser(Long userId,DiaryCategory diaryCategory) {
+        List<DiaryDTO> diaries=null;
+        try {
+            diaries = jpaQueryFactory.select(new QDiaryDTO(
+                    diary.user.userId,
+                    diary.diaryTitle,
+                    diary.diaryContent,
+                    diary.receiverUser.userId,
+                    diary.createDate,
+                    diary.updatedDate,
+                    diary.diaryCategory
+            ))
+                    .from(diary)
+                    .where(diary.receiverUser.isNull().and(diary.user.userId.ne(userId)).and(diary.diaryCategory.eq(diaryCategory)))
+                    .fetch();
+        } catch (Exception e) {
+            return 0;
+        }
+        log.info("diaries:"+diaries);
+        return diaries.size();
+    }
+
+    @Override
+    public int searchMyDiaryCount(Long userId, DiaryCategory diaryCategory) {
+        List<DiaryDTO> diaries=null;
+        try {
+            diaries = jpaQueryFactory.select(new QDiaryDTO(
+                    diary.user.userId,
+                    diary.diaryTitle,
+                    diary.diaryContent,
+                    diary.receiverUser.userId,
+                    diary.createDate,
+                    diary.updatedDate,
+                    diary.diaryCategory
+            ))
+                    .from(diary)
+                    .where(diary.receiverUser.isNull().and(diary.user.userId.ne(userId)).and(diary.diaryCategory.eq(diaryCategory)))
+                    .fetch();
+        } catch (Exception e) {
+            return 0;
+        }
+        log.info("diaries:"+diaries);
+        return diaries.size();
+    }
+
+    //
+    @Override
+    public DiaryDTO findBeforeShareWriter(DiaryCategory diaryCategory) {
+        DiaryDTO nullReceiver = jpaQueryFactory.select(new QDiaryDTO(
+                diary.user.userId,
+                diary.diaryTitle,
+                diary.diaryContent,
+                diary.receiverUser.userId,
+                diary.createDate,
+                diary.updatedDate,
+                diary.diaryCategory
+        ))
+                .from(diary)
+                .where(diary.diaryCategory.eq(diaryCategory).and(diary.receiverUser.userId.isNull()))
+                .fetchOne();
+//
+        return nullReceiver;
+    }
+
+    //
+    @Override
+    public UserDTO findByUserId(Long userId) {
+        UserDTO receiveUser=jpaQueryFactory.select(new QUserDTO(
+                user.userId,
+                user.userPassword,
+                user.userNickname,
+                user.userAccountStatus,
+                user.userFileName,
+                user.userFilePath,
+                user.userFileSize,
+                user.userFileUuid,
+                user.userEmail,
+                user.userLoginMethod,
+                user.userTotalPoint,
+                user.createDate,
+                user.updatedDate,
+                user.userOauthId
+        ))
+                .from(user)
+                .where(user.userId.eq(userId))
+                .fetchOne();
+        return receiveUser;
+    }
+
+    @Override
+    public int checkSameUser(Long userId) {
+        List<DiaryDTO> diaryDTO=null;
+        try {
+            diaryDTO=jpaQueryFactory.select(new QDiaryDTO(
+                    diary.user.userId,
+                    diary.diaryTitle,
+                    diary.diaryContent,
+                    diary.receiverUser.userId,
+                    diary.createDate,
+                    diary.updatedDate,
+                    diary.diaryCategory
+            ))
+                    .from(diary)
+                    .where(diary.user.userId.eq(userId))
+                    .fetch();
+        } catch (NonUniqueResultException e) {
+            return 0;
+        }
+        return diaryDTO.size();
+    }
+
+
     private BooleanBuilder dateFilter(List<String> dateData){
-        log.info("dateData:"+dateData);
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         LocalDateTime localDateTime1=LocalDateTime.of(2022,1,1,0,0,0);
         LocalDateTime localDateTime2=LocalDateTime.of(2022,12, 31,23,59,59);
@@ -253,25 +378,16 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
             if(dateNumber.contains("년")) {
                 localDateTime1 = localDateTime1.withYear(Integer.parseInt(dateNumber.substring(0, 4)));
                 localDateTime2 = localDateTime2.withYear(Integer.parseInt(dateNumber.substring(0, 4)));
-                log.info("dateNumber:"+dateNumber);
-                log.info("localDateTime1:"+localDateTime1);
-                log.info("localDateTime2:"+localDateTime2);
 
                 booleanBuilder.and(diary.createDate.between(localDateTime1, localDateTime2));
             }else {
                 if (dateNumber.contains("월") && dateNumber.length()!=1) {
-                    log.info("dateNumber:"+dateNumber);
-                    log.info("localDateTime1:"+localDateTime1);
-                    log.info("localDateTime2:"+localDateTime2);
                     localDateTime1 = localDateTime1.withMonth(Integer.parseInt(dateNumber.substring(0, 2)));
                     localDateTime2 = localDateTime2.withMonth(Integer.parseInt(dateNumber.substring(0, 2)));
                     booleanBuilder.and(diary.createDate.between(localDateTime1, localDateTime2));
                 }
                 else{
                     if (dateNumber.contains("일") && dateNumber.length()!=1) {
-                        log.info("dateNumber:"+dateNumber);
-                        log.info("localDateTime1:"+localDateTime1);
-                        log.info("localDateTime2:"+localDateTime2);
                         localDateTime1 = localDateTime1.withDayOfMonth(Integer.parseInt(dateNumber.substring(0, 2)));
                         localDateTime2 = localDateTime2.withDayOfMonth(Integer.parseInt(dateNumber.substring(0, 2)));
                         booleanBuilder.and(diary.createDate.between(localDateTime1, localDateTime2));
