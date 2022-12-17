@@ -1,5 +1,8 @@
 package com.example.myoceanproject.service;
 
+import com.example.myoceanproject.aspect.annotation.DiaryAlarm;
+import com.example.myoceanproject.aspect.annotation.ExDiaryAlarm;
+import com.example.myoceanproject.domain.AlarmDTO;
 import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.domain.DiaryDTO;
 import com.example.myoceanproject.domain.UserDTO;
@@ -8,8 +11,11 @@ import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.repository.DiaryRepository;
 import com.example.myoceanproject.repository.DiaryRepositoryImpl;
 import com.example.myoceanproject.repository.UserRepository;
+import com.example.myoceanproject.service.alarm.AlarmService;
 import com.example.myoceanproject.type.DiaryCategory;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.parallel.Execution;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,16 +26,16 @@ import java.util.List;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class DiaryService {
 
-    @Autowired
-    private DiaryRepositoryImpl diaryRepositoryImpl;
+    private final DiaryRepositoryImpl diaryRepositoryImpl;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private DiaryRepository diaryRepository;
+    private final DiaryRepository diaryRepository;
+
+    private final AlarmService alarmService;
 
     public Page<DiaryDTO> showDiary(Pageable pageable, Long userId, Criteria criteria){
         return criteria.getKeyword() == null ? diaryRepositoryImpl.findAllByUserId(pageable, userId) : diaryRepositoryImpl.findAllByUserId(pageable, userId,criteria);
@@ -122,7 +128,7 @@ public class DiaryService {
                 beforeExDiaryWriterChangeReceiverId(userId,diary1);
 
 //              교환일기 신청을 한 회원의 정보를 저장
-                return afterExDiaryWriterRegister(userId,diaryDTO,diary1);
+                return afterExDiaryWriterRegister(userId, diary1, diaryDTO);
             }
         }
         return "communityIndex";
@@ -195,10 +201,16 @@ public class DiaryService {
 
     private void beforeExDiaryWriterChangeReceiverId(Long userId,Diary diary1){
 //      이전에 교환일기를 신청한 회원의 정보에 현재 교환일기를 요청한 회원의 번호(receverId)를 저장한다.
+        AlarmDTO alarmDTO = new AlarmDTO();
+        alarmDTO.setAlarmContent("교환일기가 도착했습니다.");
+        alarmDTO.setAlarmCategory("DIARY");
+        alarmDTO.setUserId(userId);
+        alarmService.addAlarm(alarmDTO);
+
         diary1.setReceiverUser(userRepository.findById(userId).get());
     }
 
-    private String afterExDiaryWriterRegister(Long userId,DiaryDTO diaryDTO,Diary diary1){
+    private String afterExDiaryWriterRegister(Long userId, Diary diary1, DiaryDTO diaryDTO){
 //      신청자와 수신자의 회원 정보를 조회
         User requestExDiaryUser=userRepository.findById(userId).get();
         User responseExDiaryUser=userRepository.findById(diary1.getUser().getUserId()).get();
@@ -208,6 +220,12 @@ public class DiaryService {
         diary2.setUser(requestExDiaryUser);
         diary2.setReceiverUser(responseExDiaryUser);
         diaryRepository.save(diary2);
+
+        AlarmDTO alarmDTO = new AlarmDTO();
+        alarmDTO.setAlarmContent("교환일기가 도착했습니다.");
+        alarmDTO.setAlarmCategory("DIARY");
+        alarmDTO.setUserId(responseExDiaryUser.getUserId());
+        alarmService.addAlarm(alarmDTO);
 
         return "exchangeDiary";
     }

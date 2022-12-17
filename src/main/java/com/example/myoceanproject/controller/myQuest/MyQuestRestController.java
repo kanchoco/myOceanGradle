@@ -1,5 +1,6 @@
 package com.example.myoceanproject.controller.myQuest;
 
+import com.example.myoceanproject.aspect.annotation.TodayAlarm;
 import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.domain.PointDTO;
 import com.example.myoceanproject.domain.QuestDTO;
@@ -130,6 +131,7 @@ public class MyQuestRestController {
     }
 
     @GetMapping(value = "/todayQuestAdd")
+    @TodayAlarm
     public void todayQuestAdd(HttpServletRequest request) throws JSONException {
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute("userId");

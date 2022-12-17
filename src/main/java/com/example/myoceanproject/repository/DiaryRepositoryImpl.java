@@ -410,4 +410,9 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
         return booleanBuilder;
     }
 
+    public int countDiaryByuserId(DiaryCategory diaryCategory, Long userId){
+        return Math.toIntExact(jpaQueryFactory.select(diary.diaryId.count()).from(diary)
+                .where(diary.user.userId.eq(userId).and(diary.diaryCategory.eq(diaryCategory))).fetchFirst());
+    }
+
 }

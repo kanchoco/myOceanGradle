@@ -2,7 +2,7 @@ package com.example.myoceanproject.type;
 
 public enum AlarmCategory {
     //    정지 계정, 정상 계정
-    DIARY("un"), COMMUNITY("/community/read?communityPostId="), GROUP("/host/read?groupId="), POINT("/myPoint/index"), QUEST("/myQuest/myBadge"), TODAY("/myQuest/todayQuest"), ASK("/questionBoard/myQuestion");
+    DIARY("/myList/myExchangeDiary"), COMMUNITY("/community/read?communityPostId="), GROUP("/host/read?groupId="), POINT("/myPoint/index"), QUEST("/myQuest/myBadge"), TODAY("/myQuest/todayQuest"), ASK("/questionBoard/myQuestion");
 
     private String value;
     private AlarmCategory(String value)
