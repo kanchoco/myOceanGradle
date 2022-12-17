@@ -1,4 +1,5 @@
-<html lang="en"><head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,7 +64,7 @@
         <a class="withLink__StyledLink-zuberk-0 lQqkn" href="http://localhost:15000/law/locationBasedService">
           <strong>위치기반 서비스</strong>
         </a>
-        <a class="withLink__StyledLink-zuberk-0 lQqkn" href="http://localhost:15000/manager/index">
+        <a class="withLink__StyledLink-zuberk-0 lQqkn" href="http://localhost:15000/manager/index" th:if="${session.userId}=='1'">
           <span>관리자 페이지</span>
         </a>
       </div>

@@ -96,13 +96,10 @@ public class MyListRestController {
     @PostMapping(value="/index", consumes = "application/json", produces = "text/plain; charset=utf-8")
     public String diaryWriting(@RequestBody DiaryDTO diaryDTO, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 
-        log.info("diaryDTO:"+diaryDTO);
-
-        log.info("mylistrestcontroller in");
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute("userId");
 
-        String result=diaryService.determineSaveOrExDiary(userId,diaryDTO);
-        return result;
+        return diaryService.determineSaveOrExDiary(userId,diaryDTO);
+
     }
 }

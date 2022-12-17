@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 
 public interface GroupRepository extends JpaRepository<Group, Long> {
-
+    public int countAllByUser_UserId(Long userId);
 }
