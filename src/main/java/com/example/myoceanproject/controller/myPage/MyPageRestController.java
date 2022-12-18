@@ -117,6 +117,8 @@ public class MyPageRestController {
         user.updateNicknameFile(userDTO);
         log.info(user.toString());
 
+        session.setAttribute("userNickname",userDTO.getUserNickname());
+
         return new ResponseEntity<>(new String("register success".getBytes(), "UTF-8"), HttpStatus.OK);
     }
 

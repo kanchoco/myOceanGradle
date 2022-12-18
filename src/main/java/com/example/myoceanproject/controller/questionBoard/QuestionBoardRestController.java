@@ -43,16 +43,13 @@ public class QuestionBoardRestController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<AskDTO> askDTOPage= askService.showQuestion(pageable, AskCategory.USINGINFO ,criteria,userId);
-        int endPage = (int)(Math.ceil(askDTOPage.getNumber()+1 / (double)10)) * 10;
-        if(askDTOPage.getTotalPages() < endPage){
-            endPage = askDTOPage.getTotalPages() == 0 ? 1 : askDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
+
+        log.info(askDTOPage.getTotalPages()+"end");
 
         AskDTO askDTO = new AskDTO();
 
         askDTO.setAskList(askDTOPage.getContent());
-        askDTO.setEndPage(endPage);
+        askDTO.setEndPage(askDTOPage.getTotalPages());
 
         askDTOPage.getContent().stream().map(AskDTO::toString).forEach(log::info);
 
@@ -72,16 +69,13 @@ public class QuestionBoardRestController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<AskDTO> askDTOPage= askService.showQuestion(pageable, AskCategory.ACCOUNTINFO ,criteria,userId);
-        int endPage = (int)(Math.ceil(askDTOPage.getNumber()+1 / (double)10)) * 10;
-        if(askDTOPage.getTotalPages() < endPage){
-            endPage = askDTOPage.getTotalPages() == 0 ? 1 : askDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
+
+        log.info(askDTOPage.getTotalPages()+"end");
 
         AskDTO askDTO = new AskDTO();
 
         askDTO.setAskList(askDTOPage.getContent());
-        askDTO.setEndPage(endPage);
+        askDTO.setEndPage(askDTOPage.getTotalPages());
 
         askDTOPage.getContent().stream().map(AskDTO::toString).forEach(log::info);
 
@@ -101,16 +95,13 @@ public class QuestionBoardRestController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<AskDTO> askDTOPage= askService.showQuestion(pageable, AskCategory.POINTINFO ,criteria,userId);
-        int endPage = (int)(Math.ceil(askDTOPage.getNumber()+1 / (double)10)) * 10;
-        if(askDTOPage.getTotalPages() < endPage){
-            endPage = askDTOPage.getTotalPages() == 0 ? 1 : askDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
+
+        log.info(askDTOPage.getTotalPages()+"end");
 
         AskDTO askDTO = new AskDTO();
 
         askDTO.setAskList(askDTOPage.getContent());
-        askDTO.setEndPage(endPage);
+        askDTO.setEndPage(askDTOPage.getTotalPages());
 
         askDTOPage.getContent().stream().map(AskDTO::toString).forEach(log::info);
 
@@ -130,16 +121,13 @@ public class QuestionBoardRestController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<AskDTO> askDTOPage= askService.showQuestion(pageable, AskCategory.QUESTINFO ,criteria,userId);
-        int endPage = (int)(Math.ceil(askDTOPage.getNumber()+1 / (double)10)) * 10;
-        if(askDTOPage.getTotalPages() < endPage){
-            endPage = askDTOPage.getTotalPages() == 0 ? 1 : askDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
+
+        log.info(askDTOPage.getTotalPages()+"end");
 
         AskDTO askDTO = new AskDTO();
 
         askDTO.setAskList(askDTOPage.getContent());
-        askDTO.setEndPage(endPage);
+        askDTO.setEndPage(askDTOPage.getTotalPages());
 
         askDTOPage.getContent().stream().map(AskDTO::toString).forEach(log::info);
 
@@ -157,16 +145,13 @@ public class QuestionBoardRestController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<AskDTO> askDTOPage= askService.showAllQuestion(pageable, criteria);
-        int endPage = (int)(Math.ceil(askDTOPage.getNumber()+1 / (double)10)) * 10;
-        if(askDTOPage.getTotalPages() < endPage){
-            endPage = askDTOPage.getTotalPages() == 0 ? 1 : askDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
+
+        log.info(askDTOPage.getTotalPages()+"end");
 
         AskDTO askDTO = new AskDTO();
 
         askDTO.setAskList(askDTOPage.getContent());
-        askDTO.setEndPage(endPage);
+        askDTO.setEndPage(askDTOPage.getTotalPages());
 
         askDTOPage.getContent().stream().map(AskDTO::toString).forEach(log::info);
 
@@ -184,16 +169,13 @@ public class QuestionBoardRestController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<AskDTO> askDTOPage= askService.showAllQuestion(pageable, criteria);
-        int endPage = (int)(Math.ceil(askDTOPage.getNumber()+1 / (double)10)) * 10;
-        if(askDTOPage.getTotalPages() < endPage){
-            endPage = askDTOPage.getTotalPages() == 0 ? 1 : askDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
+
+        log.info(askDTOPage.getTotalPages()+"end");
 
         AskDTO askDTO = new AskDTO();
 
         askDTO.setAskList(askDTOPage.getContent());
-        askDTO.setEndPage(endPage);
+        askDTO.setEndPage(askDTOPage.getTotalPages());
 
         askDTOPage.getContent().stream().map(AskDTO::toString).forEach(log::info);
 

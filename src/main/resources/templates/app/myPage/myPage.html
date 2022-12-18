@@ -109,7 +109,7 @@
               <label class="TextField__Label-sc-1l9o56e-0 fPrGda">닉네임</label>
               <div class="TextField__InputWrapper-sc-1l9o56e-1 gldLBs">
                 <div th:if="${session.userId}">
-                  <input type="text" name="nickname" class="TextField__Input-sc-1l9o56e-2 gGztpV" th:value="${session.userNickname}">
+                  <input type="text" name="nickname" class="TextField__Input-sc-1l9o56e-2 gGztpV" th:value="${userDTO.userNickname}">
                 </div>
                 <div th:unless="${session.userId}">
                   <input type="text" name="nickname" class="TextField__Input-sc-1l9o56e-2 gGztpV" th:value="">

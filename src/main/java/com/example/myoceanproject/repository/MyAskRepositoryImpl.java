@@ -202,7 +202,7 @@ public class MyAskRepositoryImpl implements MyAskCustomRepository{
                 .limit(pageable.getPageSize()).fetch();
 
         long total = jpaQueryFactory.selectFrom(ask)
-                .where(ask.askCategory.eq(askCategory))
+                .where(ask.askCategory.eq(askCategory).and(ask.user.userId.eq(1L)))
                 .fetch().size();
 
         return new PageImpl<>(notices, pageable, total);
@@ -229,7 +229,7 @@ public class MyAskRepositoryImpl implements MyAskCustomRepository{
                 .limit(pageable.getPageSize()).fetch();
 
         long total = jpaQueryFactory.selectFrom(ask)
-                .where(ask.askCategory.eq(askCategory))
+                .where(ask.askCategory.eq(askCategory).and(ask.user.userId.eq(1L)))
                 .fetch().size();
 
         return new PageImpl<>(notices, pageable, total);

@@ -35,11 +35,17 @@ public class PointTest {
 
     @Test
     public void savePointTest(){
-        Optional<User> user = userRepository.findById(9L);
+        Optional<User> user = userRepository.findById(2L);
         PointDTO pointDTO = new PointDTO();
 
+        pointDTO.setPointType("환불대기");
+        pointDTO.setPointContent("MyOcean 포인트 충전");
+        pointDTO.setPointCheckType("처음");
+        pointDTO.setPointImpUid("randomuid");
+        pointDTO.setPointMerchantUid("merchantuid");
+        pointDTO.setGroupName("포인트 그룹 이름");
 //      pointDTO에 필요한 값 저장
-        pointDTO.setPointAmountHistory(200);
+        pointDTO.setPointAmountHistory(1234);
 
 //      pointDTO에 저장한 값들을 entity로 변환
         Point point1 = pointDTO.toEntity();

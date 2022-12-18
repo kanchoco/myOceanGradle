@@ -140,7 +140,11 @@ public class GroupDTO {
             chattingDTO.setChattingContent(chattingDTO.getSenderUserNickName() + "님이 입장하셨습니다.");
             sessions.put(chattingDTO.getSenderUserId(), session);
         }else {
-            chattingDTO.setChattingContent(chattingDTO.getSenderUserNickName() + " : " + chattingDTO.getChattingContent());
+            chattingDTO.setChattingContent(
+                    chattingDTO.getSenderUserFilePath()+":"
+                    +chattingDTO.getSenderUserFileUuid()+":"
+                    +chattingDTO.getSenderUserFileName()+":"
+                    +chattingDTO.getSenderUserNickName() + ":" + chattingDTO.getChattingContent());
         }
         log.info("웹소켓 세션의 그룹 아이디 : "+session.getAttributes().get("groupId").toString());
         log.info("chatttingDTO의 그룹 아이디 : "+chattingDTO.getGroupId().toString());
