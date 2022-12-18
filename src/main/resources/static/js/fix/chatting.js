@@ -469,20 +469,30 @@ function onMessage(e){
     let time = dateTime.split(":")
     console.log(realDatas[0])
     console.log(realDatas[1])
+    console.log(realDatas[2])
+    console.log(realDatas[3])
+    console.log(realDatas[4])
     console.log(time[0])
     console.log(time[1])
 
-    chattingRoom.innerHTML =chattingRoom.innerHTML
-        + "<div class=\"opponent\">"
+    let userFilePath = realDatas[0];
+    let userFileUuid = realDatas[1];
+    let userFileName = realDatas[2];
+    let imageSrc = "/mypage/display?fileName=" + userFilePath + "/" + userFileUuid + "_" + userFileName;
+
+
+    if (!userFileUuid) {
+        chattingRoom.innerHTML =chattingRoom.innerHTML
+            + "<div class=\"opponent\">"
         + "<div class=\"thumb\">"
         + "<a href=\"/people/ROSA\" target=\"_blank\">"
-        + "<img src=\"/imgin/chat/logo.png\" alt=\"chat_image\"></a>"
+        + `<img src="/imgin/main/logo.png" alt="user thumbnail" class="Profile__Thumbnail-sc-1rgtq5h-8 eBTIQt">`
         + "</div>"
         + "<div class=\"userIdChatTxt\">"
-        + "<span class=\"userId\">" + realDatas[0] + "</span>"
+        + "<span class=\"userId\">" + realDatas[3] + "</span>"
         + "<div class=\"chatTxt\">"
         + "<span class=\"chatTxtContents\">"
-        + "<a style=\"color: rgb(51, 51, 51);\">" + realDatas[1] + "</a>"
+        + "<a style=\"color: rgb(51, 51, 51);\">" + realDatas[4] + "</a>"
         + "</span>"
         + "<div class=\"timeWrap\">"
         + "<span class=\"time\">" + time[0]+ ":" + time[1] + "</span>"
@@ -490,6 +500,27 @@ function onMessage(e){
         + "</div>"
         + "</div>"
         + "</div>"
+    } else {
+        chattingRoom.innerHTML =chattingRoom.innerHTML
+            + "<div class=\"opponent\">"
+        + "<div class=\"thumb\">"
+        + "<a href=\"/people/ROSA\" target=\"_blank\">"
+        +`<img src="` + imageSrc + `"alt="user thumbnail" class="Profile__Thumbnail-sc-1rgtq5h-8 eBTIQt">`
+        + "</div>"
+        + "<div class=\"userIdChatTxt\">"
+        + "<span class=\"userId\">" + realDatas[3] + "</span>"
+        + "<div class=\"chatTxt\">"
+        + "<span class=\"chatTxtContents\">"
+        + "<a style=\"color: rgb(51, 51, 51);\">" + realDatas[4] + "</a>"
+        + "</span>"
+        + "<div class=\"timeWrap\">"
+        + "<span class=\"time\">" + time[0]+ ":" + time[1] + "</span>"
+        + "</div>"
+        + "</div>"
+        + "</div>"
+        + "</div>"
+    }
+
 }
 function onClose(){
     disconnect();
