@@ -2,9 +2,12 @@ package com.example.myoceanproject.service;
 
 import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.domain.UserDTO;
+import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.repository.UserRepository;
 import com.example.myoceanproject.repository.UserRepositoryImpl;
 import com.example.myoceanproject.type.UserAccountStatus;
+import com.example.myoceanproject.type.UserLoginMethod;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,13 +19,12 @@ import java.util.List;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class UserService {
 
-    @Autowired
-    private UserRepositoryImpl userRepositoryImpl;
+    private final UserRepositoryImpl userRepositoryImpl;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public Page<UserDTO> showAllUser(Pageable pageable, Criteria criteria) {
         return criteria.getKeyword().equals("null") ? userRepositoryImpl.findAll(pageable) : userRepositoryImpl.findAll(pageable, criteria);
@@ -37,6 +39,12 @@ public class UserService {
     public UserDTO findUser(Long userId) {
         UserDTO userDTO = userRepositoryImpl.findByUserId(userId);
         return userDTO;
+    }
+
+    public void saveUser(UserDTO userDTO){
+        User user=userDTO.toEntity();
+        user.setUserLoginMethod(UserLoginMethod.GENERAL);
+        userRepository.save(user);
     }
 
 }

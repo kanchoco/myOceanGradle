@@ -26,13 +26,13 @@ public class CommunityController {
     private final CommunityReplyRepositoryImpl communityReplyRepositoryImpl;
     private final CommunityLikeRepositoryImpl communityLikeRepositoryImpl;
 
-    // 커뮤니티 페이지
+    // 커뮤니티 메인 페이지로 이동
     @GetMapping("/index")
     public String community(){
         return "app/community/community";
     }
 
-    // 커뮤니티 상세 페이지
+    // 커뮤니티 상세 페이지로 이동
     @GetMapping("/read")
     public String communityDetail(Long communityPostId, Model model, HttpServletRequest request){
         CommunityPostDTO communityPostDTO = new CommunityPostDTO();

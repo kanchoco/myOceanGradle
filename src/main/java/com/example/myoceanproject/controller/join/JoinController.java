@@ -5,11 +5,13 @@ import com.example.myoceanproject.domain.QUserDTO;
 import com.example.myoceanproject.domain.UserDTO;
 import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.repository.UserRepository;
+import com.example.myoceanproject.service.UserService;
 import com.example.myoceanproject.service.oAuth.GoogleJoinService;
 import com.example.myoceanproject.service.oAuth.KakaoJoinService;
 import com.example.myoceanproject.type.UserAccountStatus;
 import com.example.myoceanproject.type.UserLoginMethod;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,20 +31,15 @@ import static com.example.myoceanproject.entity.QUser.user;
 @Controller
 @Slf4j
 @RequestMapping("/join/*")
+@RequiredArgsConstructor
 public class JoinController {
 
 
-    @Autowired
-    private KakaoJoinService kakaoJoinService;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private JPAQueryFactory jpaQueryFactory;
-
-    @Autowired
-    private GoogleJoinService googleJoinService;
+    private final KakaoJoinService kakaoJoinService;
+    private final UserRepository userRepository;
+    private final UserService userService;
+    private final JPAQueryFactory jpaQueryFactory;
+    private final GoogleJoinService googleJoinService;
 
     // 첫번째 회원가입 페이지
     @GetMapping("/joinOne")
@@ -115,14 +112,13 @@ public class JoinController {
 
     // 회원가입 버튼 클릭후 메인 홈페이지 이동
     @PostMapping("/joinOk")
-    @JoinAlarm
     public String joinOk(UserDTO userDTO){
         userDTO.setUserPassword(encryption(userDTO.getUserPassword()));
         userDTO.setUserTotalPoint(5000);
         userDTO.setUserAccountStatus("정상");
-        User user=userDTO.toEntity();
-        user.setUserLoginMethod(UserLoginMethod.GENERAL);
-        userRepository.save(user);
+
+        userService.saveUser(userDTO);
+
         return "redirect:/main/index?joingeneral=1";
     }
 

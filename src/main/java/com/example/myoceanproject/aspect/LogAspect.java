@@ -31,6 +31,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.hibernate.mapping.Join;
 import org.mockito.internal.matchers.Null;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
@@ -426,28 +427,33 @@ public class LogAspect {
     }
 
     //    회원가입 알림, 회원가입 축하 리워드
-    @After("@annotation(com.example.myoceanproject.aspect.annotation.JoinAlarm)")
+    @AfterReturning("@annotation(com.example.myoceanproject.aspect.annotation.JoinAlarm)")
     public void joinAlarm(JoinPoint joinPoint) {
-        UserDTO userDTO = (UserDTO) joinPoint.getArgs()[0];
+        HttpServletRequest request = (HttpServletRequest) joinPoint.getArgs()[1];
+        Long userId = (Long) request.getSession().getAttribute("userId");
+        User user = userRepository.findById(userId).get();
 
         AlarmDTO alarmDTO = new AlarmDTO();
-        alarmDTO.setAlarmContent("🎉✨" + userDTO.getUserNickname() + "님 회원가입을 환영합니다✨🎉");
-        alarmDTO.setUserId(userDTO.getUserId());
+        alarmDTO.setAlarmCategory("LOGIN");
+        alarmDTO.setAlarmContent("🎉✨ 회원가입을 환영합니다 ✨🎉");
+        alarmDTO.setUserId(userId);
         alarmService.addAlarm(alarmDTO);
 
-        Quest quest = questRepository.findById(10001L).get();
-        achievementService.save(userDTO.getUserId(), quest);
+        if(achievementRepositoryImpl.checkDuplicatedById(userId, 10001L)){
+            Quest quest = questRepository.findById(10001L).get();
+            achievementService.save(userId, quest);
 
-        PointDTO pointDTO = new PointDTO();
-        pointDTO.setPointAmountHistory(quest.getQuestPoint());
-        pointDTO.setUserId(userDTO.getUserId());
+            PointDTO pointDTO = new PointDTO();
+            pointDTO.setPointAmountHistory(quest.getQuestPoint());
+            pointDTO.setUserId(userId);
 
-        pointService.questReward(pointDTO, quest);
+            pointService.questReward(pointDTO, quest);
 
-        AlarmDTO questAlarm = new AlarmDTO();
+            AlarmDTO questAlarm = new AlarmDTO();
 
-        questAlarm.setUserId(userDTO.getUserId());
-        alarmService.questAlarm(questAlarm, quest);
+            questAlarm.setUserId(userId);
+            alarmService.questAlarm(questAlarm, quest);
+        }
     }
 
     @After("@annotation(com.example.myoceanproject.aspect.annotation.TodoAlarm)")
@@ -513,8 +519,9 @@ public class LogAspect {
             }
         }
     }
+
     @AfterReturning("@annotation(com.example.myoceanproject.aspect.annotation.TodayAlarm)")
-    public void todayQuest (JoinPoint joinPoint){
+    public void todayQuest(JoinPoint joinPoint) {
         HttpServletRequest request = (HttpServletRequest) joinPoint.getArgs()[0];
         Long userId = (Long) request.getSession().getAttribute("userId");
         QuestDTO questDTO = questService.showTodayQuest();
@@ -526,24 +533,23 @@ public class LogAspect {
     }
 
     @After("@annotation(com.example.myoceanproject.aspect.annotation.ExDiaryAlarm)")
-    public void exchangeDiary(JoinPoint joinPoint){
+    public void exchangeDiary(JoinPoint joinPoint) {
         Long userId = (Long) joinPoint.getArgs()[0];
         Diary diary = (Diary) joinPoint.getArgs()[1];
 
-            log.info("------------------------------diary-----------------------");
-        try{
+        log.info("------------------------------diary-----------------------");
+        try {
             DiaryDTO diaryDTO = (DiaryDTO) joinPoint.getArgs()[2];
             log.info("--------------------------------------------------------");
             log.info("afterEx");
             log.info("--------------------------------------------------------");
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             log.info("--------------------------------------------------------");
             log.info("beforeExDiary");
             log.info("--------------------------------------------------------");
         }
 
     }
-
 
 
 }

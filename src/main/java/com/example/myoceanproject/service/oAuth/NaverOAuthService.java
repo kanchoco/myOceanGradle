@@ -133,7 +133,7 @@ public class NaverOAuthService {
                 userDTO.setUserNickname(naverName);
                 userDTO.setUserEmail(email);
                 userDTO.setUserAccountStatus("정상");
-                userDTO.setUserTotalPoint(5000);
+                userDTO.setUserTotalPoint(0);
                 userDTO.setUserFilePath(profileImg);
                 userDTO.setUserOauthId(naverId);
                 User user=userDTO.toEntity();
