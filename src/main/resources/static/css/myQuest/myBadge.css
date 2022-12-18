@@ -516,6 +516,8 @@ svg:not(:root) {
 .hkNEqU {
     width: 141px;
     height: 203px;
+    align-items: center;
+    display: flex;
 }
 
 .jZwSMv {
