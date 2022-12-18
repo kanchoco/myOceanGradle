@@ -40,16 +40,13 @@ public class ManageReplyController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<CommunityReplyDTO> replyDTOPage= replyService.showReply(pageable, criteria);
-        int endPage = (int)(Math.ceil(replyDTOPage.getNumber()+1 / (double)10)) * 10;
-        if(replyDTOPage.getTotalPages() < endPage){
-            endPage = replyDTOPage.getTotalPages() == 0 ? 1 : replyDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
+
+        log.info(replyDTOPage.getTotalPages() + "end");
 
         CommunityReplyDTO replyDTO = new CommunityReplyDTO();
 
         replyDTO.setReplyList(replyDTOPage.getContent());
-        replyDTO.setEndPage(endPage);
+        replyDTO.setEndPage(replyDTOPage.getTotalPages());
 
         replyDTOPage.getContent().stream().map(CommunityReplyDTO::toString).forEach(log::info);
 
@@ -63,23 +60,17 @@ public class ManageReplyController {
         criteria.setPage(page);
         criteria.setKeyword(decodeKeyword);
 
-        log.info("-----------------------------------------------");
-        log.info(keyword);
-        log.info("-----------------------------------------------");
         //        0부터 시작,
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<CommunityReplyDTO> replyDTOPage= replyService.showReplyByCounseling(pageable, criteria);
-        int endPage = (int)(Math.ceil(replyDTOPage.getNumber()+1 / (double)10)) * 10;
-        if(replyDTOPage.getTotalPages() < endPage){
-            endPage = replyDTOPage.getTotalPages() == 0 ? 1 : replyDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
+
+        log.info(replyDTOPage.getTotalPages() + "end");
 
         CommunityReplyDTO replyDTO = new CommunityReplyDTO();
 
         replyDTO.setReplyList(replyDTOPage.getContent());
-        replyDTO.setEndPage(endPage);
+        replyDTO.setEndPage(replyDTOPage.getTotalPages());
 
         replyDTOPage.getContent().stream().map(CommunityReplyDTO::toString).forEach(log::info);
 

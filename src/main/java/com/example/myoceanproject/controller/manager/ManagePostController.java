@@ -42,16 +42,13 @@ public class ManagePostController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<CommunityPostDTO> postDTOPage= postService.showPost(pageable, criteria);
-        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
-        if(postDTOPage.getTotalPages() < endPage){
-            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
+
+        log.info(postDTOPage.getTotalPages() + "end");
 
         CommunityPostDTO postDTO = new CommunityPostDTO();
 
         postDTO.setPostList(postDTOPage.getContent());
-        postDTO.setEndPage(endPage);
+        postDTO.setEndPage(postDTOPage.getTotalPages());
 
         postDTOPage.getContent().stream().map(CommunityPostDTO::toString).forEach(log::info);
 
@@ -68,16 +65,13 @@ public class ManagePostController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<CommunityPostDTO> postDTOPage= postService.showCounseling(pageable, CommunityCategory.COUNSELING, criteria);
-        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
-        if(postDTOPage.getTotalPages() < endPage){
-            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
+
+        log.info(postDTOPage.getTotalPages() + "end");
 
         CommunityPostDTO postDTO = new CommunityPostDTO();
 
         postDTO.setPostList(postDTOPage.getContent());
-        postDTO.setEndPage(endPage);
+        postDTO.setEndPage(postDTOPage.getTotalPages());
 
         postDTOPage.getContent().stream().map(CommunityPostDTO::toString).forEach(log::info);
 

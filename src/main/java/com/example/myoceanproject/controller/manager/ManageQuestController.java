@@ -102,16 +102,13 @@ public class ManageQuestController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<QuestDTO> questDTOPage= questService.showPost(pageable, criteria);
-        int endPage = (int)(Math.ceil(questDTOPage.getNumber()+1 / (double)10)) * 10;
-        if(questDTOPage.getTotalPages() < endPage){
-            endPage = questDTOPage.getTotalPages() == 0 ? 1 : questDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
+
+        log.info(questDTOPage.getTotalPages() + "end");
 
         QuestDTO questDTO = new QuestDTO();
 
         questDTO.setQuestList(questDTOPage.getContent());
-        questDTO.setEndPage(endPage);
+        questDTO.setEndPage(questDTOPage.getTotalPages());
 
         questDTOPage.getContent().stream().map(QuestDTO::toString).forEach(log::info);
 
