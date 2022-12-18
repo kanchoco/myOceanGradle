@@ -44,7 +44,6 @@ public class ChattingService {
     @Transactional(rollbackFor = Exception.class)
     public List<ChattingDTO> showChatting(Long userId, Long groupId){
         Long groupMemberId = chattingRepositoryImpl.findGroupMemberIdByUserIdAndGroupId(userId, groupId);
-        log.info(groupMemberId.toString());
 //        그룹멤버 아이디를 받아와서
 //        해당 그룹멤버 아이디가 receiver인 채팅 status의 상태를 읽음으로 바꿔준다
 
@@ -52,9 +51,6 @@ public class ChattingService {
         List<ChattingDTO> chattingDTOList = chattingRepositoryImpl.findChattingByUserId(groupId);
         List<ChattingStatus> chattingStatusList = chattingStatusRepositoryImpl.findByGroupMemberId(groupMemberId);
         for (ChattingStatus chattingStatus:chattingStatusList) {
-            log.info("==================================chattingStatus===============================================");
-            log.info("==================================chattingStatus===============================================");
-            log.info("==================================chattingStatus===============================================");
             log.info(chattingStatus.toString());
            chattingStatus.update(ReadStatus.READ);
         }
