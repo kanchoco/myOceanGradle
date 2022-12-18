@@ -325,7 +325,7 @@
             <!--관리자일 경우 모임 승인, 거절 버튼이 나오게 한다.-->
             <!--이미 처리된 -->
             <div th:if="${session.userId}">
-                <div th:if="${session.userId == 222}">
+                <div th:if="${session.userId == 1}">
                     <div th:if="${#lists.size(groupScheduleDTO)>0}" class="Wrapper__FloatingActionBarWrapper-aopuoy-0 ifNxJR">
                         <!--기간이 이미 지났다면-->
                         <div th:if="${groupScheduleDTO[0].groupScheduleDate < localDateTime}" class="FloatingActionBar__FloatingButtonWrapper-a3gyda-0 dIeHJQ">
@@ -350,7 +350,7 @@
                         </div>
                     </div>
                 </div>
-                <div th:unless="${session.userId == 222}">
+                <div th:unless="${session.userId == 1}">
                     <!--자신이 작성한 글이면 신청/마감 나타나지 않도록 하기-->
                     <div th:if="${groupDTO.userId != session.userId}">
                         <!--모임 신청 기간 내면 활성화, 아니면 마감 이미지로-->

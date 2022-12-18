@@ -147,16 +147,19 @@
         <div class="Dialog__Container-sc-16kwpqb-0 htiyxZ">
             <div class="BodyScrollLockContainer__Container-sc-19uqzq5-0 idpZym Dialog__StyledBodyScrollLockContainer-sc-16kwpqb-1 dCXZYJ">
                 <div class="Dialog__Content-sc-16kwpqb-5 ibqqJA">
-                    <div class="DialogDelete__Content-p8gubf-0 jZuxbV"><p>해당 게시글을</p>
-                        <p>신고 하시겠습니까?</p></div>
+                    <div class="DialogDelete__Content-p8gubf-0 jZuxbV">
+                        <p>게시글 신고를 원하신다면</p>
+                        <p>나의 바다 대표 문의 이메일로 신고 부탁드립니다.</p>
+                        <p style="color:red;">※ 대표 이메일: myocean@myocean.com</p>
+                    </div>
                 </div>
                 <div class="Dialog__ButtonGroup-sc-16kwpqb-6 bZEORB">
                     <button width="100%" height="auto" color="black" class="Button-bqxlp0-0 Dialog__StyledButton-sc-16kwpqb-7 kXWQPc">
-                        취소
+                        확인
                     </button>
-                    <button width="100%" height="auto" color="#ff6666" font-weight="bold" class="Button-bqxlp0-0 Dialog__StyledButton-sc-16kwpqb-7 bQKwTd">
-                        신고
-                    </button>
+<!--                    <button width="100%" height="auto" color="#ff6666" font-weight="bold" class="Button-bqxlp0-0 Dialog__StyledButton-sc-16kwpqb-7 bQKwTd">-->
+<!--                        신고-->
+<!--                    </button>-->
                 </div>
             </div>
         </div>
@@ -173,7 +176,6 @@
     page = 1;
 
     $(document).ready(function(){
-            console.log("들어옴");
             checkUser();
     })
 
@@ -184,6 +186,7 @@
         else{
             show();
         }
+        checkMedia();
     }
 
 
@@ -207,7 +210,7 @@
         let text ="";
         communityPostDTO.forEach(post => {
             let imageSrc = "/community/display?fileName=" + post.communityFilePath + "/" + post.communityFileUuid + "_" + post.communityFileName;
-            let userImageSrc = "/community/display?fileName=" + post.userFilePath + "/" + post.userFileUuid + "_" + post.userFileName;
+            let userImageSrc = "/mypage/display?fileName=" + post.userFilePath + "/" + post.userFileUuid + "_" + post.userFileName;
 
             // 작성자 프로필 사진, 닉네임
             text +=`<div><div class="Profile__Wrapper-sc-14xkqhl-0 ePpOcl CardFeed__StyledProfile-sc-1hnsnr8-0 kHXXhk">`;
@@ -302,10 +305,13 @@
             text+=post.communityReplyCount;
             text+=`</span></img></a></div></div>`;
         })
+
         if(showCheck){
             $(".view__FeedListWrapper-sc-1fff32g-0.ciajVR").append(text);
+            $(".view__FeedListWrapper-sc-1fff32g-0.media").append(text);
         } else{
             $(".view__FeedListWrapper-sc-1fff32g-0.ciajVR").html(text);
+            $(".view__FeedListWrapper-sc-1fff32g-0.media").html(text);
         }
     }
 </script>

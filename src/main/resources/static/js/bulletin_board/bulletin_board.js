@@ -19,6 +19,7 @@ $(window).resize(function(){
 }).resize();
 
 function checkMedia(){
+    console.log("asdf");
     if(window.innerWidth<769){
         $(".ProductList__ProductWrapper-sc-1lo0q2y-0").attr("class", "ProductList__ProductWrapper-sc-1lo0q2y-0 media");
         $(".fFPQpk").css("margin", "20px 10px 30px");
@@ -46,6 +47,8 @@ let groupService = (function(){
                 if(callback){
                     callback(groupDTO);
                 }
+
+                console.log("asdf2")
             },
             error: function (xhr, status, err){
                 if(error){

@@ -119,7 +119,7 @@
                                                                 <img th:src="@{/imgin/user.png}" class="Image__StyledImage-v97gyx-1 VUNpu" width="56" height="56">
                                                             </div>
                                                             <div th:unless="${communityPostDTO.communityCategory.toString().equals('고민')}" class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
-                                                                <img th:if="*{userFileName}" th:src="@{/community/display(fileName=${communityPostDTO.userFilePath} + '/' + ${communityPostDTO.userFileUuid} + '_' + ${communityPostDTO.userFileName})}" class="Image__StyledImage-v97gyx-1 VUNpu" width="56" height="56">
+                                                                <img th:if="*{userFileName}" th:src="@{/mypage/display(fileName=${communityPostDTO.userFilePath} + '/' + ${communityPostDTO.userFileUuid} + '_' + ${communityPostDTO.userFileName})}" class="Image__StyledImage-v97gyx-1 VUNpu" width="56" height="56">
                                                                 <img th:unless="*{userFileName}" th:src="@{/imgin/user.png}" class="Image__StyledImage-v97gyx-1 VUNpu" width="56" height="56">
                                                             </div>
                                                         </div>

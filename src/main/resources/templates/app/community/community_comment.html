@@ -73,7 +73,7 @@
                                     </div>
                                     <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;" th:unless="${communityPostDTO.communityCategory.toString().equals('고민')}">
                                         <!--댓글 작성자 이미지-->
-                                        <img th:if="*{userFileName}" th:src="@{/community/display(fileName=${communityPostDTO.userFilePath} + '/' + ${communityPostDTO.userFileUuid} + '_' + ${communityPostDTO.userFileName})}" alt="profile-image" class="Image__StyledImage-v97gyx-1 VUNpu" width="45" height="45">
+                                        <img th:if="*{userFileName}" th:src="@{/mypage/display(fileName=${communityPostDTO.userFilePath} + '/' + ${communityPostDTO.userFileUuid} + '_' + ${communityPostDTO.userFileName})}" alt="profile-image" class="Image__StyledImage-v97gyx-1 VUNpu" width="45" height="45">
                                         <img th:unless="*{userFileName}" th:src="@{/imgin/user.png}" alt="profile-image" class="Image__StyledImage-v97gyx-1 VUNpu" width="45" height="45">
                                     </div>
                                 </div>
@@ -110,7 +110,7 @@
     function getReplyList(communityReplyDTO){
         let text ="";
         communityReplyDTO.forEach(reply => {
-            let userImageSrc = "/community/display?fileName=" + reply.userFilePath + "/" + reply.userFileUuid + "_" + reply.userFileName;
+            let userImageSrc = "/mypage/display?fileName=" + reply.userFilePath + "/" + reply.userFileUuid + "_" + reply.userFileName;
             text +=`<div><div class="FeedReplyCard__Wrapper-sc-1wg24nj-0 kDLQhH"><div class="FeedReplyCard__Profile-sc-1wg24nj-1 fcEtFP">`;
             text +=`<div class="Image__Wrapper-v97gyx-0 gDuKGF">`;
             text +=`<div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">`;
