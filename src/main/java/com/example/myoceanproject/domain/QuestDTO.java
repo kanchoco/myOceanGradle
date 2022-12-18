@@ -33,6 +33,7 @@ public class QuestDTO {
     private Long questFileSize;
 
     private List<QuestDTO> questList;
+    private List<QuestDTO> allQuestList;
     private int endPage;
 
     private String createDate;

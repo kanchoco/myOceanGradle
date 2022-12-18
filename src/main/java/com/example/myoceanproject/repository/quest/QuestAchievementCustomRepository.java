@@ -17,4 +17,6 @@ public interface QuestAchievementCustomRepository {
     int findMonthlyAchievementCount(Long userId, int month);
 
     QuestAchievement findQuestAchievementByUserIdAndQuest(Long userId, Quest quest);
+
+    List<QuestDTO> findBasicQuestAchievementByUserId(Long userId);
 }

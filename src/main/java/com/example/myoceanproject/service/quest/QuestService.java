@@ -41,4 +41,8 @@ public class QuestService {
         return questRepositoryImpl.findTodayQuest();
     }
 
+    public List<QuestDTO> showAllQuest(){
+        return questRepositoryImpl.findAllQuest();
+    }
+
 }

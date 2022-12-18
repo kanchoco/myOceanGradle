@@ -44,7 +44,7 @@ public class QuestAchievementRepositoryImpl implements QuestAchievementCustomRep
                 )).from(quest)
                 .join(questAchievement)
                 .on(questAchievement.quest.questId.eq(quest.questId))
-                .where(questAchievement.user.userId.eq(userId).and(questAchievement.quest.questType.eq(QuestType.BASIC)))
+                .where(questAchievement.user.userId.eq(userId))
                 .orderBy(questAchievement.quest.questId.asc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()).fetch();
@@ -87,6 +87,31 @@ public class QuestAchievementRepositoryImpl implements QuestAchievementCustomRep
                         .and(questAchievement.quest.questId.eq(quest.getQuestId())))
                 .fetchOne();
 
+    }
+
+    @Override
+//    유저 아이디를 이용해 해당 유저가 달성한 퀘스트를 dto로 받아온다.
+    public List<QuestDTO> findBasicQuestAchievementByUserId(Long userId){
+        List<QuestDTO> questDTOList = queryFactory.select(new QQuestDTO(
+                        quest.questId,
+                        quest.questCategory,
+                        quest.questName,
+                        quest.questContent,
+                        quest.questType,
+                        quest.questDeadLine,
+                        quest.questPoint,
+                        quest.questFilePath,
+                        quest.questFileName,
+                        quest.questFileUuid,
+                        quest.questFileSize,
+                        quest.createDate
+                )).from(quest)
+                .join(questAchievement)
+                .on(questAchievement.quest.questId.eq(quest.questId))
+                .where(questAchievement.user.userId.eq(userId).and(questAchievement.quest.questType.eq(QuestType.BASIC)))
+                .orderBy(questAchievement.quest.questId.asc())
+                .fetch();
+        return questDTOList;
     }
 
 

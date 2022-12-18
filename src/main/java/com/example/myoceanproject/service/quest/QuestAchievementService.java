@@ -38,7 +38,10 @@ public class QuestAchievementService {
     //    유저 아이디를 넘겨주면 해당 유저가 달성한 퀘스트를 dto로 반환한다.
     public Page<QuestDTO> showMyAchievement(Long userId, Pageable pageable){
         return questAchievementRepositoryImpl.findQuestAchievementByUserId(userId, pageable);
+    }
 
+    public List<QuestDTO> showMyBasicAchievement(Long userId){
+        return questAchievementRepositoryImpl.findBasicQuestAchievementByUserId(userId);
     }
 
     public int showMonthlyAchievementCount(Long userId, int month){
@@ -53,4 +56,6 @@ public class QuestAchievementService {
         QuestAchievement achievement = questAchievementRepositoryImpl.findQuestAchievementByUserIdAndQuest(userId, quest);
         questAchievementRepository.deleteById(achievement.getQuestAchievementId());
     }
+
+
 }
