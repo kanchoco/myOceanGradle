@@ -40,7 +40,7 @@ public class ManageAskController {
         //        0부터 시작,
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
-        Page<AskDTO> askDTOPage = criteria.getStatus() == null? askService.showAsk(pageable, criteria) : askService.showAskByStatus(pageable, criteria);
+        Page<AskDTO> askDTOPage = askService.showAsk(pageable, criteria);
 
         log.info(askDTOPage.getTotalPages() + "end");
 

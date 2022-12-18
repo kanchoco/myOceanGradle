@@ -137,14 +137,14 @@
     const $pages = $('a.changePage');
 
     //ajax 호출
-    function showAll(){
+    function show(){
         askService.getStatusList({
             page : page,
             keyword : keyword,
             status : status
         }, getList);
     }
-    function show(){
+    function showAll(){
         askService.getList({
             page : page,
             keyword : keyword
@@ -166,7 +166,10 @@
             text += `<td class="info_td">`+ ask.userNickname +`</td>`;
             text += `<td class="info_td">`+ ask.createDate +`</td>`;
             text += `<td class="info_td">`+ ask.updateDate +`</td>`;
-            text += `<td class="info_td">`+ ask.askStatus +`</td>`;
+            if(ask.askStatus =='답변완료'){
+                text += `<td class="info_td active">`+ ask.askStatus +`</td>`;
+            }
+                text += `<td class="info_td banned">`+ ask.askStatus +`</td>`;
             text += `<td class="info_td">`;
             text += `<button class="more" onclick="location.href='/questionBoard/managerAnswer?askId=${ask.askId}'"><img src="/imgin/more.png" width="15px"></button>`;
             text += `</td>`;
