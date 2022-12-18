@@ -26,11 +26,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import java.util.List;
 import java.util.Optional;
 
 import static com.example.myoceanproject.entity.QAsk.ask;
-import static com.example.myoceanproject.entity.QUser.user;
 
 @Slf4j
 @Controller
@@ -49,166 +47,25 @@ public class QusetionBoardController {
     @Autowired
     private UserRepository userRepository;
 
-    // 자주 묻는 질문 페이지
+    // 자주 묻는 질문 메인 페이지
     @GetMapping("/index")
-    public String questionBoard(Model model, Criteria criteria, HttpServletRequest request){
+    public String questionBoard(){ return "app/questionBoard/questionBoard"; }
 
-        HttpSession session=request.getSession();
-
-        log.info("index in");
-        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
-
-        Page<AskDTO> askDTOPage= askService.showAllQuestion(pageable, criteria,(Long)session.getAttribute("userId"));
-
-        int endPage = (int)(Math.ceil((askDTOPage.getNumber()+1) / (double)10)) * 10;
-        if(askDTOPage.getTotalPages() < endPage){
-            endPage = askDTOPage.getTotalPages() == 0 ? 1 : askDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
-
-        for(AskDTO pages:askDTOPage){
-            log.info("datas:"+pages);
-        }
-//        for(int i=0;i<10;i++){
-//            log.info("askdata:"+askDTOPage.getContent());
-//            log.info("askStatus:"+askDTOPage.getContent().get(i).getAskStatus());
-//            log.info("criteria:"+criteria);
-//            log.info("pageable:"+pageable);
-//        }
-        log.info("pagenation:"+model.getAttribute("pagination"));
-        log.info("criteria:"+criteria.getPage());
-
-        model.addAttribute("Questions", askDTOPage.getContent());
-        model.addAttribute("pagination", askDTOPage);
-        model.addAttribute("pageable", pageable);
-        model.addAttribute("criteria", criteria);
-        model.addAttribute("endPage", endPage);
-
-        return "app/questionBoard/questionBoard";
-    }
-
+    //  이용 안내
     @GetMapping("/questionUsingInfo")
-    public String questionUsingInfo(Model model, Criteria criteria, HttpServletRequest request){
-        HttpSession session=request.getSession();
+    public String questionUsingInfo(){ return "app/questionBoard/questionUsingInfo"; }
 
-        log.info("index in");
-        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
-
-        log.info("criteria:"+criteria);
-
-        Page<AskDTO> askDTOPage= askService.showQuestion(pageable, AskCategory.USINGINFO ,criteria,(Long)session.getAttribute("userId"));
-        log.info("pageable:"+pageable);
-        int endPage = (int)(Math.ceil((askDTOPage.getNumber()+1) / (double)10)) * 10;
-        if(askDTOPage.getTotalPages() < endPage){
-            endPage = askDTOPage.getTotalPages() == 0 ? 1 : askDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
-
-        for(AskDTO pages:askDTOPage){
-            log.info("datas:"+pages);
-        }
-
-        log.info("pagenation:"+model.getAttribute("pagination"));
-        log.info("criteria:"+criteria.getPage());
-
-        model.addAttribute("questionUsingInfos", askDTOPage.getContent());
-        model.addAttribute("pagination", askDTOPage);
-        model.addAttribute("pageable", pageable);
-        model.addAttribute("criteria", criteria);
-        model.addAttribute("endPage", endPage);
-
-        return "app/questionBoard/questionUsingInfo";
-    }
-
+    //  회원 정보
     @GetMapping("/questionUserInfo")
-    public String questionUserInfo(Model model, Criteria criteria, HttpServletRequest request){
-        HttpSession session=request.getSession();
+    public String questionUserInfo(){ return "app/questionBoard/questionUserInfo"; }
 
-        log.info("index in");
-        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
-
-        Page<AskDTO> askDTOPage= askService.showQuestion(pageable, AskCategory.ACCOUNTINFO ,criteria,(Long)session.getAttribute("userId"));
-        int endPage = (int)(Math.ceil((askDTOPage.getNumber()+1) / (double)10)) * 10;
-        if(askDTOPage.getTotalPages() < endPage){
-            endPage = askDTOPage.getTotalPages() == 0 ? 1 : askDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
-
-        for(AskDTO pages:askDTOPage){
-            log.info("datas:"+pages);
-        }
-
-        log.info("pagenation:"+model.getAttribute("pagination"));
-        log.info("criteria:"+criteria.getPage());
-
-        model.addAttribute("questionUserInfos", askDTOPage.getContent());
-        model.addAttribute("pagination", askDTOPage);
-        model.addAttribute("pageable", pageable);
-        model.addAttribute("criteria", criteria);
-        model.addAttribute("endPage", endPage);
-
-        return "app/questionBoard/questionUserInfo";
-    }
-
+    //  결제/환불
     @GetMapping("/questionPointInfo")
-    public String questionPointInfo(Model model, Criteria criteria, HttpServletRequest request){
-        HttpSession session=request.getSession();
+    public String questionPointInfo(){ return "app/questionBoard/questionPointInfo"; }
 
-        log.info("index in");
-        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
-
-        Page<AskDTO> askDTOPage= askService.showQuestion(pageable, AskCategory.POINTINFO ,criteria,(Long)session.getAttribute("userId"));
-        int endPage = (int)(Math.ceil((askDTOPage.getNumber()+1) / (double)10)) * 10;
-        if(askDTOPage.getTotalPages() < endPage){
-            endPage = askDTOPage.getTotalPages() == 0 ? 1 : askDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
-
-        for(AskDTO pages:askDTOPage){
-            log.info("datas:"+pages);
-        }
-
-        log.info("pagenation:"+model.getAttribute("pagination"));
-        log.info("criteria:"+criteria.getPage());
-
-        model.addAttribute("questionPointInfos", askDTOPage.getContent());
-        model.addAttribute("pagination", askDTOPage);
-        model.addAttribute("pageable", pageable);
-        model.addAttribute("criteria", criteria);
-        model.addAttribute("endPage", endPage);
-
-        return "app/questionBoard/questionPointInfo";
-    }
-
+    //  퀘스트
     @GetMapping("/questionQuestInfo")
-    public String questionQuestInfo(Model model, Criteria criteria, HttpServletRequest request){
-        HttpSession session=request.getSession();
-
-        log.info("index in");
-        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
-
-        Page<AskDTO> askDTOPage= askService.showQuestion(pageable, AskCategory.QUESTINFO ,criteria,(Long)session.getAttribute("userId"));
-        int endPage = (int)(Math.ceil((askDTOPage.getNumber()+1) / (double)10)) * 10;
-        if(askDTOPage.getTotalPages() < endPage){
-            endPage = askDTOPage.getTotalPages() == 0 ? 1 : askDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
-
-        for(AskDTO pages:askDTOPage){
-            log.info("datas:"+pages);
-        }
-
-        log.info("pagenation:"+model.getAttribute("pagination"));
-        log.info("criteria:"+criteria.getPage());
-
-        model.addAttribute("questionQuestInfos", askDTOPage.getContent());
-        model.addAttribute("pagination", askDTOPage);
-        model.addAttribute("pageable", pageable);
-        model.addAttribute("criteria", criteria);
-        model.addAttribute("endPage", endPage);
-
-        return "app/questionBoard/questionQuestInfo";
-    }
+    public String questionQuestInfo(){ return "app/questionBoard/questionQuestInfo"; }
 
     // 자주 묻는 질문 중 나의 질문 페이지
     @GetMapping("myQuestion")
@@ -225,12 +82,6 @@ public class QusetionBoardController {
         }
         log.info(endPage + "end");
 
-//        for(int i=0;i<10;i++){
-//            log.info("askdata:"+askDTOPage.getContent());
-//            log.info("askStatus:"+askDTOPage.getContent().get(i).getAskStatus());
-//            log.info("criteria:"+criteria);
-//            log.info("pageable:"+pageable);
-//        }
         log.info("pagenation:"+model.getAttribute("pagination"));
         log.info("criteria:"+criteria.getPage());
 
@@ -258,12 +109,7 @@ public class QusetionBoardController {
         log.info(endPage + "end");
 
         log.info("askDTOPage.getContent():"+askDTOPage.getContent());
-//        for(int i=0;i<10;i++){
-//            log.info("askdata:"+askDTOPage.getContent());
-//            log.info("askStatus:"+askDTOPage.getContent().get(i).getAskStatus());
-//            log.info("criteria:"+criteria);
-//            log.info("pageable:"+pageable);
-//        }
+
         log.info("pagenation:"+model.getAttribute("pagination"));
         log.info("criteria:"+criteria.getPage());
 

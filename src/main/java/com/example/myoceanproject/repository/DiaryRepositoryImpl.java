@@ -29,6 +29,7 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
     @Override
     public Page<DiaryDTO> findAllByUserId(Pageable pageable, Long userId) {
         List<DiaryDTO> posts = jpaQueryFactory.select(new QDiaryDTO(
+                diary.diaryId,
                 diary.user.userId,
                 diary.diaryTitle,
                 diary.diaryContent,
@@ -54,6 +55,7 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
     @Override
     public Page<DiaryDTO> findAllByUserId(Pageable pageable, Long userId, Criteria criteria) {
         List<DiaryDTO> diarys = jpaQueryFactory.select(new QDiaryDTO(
+                diary.diaryId,
                 diary.user.userId,
                 diary.diaryTitle,
                 diary.diaryContent,
@@ -79,6 +81,7 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
     @Override
     public Page<DiaryDTO> findAllByUserIdExchange(Pageable pageable, Long userId) {
         List<DiaryDTO> posts = jpaQueryFactory.select(new QDiaryDTO(
+                diary.diaryId,
                 diary.user.userId,
                 diary.diaryTitle,
                 diary.diaryContent,
@@ -88,13 +91,13 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
                 diary.diaryCategory
         ))
                 .from(diary)
-                .where(diary.user.userId.eq(userId).and(diary.receiverUser.userId.isNotNull()))
+                .where(diary.receiverUser.userId.eq(userId).and(diary.diaryCategory.eq(DiaryCategory.OPENDIARY)))
                 .orderBy(diary.diaryId.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()).fetch();
 
         long total = jpaQueryFactory.selectFrom(diary)
-                .where(diary.user.userId.eq(userId))
+                .where(diary.receiverUser.userId.eq(userId))
                 .fetch().size();
 
         return new PageImpl<>(posts, pageable, total);
@@ -103,6 +106,7 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
     @Override
     public Page<DiaryDTO> findAllByUserIdExchange(Pageable pageable, Long userId, Criteria criteria) {
         List<DiaryDTO> diarys = jpaQueryFactory.select(new QDiaryDTO(
+                diary.diaryId,
                 diary.user.userId,
                 diary.diaryTitle,
                 diary.diaryContent,
@@ -112,45 +116,23 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
                 diary.diaryCategory
         ))
                 .from(diary)
-                .where(diary.user.userId.eq(userId).and(diary.receiverUser.userId.isNotNull()))
+                .where(diary.receiverUser.userId.eq(userId).and(diary.diaryCategory.eq(DiaryCategory.OPENDIARY)))
                 .orderBy(diary.diaryId.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()).fetch();
 
 
         long total = jpaQueryFactory.selectFrom(diary)
-                .where(diary.user.userId.eq(userId))
+                .where(diary.receiverUser.userId.eq(userId))
                 .fetch().size();
 
         return new PageImpl<>(diarys, pageable, total);
     }
 
-//        List<DiaryDTO> posts = jpaQueryFactory.select(new QCommunityPostDTO(
-//                diary.user.userId,
-//                diary.diaryTitle,
-//                diary.diaryContent,
-//                diary.receiverUser.userId,
-//                diary.createDate,
-//                diary.updatedDate
-//        ))
-//                .from(diary)
-//                .where(diary.createDate.between())
-//                .orderBy(diary.diaryId.desc())
-//                .offset(pageable.getOffset())
-//                .limit(pageable.getPageSize()).fetch();
-//
-//        posts.stream().forEach(communityPostDTO -> {
-//            communityPostDTO.setCommunityReplyCount(replyRepositoryImpl.countReplyByCommunityPost(communityPostDTO.getCommunityPostId()));
-//        });
-//        long total = jpaQueryFactory.selectFrom(communityPost)
-//                .where(communityPost.communityCategory.eq(communityCategory).and(communityPost.communityTitle.contains(criteria.getKeyword())))
-//                .fetch().size();
-//
-//        return new PageImpl<>(posts, pageable, total);
-
     @Override
     public Page<DiaryDTO> findAllByDiaryDuration(Pageable pageable,List<String> dateData, Long userId) {
         List<DiaryDTO> diaries = jpaQueryFactory.select(new QDiaryDTO(
+                diary.diaryId,
                 diary.user.userId,
                 diary.diaryTitle,
                 diary.diaryContent,
@@ -175,6 +157,7 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
     @Override
     public Page<DiaryDTO> findAllByDiaryDuration(Pageable pageable, List<String> dateData, Long userId, Criteria criteria) {
         List<DiaryDTO> diaries = jpaQueryFactory.select(new QDiaryDTO(
+                diary.diaryId,
                 diary.user.userId,
                 diary.diaryTitle,
                 diary.diaryContent,
@@ -199,6 +182,7 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
     @Override
     public Page<DiaryDTO> findAllByDiaryByUser(Pageable pageable, Long userId) {
         List<DiaryDTO> diaries = jpaQueryFactory.select(new QDiaryDTO(
+                diary.diaryId,
                 diary.user.userId,
                 diary.diaryTitle,
                 diary.diaryContent,
@@ -226,6 +210,7 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
     @Override
     public Page<DiaryDTO> findAllByDiaryByUser(Pageable pageable, Long userId, Criteria criteria) {
         List<DiaryDTO> diaries = jpaQueryFactory.select(new QDiaryDTO(
+                diary.diaryId,
                 diary.user.userId,
                 diary.diaryTitle,
                 diary.diaryContent,
@@ -255,6 +240,7 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
         List<DiaryDTO> diaries=null;
         try {
             diaries = jpaQueryFactory.select(new QDiaryDTO(
+                    diary.diaryId,
                     diary.user.userId,
                     diary.diaryTitle,
                     diary.diaryContent,
@@ -273,33 +259,10 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
         return diaries.size();
     }
 
-//    @Override
-//    public int searchMyDiaryCount(Long userId, DiaryCategory diaryCategory) {
-//        List<DiaryDTO> diaries=null;
-//        try {
-//            diaries = jpaQueryFactory.select(new QDiaryDTO(
-//                    diary.user.userId,
-//                    diary.diaryTitle,
-//                    diary.diaryContent,
-//                    diary.receiverUser.userId,
-//                    diary.createDate,
-//                    diary.updatedDate,
-//                    diary.diaryCategory
-//            ))
-//                    .from(diary)
-//                    .where(diary.receiverUser.isNull().and(diary.user.userId.ne(userId)).and(diary.diaryCategory.eq(diaryCategory)))
-//                    .fetch();
-//        } catch (Exception e) {
-//            return 0;
-//        }
-//        log.info("diaries:"+diaries);
-//        return diaries.size();
-//    }
-
-    //
     @Override
     public DiaryDTO findBeforeShareWriter(DiaryCategory diaryCategory) {
         DiaryDTO nullReceiver = jpaQueryFactory.select(new QDiaryDTO(
+                diary.diaryId,
                 diary.user.userId,
                 diary.diaryTitle,
                 diary.diaryContent,
@@ -345,6 +308,7 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
         List<DiaryDTO> diaryDTO=null;
         try {
             diaryDTO=jpaQueryFactory.select(new QDiaryDTO(
+                    diary.diaryId,
                     diary.user.userId,
                     diary.diaryTitle,
                     diary.diaryContent,
@@ -365,6 +329,7 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
     @Override
     public List<DiaryDTO> checkTodayWriteDiary(Long userId, DiaryCategory diaryCategory) {
         List<DiaryDTO> diaryDTOS=jpaQueryFactory.select(new QDiaryDTO(
+                diary.diaryId,
                 diary.user.userId,
                 diary.diaryTitle,
                 diary.diaryContent,

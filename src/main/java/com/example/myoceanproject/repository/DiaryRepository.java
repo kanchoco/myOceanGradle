@@ -15,5 +15,6 @@ public interface DiaryRepository extends JpaRepository<Diary,Long> {
 //    public Long countAllByReceiverUser();
     public Optional<Diary> findByUser_UserIdAndDiaryCategoryAndReceiverUserIsNull(Long userId, DiaryCategory diaryCategory);
     public int countAllByUser_UserId(Long userId);
+    public Diary findByDiaryId(Long diaryId);
 
 }

@@ -7,6 +7,7 @@ import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.repository.DiaryRepository;
 import com.example.myoceanproject.repository.UserRepository;
 import com.example.myoceanproject.service.DiaryService;
+import com.example.myoceanproject.service.community.CommunityPostService;
 import com.example.myoceanproject.type.CommunityCategory;
 import com.example.myoceanproject.type.DiaryCategory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -51,6 +52,9 @@ public class MyListRestController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private CommunityPostService PostService;
 
     @GetMapping(value={"/diary/{page}","/diary/{page}/{dateData}"})
     public DiaryDTO getCalendarList(HttpServletRequest request,@PathVariable("page") int page,@PathVariable(value="dateData",required=false) List<String> dateData){
@@ -101,5 +105,198 @@ public class MyListRestController {
 
         return diaryService.determineSaveOrExDiary(userId,diaryDTO);
 
+    }
+
+    @GetMapping("/myListBook/{page}/{keyword}")
+    public CommunityPostDTO getBookBoard(@PathVariable int page, @PathVariable(required = false) String keyword){
+        String decodeKeyword = URLDecoder.decode(keyword, StandardCharsets.UTF_8);
+
+        Criteria criteria = new Criteria();
+        criteria.setPage(page);
+        criteria.setKeyword(decodeKeyword);
+        //        0부터 시작,
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+
+        Page<CommunityPostDTO> postDTOPage= PostService.showCounseling(pageable, CommunityCategory.BOOK,criteria);
+        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
+        if(postDTOPage.getTotalPages() < endPage){
+            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
+        }
+        log.info(endPage + "end");
+
+        CommunityPostDTO postDTO = new CommunityPostDTO();
+
+        postDTO.setPostList(postDTOPage.getContent());
+        postDTO.setEndPage(endPage);
+
+        postDTOPage.getContent().stream().map(CommunityPostDTO::toString).forEach(log::info);
+
+        return postDTO;
+    }
+
+    @GetMapping("/myListCook/{page}/{keyword}")
+    public CommunityPostDTO getCookBoard(@PathVariable int page, @PathVariable(required = false) String keyword){
+        String decodeKeyword = URLDecoder.decode(keyword, StandardCharsets.UTF_8);
+
+        Criteria criteria = new Criteria();
+        criteria.setPage(page);
+        criteria.setKeyword(decodeKeyword);
+        //        0부터 시작,
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+
+        Page<CommunityPostDTO> postDTOPage= PostService.showCounseling(pageable, CommunityCategory.COOK,criteria);
+        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
+        if(postDTOPage.getTotalPages() < endPage){
+            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
+        }
+        log.info(endPage + "end");
+
+        CommunityPostDTO postDTO = new CommunityPostDTO();
+
+        postDTO.setPostList(postDTOPage.getContent());
+        postDTO.setEndPage(endPage);
+
+        postDTOPage.getContent().stream().map(CommunityPostDTO::toString).forEach(log::info);
+
+        return postDTO;
+    }
+
+    @GetMapping("/myListExercise/{page}/{keyword}")
+    public CommunityPostDTO getExerciseBoard(@PathVariable int page, @PathVariable(required = false) String keyword){
+        String decodeKeyword = URLDecoder.decode(keyword, StandardCharsets.UTF_8);
+
+        Criteria criteria = new Criteria();
+        criteria.setPage(page);
+        criteria.setKeyword(decodeKeyword);
+        //        0부터 시작,
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+
+        Page<CommunityPostDTO> postDTOPage= PostService.showCounseling(pageable, CommunityCategory.EXERCISE,criteria);
+        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
+        if(postDTOPage.getTotalPages() < endPage){
+            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
+        }
+        log.info(endPage + "end");
+
+        CommunityPostDTO postDTO = new CommunityPostDTO();
+
+        postDTO.setPostList(postDTOPage.getContent());
+        postDTO.setEndPage(endPage);
+
+        postDTOPage.getContent().stream().map(CommunityPostDTO::toString).forEach(log::info);
+
+        return postDTO;
+    }
+
+    @GetMapping("/myListMovie/{page}/{keyword}")
+    public CommunityPostDTO getMovieBoard(@PathVariable int page, @PathVariable(required = false) String keyword){
+        String decodeKeyword = URLDecoder.decode(keyword, StandardCharsets.UTF_8);
+
+        Criteria criteria = new Criteria();
+        criteria.setPage(page);
+        criteria.setKeyword(decodeKeyword);
+        //        0부터 시작,
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+
+        Page<CommunityPostDTO> postDTOPage= PostService.showCounseling(pageable, CommunityCategory.MOVIE,criteria);
+        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
+        if(postDTOPage.getTotalPages() < endPage){
+            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
+        }
+        log.info(endPage + "end");
+
+        CommunityPostDTO postDTO = new CommunityPostDTO();
+
+        postDTO.setPostList(postDTOPage.getContent());
+        postDTO.setEndPage(endPage);
+
+        postDTOPage.getContent().stream().map(CommunityPostDTO::toString).forEach(log::info);
+
+        return postDTO;
+    }
+
+    @GetMapping("/myListCounseling/{page}/{keyword}")
+    public CommunityPostDTO getCounselingBoard(@PathVariable int page, @PathVariable(required = false) String keyword){
+        String decodeKeyword = URLDecoder.decode(keyword, StandardCharsets.UTF_8);
+
+        Criteria criteria = new Criteria();
+        criteria.setPage(page);
+        criteria.setKeyword(decodeKeyword);
+        //        0부터 시작,
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+
+        Page<CommunityPostDTO> postDTOPage= PostService.showCounseling(pageable, CommunityCategory.COUNSELING,criteria);
+        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
+        if(postDTOPage.getTotalPages() < endPage){
+            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
+        }
+        log.info(endPage + "end");
+
+        CommunityPostDTO postDTO = new CommunityPostDTO();
+
+        postDTO.setPostList(postDTOPage.getContent());
+        postDTO.setEndPage(endPage);
+
+        postDTOPage.getContent().stream().map(CommunityPostDTO::toString).forEach(log::info);
+
+        return postDTO;
+    }
+
+    @GetMapping("/myListTotal/{page}/{keyword}")
+    public CommunityPostDTO getListTotalBoard(@PathVariable int page, @PathVariable(required = false) String keyword){
+        String decodeKeyword = URLDecoder.decode(keyword, StandardCharsets.UTF_8);
+
+        Criteria criteria = new Criteria();
+        criteria.setPage(page);
+        criteria.setKeyword(decodeKeyword);
+        //        0부터 시작,
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+
+        Page<CommunityPostDTO> postDTOPage= PostService.showPost(pageable, criteria);
+        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
+        if(postDTOPage.getTotalPages() < endPage){
+            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
+        }
+        log.info(endPage + "end");
+
+        CommunityPostDTO postDTO = new CommunityPostDTO();
+
+        postDTO.setPostList(postDTOPage.getContent());
+        postDTO.setEndPage(endPage);
+
+        postDTOPage.getContent().stream().map(CommunityPostDTO::toString).forEach(log::info);
+//        myExchangeDiary
+        return postDTO;
+    }
+
+    @GetMapping("/myExchangeDiary/{page}/{keyword}")
+    public DiaryDTO getExBoard(@PathVariable int page, @PathVariable(required = false) String keyword,HttpServletRequest request){
+
+        HttpSession session=request.getSession();
+        Long userId=(Long)session.getAttribute("userId");
+
+        String decodeKeyword="";
+        Criteria criteria = new Criteria();
+        criteria.setPage(page);
+        criteria.setKeyword(decodeKeyword);
+        //        0부터 시작,
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+
+        Page<DiaryDTO> diaryDTOpage= diaryService.showExchangeDiary(pageable,userId, criteria);
+
+        int endPage = (int)(Math.ceil(diaryDTOpage.getNumber()+1 / (double)10)) * 10;
+        if(diaryDTOpage.getTotalPages() < endPage){
+            endPage = diaryDTOpage.getTotalPages() == 0 ? 1 : diaryDTOpage.getTotalPages();
+        }
+        log.info(endPage + "end");
+
+        DiaryDTO diaryDTO = new DiaryDTO();
+
+        diaryDTO.setDiaryList(diaryDTOpage.getContent());
+        diaryDTO.setEndPage(endPage);
+
+        diaryDTOpage.getContent().stream().map(DiaryDTO::toString).forEach(log::info);
+
+        return diaryDTO;
     }
 }

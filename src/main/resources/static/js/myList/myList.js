@@ -23,3 +23,24 @@ function checkWidth(){
         $categoryMedia.hide();
     }
 }
+
+// let postService = (function(){
+//     function getList(param, callback, error){
+//         $.ajax({
+//             url: encodeURI("/myList/free/" + (param.page || 0) + "/" + param.keyword),
+//             type: "get",
+//             async : false,
+//             success: function(postDTO, status, xhr){
+//                 if(callback){
+//                     callback(postDTO);
+//                 }
+//             },
+//             error: function(xhr, status, err){
+//                 if(error){
+//                     error(err);
+//                 }
+//             }
+//         });
+//     }
+//     return {getList: getList}
+// }) ();

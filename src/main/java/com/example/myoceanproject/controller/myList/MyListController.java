@@ -17,7 +17,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -44,51 +46,16 @@ public class MyListController {
 
     // 내가 쓴 일기 페이지
     @GetMapping("/myDiary")
-    public String myDiary(Model model,Criteria criteria, HttpServletRequest request){
-        HttpSession session=request.getSession();
-
-        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
-
-        Page<DiaryDTO> diaryDTOPage= diaryService.showDiary(pageable,(Long)session.getAttribute("userId"), criteria);
-        int endPage = (int)(Math.ceil((diaryDTOPage.getNumber()+1) / (double)10)) * 10;
-        if(diaryDTOPage.getTotalPages() < endPage) {
-            endPage = diaryDTOPage.getTotalPages() == 0 ? 1 : diaryDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
-
-        log.info("diaryDTOPage:"+diaryDTOPage);
-
-        model.addAttribute("diarys", diaryDTOPage);
-        model.addAttribute("pagination", diaryDTOPage);
-        model.addAttribute("pageable", pageable);
-        model.addAttribute("criteria", criteria);
-        model.addAttribute("endPage", endPage);
-
-        return "app/myList/myDiary";
-    }
+    public String myDiary(){ return "app/myList/myDiary"; }
 
     // 내가 보낸 교환일기 페이지
     @GetMapping("/myExchangeDiary")
-    public String myExchangeDiary(Model model, Criteria criteria, HttpServletRequest request){
+    public String myExchangeDiary(){ return "app/myList/myExchangeDiary"; }
 
-        HttpSession session=request.getSession();
-
-        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
-
-        Page<DiaryDTO> diaryDTOPage= diaryService.showExchangeDiary(pageable,(Long)session.getAttribute("userId"), criteria);
-        int endPage = (int)(Math.ceil((diaryDTOPage.getNumber()+1) / (double)10)) * 10;
-        if(diaryDTOPage.getTotalPages() < endPage) {
-            endPage = diaryDTOPage.getTotalPages() == 0 ? 1 : diaryDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
-
-        model.addAttribute("exchangeDiarys", diaryDTOPage.getContent());
-        model.addAttribute("pagination", diaryDTOPage);
-        model.addAttribute("pageable", pageable);
-        model.addAttribute("criteria", criteria);
-        model.addAttribute("endPage", endPage);
-
-        return "app/myList/myExchangeDiary";
+    @GetMapping(value="/myDiaryDetail")
+    public String myDiaryDetail(Model model,Long diaryId){
+        model.addAttribute("diaryDTO",diaryService.findDetailDiary(diaryId));
+        return "app/myList/myDiaryDetail";
     }
 
     // 카테고리 ( 합치는 부분!)
@@ -97,204 +64,61 @@ public class MyListController {
         return "app/myList/myList";
     }
 
+    // 내가 쓴 게시글 (전체)
+    @GetMapping("/myListTotal")
+    public String myListTotal(){ return "app/myList/myListTotal"; }
+
     //  책 이야기
     @GetMapping("/myListBook")
-    public String myListBook(Model model,Criteria criteria, HttpServletRequest request){
-
-        HttpSession session=request.getSession();
-
-        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
-
-        Page<CommunityPostDTO> postDTOPage= myPostService.showCounseling(pageable, CommunityCategory.BOOK, criteria,(Long)session.getAttribute("userId"));
-        int endPage = (int)(Math.ceil((postDTOPage.getNumber()+1) / (double)10)) * 10;
-        if(postDTOPage.getTotalPages() < endPage) {
-            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
-
-        log.info("pagenation:"+model.getAttribute("pagination"));
-        log.info("criteria:"+criteria.getPage());
-
-        model.addAttribute("books", postDTOPage.getContent());
-        model.addAttribute("pagination", postDTOPage);
-        model.addAttribute("pageable", pageable);
-        model.addAttribute("criteria", criteria);
-        model.addAttribute("endPage", endPage);
-
-        return "app/myList/myListBookBoard";
-    }
+    public String myListBook(){ return "app/myList/myListBookBoard"; }
 
     //  요리 이야기
     @GetMapping("/myListCook")
-    public String myListCook(Model model,Criteria criteria, HttpServletRequest request){
-
-        HttpSession session=request.getSession();
-
-        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
-
-        Page<CommunityPostDTO> postDTOPage= myPostService.showCounseling(pageable, CommunityCategory.COOK, criteria,(Long)session.getAttribute("userId"));
-        int endPage = (int)(Math.ceil((postDTOPage.getNumber()+1) / (double)10)) * 10;
-        if(postDTOPage.getTotalPages() < endPage) {
-            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
-
-        log.info("pagenation:"+model.getAttribute("pagination"));
-        log.info("criteria:"+criteria.getPage());
-
-        model.addAttribute("cooks", postDTOPage.getContent());
-        model.addAttribute("pagination", postDTOPage);
-        model.addAttribute("pageable", pageable);
-        model.addAttribute("criteria", criteria);
-        model.addAttribute("endPage", endPage);
-
-        return "app/myList/myListCookBoard";
-    }
+    public String myListCook(){ return "app/myList/myListCookBoard"; }
 
     //  고민상담
     @GetMapping("/myListCounseling")
-    public String myListCounseling(Model model,Criteria criteria, HttpServletRequest request){
-
-        HttpSession session=request.getSession();
-
-        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
-
-        Page<CommunityPostDTO> postDTOPage= myPostService.showCounseling(pageable, CommunityCategory.COUNSELING, criteria,(Long)session.getAttribute("userId"));
-        int endPage = (int)(Math.ceil((postDTOPage.getNumber()+1) / (double)10)) * 10;
-        if(postDTOPage.getTotalPages() < endPage) {
-            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
-
-        log.info("pagenation:"+model.getAttribute("pagination"));
-        log.info("criteria:"+criteria.getPage());
-
-        model.addAttribute("counselings", postDTOPage.getContent());
-        model.addAttribute("pagination", postDTOPage);
-        model.addAttribute("pageable", pageable);
-        model.addAttribute("criteria", criteria);
-        model.addAttribute("endPage", endPage);
-
-        return "app/myList/myListCounselingBoard";
-    }
+    public String myListCounseling(){ return "app/myList/myListCounselingBoard"; }
 
     //  운동 이야기
     @GetMapping("/myListExercise")
-    public String myListExercise(Model model,Criteria criteria, HttpServletRequest request){
-
-        HttpSession session=request.getSession();
-
-        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
-
-        Page<CommunityPostDTO> postDTOPage= myPostService.showCounseling(pageable, CommunityCategory.EXERCISE, criteria,(Long)session.getAttribute("userId"));
-        int endPage = (int)(Math.ceil((postDTOPage.getNumber()+1) / (double)10)) * 10;
-        if(postDTOPage.getTotalPages() < endPage) {
-            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
-
-        log.info("pagenation:"+model.getAttribute("pagination"));
-        log.info("criteria:"+criteria.getPage());
-
-        model.addAttribute("exercises", postDTOPage.getContent());
-        model.addAttribute("pagination", postDTOPage);
-        model.addAttribute("pageable", pageable);
-        model.addAttribute("criteria", criteria);
-        model.addAttribute("endPage", endPage);
-
-        return "app/myList/myListExerciseBoard";
-    }
-
-    // 자유게시판
-    @GetMapping("/myListFree")
-    public String myListFree(Model model,Criteria criteria, HttpServletRequest request){
-
-        HttpSession session=request.getSession();
-
-        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
-
-        Page<CommunityPostDTO> postDTOPage= myPostService.showCounseling(pageable, CommunityCategory.FREEBOARD, criteria,(Long)session.getAttribute("userId"));
-        int endPage = (int)(Math.ceil((postDTOPage.getNumber()+1) / (double)10)) * 10;
-        if(postDTOPage.getTotalPages() < endPage) {
-            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
-
-        log.info("pagenation:"+model.getAttribute("pagination"));
-        log.info("criteria:"+criteria.getPage());
-
-        model.addAttribute("freeboards", postDTOPage.getContent());
-        model.addAttribute("pagination", postDTOPage);
-        model.addAttribute("pageable", pageable);
-        model.addAttribute("criteria", criteria);
-        model.addAttribute("endPage", endPage);
-
-        return "app/myList/myListFreeBoard";
-    }
+    public String myListExercise(){ return "app/myList/myListExerciseBoard"; }
 
     // 영화이야기
     @GetMapping("/myListMovie")
-    public String myListMovie(Model model,Criteria criteria, HttpServletRequest request){
+    public String myListMovie(){ return "app/myList/myListMovieBoard"; }
 
-        HttpSession session=request.getSession();
+    // 자유게시판
+//    @GetMapping("/myListFree")
+//    public String myListFree(Model model,Criteria criteria, HttpServletRequest request){
 
-        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+//        HttpSession session=request.getSession();
+//
+//        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+//
+//        Page<CommunityPostDTO> postDTOPage= myPostService.showCounseling(pageable, CommunityCategory.FREEBOARD, criteria,(Long)session.getAttribute("userId"));
+//        int endPage = (int)(Math.ceil((postDTOPage.getNumber()+1) / (double)10)) * 10;
+//        if(postDTOPage.getTotalPages() < endPage) {
+//            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
+//        }
+//        log.info(endPage + "end");
+//
+//        log.info("pagenation:"+model.getAttribute("pagination"));
+//        log.info("criteria:"+criteria.getPage());
+//
+//        model.addAttribute("freeboards", postDTOPage.getContent());
+//        model.addAttribute("pagination", postDTOPage);
+//        model.addAttribute("pageable", pageable);
+//        model.addAttribute("criteria", criteria);
+//        model.addAttribute("endPage", endPage);
 
-        Page<CommunityPostDTO> postDTOPage= myPostService.showCounseling(pageable, CommunityCategory.MOVIE, criteria,(Long)session.getAttribute("userId"));
-        int endPage = (int)(Math.ceil((postDTOPage.getNumber()+1) / (double)10)) * 10;
-        if(postDTOPage.getTotalPages() < endPage) {
-            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
-
-        log.info("pagenation:"+model.getAttribute("pagination"));
-        log.info("criteria:"+criteria.getPage());
-
-        model.addAttribute("movies", postDTOPage.getContent());
-        model.addAttribute("pagination", postDTOPage);
-        model.addAttribute("pageable", pageable);
-        model.addAttribute("criteria", criteria);
-        model.addAttribute("endPage", endPage);
-
-        return "app/myList/myListMovieBoard";
-    }
+//        return "app/myList/myListFreeBoard";
+//    }
 
     // 게시글 없는 페이지 표시할때!
     @GetMapping("/myListNocontents")
     public String myListNoContents(){
         return "app/myList/myListNoContents";
     }
-
-    // 내가 쓴 게시글 (전체)
-    @GetMapping("/myListTotal")
-    public String myListTotal(Model model, Criteria criteria, HttpServletRequest request){
-        //        0부터 시작,
-        HttpSession session=request.getSession();
-
-        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
-
-        Page<CommunityPostDTO> postDTOPage= myPostService.showPost(pageable, criteria,(Long)session.getAttribute("userId"));
-        int endPage = (int)(Math.ceil((postDTOPage.getNumber()+1) / (double)10)) * 10;
-        if(postDTOPage.getTotalPages() < endPage){
-            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
-
-        List<CommunityPost> posts=jpaQueryFactory.selectFrom(communityPost).orderBy(communityPost.communityPostId.desc()).fetch();
-        log.info("pagenation:"+model.getAttribute("pagination"));
-        log.info("criteria:"+criteria.getPage());
-        log.info("posts size:"+posts.size());
-        log.info("postDTOpage size:"+postDTOPage.getContent().size());
-
-        model.addAttribute("listTotals", postDTOPage.getContent());
-        model.addAttribute("pagination", postDTOPage);
-        model.addAttribute("pageable", pageable);
-        model.addAttribute("criteria", criteria);
-        model.addAttribute("endPage", endPage);
-
-        return "app/myList/myListTotal";
-    }
-
-
 
 }
