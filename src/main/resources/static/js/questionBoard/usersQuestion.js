@@ -28,9 +28,8 @@ function checkWidth(){
 //     $(this).next().toggle();
 // })
 
-$(".my_lists").on("click",function(){
-    var askData=$("input[name='requestAsk']").val();
-    console.log(askData);
+$(".content").on("click","div.my_lists",function(){
+    var askData=$(this).next().next().val();
     location.href="/questionBoard/managerAnswer?askId="+askData;
 });
 
