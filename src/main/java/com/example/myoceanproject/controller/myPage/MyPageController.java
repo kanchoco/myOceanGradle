@@ -71,7 +71,8 @@ public class MyPageController {
         int diaryCount=diaryService.findAllDiary(userId);
         int communityPostCount=communityPostRepository.countAllByUser_UserId(userId);
         int questAchievementCount=questAchievementRepositoryRepository.countAllByUser_UserId(userId);
-        int groupCount=groupRepository.countAllByUser_UserId(userId)+groupMemberRepository.countAllByUser_UserId(userId);
+        int groupCount=groupMemberRepository.countAllByUser_UserId(userId);
+//        int groupCount=groupRepository.countAllByUser_UserId(userId)+groupMemberRepository.countAllByUser_UserId(userId);
         int alarmCount=alarmRepository.countAllByUser_UserId(userId);
 
         model.addAttribute("userDTO",userDTO);

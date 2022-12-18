@@ -181,4 +181,29 @@ public class QuestionBoardRestController {
 
         return askDTO;
     }
+
+    @GetMapping("/usersQuestion/{page}/{keyword}")
+    public AskDTO getUsersQuestion(@PathVariable int page, @PathVariable(required = false) String keyword,HttpServletRequest request){
+        String decodeKeyword = URLDecoder.decode(keyword, StandardCharsets.UTF_8);
+
+        HttpSession session=request.getSession();
+        Criteria criteria = new Criteria();
+        criteria.setPage(page);
+        criteria.setKeyword(decodeKeyword);
+        //        0부터 시작,
+        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
+
+        Page<AskDTO> askDTOPage= askService.showAllUserAsk(pageable, criteria,(Long)session.getAttribute("userId"));
+
+        log.info(askDTOPage.getTotalPages()+"end");
+
+        AskDTO askDTO = new AskDTO();
+
+        askDTO.setAskList(askDTOPage.getContent());
+        askDTO.setEndPage(askDTOPage.getTotalPages());
+
+        askDTOPage.getContent().stream().map(AskDTO::toString).forEach(log::info);
+
+        return askDTO;
+    }
 }
