@@ -125,7 +125,7 @@ public class GoogleJoinService {
                 userDTO.setUserNickname(nickname);
                 userDTO.setUserEmail(email);
                 userDTO.setUserAccountStatus("정상");
-                userDTO.setUserTotalPoint(5000);
+                userDTO.setUserTotalPoint(0);
                 userDTO.setUserFilePath(userImage);
                 userDTO.setUserOauthId(userOauthId);
                 User user=userDTO.toEntity();

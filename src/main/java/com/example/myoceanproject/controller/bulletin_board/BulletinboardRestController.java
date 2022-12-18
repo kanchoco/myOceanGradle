@@ -43,13 +43,11 @@ public class BulletinboardRestController {
         // showGroup메소드로 페이지와 criteria정보 전달
         Page<GroupDTO> groupDTOPage = groupService.showGroup(pageable, criteria);
 
-//        int endPage = (int)(Math.ceil(groupDTOPage.getNumber()+1 / (double)10)) * 10;
-//        if(groupDTOPage.getTotalPages() < endPage){
-//            endPage = groupDTOPage.getTotalPages() == 0 ? 1 : groupDTOPage.getTotalPages();
-//        }
 
         GroupDTO groupDTO = new GroupDTO();
-
+        
+        // groupDTO 내에 내용과 전체 페이지 전달
+        // EndPage에는 totalPage를 넣고, >> 버튼 클릭 시 10페이지씩 이동처리
         groupDTO.setGroupList(groupDTOPage.getContent());
         groupDTO.setEndPage(groupDTOPage.getTotalPages());
 

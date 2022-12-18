@@ -1,5 +1,6 @@
 package com.example.myoceanproject.controller.login;
 
+import com.example.myoceanproject.aspect.annotation.JoinAlarm;
 import com.example.myoceanproject.domain.QUserDTO;
 import com.example.myoceanproject.domain.QUserFindDTO;
 import com.example.myoceanproject.domain.UserDTO;
@@ -12,6 +13,7 @@ import com.example.myoceanproject.service.oAuth.KakaoLoginService;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
@@ -37,19 +39,13 @@ import static com.example.myoceanproject.entity.QUserFind.userFind;
 @Controller
 @RequestMapping("/login/*")
 @SessionAttributes("userId")
+@RequiredArgsConstructor
 public class LoginController {
 
-    @Autowired
-    private JPAQueryFactory jpaQueryFactory;
-
-    @Autowired
-    private KakaoLoginService kakaoLoginService;
-
-    @Autowired
-    private GoogleLoginService googleLoginService;
-
-    @Autowired
-    private UserFindRepository userFindRepository;
+    private final JPAQueryFactory jpaQueryFactory;
+    private final KakaoLoginService kakaoLoginService;
+    private final GoogleLoginService googleLoginService;
+    private final UserFindRepository userFindRepository;
 
     // 로그인 페이지
     @GetMapping("/index")
@@ -104,6 +100,7 @@ public class LoginController {
 
     //  로그인 버튼 클릭 시 세션 생성 및 세션에 데이터 저장(일반계정)
     @PostMapping("/loginOk")
+    @JoinAlarm
     public String afterLogin(UserDTO userDTO, HttpServletRequest request){
 
 //      세션 생성
