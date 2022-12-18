@@ -78,11 +78,10 @@ public class HostRestController {
         HttpSession session=request.getSession();
         GroupMember groupMember = new GroupMember();
 
-        log.info("===========들어옴");
 
         /*유저 아이디값 설정*/
         Long userId = (Long) session.getAttribute("userId");
-        
+
         /*포인트를 사용한 유저 정보 업데이트를 위해 변수 설정*/
         User updateUser = jpaQueryFactory.selectFrom(user).where(user.userId.eq(userId)).fetchOne();
         int userPoint = updateUser.getUserTotalPoint();
@@ -112,6 +111,9 @@ public class HostRestController {
         point.changeUser(updateUser);
 
         pointRepository.save(point);
+
+        log.info(userId.toString());
+        log.info(groupId.toString());
 
         /*groupMember에 user 정보 저장*/
         groupMember.setUser(userRepository.findById(userId).get());
