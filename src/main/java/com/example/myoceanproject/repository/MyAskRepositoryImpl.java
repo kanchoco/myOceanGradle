@@ -20,7 +20,7 @@ public class MyAskRepositoryImpl implements MyAskCustomRepository{
     private JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public Page<AskDTO> findAll(Pageable pageable, Long userId) {
+    public Page<AskDTO> findAll(Pageable pageable) {
         List<AskDTO> posts = jpaQueryFactory.select(new QAskDTO(
                 ask.askId,
                 ask.user.userId,
@@ -47,7 +47,7 @@ public class MyAskRepositoryImpl implements MyAskCustomRepository{
     }
 
     @Override
-    public Page<AskDTO> findAll(Pageable pageable, Criteria criteria, Long userId) {
+    public Page<AskDTO> findAll(Pageable pageable, Criteria criteria) {
         List<AskDTO> asks = jpaQueryFactory.select(new QAskDTO(
                 ask.askId,
                 ask.user.userId,

@@ -79,6 +79,8 @@ public class DiaryService {
         return diaryRepository.countAllByUser_UserId(userId);
     }
 
+    public Diary findDetailDiary(Long diaryId){return diaryRepository.findByDiaryId(diaryId);}
+
     public String determineSaveOrExDiary(Long userId,DiaryDTO diaryDTO){
         Long randomReceiver=0L;
 

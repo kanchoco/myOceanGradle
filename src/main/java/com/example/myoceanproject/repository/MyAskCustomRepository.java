@@ -7,8 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface MyAskCustomRepository {
-    public Page<AskDTO> findAll(Pageable pageable, Long userId);
-    public Page<AskDTO> findAll(Pageable pageable, Criteria criteria, Long userId);
+    public Page<AskDTO> findAll(Pageable pageable);
+    public Page<AskDTO> findAll(Pageable pageable, Criteria criteria);
     public Page<AskDTO> findAllMyAsk(Pageable pageable, Long userId);
     public Page<AskDTO> findAllMyAsk(Pageable pageable, Criteria criteria, Long userId);
     public Page<AskDTO> findAllUserAsk(Pageable pageable, Long userId);
