@@ -333,13 +333,13 @@ function getUnreadStatus(groupDTOList){
             realtext += "</div>"
             realtext+= "</div>"
             realtext+= "<p class=\"chatInfoTxt\">"+groupDTO.groupContent+"</p>"
-            realtext+= "<p class=\"endTime\">채팅 기한: 22-11-23 21:00:00</p>"
+            realtext+= "<p class=\"endTime\"></p>"
             realtext+= "</div>"
             realtext+= "</li>"
         }else{
             realtext+= "</div>"
             realtext+= "<p class=\"chatInfoTxt\">"+groupDTO.groupContent+"</p>"
-            realtext+= "<p class=\"endTime\">채팅 기한: 22-11-23 21:00:00</p>"
+            realtext+= "<p class=\"endTime\"></p>"
             realtext+= "</div>"
             realtext+= "</li>"
         }
@@ -356,6 +356,11 @@ function getChattingContentList(chattingDTOList) {
     let text = "";
     var time;
     chattingDTOList.forEach(chatting => {
+        let userFileName = chatting.senderUserFileName;
+        let userFilePath = chatting.senderUserFilePath;
+        let userFileUuid = chatting.senderUserFileUuid;
+        let imageSrc = "/mypage/display?fileName=" + userFilePath + "/" + userFileUuid + "_" + userFileName;
+        console.log(imageSrc);
         if (chatting.chattingCreateDate !== time) {
             time = chatting.chattingCreateDate
             text += "<div class=\"dayInfo\">"
@@ -364,7 +369,11 @@ function getChattingContentList(chattingDTOList) {
             text += "<div class=\"opponent\">";
             text += "<div class=\"thumb\">"
             text += "<a href=\"/people/ROSA\" target=\"_blank\">"
-            text += "<img src=\"/imgin/chat/logo.png\" alt=\"chat_image\"></a>"
+            if (!userFileUuid) {
+                text += `<img src="/imgin/main/logo.png" alt="user thumbnail" class="Profile__Thumbnail-sc-1rgtq5h-8 eBTIQt">`
+            } else {
+                text += `<img src="` + imageSrc + `"alt="user thumbnail" class="Profile__Thumbnail-sc-1rgtq5h-8 eBTIQt">`
+            }
             text += "</div>"
             text += "<div class=\"userIdChatTxt\">"
             text += "<span class=\"userId\">" + chatting.senderUserNickName + "</span>"
@@ -382,7 +391,11 @@ function getChattingContentList(chattingDTOList) {
             text += "<div class=\"opponent\">";
             text += "<div class=\"thumb\">"
             text += "<a href=\"/people/ROSA\" target=\"_blank\">"
-            text += "<img src=\"/imgin/chat/logo.png\" alt=\"chat_image\"></a>"
+            if (!userFileUuid) {
+                text += `<img src="/imgin/main/logo.png" alt="user thumbnail" class="Profile__Thumbnail-sc-1rgtq5h-8 eBTIQt">`
+            } else {
+                text += `<img src="` + imageSrc + `"alt="user thumbnail" class="Profile__Thumbnail-sc-1rgtq5h-8 eBTIQt">`
+            }
             text += "</div>"
             text += "<div class=\"userIdChatTxt\">"
             text += "<span class=\"userId\">" + chatting.senderUserNickName + "</span>"
