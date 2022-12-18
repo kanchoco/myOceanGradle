@@ -30,14 +30,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
 //    public static List<WebSocketSession> sessions = new ArrayList<>();
 
     private final UserRepositoryImpl userRepositoryImple;
-    private final GroupMemberRepository groupMemberRepository;
-    private final ChattingService chattingService;
 
-//    @Override
-//    public void afterConnectionEstablished(WebSocketSession session) {
-//        System.out.println("afterConnectionEstablished:" + session);
-//        sessions.add(session);
-//    }
+
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
@@ -50,18 +44,11 @@ public class WebSocketHandler extends TextWebSocketHandler {
         chattingDTO.setSenderUserFilePath(userRepositoryImple.findByUserId(chattingDTO.getSenderUserId()).getUserFilePath());
         chattingDTO.setSenderUserFileName(userRepositoryImple.findByUserId(chattingDTO.getSenderUserId()).getUserFileName());
         chattingDTO.setSenderGroupMemberId(groupMemberId);
-//        chattingService.saveMessage(userId, groupId, chattingDTO);
 
-        log.info(chattingDTO.toString());
 //        세션 가지고 있음
-        log.info(session.toString());
         groupDTO.handleMessage(session,chattingDTO,objectMapper);
     }
 
-//    @Override
-//    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-//        GroupDTO.sessions.remove(session);
-//        System.out.println("afterConnectionEstablished:" + session + ":" + status);
-//    }
+
 
 }
