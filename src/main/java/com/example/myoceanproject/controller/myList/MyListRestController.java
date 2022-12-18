@@ -78,16 +78,12 @@ public class MyListRestController {
             diaryDTOpage = diaryService.showFirstDiarys(pageable,userId, criteria);
         }
 
-        int endPage = (int)(Math.ceil(diaryDTOpage.getNumber()+1 / (double)10)) * 10;
-        if(diaryDTOpage.getTotalPages() < endPage){
-            endPage = diaryDTOpage.getTotalPages() == 0 ? 1 : diaryDTOpage.getTotalPages();
-        }
-        log.info(endPage + "end");
+        log.info(diaryDTOpage.getTotalPages() + "end");
 
         DiaryDTO diaryDTO = new DiaryDTO();
 
         diaryDTO.setDiaryList(diaryDTOpage.getContent());
-        diaryDTO.setEndPage(endPage);
+        diaryDTO.setEndPage(diaryDTOpage.getTotalPages());
 
         diaryDTOpage.getContent().stream().map(DiaryDTO::toString).forEach(log::info);
 

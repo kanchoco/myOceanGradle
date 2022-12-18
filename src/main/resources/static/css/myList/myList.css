@@ -219,12 +219,12 @@ a.previous_buttons {
     width: 40px;
     height: 40px;
     line-height: normal;
-    padding: 0px;
+    padding: 0;
     background-color: white;
     text-align: center;
     cursor: pointer;
     border-radius: 50%;
-    color: black;
+    color: #c4bec9;
     font-size: 18px;
     font-weight: normal;
     display: flex;
@@ -234,6 +234,9 @@ a.previous_buttons {
     align-items: center;
     outline: none;
     border: none;
+}
+.page.active{
+    color: black;
 }
 
 #next_button_wrapper {
