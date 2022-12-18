@@ -730,7 +730,7 @@ $('.checkRequest').on('click', function (){
         type: "post",
         async: false,
         success: function(result, status, xhr) {
-            console.log("멤버 등록 성공");
+            result == true? alert('검수 요청이 완료되었습니다') : alert("잔여 포인트가 부족하여 모임 등록이 불가합니다.");
         },
         error: function(xhr, status, err){
             if(error){
@@ -741,9 +741,9 @@ $('.checkRequest').on('click', function (){
 
     // 모임 등록 최상단 부분 문구 변경
     $(".text-muted.font-weight-bold").text("승인 대기중");
-//    누르면 승인대기 상태로 바꾸기
-    alert('검수 요청이 완료되었습니다');
 
+
+//    승인대기 상태로 바꾸기
 //    업데이트
     groupUpdate();
 
