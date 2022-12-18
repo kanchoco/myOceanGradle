@@ -25,26 +25,33 @@ public class BulletinboardRestController {
 
     private final GroupService groupService;
 
+    // 모임 전체 게시글 페이징처리
+    // 검색어(keyword)가 없으면 전체 페이징 처리만 진행
     @GetMapping("/group/{page}/{keyword}")
     public GroupDTO getGroupList(@PathVariable int page, @PathVariable(required = false) String keyword){
+        // 특수문자 삽입 시 텍스트가 깨지지 않도록 조정
         String decodeKeyword = URLDecoder.decode(keyword, StandardCharsets.UTF_8);
 
+        //criteria에 페이지와 키워드 추가
         Criteria criteria = new Criteria();
         criteria.setPage(page);
         criteria.setKeyword(decodeKeyword);
 
+        // 한 페이지당 12개의 게시글로 하며, 첫 페이지가 아닐 경우 criteria에서 가져온 페이지에서 1을 뺀 페이지를 현재 페이지로 한다.
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 12);
 
+        // showGroup메소드로 페이지와 criteria정보 전달
         Page<GroupDTO> groupDTOPage = groupService.showGroup(pageable, criteria);
-        int endPage = (int)(Math.ceil(groupDTOPage.getNumber()+1 / (double)10)) * 10;
-        if(groupDTOPage.getTotalPages() < endPage){
-            endPage = groupDTOPage.getTotalPages() == 0 ? 1 : groupDTOPage.getTotalPages();
-        }
+
+//        int endPage = (int)(Math.ceil(groupDTOPage.getNumber()+1 / (double)10)) * 10;
+//        if(groupDTOPage.getTotalPages() < endPage){
+//            endPage = groupDTOPage.getTotalPages() == 0 ? 1 : groupDTOPage.getTotalPages();
+//        }
 
         GroupDTO groupDTO = new GroupDTO();
 
         groupDTO.setGroupList(groupDTOPage.getContent());
-        groupDTO.setEndPage(endPage);
+        groupDTO.setEndPage(groupDTOPage.getTotalPages());
 
         groupDTOPage.getContent().stream().map(GroupDTO::toString).forEach(log::info);
 
