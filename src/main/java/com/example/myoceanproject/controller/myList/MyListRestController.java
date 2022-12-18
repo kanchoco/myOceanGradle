@@ -114,16 +114,13 @@ public class MyListRestController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<CommunityPostDTO> postDTOPage= PostService.showCounseling(pageable, CommunityCategory.BOOK,criteria);
-        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
-        if(postDTOPage.getTotalPages() < endPage){
-            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
+
+        log.info(postDTOPage.getTotalPages() + "end");
 
         CommunityPostDTO postDTO = new CommunityPostDTO();
 
         postDTO.setPostList(postDTOPage.getContent());
-        postDTO.setEndPage(endPage);
+        postDTO.setEndPage(postDTOPage.getTotalPages());
 
         postDTOPage.getContent().stream().map(CommunityPostDTO::toString).forEach(log::info);
 
@@ -141,16 +138,13 @@ public class MyListRestController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<CommunityPostDTO> postDTOPage= PostService.showCounseling(pageable, CommunityCategory.COOK,criteria);
-        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
-        if(postDTOPage.getTotalPages() < endPage){
-            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
+
+        log.info(postDTOPage.getTotalPages() + "end");
 
         CommunityPostDTO postDTO = new CommunityPostDTO();
 
         postDTO.setPostList(postDTOPage.getContent());
-        postDTO.setEndPage(endPage);
+        postDTO.setEndPage(postDTOPage.getTotalPages());
 
         postDTOPage.getContent().stream().map(CommunityPostDTO::toString).forEach(log::info);
 
@@ -168,16 +162,13 @@ public class MyListRestController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<CommunityPostDTO> postDTOPage= PostService.showCounseling(pageable, CommunityCategory.EXERCISE,criteria);
-        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
-        if(postDTOPage.getTotalPages() < endPage){
-            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
+
+        log.info(postDTOPage.getTotalPages() + "end");
 
         CommunityPostDTO postDTO = new CommunityPostDTO();
 
         postDTO.setPostList(postDTOPage.getContent());
-        postDTO.setEndPage(endPage);
+        postDTO.setEndPage(postDTOPage.getTotalPages());
 
         postDTOPage.getContent().stream().map(CommunityPostDTO::toString).forEach(log::info);
 
@@ -195,16 +186,13 @@ public class MyListRestController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<CommunityPostDTO> postDTOPage= PostService.showCounseling(pageable, CommunityCategory.MOVIE,criteria);
-        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
-        if(postDTOPage.getTotalPages() < endPage){
-            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
+
+        log.info(postDTOPage.getTotalPages() + "end");
 
         CommunityPostDTO postDTO = new CommunityPostDTO();
 
         postDTO.setPostList(postDTOPage.getContent());
-        postDTO.setEndPage(endPage);
+        postDTO.setEndPage(postDTOPage.getTotalPages());
 
         postDTOPage.getContent().stream().map(CommunityPostDTO::toString).forEach(log::info);
 
@@ -222,16 +210,13 @@ public class MyListRestController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<CommunityPostDTO> postDTOPage= PostService.showCounseling(pageable, CommunityCategory.COUNSELING,criteria);
-        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
-        if(postDTOPage.getTotalPages() < endPage){
-            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
+
+        log.info(postDTOPage.getTotalPages() + "end");
 
         CommunityPostDTO postDTO = new CommunityPostDTO();
 
         postDTO.setPostList(postDTOPage.getContent());
-        postDTO.setEndPage(endPage);
+        postDTO.setEndPage(postDTOPage.getTotalPages());
 
         postDTOPage.getContent().stream().map(CommunityPostDTO::toString).forEach(log::info);
 
@@ -249,16 +234,13 @@ public class MyListRestController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<CommunityPostDTO> postDTOPage= PostService.showPost(pageable, criteria);
-        int endPage = (int)(Math.ceil(postDTOPage.getNumber()+1 / (double)10)) * 10;
-        if(postDTOPage.getTotalPages() < endPage){
-            endPage = postDTOPage.getTotalPages() == 0 ? 1 : postDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
+
+        log.info(postDTOPage.getTotalPages() + "end");
 
         CommunityPostDTO postDTO = new CommunityPostDTO();
 
         postDTO.setPostList(postDTOPage.getContent());
-        postDTO.setEndPage(endPage);
+        postDTO.setEndPage(postDTOPage.getTotalPages());
 
         postDTOPage.getContent().stream().map(CommunityPostDTO::toString).forEach(log::info);
 //        myExchangeDiary
@@ -280,16 +262,12 @@ public class MyListRestController {
 
         Page<DiaryDTO> diaryDTOpage= diaryService.showExchangeDiary(pageable,userId, criteria);
 
-        int endPage = (int)(Math.ceil(diaryDTOpage.getNumber()+1 / (double)10)) * 10;
-        if(diaryDTOpage.getTotalPages() < endPage){
-            endPage = diaryDTOpage.getTotalPages() == 0 ? 1 : diaryDTOpage.getTotalPages();
-        }
-        log.info(endPage + "end");
+        log.info(diaryDTOpage.getTotalPages() + "end");
 
         DiaryDTO diaryDTO = new DiaryDTO();
 
         diaryDTO.setDiaryList(diaryDTOpage.getContent());
-        diaryDTO.setEndPage(endPage);
+        diaryDTO.setEndPage(diaryDTOpage.getTotalPages());
 
         diaryDTOpage.getContent().stream().map(DiaryDTO::toString).forEach(log::info);
 

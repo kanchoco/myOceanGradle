@@ -123,7 +123,7 @@
         let text ='';
         text += `<div id="page_changer_wrapper">`;
         text += `<div id="previous_button_wrapper">`;
-        text += `<a class="previous_buttons changePage" onclick="changePage(${startNumber})">`;
+        text += `<a class="previous_buttons changePage" onclick="changePage(${startNumber == 1? 1: startNumber-1})">`;
         text += `<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">`;
         text += `</a>`;
         text += `<a class="previous_buttons changePage" onclick="changePage(${page>1? page-1 : page})">`;
@@ -141,7 +141,7 @@
         text += `<a class="next_buttons changePage" onclick="changePage(${page + 1 > realEnd? realEnd : page+1})">`;
         text += `<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">`;
         text += `</a>`;
-        text += `<a class="next_buttons changePage" onclick="changePage(${endPage})">`;
+        text += `<a class="next_buttons changePage" onclick="changePage(${endNumber == realEnd ? realEnd : endNumber+1})">`;
         text += `<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E" class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns">`;
         text += `</a>`;
         text += `</div>`;

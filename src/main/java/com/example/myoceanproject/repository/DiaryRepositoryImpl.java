@@ -148,7 +148,7 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
                 .limit(pageable.getPageSize()).fetch();
 
         long total = jpaQueryFactory.selectFrom(diary)
-                .where(diary.user.userId.eq(userId))
+                .where(dateFilter(dateData).and(diary.user.userId.eq(userId)))
                 .fetch().size();
 
         return new PageImpl<>(diaries, pageable, total);
@@ -173,7 +173,7 @@ public class DiaryRepositoryImpl implements DiaryCustomRepository{
                 .limit(pageable.getPageSize()).fetch();
 //
         long total = jpaQueryFactory.selectFrom(diary)
-                .where(diary.user.userId.eq(userId))
+                .where(dateFilter(dateData).and(diary.user.userId.eq(userId)))
                 .fetch().size();
 //
         return new PageImpl<>(diaries, pageable, total);
