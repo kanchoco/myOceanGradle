@@ -59,16 +59,12 @@ public class ManageGroupController {
         };
 
         Page<GroupDTO> groupDTOPage= groupService.findAllByStatus(pageable, groupStatus, criteria);
-        int endPage = (int)(Math.ceil(groupDTOPage.getNumber()+1 / (double)10)) * 10;
-        if(groupDTOPage.getTotalPages() < endPage){
-            endPage = groupDTOPage.getTotalPages() == 0 ? 1 : groupDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
-        log.info(groupDTOPage.getContent().size() + "end");
+
+        log.info(groupDTOPage.getTotalPages() + "end");
 
         GroupDTO groupDTO = new GroupDTO();
         groupDTO.setGroupList(groupDTOPage.getContent());
-        groupDTO.setEndPage(endPage);
+        groupDTO.setEndPage(groupDTOPage.getTotalPages());
 
 
         return groupDTO;
@@ -83,16 +79,12 @@ public class ManageGroupController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<GroupDTO> groupDTOPage= groupService.findAllManage(pageable, criteria);
-        int endPage = (int)(Math.ceil(groupDTOPage.getNumber()+1 / (double)10)) * 10;
-        if(groupDTOPage.getTotalPages() < endPage){
-            endPage = groupDTOPage.getTotalPages() == 0 ? 1 : groupDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
-        log.info(groupDTOPage.getContent().size() + "end");
+
+        log.info(groupDTOPage.getTotalPages() + "end");
 
         GroupDTO groupDTO = new GroupDTO();
         groupDTO.setGroupList(groupDTOPage.getContent());
-        groupDTO.setEndPage(endPage);
+        groupDTO.setEndPage(groupDTOPage.getTotalPages());
 
 
         return groupDTO;

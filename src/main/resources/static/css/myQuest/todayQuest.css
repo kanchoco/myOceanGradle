@@ -200,7 +200,7 @@ button:disabled {
     cursor: pointer;
     border-radius: 50%;
     color: rgb(51, 151, 255);
-    font-size: 18px;
+    /*font-size: 18px;*/
     font-weight: bold;
     display: flex;
     -webkit-box-pack: center;

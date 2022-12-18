@@ -47,16 +47,12 @@ public class ManageUserController {
         UserAccountStatus userAccountStatus = (criteria.getStatus().equals("active") ? UserAccountStatus.ACTIVE : UserAccountStatus.BANNED);
 
         Page<UserDTO> userDTOPage= userService.showUserByStatus(pageable, userAccountStatus, criteria);
-        int endPage = (int)(Math.ceil(userDTOPage.getNumber()+1 / (double)10)) * 10;
-        if(userDTOPage.getTotalPages() < endPage){
-            endPage = userDTOPage.getTotalPages() == 0 ? 1 : userDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
-        log.info(userDTOPage.getContent().size() + "end");
+
+        log.info(userDTOPage.getTotalPages() + "end");
 
         UserDTO userDTO = new UserDTO();
         userDTO.setUserList(userDTOPage.getContent());
-        userDTO.setEndPage(endPage);
+        userDTO.setEndPage(userDTOPage.getTotalPages());
 
 
         return userDTO;
@@ -71,15 +67,12 @@ public class ManageUserController {
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
         Page<UserDTO> userDTOPage= userService.showAllUser(pageable, criteria);
-        int endPage = (int)(Math.ceil(userDTOPage.getNumber()+1 / (double)10)) * 10;
-        if(userDTOPage.getTotalPages() < endPage){
-            endPage = userDTOPage.getTotalPages() == 0 ? 1 : userDTOPage.getTotalPages();
-        }
-        log.info(endPage + "end");
+
+        log.info(userDTOPage.getTotalPages() + "end");
 
         UserDTO userDTO = new UserDTO();
         userDTO.setUserList(userDTOPage.getContent());
-        userDTO.setEndPage(endPage);
+        userDTO.setEndPage(userDTOPage.getTotalPages());
 
 
         return userDTO;
