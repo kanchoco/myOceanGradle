@@ -206,35 +206,45 @@ public class LogAspect {
     //    그룹 참여 알람
     @AfterReturning("@annotation(com.example.myoceanproject.aspect.annotation.GroupJoinAlarm)")
     public void joinGroup(JoinPoint joinPoint) {
-        Long groupId = Long.valueOf(joinPoint.getArgs()[0].toString());
-        HttpServletRequest request = (HttpServletRequest) joinPoint.getArgs()[1];
-        Long userId = (Long) request.getSession().getAttribute("userId");
+//        Long groupId = Long.valueOf(joinPoint.getArgs()[0].toString());
+//        HttpServletRequest request = (HttpServletRequest) joinPoint.getArgs()[1];
+//        Long userId = (Long) request.getSession().getAttribute("userId");
+//        User user = userRepository.findById(userId).get();
+//
+//        Group group = groupRepository.findById(groupId).get();
+//
+//        AlarmDTO alarmDTO = new AlarmDTO();
+//        alarmDTO.setAlarmCategory("GROUP");
+//        alarmDTO.setAlarmContent("\"" + group.getGroupName() + "\" 에 참여하였습니다! 채팅방을 확인볼까요🙋‍♀️");
+//        alarmDTO.setUserId(userId);
+//        alarmDTO.setContentId(groupId);
+//        alarmService.addAlarm(alarmDTO);
+//
+//        AlarmDTO managerAlarm = new AlarmDTO();
+//        managerAlarm.setAlarmCategory("GROUP");
+//        managerAlarm.setAlarmContent("\"" + user.getUserNickname() + " \"님이 " + group.getGroupName() + "\" 에 참여하였습니다! 채팅방을 확인볼까요🙋‍♀️");
+//        managerAlarm.setUserId(group.getUser().getUserId());
+//        managerAlarm.setContentId(groupId);
+//        alarmService.addAlarm(alarmDTO);
+//
+//        if (achievementRepositoryImpl.checkDuplicatedById(userId, 10006L)) {
+////            처음 참가할 경우(뱃지의 유무로 검사), 보상 지급
+//            Quest quest = questRepository.findById(10006L).get();
+//            achievementService.save(userId, quest);
+//
+//            PointDTO pointDTO = new PointDTO();
+//            pointDTO.setPointAmountHistory(quest.getQuestPoint());
+//            pointDTO.setUserId(userId);
+//
+//            pointService.questReward(pointDTO, quest);
+//
+//            AlarmDTO questAlarm = new AlarmDTO();
+//
+//            questAlarm.setUserId(userId);
+//            alarmService.questAlarm(questAlarm, quest);
+//        }
+//
 
-        Group group = groupRepository.findById(groupId).get();
-
-        AlarmDTO alarmDTO = new AlarmDTO();
-        alarmDTO.setAlarmCategory("GROUP");
-        alarmDTO.setAlarmContent("\"" + group.getGroupName() + "\" 에 참여하였습니다! 채팅방을 확인볼까요🙋‍♀️");
-        alarmDTO.setUserId(userId);
-        alarmDTO.setContentId(groupId);
-        alarmService.addAlarm(alarmDTO);
-
-        if (achievementRepositoryImpl.checkDuplicatedById(userId, 10006L)) {
-//            처음 참가할 경우(뱃지의 유무로 검사), 보상 지급
-            Quest quest = questRepository.findById(10006L).get();
-            achievementService.save(userId, quest);
-
-            PointDTO pointDTO = new PointDTO();
-            pointDTO.setPointAmountHistory(quest.getQuestPoint());
-            pointDTO.setUserId(userId);
-
-            pointService.questReward(pointDTO, quest);
-
-            AlarmDTO questAlarm = new AlarmDTO();
-
-            questAlarm.setUserId(userId);
-            alarmService.questAlarm(questAlarm, quest);
-        }
     }
 
     //관리자 답변 알림
@@ -433,13 +443,14 @@ public class LogAspect {
         Long userId = (Long) request.getSession().getAttribute("userId");
         User user = userRepository.findById(userId).get();
 
-        AlarmDTO alarmDTO = new AlarmDTO();
-        alarmDTO.setAlarmCategory("LOGIN");
-        alarmDTO.setAlarmContent("🎉✨ 회원가입을 환영합니다 ✨🎉");
-        alarmDTO.setUserId(userId);
-        alarmService.addAlarm(alarmDTO);
 
         if(achievementRepositoryImpl.checkDuplicatedById(userId, 10001L)){
+            AlarmDTO alarmDTO = new AlarmDTO();
+            alarmDTO.setAlarmCategory("LOGIN");
+            alarmDTO.setAlarmContent("🎉✨ 회원가입을 환영합니다 ✨🎉");
+            alarmDTO.setUserId(userId);
+            alarmService.addAlarm(alarmDTO);
+
             Quest quest = questRepository.findById(10001L).get();
             achievementService.save(userId, quest);
 
@@ -460,7 +471,7 @@ public class LogAspect {
     public void toDoList(JoinPoint joinPoint) {
         Long userId = (long) joinPoint.getArgs()[2];
 //        하루에 투두리스트 10개 작성 시
-        if (mySpaceService.showAllByToday(userId).size() >= 10) {
+        if (mySpaceService.showAllByToday(userId).size() >= 10 && achievementRepositoryImpl.checkDuplicatedById(userId, 10010L)) {
             Quest quest = questRepository.findById(10010L).get();
             achievementService.save(userId, quest);
 

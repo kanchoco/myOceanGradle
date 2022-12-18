@@ -114,7 +114,7 @@ public class JoinController {
     @PostMapping("/joinOk")
     public String joinOk(UserDTO userDTO){
         userDTO.setUserPassword(encryption(userDTO.getUserPassword()));
-        userDTO.setUserTotalPoint(5000);
+        userDTO.setUserTotalPoint(0);
         userDTO.setUserAccountStatus("정상");
 
         userService.saveUser(userDTO);
