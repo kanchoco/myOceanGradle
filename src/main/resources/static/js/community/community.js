@@ -177,9 +177,9 @@ $(".pageIntroduce_modalContainer_1h").click(function (e) {
 
 
 // 반응형
-$(document).ready(function(){
-    checkMedia();
-})
+// $(document).ready(function(){
+//     checkMedia();
+// })
 
 $(window).resize(function(){
     if(window.innerWidth<785){
@@ -204,7 +204,7 @@ $(window).resize(function(){
         $("a.until785px").show();
         $(".categoryMedia >div").css("justify-content", "start");
     }
-})
+}).resize();
 
 function checkMedia(){
     if(window.innerWidth<785){
@@ -229,6 +229,7 @@ function checkMedia(){
         $("a.until785px").show();
         $(".categoryMedia >div").css("justify-content", "start");
     }
+    console.log("checkMedia 들어옴");
 }
 
 
@@ -240,6 +241,7 @@ let communityService = (function() {
             url: "/community/list/",
             type: "get",
             success: function (communityPostDTO, status, xhr) {
+                console.log("getList 들어옴");
                 if (callback) {
                     callback(communityPostDTO);
                 }
