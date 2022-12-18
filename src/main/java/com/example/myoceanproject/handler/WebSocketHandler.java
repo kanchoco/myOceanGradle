@@ -46,6 +46,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
         ChattingDTO chattingDTO = objectMapper.readValue(msg,ChattingDTO.class);
         GroupDTO groupDTO = groupRepositoryImpl.findGroupByGroupId(chattingDTO.getGroupId());
         Long groupMemberId =chattingRepository.findGroupMemberIdByUserIdAndGroupId(chattingDTO.getSenderUserId(), chattingDTO.getGroupId());
+        chattingDTO.setSenderUserFileUuid(userRepositoryImple.findByUserId(chattingDTO.getSenderUserId()).getUserFileUuid());
+        chattingDTO.setSenderUserFilePath(userRepositoryImple.findByUserId(chattingDTO.getSenderUserId()).getUserFilePath());
+        chattingDTO.setSenderUserFileName(userRepositoryImple.findByUserId(chattingDTO.getSenderUserId()).getUserFileName());
         chattingDTO.setSenderGroupMemberId(groupMemberId);
 //        chattingService.saveMessage(userId, groupId, chattingDTO);
 
