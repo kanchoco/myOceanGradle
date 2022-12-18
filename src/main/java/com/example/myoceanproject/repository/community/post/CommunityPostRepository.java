@@ -13,4 +13,6 @@ public interface CommunityPostRepository extends JpaRepository<CommunityPost, Lo
     @Query("select p.communityPostId from CommunityPost p where p.user.userId=:userId")
     public Long findpostByuserid(@Param("userId") Long userid);
 
+    public int countAllByUser_UserId(Long userId);
+
 }

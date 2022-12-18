@@ -29,8 +29,8 @@ public class AskService {
     }
 
     /*관리자가 작성한 질문 예시*/
-    public Page<AskDTO> showAllQuestion(Pageable pageable, Criteria criteria, Long userId){
-        return criteria.getKeyword() == null ? myAskRepositoryImpl.findAll(pageable,userId) : myAskRepositoryImpl.findAll(pageable,criteria,userId);
+    public Page<AskDTO> showAllQuestion(Pageable pageable, Criteria criteria){
+        return criteria.getKeyword() == null ? myAskRepositoryImpl.findAll(pageable) : myAskRepositoryImpl.findAll(pageable,criteria);
     }
     /*나의 질문 조회*/
     public Page<AskDTO> showAllMyAsk(Pageable pageable, Criteria criteria, Long userId){

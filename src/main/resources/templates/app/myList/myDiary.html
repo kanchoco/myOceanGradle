@@ -93,17 +93,17 @@
         <div th:replace="/app/myList/myList.html :: myListCategory"></div>
         <div id="table_wrapper">
             <div class="content"></div>
-<!--                <th:block th:each="diary:${diarys}">-->
-<!--                    <ul th:object="${diary}">-->
-<!--                        <li>-->
-<!--                            <div class="my_list">-->
-<!--                                <div class="list_title" th:text="*{diaryTitle}"></div>-->
-<!--                                <div class="list_date" th:text="*{createDate}"></div>-->
-<!--                            </div>-->
-<!--                        </li>-->
-<!--                    </ul>-->
-<!--                </th:block>-->
-<!--    </div>-->
+            <!--                <th:block th:each="diary:${diarys}">-->
+            <!--                    <ul th:object="${diary}">-->
+            <!--                        <li>-->
+            <!--                            <div class="my_list">-->
+            <!--                                <div class="list_title" th:text="*{diaryTitle}"></div>-->
+            <!--                                <div class="list_date" th:text="*{createDate}"></div>-->
+            <!--                            </div>-->
+            <!--                        </li>-->
+            <!--                    </ul>-->
+            <!--                </th:block>-->
+            <!--    </div>-->
 
             <div class="pageBody">
             </div>
@@ -138,6 +138,8 @@
         let text = '';
 
         diaryDTO.diaryList.forEach(diary => {
+            console.log("diary:"+diary);
+            console.log("diary.diaryId:"+diary.diaryId);
             console.log("diary.createDate:"+diary.createDate);
             // ISO -> 문자열 형식의 yyyy-MM-dd HH:mm:ss
             var changeDate = new Date(diary.createDate);
@@ -145,10 +147,10 @@
             changeDate=changeDate.toISOString().replace('T', ' ').substring(0, 19);
             console.log(typeof changeDate);
 
-            text += `<ul><li><div class="my_list">`;
+            text += `<ul><li><a href="/myList/myDiaryDetail?diaryId=`+diary.diaryId+`"><div class="my_list">`;
             text += `<div class="list_title">`+ diary.diaryTitle +`</div>`;
             text += `<div class="list_date">`+ diary.createDate +`</div>`;
-            text += `</div></li></ul>`;
+            text += `</div></a></li></ul>`;
         });
 
         $(".content").html(text);

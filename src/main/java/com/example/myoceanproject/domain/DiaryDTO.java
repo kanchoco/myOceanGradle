@@ -19,6 +19,7 @@ import java.util.List;
 public class DiaryDTO {
 
     private Long userId;
+    private Long diaryId;
 
     private String diaryTitle;
     private String diaryContent;
@@ -34,7 +35,8 @@ public class DiaryDTO {
     private int endPage;
 
     @QueryProjection
-    public DiaryDTO(Long userId, String diaryTitle, String diaryContent, Long receiverUserId, LocalDateTime createDate, LocalDateTime updateDate,DiaryCategory diaryCategory) {
+    public DiaryDTO(Long diaryId,Long userId, String diaryTitle, String diaryContent, Long receiverUserId, LocalDateTime createDate, LocalDateTime updateDate,DiaryCategory diaryCategory) {
+        this.diaryId=diaryId;
         this.userId = userId;
         this.diaryTitle = diaryTitle;
         this.diaryContent = diaryContent;

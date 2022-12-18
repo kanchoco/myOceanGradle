@@ -55,13 +55,13 @@ public class MyGroupRepositoryImpl implements MyGroupCustomRepository{
                 .from(group)
                 .join(groupMember)
                 .on(groupMember.group.groupId.eq(group.groupId))
-                .where(groupMember.user.userId.eq(userId))
+                .where(groupMember.user.userId.eq(userId).or(group.user.userId.eq(userId)))
                 .orderBy(group.groupId.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()).fetch();
 
-        long total = jpaQueryFactory.selectFrom(groupMember)
-                .where(groupMember.user.userId.eq(userId))
+        long total = jpaQueryFactory.from(group).join(groupMember).on(groupMember.group.groupId.eq(group.groupId))
+                .where(groupMember.user.userId.eq(userId).or(group.user.userId.eq(userId)))
                 .fetch().size();
 
         return new PageImpl<>(myGroups, pageable, total);
@@ -102,13 +102,13 @@ public class MyGroupRepositoryImpl implements MyGroupCustomRepository{
                 .from(group)
                 .join(groupMember)
                 .on(groupMember.group.groupId.eq(group.groupId))
-                .where(groupMember.user.userId.eq(userId))
+                .where(groupMember.user.userId.eq(userId).or(group.user.userId.eq(userId)))
                 .orderBy(group.groupId.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()).fetch();
 
-        long total = jpaQueryFactory.selectFrom(groupMember)
-                .where(groupMember.user.userId.eq(userId))
+        long total = jpaQueryFactory.from(group).join(groupMember).on(groupMember.group.groupId.eq(group.groupId))
+                .where(groupMember.user.userId.eq(userId).or(group.user.userId.eq(userId)))
                 .fetch().size();
 
         return new PageImpl<>(myGroups, pageable, total);

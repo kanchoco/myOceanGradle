@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MyGroupRepository extends JpaRepository<Group,Long> {
+    public Group findTopByUserUserIdOrderByGroupIdDesc(Long userId);
 }

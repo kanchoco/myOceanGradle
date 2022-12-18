@@ -6,6 +6,7 @@ import com.example.myoceanproject.entity.User;
 import com.example.myoceanproject.repository.GroupMemberRepository;
 import com.example.myoceanproject.repository.GroupRepository;
 import com.example.myoceanproject.repository.alarm.AlarmRepository;
+import com.example.myoceanproject.repository.community.post.CommunityPostRepository;
 import com.example.myoceanproject.repository.quest.QuestAchievementRepository;
 import com.example.myoceanproject.service.DiaryService;
 import com.example.myoceanproject.service.UserService;
@@ -42,7 +43,7 @@ public class MyPageController {
     private UserService userService;
 
     @Autowired
-    private CommunityPostService communityPostService;
+    private CommunityPostRepository communityPostRepository;
 
     @Autowired
     private DiaryService diaryService;
@@ -68,7 +69,7 @@ public class MyPageController {
 
         UserDTO userDTO= userService.findUser(userId);
         int diaryCount=diaryService.findAllDiary(userId);
-        int communityPostCount=communityPostService.findAllByList(userId).size();
+        int communityPostCount=communityPostRepository.countAllByUser_UserId(userId);
         int questAchievementCount=questAchievementRepositoryRepository.countAllByUser_UserId(userId);
         int groupCount=groupRepository.countAllByUser_UserId(userId)+groupMemberRepository.countAllByUser_UserId(userId);
         int alarmCount=alarmRepository.countAllByUser_UserId(userId);
