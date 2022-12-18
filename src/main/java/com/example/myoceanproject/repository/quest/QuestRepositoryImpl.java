@@ -6,6 +6,7 @@ import com.example.myoceanproject.entity.CommunityPost;
 import com.example.myoceanproject.entity.Quest;
 import com.example.myoceanproject.repository.community.like.CommunityLikeCustomRepository;
 import com.example.myoceanproject.type.CommunityCategory;
+import com.example.myoceanproject.type.QuestType;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -116,6 +117,27 @@ public class QuestRepositoryImpl implements QuestCustomRepository {
                     quest.createDate
         )).from(quest).where(quest.questDeadLine.eq(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))))
                 .fetchOne();
+    }
+
+    @Override
+    public List<QuestDTO> findAllQuest(){
+        return jpaQueryFactory.select(new QQuestDTO(
+                        quest.questId,
+                        quest.questCategory,
+                        quest.questName,
+                        quest.questContent,
+                        quest.questType,
+                        quest.questDeadLine,
+                        quest.questPoint,
+                        quest.questFilePath,
+                        quest.questFileName,
+                        quest.questFileUuid,
+                        quest.questFileSize,
+                        quest.createDate
+                )).from(quest)
+                .where(quest.questType.eq(QuestType.BASIC))
+                .orderBy(quest.questId.asc())
+                .fetch();
     }
 
 }

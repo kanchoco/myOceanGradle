@@ -76,34 +76,21 @@ public class MyQuestRestController {
     }
 
 
-    @GetMapping(value = "myBadge/{page}")
-    public QuestDTO myBadge(@PathVariable int page,@PathVariable(required = false) String keyword, HttpServletRequest request){
+    @GetMapping(value = "/myBadge")
+    public QuestDTO myBadge(HttpServletRequest request){
         log.info("================================REST CONTROLLER 들어옴===================================");
-
-        Criteria criteria = new Criteria();
-        criteria.setPage(page);
-
-        Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute("userId");
         log.info(userId.toString());
-        Page<QuestDTO> questDTOList = questAchievementService.showMyAchievement(userId, pageable);
-        int endPage = (int)(Math.ceil(questDTOList.getNumber()+1 / (double)10)) * 10;
-        if(questDTOList.getTotalPages() < endPage){
-            endPage = questDTOList.getTotalPages() == 0 ? 1 : questDTOList.getTotalPages();
-        }
-
         QuestDTO questDTO = new QuestDTO();
-
-        questDTO.setQuestList(questDTOList.getContent());
-        questDTO.setEndPage(endPage);
-
+        questDTO.setQuestList(questAchievementService.showMyBasicAchievement(userId));
+        questDTO.setAllQuestList(questService.showAllQuest());
 
         return questDTO;
     }
 
-    @GetMapping(value = "/badge")
-    public List<QuestDTO> myBadge(HttpServletRequest request) throws JSONException {
+    @GetMapping(value = "/monthlyBadge")
+    public List<QuestDTO> monthlyBadge(HttpServletRequest request) throws JSONException {
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute("userId");
         List<QuestDTO> questDTOList = new ArrayList<>();
@@ -119,7 +106,6 @@ public class MyQuestRestController {
             questDTO.setMonthlyCount(questAchievementService.showMonthlyAchievementCount(userId, i+1));
             questDTO.setBadgeCount(questAchievementService.showMyBadgeNumber(userId));
             questDTOList.add(questDTO);
-
         }
         return questDTOList;
     }
