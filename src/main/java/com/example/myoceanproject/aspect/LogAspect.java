@@ -225,7 +225,7 @@ public class LogAspect {
         managerAlarm.setAlarmContent("\"" + user.getUserNickname() + " \"님이 " + group.getGroupName() + "\" 에 참여하였습니다! 채팅방을 확인볼까요🙋‍♀️");
         managerAlarm.setUserId(group.getUser().getUserId());
         managerAlarm.setContentId(groupId);
-        alarmService.addAlarm(alarmDTO);
+        alarmService.addAlarm(managerAlarm);
 
         if (achievementRepositoryImpl.checkDuplicatedById(userId, 10006L)) {
 //            처음 참가할 경우(뱃지의 유무로 검사), 보상 지급
