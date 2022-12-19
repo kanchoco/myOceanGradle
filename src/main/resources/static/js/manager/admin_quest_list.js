@@ -129,7 +129,8 @@ let checkModifying = false;
 
 
 $('.regist').click(function (){
-    alert("퀘스트가 등록됐습니다.");
+    $('#__BVID__287___BV_modal_outer_').css('display', '');
+
     questId = $('.register td:nth-child(1) input').val();
     questName = $('.register td:nth-child(2) input').val();
     questCategory = $('.register td:nth-child(3) input').val();
@@ -185,6 +186,13 @@ $('.regist').click(function (){
     }
 
 })
+
+
+$('.saveRequest').on('click', function (){
+    $('#__BVID__287___BV_modal_outer_').css('display', 'none');
+})
+
+
 
 // 첨부파일 이미지 클릭시 파일 찾기 창 열림
 function onClickUpload(){
