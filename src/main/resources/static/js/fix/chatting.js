@@ -368,7 +368,7 @@ function getChattingContentList(chattingDTOList) {
             text += "</div>"
             text += "<div class=\"opponent\">";
             text += "<div class=\"thumb\">"
-            text += "<a href=\"/people/ROSA\" target=\"_blank\">"
+            text += "<a href='javascript:void(0)' target=\"_blank\">"
             if (userFileUuid==null) {
                 text += `<img src="/imgin/main/logo.png" alt="user thumbnail" class="Profile__Thumbnail-sc-1rgtq5h-8 eBTIQt">`
             } else {
@@ -390,7 +390,7 @@ function getChattingContentList(chattingDTOList) {
         } else {
             text += "<div class=\"opponent\">";
             text += "<div class=\"thumb\">"
-            text += "<a href=\"/people/ROSA\" target=\"_blank\">"
+            text += "<a href='javascript:void(0)' target=\"_blank\">"
             if (!userFileUuid) {
                 text += `<img src="/imgin/main/logo.png" alt="user thumbnail" class="Profile__Thumbnail-sc-1rgtq5h-8 eBTIQt">`
             } else {
@@ -439,9 +439,6 @@ function disconnect(){
     webSocket.close();
 }
 function send(){
-    console.log("=============================자바스크립트 send들어옴======================================")
-    console.log(userNickName);
-    console.log(userId);
     let msg = document.getElementById("msg").value;
     webSocket.send(JSON.stringify({
         groupId : myGroupId,
@@ -453,11 +450,9 @@ function send(){
     msg.value ='';
 }
 function onOpen(){
-    console.log("=============================자바스크립트 onOpen들어옴======================================")
     webSocket.send(JSON.stringify({groupId : myGroupId, messageType:'입장',senderUserNickName:userNickName, senderUserId : userId}));
 }
 function onMessage(e){
-    console.log("=============================자바스크립트 onMessage들어옴======================================")
     if(!e.data.includes(':')){
         return null;
     }
@@ -468,12 +463,11 @@ function onMessage(e){
     let dateTime = new Date().toTimeString().split(' ')[0];
     let time = dateTime.split(":")
 
-    console.log(realDatas[0]);
 
         chattingRoom.innerHTML =chattingRoom.innerHTML
         + "<div class=\"opponent\">"
         + "<div class=\"thumb\">"
-        + "<a href=\"/people/ROSA\" target=\"_blank\">"
+        + "<a href='javascript:void(0)' target=\"_blank\">"
         + `<img src="`+realDatas[0]+`" alt="user thumbnail" class="Profile__Thumbnail-sc-1rgtq5h-8 eBTIQt">`
         + "</div>"
         + "<div class=\"userIdChatTxt\">"

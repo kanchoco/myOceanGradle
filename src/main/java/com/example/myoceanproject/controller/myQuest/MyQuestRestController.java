@@ -5,6 +5,8 @@ import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.domain.PointDTO;
 import com.example.myoceanproject.domain.QuestDTO;
 import com.example.myoceanproject.entity.Quest;
+import com.example.myoceanproject.repository.alarm.AlarmRepositoryImpl;
+import com.example.myoceanproject.repository.quest.QuestAchievementRepositoryImpl;
 import com.example.myoceanproject.service.PointService;
 import com.example.myoceanproject.service.UserService;
 import com.example.myoceanproject.service.quest.QuestAchievementService;
@@ -46,9 +48,13 @@ public class MyQuestRestController {
     private final QuestAchievementService questAchievementService;
     private final UserService userService;
 
+    private final QuestAchievementRepositoryImpl questAchievementRepositoryImpl;
+
     private final PointService pointService;
 
     private final QuestService questService;
+
+    private final AlarmRepositoryImpl alarmRepositoryImpl;
     // 완료한 퀘스트 페이지
     @GetMapping(value = "/{page}")
     public QuestDTO completeQuest(@PathVariable int page,@PathVariable(required = false) String keyword, HttpServletRequest request){
@@ -78,10 +84,8 @@ public class MyQuestRestController {
 
     @GetMapping(value = "/myBadge")
     public QuestDTO myBadge(HttpServletRequest request){
-        log.info("================================REST CONTROLLER 들어옴===================================");
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute("userId");
-        log.info(userId.toString());
         QuestDTO questDTO = new QuestDTO();
         questDTO.setQuestList(questAchievementService.showMyBasicAchievement(userId));
         questDTO.setAllQuestList(questService.showAllQuest());
@@ -111,9 +115,21 @@ public class MyQuestRestController {
     }
 
     @GetMapping(value = "/todayQuest")
-    public QuestDTO todayQuest() throws JSONException {
-        QuestDTO questDTO = questService.showTodayQuest();
-        return questDTO;
+    public QuestDTO todayQuest(HttpServletRequest request) throws JSONException {
+        try {
+            HttpSession session = request.getSession();
+            QuestDTO questDTO = questService.showTodayQuest();
+            questDTO.setCheckTodayQuestAchievement(questAchievementRepositoryImpl.checkDuplicatedById((Long) session.getAttribute("userId"), questDTO.getQuestId()));
+            return questDTO;
+        }catch (NullPointerException e){
+            QuestDTO questDTO = new QuestDTO();
+            questDTO.setQuestName("오늘의 퀘스트");
+            questDTO.setQuestCategory("오늘의 퀘스트");
+            questDTO.setQuestType("오늘의 퀘스트");
+            questDTO.setQuestContent("오늘의 퀘스트가 아직 등록되지 않았어요🙇‍");
+            return questDTO;
+        }
+
     }
 
     @GetMapping(value = "/todayQuestAdd")
