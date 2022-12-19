@@ -48,6 +48,8 @@ public class QuestDTO {
     private Long userFileSize;
     private String userFileUuid;
 
+    private boolean checkTodayQuestAchievement;
+
 
     @QueryProjection
     public QuestDTO(Long questId, String questCategory, String questName, String questContent,QuestType questType, String questDeadLine, int questPoint, String questFilePath, String questFileName, String questFileUuid, Long questFileSize, LocalDateTime createDate) {

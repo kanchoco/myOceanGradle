@@ -17,6 +17,7 @@ let todayQuestService = (function(){
         });
     }
 
+
     function addTodayQuestAchievement(error){
         $.ajax({
             url: "/myCompleteQuest/todayQuestAdd",

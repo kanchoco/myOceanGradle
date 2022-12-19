@@ -50,7 +50,9 @@ public class QuestAchievementRepositoryImpl implements QuestAchievementCustomRep
                 .limit(pageable.getPageSize()).fetch();
 
         long total = queryFactory.selectFrom(questAchievement)
-                .where(questAchievement.user.userId.eq(userId).and(questAchievement.quest.questType.eq(QuestType.BASIC)))
+                .where(questAchievement.user.userId.eq(userId)
+//                        .and(questAchievement.quest.questType.eq(QuestType.BASIC))
+                     )
                 .fetch().size();
 
         return new PageImpl<>(questDTOList, pageable, total);
