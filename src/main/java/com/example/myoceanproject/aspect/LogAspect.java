@@ -222,7 +222,7 @@ public class LogAspect {
 
         AlarmDTO managerAlarm = new AlarmDTO();
         managerAlarm.setAlarmCategory("GROUP");
-        managerAlarm.setAlarmContent("\"" + user.getUserNickname() + " \"님이 " + group.getGroupName() + "\" 에 참여하였습니다! 채팅방을 확인볼까요🙋‍♀️");
+        managerAlarm.setAlarmContent("\"" + user.getUserNickname() + "\" 님이 \"" + group.getGroupName() + "\" 에 참여하였습니다! 채팅방을 확인볼까요🙋‍♀️");
         managerAlarm.setUserId(group.getUser().getUserId());
         managerAlarm.setContentId(groupId);
         alarmService.addAlarm(managerAlarm);
