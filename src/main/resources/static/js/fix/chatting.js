@@ -369,7 +369,7 @@ function getChattingContentList(chattingDTOList) {
             text += "<div class=\"opponent\">";
             text += "<div class=\"thumb\">"
             text += "<a href=\"/people/ROSA\" target=\"_blank\">"
-            if (!userFileUuid) {
+            if (userFileUuid==null) {
                 text += `<img src="/imgin/main/logo.png" alt="user thumbnail" class="Profile__Thumbnail-sc-1rgtq5h-8 eBTIQt">`
             } else {
                 text += `<img src="` + imageSrc + `"alt="user thumbnail" class="Profile__Thumbnail-sc-1rgtq5h-8 eBTIQt">`
@@ -467,32 +467,20 @@ function onMessage(e){
     let realDatas = datas.split(":");
     let dateTime = new Date().toTimeString().split(' ')[0];
     let time = dateTime.split(":")
-    console.log(realDatas[0])
-    console.log(realDatas[1])
-    console.log(realDatas[2])
-    console.log(realDatas[3])
-    console.log(realDatas[4])
-    console.log(time[0])
-    console.log(time[1])
 
-    let userFilePath = realDatas[0];
-    let userFileUuid = realDatas[1];
-    let userFileName = realDatas[2];
-    let imageSrc = "/mypage/display?fileName=" + userFilePath + "/" + userFileUuid + "_" + userFileName;
+    console.log(realDatas[0]);
 
-
-    if (!userFileUuid) {
         chattingRoom.innerHTML =chattingRoom.innerHTML
-            + "<div class=\"opponent\">"
+        + "<div class=\"opponent\">"
         + "<div class=\"thumb\">"
         + "<a href=\"/people/ROSA\" target=\"_blank\">"
-        + `<img src="/imgin/main/logo.png" alt="user thumbnail" class="Profile__Thumbnail-sc-1rgtq5h-8 eBTIQt">`
+        + `<img src="`+realDatas[0]+`" alt="user thumbnail" class="Profile__Thumbnail-sc-1rgtq5h-8 eBTIQt">`
         + "</div>"
         + "<div class=\"userIdChatTxt\">"
-        + "<span class=\"userId\">" + realDatas[3] + "</span>"
+        + "<span class=\"userId\">" + realDatas[1] + "</span>"
         + "<div class=\"chatTxt\">"
         + "<span class=\"chatTxtContents\">"
-        + "<a style=\"color: rgb(51, 51, 51);\">" + realDatas[4] + "</a>"
+        + "<a style=\"color: rgb(51, 51, 51);\">" + realDatas[2] + "</a>"
         + "</span>"
         + "<div class=\"timeWrap\">"
         + "<span class=\"time\">" + time[0]+ ":" + time[1] + "</span>"
@@ -500,26 +488,7 @@ function onMessage(e){
         + "</div>"
         + "</div>"
         + "</div>"
-    } else {
-        chattingRoom.innerHTML =chattingRoom.innerHTML
-            + "<div class=\"opponent\">"
-        + "<div class=\"thumb\">"
-        + "<a href=\"/people/ROSA\" target=\"_blank\">"
-        +`<img src="` + imageSrc + `"alt="user thumbnail" class="Profile__Thumbnail-sc-1rgtq5h-8 eBTIQt">`
-        + "</div>"
-        + "<div class=\"userIdChatTxt\">"
-        + "<span class=\"userId\">" + realDatas[3] + "</span>"
-        + "<div class=\"chatTxt\">"
-        + "<span class=\"chatTxtContents\">"
-        + "<a style=\"color: rgb(51, 51, 51);\">" + realDatas[4] + "</a>"
-        + "</span>"
-        + "<div class=\"timeWrap\">"
-        + "<span class=\"time\">" + time[0]+ ":" + time[1] + "</span>"
-        + "</div>"
-        + "</div>"
-        + "</div>"
-        + "</div>"
-    }
+
 
 }
 function onClose(){

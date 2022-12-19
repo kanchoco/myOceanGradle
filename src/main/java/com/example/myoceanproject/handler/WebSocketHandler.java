@@ -40,9 +40,18 @@ public class WebSocketHandler extends TextWebSocketHandler {
         ChattingDTO chattingDTO = objectMapper.readValue(msg,ChattingDTO.class);
         GroupDTO groupDTO = groupRepositoryImpl.findGroupByGroupId(chattingDTO.getGroupId());
         Long groupMemberId =chattingRepository.findGroupMemberIdByUserIdAndGroupId(chattingDTO.getSenderUserId(), chattingDTO.getGroupId());
-        chattingDTO.setSenderUserFileUuid(userRepositoryImple.findByUserId(chattingDTO.getSenderUserId()).getUserFileUuid());
-        chattingDTO.setSenderUserFilePath(userRepositoryImple.findByUserId(chattingDTO.getSenderUserId()).getUserFilePath());
-        chattingDTO.setSenderUserFileName(userRepositoryImple.findByUserId(chattingDTO.getSenderUserId()).getUserFileName());
+
+        String userFileUuid = userRepositoryImple.findByUserId(chattingDTO.getSenderUserId()).getUserFileUuid();
+        String userFilePath = userRepositoryImple.findByUserId(chattingDTO.getSenderUserId()).getUserFilePath();
+        String userFileName = userRepositoryImple.findByUserId(chattingDTO.getSenderUserId()).getUserFileName();
+
+        if(userFileUuid == null) {
+            chattingDTO.setImageSrc("/imgin/main/logo.png");
+        }else{
+            chattingDTO.setImageSrc("/mypage/display?fileName=" + userFilePath + "/" + userFileUuid + "_" + userFileName);
+        }
+
+
         chattingDTO.setSenderGroupMemberId(groupMemberId);
 
 //        세션 가지고 있음

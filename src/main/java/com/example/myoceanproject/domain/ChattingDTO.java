@@ -43,6 +43,8 @@ public class ChattingDTO {
 
     private String messageType;
 
+    private String imageSrc;
+
 
     @QueryProjection
     public ChattingDTO(Long chattingId, Long senderUserId, String senderUserNickName, String senderUserFileName, String senderUserFilePath, Long senderUserFileSize, String senderUserFileUuid, Long groupId, String groupName, Long senderGroupMemberId, String chattingContent, LocalDateTime createDate, MessageType messageType) {
