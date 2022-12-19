@@ -237,7 +237,7 @@
         // result.content는 slice가 return해준 result에서 내용이 담겨있는 부분이 content이기 때문에 result.content를 반복 돌린다
         $(result.content).each((i,post)=>{
             let imageSrc = "/community/display?fileName=" + post.communityFilePath + "/" + post.communityFileUuid + "_" + post.communityFileName;
-            let userImageSrc = "/community/display?fileName=" + post.userFilePath + "/" + post.userFileUuid + "_" + post.userFileName;
+            let userImageSrc = "/mypage/display?fileName=" + post.userFilePath + "/" + post.userFileUuid + "_" + post.userFileName;
 
             // 작성자 프로필 사진, 닉네임
             text +=`<div><div class="Profile__Wrapper-sc-14xkqhl-0 ePpOcl CardFeed__StyledProfile-sc-1hnsnr8-0 kHXXhk">`;

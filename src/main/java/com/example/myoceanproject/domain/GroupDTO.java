@@ -134,31 +134,23 @@ public class GroupDTO {
     }
     public void handleMessage(WebSocketSession session, ChattingDTO chattingDTO,
                               ObjectMapper objectMapper) throws IOException {
-        log.info("===========================GroupDTO handleMessage 들어옴======================================");
 //            http 세션에 저장된 유저 아이디
         if(chattingDTO.getMessageType().equals(MessageType.ENTER.toString())&&session.getAttributes().get("groupId") == chattingDTO.getGroupId()){ // 사용자가 채팅방에 입장하여 "확인"을 눌렀을 때는 해당 닉네임 접속을 환영한다는 문구 출력
             chattingDTO.setChattingContent(chattingDTO.getSenderUserNickName() + "님이 입장하셨습니다.");
             sessions.put(chattingDTO.getSenderUserId(), session);
         }else {
             chattingDTO.setChattingContent(
-                    chattingDTO.getSenderUserFilePath()+":"
-                    +chattingDTO.getSenderUserFileUuid()+":"
-                    +chattingDTO.getSenderUserFileName()+":"
+                    chattingDTO.getImageSrc() + ":"
                     +chattingDTO.getSenderUserNickName() + ":" + chattingDTO.getChattingContent());
         }
-        log.info("웹소켓 세션의 그룹 아이디 : "+session.getAttributes().get("groupId").toString());
-        log.info("chatttingDTO의 그룹 아이디 : "+chattingDTO.getGroupId().toString());
         if(session.getAttributes().get("groupId") == chattingDTO.getGroupId()){
             send(chattingDTO,objectMapper);}
 
     }
 
     private void send(ChattingDTO chattingDTO, ObjectMapper objectMapper) throws IOException {
-        log.info("===========================GroupDTO send 메서드 들어옴======================================");
-        log.info(chattingDTO.toString());
         TextMessage textMessage = new TextMessage(objectMapper.
                 writeValueAsString(chattingDTO.getChattingContent()));
-        log.info(sessions.toString());
         for(WebSocketSession sess : sessions.values()){
             if(sess.getAttributes().get("groupId") == chattingDTO.getGroupId()) {
                 sess.sendMessage(textMessage);
