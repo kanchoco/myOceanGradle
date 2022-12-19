@@ -25,6 +25,7 @@ public class Ask extends Period{
     @Enumerated(EnumType.STRING)
     private AskStatus askStatus; //Enum
     private String askTitle;
+    @Column(length=10000)
     private String askContent;
     @NotNull
     @Enumerated(EnumType.STRING)
