@@ -187,7 +187,7 @@
 
 
 <script th:inline="javascript">
-    //thinline은 타임리프를 사용할수 있게 해준다.
+    //th:inline은 타임리프를 사용할수 있게 해준다.
     const keyword = [[${keyword}]];
     globalThis.size = 10;
     //필터 값을 넘겨주기 위한 배열을 생성한다.
@@ -223,17 +223,18 @@
             text += `</div>`
             text += `</div>`
             text += `</div>`
-            // 첫 검색시 결과 O, 필터 선택시 결과 X => 필터
+            // firstCheck=false => 첫 검색!, gRnEmw 필터부분에 text 넣기! => 필터 사라짐.
             if(!firstCheck){
-                $(".gRnEmw").html(text);
-                // 첫 검색시 결과 x
+                $(".gRnEmw").html(text)
+            // firstCheck=true => 첫 검색 x, koasSX 본문내용에 text 넣기! => 필터 유지.
             }else{
-                // $(".view__FeedListWrapper-sc-1fff32g-0.ciajVR").html(text);
                 $(".koasSX").html(text);
             }
             return;
         }
+        // 검색결과가 한번이라도 있었다면, firstCheck=true
         firstCheck=true;
+        // result.content는 slice가 return해준 result에서 내용이 담겨있는 부분이 content이기 때문에 result.content를 반복 돌린다
         $(result.content).each((i,post)=>{
             let imageSrc = "/community/display?fileName=" + post.communityFilePath + "/" + post.communityFileUuid + "_" + post.communityFileName;
             let userImageSrc = "/community/display?fileName=" + post.userFilePath + "/" + post.userFileUuid + "_" + post.userFileName;
@@ -330,16 +331,21 @@
             text+=post.communityReplyCount;
             text+=`</span></img></a></div></div>`;
         })
+        // 본문 내용을 비워준다. (퍼블리싱이 깨져서 추가해준 부분)
         $(".koasSX").empty();
+        // 본문 내용 wrapper(div)를 하나 추가해준다.
         $(".koasSX").append('<div class="view__FeedListWrapper-sc-1fff32g-0 ciajVR">');
+        // 그러고 나서 위의 text를 붙여준다.
         $(".view__FeedListWrapper-sc-1fff32g-0.ciajVR").html(text);
 
+        // slice 타입은 last라는 변수가 현재 페이지가 마지막 여부인지를 return 해준다.
         if(result.last) {
             lastCheck = true;
         }
 
     }
 
+    //필터 영역
     const $filterBtn = $(".childFilter");
     const $allBtn = $(".allFilter");
 
@@ -349,22 +355,27 @@
     const $book = $(".bookFilter")
     const $diary = $(".diaryFilter")
 
-
+    // 전체버튼 자기 자신이 파란불이 들어옴
     function allCheck(){
         $allBtn.find("button").removeClass('fFBpBV').addClass("kJEnf");
         $allBtn.find(".gRNDCb").show();
     }
-
+    //  전체버튼 자기 자신이 파란불이 들어와있을 시 원래대로 복구
     function allCheckCancel(){
         $allBtn.find("button").removeClass('kJEnf').addClass("fFBpBV");
         $allBtn.find(".gRNDCb").hide();
     }
 
+    //전체 필터를 클릭했을시
     $allBtn.on("click",function () {
+        //size를 초기화 즉 무한스크롤을 재실행시키기 위한 목적
+        //lastcheck도 false로 초기화
         globalThis.size=10;
         lastCheck=false;
+        //전체를 클릭하면 나머지 다 체크
         if($(this).find("button").hasClass("fFBpBV")){
             allCheck();
+            // 5개의 필터 모두 communityAr배열에 넣기
             $filterBtn.each((i,item)=>{
                 $(item).find("button").removeClass('fFBpBV').addClass("kJEnf");
                 $(item).find(".gRNDCb").show();
@@ -375,8 +386,10 @@
                 globalThis.communityAr.push("COUNSELING");
                 show();
             })
+        // 전체다 켜져 있을시 한번 더 클릭시 모두 해제
         }else{
             allCheckCancel();
+            //5개의 필터 모두 communityAr배열에 빼기
             $filterBtn.each((i,item)=>{
                 $(item).find("button").removeClass('kJEnf').addClass("fFBpBV");
                 $(item).find(".gRNDCb").hide();
@@ -386,22 +399,29 @@
         }
     })
 
+    //요리버튼 클릭시
     $cook.on("click",function () {
+        // size랑 lastcheck 초기화
         globalThis.size=10;
         lastCheck=false;
+
+        // (체크 되어있지 않은 상황)퍼블리싱 파란색으로 불 들어옴과 동시에 globalThis.communityAr에 COOK을 넣어준다.
         if($(this).find("button").hasClass("fFBpBV")){
             $(this).find("button").removeClass('fFBpBV').addClass("kJEnf");
             $(this).find(".gRNDCb").show();
             globalThis.communityAr.push("COOK");
             show();
+        //    (체크 되어있는 상황)퍼블리싱 복구와 동시에 globalThis.communityAr에 COOK을 빼준다.
         }else{
             $(this).find("button").removeClass('kJEnf').addClass("fFBpBV");
             $(this).find(".gRNDCb").hide()
             globalThis.communityAr = globalThis.communityAr.filter((element) => element !=="COOK");
             show();
         }
+        //클릭하고 나서 불들어와있는 영역이 10개 즉 5개모두 체크되어있다면 전체버튼도 활성화 시켜준다.
         if($filterBtn.find(".kJEnf").length==10){
             allCheck();
+        //클릭하고 나서 불들어와있는 영역이 10개 즉 5개모두 체크되어있지 않다면 전체버튼을 꺼준다.
         }else{
             allCheckCancel();
         }
@@ -495,14 +515,18 @@
         }
     })
 
+    //result.last가 바꿔준, lastcheck가 사용되는 부분
     //무한 스크롤
-
     $(document).ready(function() {
         var win = $(window);
 
         win.scroll(function() {
+            //스크롤이 맨밑이니?
             if ($(document).height() - win.height() == win.scrollTop()) {
+                //lastcheck가 false이니? => 마지막 페이지가 아니니?
+                // 마지막 페이지가 아닐시에만 실행
                 if(!lastCheck){
+                    //10개씩 더보여주기 실행
                     globalThis.size = globalThis.size+10;
                     show();
                 }
@@ -510,6 +534,7 @@
         });
     });
 
+    // AJAX를 통해 기존 document에서 없었던 element를 추가해줬으므로 기존 이벤트들을 모두 위임해주는 상황.
     const $modal = $("#modal-root")
     const $modalCancelBtn = $(".kXWQPc");
     function modalOpen(){
@@ -544,7 +569,11 @@
 
 </script>
 <script>
+    // 좋아요 버튼 활성화
+    // addLike의 매개변수중 communityPostId를 통해 ajax요청
+    // 선언부 영역
     let communityService = (function() {
+        //좋아요
         function addLike(communityPostId, callback, error){
             $.ajax({
                 url: "/like/addLike/"  + communityPostId,
@@ -561,7 +590,7 @@
                 }
             });
         }
-
+        // 좋아요해제
         function minusLike(communityPostId, callback, error){
             $.ajax({
                 url: "/like/minusLike/"  + communityPostId,
@@ -583,17 +612,21 @@
     })();
 </script>
 <script th:inline="javascript">
+    // 좋아요 버튼 클릭시 (이벤트 위임)
     $(".koasSX").on("click", ".ActionGroup__LikeButton-sg91np-1", function(e){
         e.preventDefault();
         const $img = $(this).find("img");
         const $span = $(this).find("span");
         let communityPostId = $(this).attr("href");
 
+        // 로그인이 되어있으면 $("input[name='userId']").val()에 로그인한 유저의 번호가 들어온다.
         if($("input[name='userId']").val()==""){
             alert("로그인 후 이용 가능합니다.");
             return;
         }
 
+        // 로그인이 되어있다면 해당 게시글의 번호를 넘겨줌으로써 좋아요를 활성화 시킨다.
+        // likePlus 클래스명이 빈하트 모양이다. 따라서 빈하트를 클릭했을 시 좋아요를 실행.
         if($img.attr("class").includes("likePlus")){
             communityService.addLike(
                 communityPostId,

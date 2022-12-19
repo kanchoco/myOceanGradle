@@ -1,3 +1,4 @@
+//  손호현, 메인 MainController
 package com.example.myoceanproject.controller.main;
 
 import com.example.myoceanproject.domain.GroupDTO;
