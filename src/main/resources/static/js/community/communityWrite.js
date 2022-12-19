@@ -140,7 +140,6 @@ let communitySave = (function(){
                 if(callback){
                     callback(result);
                 }
-                alert("등록 완료되었습니다.");
                 location.href="/community/index";
             },
             error: function(xhr, status, err)
@@ -163,7 +162,6 @@ let communitySave = (function(){
                 if (callback) {
                     callback(result);
                 }
-                alert("수정 완료되었습니다.");
                 location.href="/community/index";
             },
             error: function(xhr, status, err){
@@ -177,6 +175,20 @@ let communitySave = (function(){
     return {add: add, update: update}
 })();
 
+let checkModal = 0;
+$(".Button-bqxlp0-0.Dialog__StyledButton-sc-16kwpqb-7.kXWQPc.diary").on("click", function(){
+    $("#modal-root-diary").css("display", "none");
+    if(checkModal==1){
+        location.href="/myList/myExchangeDiary";
+    } else if(checkModal==2){
+        location.href = "/myList/myDiary";
+    }
+})
+
+$(".Button-bqxlp0-0.Dialog__StyledButton-sc-16kwpqb-7.kXWQPc.registerCheck").on("click", function(){
+    $("#modal-root-register-error").css("display", "none");
+})
+
 let diarySave = (function(){
     function diaryadd(diaryContents, callback, error){
         $.ajax({
@@ -189,22 +201,29 @@ let diarySave = (function(){
                 if(callback){
                     callback(result);
                 }
+                checkModal=0;
                 if(result=="standby"){
-                    alert("교환일기를 전달할 회원이 없습니다. 다른회원이 교환일기 신청시 확인하실 수 있습니다.");
-                    location.href="/myList/myExchangeDiary";
+                    $(".DialogDelete__Content-p8gubf-0.jZuxbV.diary").text("현재 교환일기를 전달할 회원이 없습니다.\n다른 회원이 교환일기 작성 시 교환 일기를 확인 하실 수 있습니다.");
+                    $("#modal-root-diary").show();
+                    checkModal++;
                 }else if(result=="exchangeDiary"){
-                    alert("신청한 교환일기가 다른 회원과 교환되었습니다.");
-                    location.href="/myList/myExchangeDiary";
+                    checkModal++;
+                    $(".DialogDelete__Content-p8gubf-0.jZuxbV.diary").text("신청한 교환일기가 다른 회원과 교환되었습니다.");
+                    $("#modal-root-diary").show();
                 }else if(result=="MyDiary") {
-                    alert("나의 일기가 작성되었습니다.");
-                    location.href = "/myList/myDiary";
+                    checkModal = checkModal+2;
+                    $(".DialogDelete__Content-p8gubf-0.jZuxbV.diary").text("나의 일기 작성이 완료되었습니다.");
+                    $("#modal-root-diary").show();
                 }else if(result=="duplicate"){
-                    alert("나의 일기는 1번만 작성이 가능합니다.");
+                    $(".DialogDelete__Content-p8gubf-0.jZuxbV.diary").text("나의 일기는 1번만 작성이 가능합니다.");
+                    $("#modal-root-diary").show();
                 }else if(result=="alreadyRegisterToday"){
-                    alert("교환 일기는 하루에 한번만 작성이 가능합니다.");
+                    $(".DialogDelete__Content-p8gubf-0.jZuxbV.diary").text("교환 일기는 하루에 한번만 작성이 가능합니다.");
+                    $("#modal-root-diary").show();
                 }else {
-                    alert("교환 일기 작성이 완료되었습니다. 다른 날짜에 작성한 교환일기 목록은 마이페이지에서 확인이 가능합니다.");
-                    location.href = "/myList/myExchangeDiary";
+                    checkModal++;
+                    $(".DialogDelete__Content-p8gubf-0.jZuxbV.diary").text("교환 일기 작성이 완료되었습니다. 다른 날짜에 작성한 교환일기 목록은 마이페이지에서 확인이 가능합니다.");
+                    $("#modal-root-diary").show();
                 }
             },
             error: function(xhr, status, err)
@@ -220,6 +239,7 @@ let diarySave = (function(){
 
 
 
+
 // 게시글 작성 진행 후 등록 버튼 눌렀을 때
 $(".Button-bqxlp0-0.fFBpBV").on("click", function(e){
     e.preventDefault();
@@ -231,26 +251,30 @@ $(".Button-bqxlp0-0.fFBpBV").on("click", function(e){
 
     // 제목 기재 안했을 때
     if($(".SocialFeedPage__Title-ky5ymg-2.gVPyuz").val()==""){
-        alert("제목을 작성해주세요");
+        $(".DialogDelete__Content-p8gubf-0.jZuxbV.register-error").text("제목을 작성해주세요");
+        $("#modal-root-register-error").show();
         return;
     }
 
     // 글 길이가 너무 길 때
     if($(".note-editable").text().length>10000){
-        alert("글자는 10,000자 이내로 작성 가능합니다.");
+        $(".DialogDelete__Content-p8gubf-0.jZuxbV.register-error").text("글자는 10,000자 이내로 작성 가능합니다.");
+        $("#modal-root-register-error").show();
         return;
     }
 
     // 글 내용이 없을 때
     if($(".note-editable").text()==""){
-        alert("내용을 기재해주세요");
+        $(".DialogDelete__Content-p8gubf-0.jZuxbV.register-error").text("내용을 기재해주세요");
+        $("#modal-root-register-error").show();
         return;
     }
 
     if(category!="일기") {
         // 썸네일 이미지가 없을 때
         if ($("input[name=communityFileName]").val() == "") {
-            alert("썸네일 이미지를 입력해주세요");
+            $(".DialogDelete__Content-p8gubf-0.jZuxbV.register-error").text("썸네일 이미지를 입력해주세요");
+            $("#modal-root-register-error").show();
             return;
         }
     }
@@ -258,8 +282,6 @@ $(".Button-bqxlp0-0.fFBpBV").on("click", function(e){
     // 나의 일기,교환 일기 설정
     let diaryCategory=$(".exchange_filter_1h .label").text();
 
-    console.log("diaryCategory:"+diaryCategory);
-    console.log("category:"+category);
 
     /*작성 내용*/
     /*업데이트 체크*/
@@ -290,7 +312,6 @@ $(".Button-bqxlp0-0.fFBpBV").on("click", function(e){
                 communityFilePath: $("input[name=communityFilePath]").val()
             })
         }else{
-            console.log("category diary trans ajax");
             diarySave.diaryadd({
                 diaryCategory : diaryCategory,
                 diaryContent : $(".note-editable").html(),
@@ -330,11 +351,10 @@ $(".plusThumb").on("change", function(){
             $('input[name=communityFileSize]').attr('value', Object.values(result[0])[14]);
             $('input[name=communityFileUuid]').attr('value', Object.values(result[0])[13]);
             let imageSrc = "/community/display?fileName=" + Object.values(result[0])[11] + "/" + Object.values(result[0])[13] + "_" + Object.values(result[0])[12];
-            console.log(Object.values(result));
-            console.log(imageSrc);
 
             if($('input[name=communityFileSize]').val()>100000){
-                alert("파일 사이즈는 10MB 이하여야합니다.");
+                $(".DialogDelete__Content-p8gubf-0.jZuxbV.register-error").text("파일 사이즈는 10MB 이하여야합니다.");
+                $("#modal-root-register-error").show();
                 return;
             }
 

@@ -144,7 +144,8 @@ $(document).on("click", ".bremOa", function(){
 
 
 //모달
-const $modal = $("#modal-root")
+const $modal = $("#modal-root");
+const $loginModal = $("#modal-root-login");
 const $modalCancelBtn = $(".kXWQPc");
 $(".lbwitP").click(function () {
     $("#modal-root").css("display","block");
@@ -152,12 +153,19 @@ $(".lbwitP").click(function () {
 
 $modalCancelBtn.click(function () {
     $modal.css("display","none");
+    $loginModal.css("display", "none");
 })
 
 function modalOpen(){
     $("#modal-root").css("display","block");
     modalCheck = false;
 }
+
+function loginModalOpen(){
+    $("#modal-root-login").css("display", "block");
+
+}
+
 
 //페이지 소개 모달
 
@@ -439,7 +447,7 @@ $(".view__FeedListWrapper-sc-1fff32g-0").on("click", ".ActionGroup__LikeButton-s
     let communityPostId = $(this).attr("href");
 
     if($("input[name='userId']").val()==""){
-        alert("로그인 후 이용 가능합니다.");
+        $loginModal.show();
         return;
     }
 
@@ -500,9 +508,17 @@ function filteringShowLoginUser(){
 $(".until785px").on("click", function(e){
     e.preventDefault();
     if($("input[name='userId']").val()==""){
-        alert("로그인 후 이용 가능합니다.")
+        $loginModal.show();
         return;
     }
 
     location.href=$(".until785px").attr("href");
 })
+
+
+window.onpageshow = function(event) {
+    if ( event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+        // Back Forward Cache로 브라우저가 로딩될 경우 혹은 브라우저 뒤로가기 했을 경우
+        location.reload();
+    }
+}

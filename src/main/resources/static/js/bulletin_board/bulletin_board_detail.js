@@ -9,10 +9,8 @@ $("article div.LinkAccordion__AccordionContainer-sc-1o112j5-1.cJPEO").on("click"
 
 $("#refundWrap").on("click", function(){
     if($("#refund").attr("class")== "Accordion__Content-sc-1jd6vdl-3 zRWUs"){
-        console.log("열림");
         $("#refund").attr("class", "Accordion__Content-sc-1jd6vdl-3 bJFgwb");
     }else{
-        console.log("닫힘");
         $("#refund").attr("class", "Accordion__Content-sc-1jd6vdl-3 zRWUs");
     }
 })
@@ -26,7 +24,7 @@ $(".joinGroup").on("click", function(){
             type: "post",
             async: false,
             success: function(result, status, xhr) {
-                result == true ? alert("참여 완료되었습니다.") : alert("잔여 포인트가 부족하여 모임 참여가 불가합니다.");
+                result == true ? $("#modal-root-group-join").show() : $("#modal-root-group-no-money").show();
             },
             error: function(xhr, status, err){
                 if(error){
@@ -36,9 +34,16 @@ $(".joinGroup").on("click", function(){
         });
         location.href= "/host/group-list";
     }else{  // 취소 버튼을 눌렀을 때
-        alert("취소 되었습니다.");
+        $(".DialogDelete__Content-p8gubf-0.jZuxbV.confirm").text("취소 되었습니다.");
+        $("#modal-root-group-join").show();
     }
 })
+
+$(".Button-bqxlp0-0.Dialog__StyledButton-sc-16kwpqb-7.kXWQPc").on("click", function(){
+    $("#modal-root-group-no-money").css("display", "none");
+    $("#modal-root-group-join").css("display", "none");
+})
+
 
 /*모임 신청 취소*/
 $(".cancelGroup").on("click", function(){
@@ -48,7 +53,8 @@ $(".cancelGroup").on("click", function(){
             type: "post",
             async: false,
             success: function (result, status, xhr) {
-                alert("모임 참여가 취소되었습니다.");
+                $(".DialogDelete__Content-p8gubf-0.jZuxbV.confirm").text("모임 참여가 취소되었습니다.");
+                $("#modal-root-group-join").show();
             },
             error: function (xhr, status, err) {
                 if (error) {
@@ -68,7 +74,8 @@ function approve(){
         type: "patch",
         async: false,
         success: function(result, status, xhr) {
-            alert("승인되었습니다.");
+            $(".DialogDelete__Content-p8gubf-0.jZuxbV.confirm").text("모임이 승인되었습니다.");
+            $("#modal-root-group-join").show();
         },
         error: function(xhr, status, err){
             if(error){
@@ -82,7 +89,8 @@ function disapprove(){
         url: "/group/"+ "disapprove" + "/" + $(".goUpdate").attr("href"),
         type: "patch",
         success: function(result, status, xhr) {
-            alert("거절되었습니다.");
+            $(".DialogDelete__Content-p8gubf-0.jZuxbV.confirm").text("모임이 거절되었습니다.");
+            $("#modal-root-group-join").show();
         },
         error: function(xhr, status, err){
             if(error){

@@ -107,7 +107,7 @@ let replyService = (function() {
 // 추가
 $(".TextAreaSection__SubmitButton-h0o51s-5.fWXEgN").on("click", function(){
     if($("input[name='myId']").val()==""){
-        alert("로그인 후 이용하실 수 있습니다.");
+        $(".TextAreaSection__SubmitButton-h0o51s-5.fWXEgN").text("로그인 후 댓글 등록이 가능합니다.");
         return;
     }
 
@@ -132,3 +132,11 @@ $(".replyWrap").on("click", "a.deleteReply", function(){
         show();
     });
 });
+
+
+window.onpageshow = function(event) {
+    if ( event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+        // Back Forward Cache로 브라우저가 로딩될 경우 혹은 브라우저 뒤로가기 했을 경우
+        location.reload();
+    }
+}
