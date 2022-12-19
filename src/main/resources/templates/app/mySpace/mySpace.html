@@ -16,13 +16,7 @@
 </style>
 <body class="fontLoaded">
 <header th:replace="/app/fix/header.html :: header"></header>
-<script th:inline="javascript">
-    let userId = [[${session.userId}]];
-    if(!userId){
-        alert("로그인 후 이용가능한 서비스입니다!")
-        location.href="/main/index";
-    }
-</script>
+
 <div id="app">
     <div class="MySpacePage__Wrapper fzBbGO">
         <div class="MySpacePage__Header jIjcTX">
@@ -304,8 +298,36 @@
         </div>
     </div>
 </div>
+<div id="modal-root-login" style="display:none;">
+    <div>
+        <div class="Dialog__Container-sc-16kwpqb-0 htiyxZ">
+            <div class="BodyScrollLockContainer__Container-sc-19uqzq5-0 idpZym Dialog__StyledBodyScrollLockContainer-sc-16kwpqb-1 dCXZYJ">
+                <div class="Dialog__Content-sc-16kwpqb-5 ibqqJA">
+                    <div class="DialogDelete__Content-p8gubf-0 jZuxbV">
+                        <p>로그인 후 이용 가능합니다.</p>
+                    </div>
+                </div>
+                <div class="Dialog__ButtonGroup-sc-16kwpqb-6 bZEORB">
+                    <button width="100%" height="auto" color="black" class="Button-bqxlp0-0 Dialog__StyledButton-sc-16kwpqb-7 kXWQPc">
+                        확인
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <footer th:replace="/app/fix/footer.html :: footer"></footer>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script th:inline="javascript">
+    let userId = [[${session.userId}]];
+    if(!userId){
+        $("#modal-root-login").css("display","block")
+    }
+
+    $(".bZEORB").on("click",function () {
+        location.href="/login/index"
+    })
+</script>
 <script src="/js/fix/header.js"></script>
 <script src="/js/mySpace/mySpace.js"></script>
 <script>
@@ -502,5 +524,6 @@
 
 
 </script>
+
 </body>
 </html>
