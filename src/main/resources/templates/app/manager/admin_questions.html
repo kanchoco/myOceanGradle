@@ -168,8 +168,9 @@
             text += `<td class="info_td">`+ ask.updateDate +`</td>`;
             if(ask.askStatus =='답변완료'){
                 text += `<td class="info_td active">`+ ask.askStatus +`</td>`;
-            }
+            }else{
                 text += `<td class="info_td banned">`+ ask.askStatus +`</td>`;
+            }
             text += `<td class="info_td">`;
             text += `<button class="more" onclick="location.href='/questionBoard/managerAnswer?askId=${ask.askId}'"><img src="/imgin/more.png" width="15px"></button>`;
             text += `</td>`;
