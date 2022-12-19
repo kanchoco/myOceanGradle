@@ -73,8 +73,8 @@
                                     </div>
                                     <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;" th:unless="${communityPostDTO.communityCategory.toString().equals('고민')}">
                                         <!--댓글 작성자 이미지-->
-                                        <img th:if="*{userFileName}" th:src="@{/mypage/display(fileName=${communityPostDTO.userFilePath} + '/' + ${communityPostDTO.userFileUuid} + '_' + ${communityPostDTO.userFileName})}" alt="profile-image" class="Image__StyledImage-v97gyx-1 VUNpu" width="45" height="45">
-                                        <img th:unless="*{userFileName}" th:src="@{/imgin/user.png}" alt="profile-image" class="Image__StyledImage-v97gyx-1 VUNpu" width="45" height="45">
+                                        <img th:if="${userDTO.userFileName}" th:src="@{/mypage/display(fileName=${userDTO.userFilePath} + '/' + ${userDTO.userFileUuid} + '_' + ${userDTO.userFileName})}" alt="profile-image" class="Image__StyledImage-v97gyx-1 VUNpu" width="45" height="45">
+                                        <img th:unless="${userDTO.userFileName}" th:src="@{/imgin/user.png}" alt="profile-image" class="Image__StyledImage-v97gyx-1 VUNpu" width="45" height="45">
                                     </div>
                                 </div>
                             </div>

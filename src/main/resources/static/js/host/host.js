@@ -305,7 +305,7 @@ function closeModal(){
 // 진행 장소 추가 버튼 클릭 -> 모달창 열기
 function findPlace(){
     if($("input[name='groupName']").val()=="" || $("input[name='groupCategory']").val()==""){
-        alert("모임명과 카테고리를 먼저 입력해주세요.");
+        $(".siteMessage").text("모임명과 카테고리를 먼저 입력해주세요.");
         return;
     }
     $('#__BVID__287___BV_modal_outer_').show();
@@ -318,19 +318,20 @@ function findPlace(){
 // 장소 추가 유효성 검사
 $(".createPlace.btn.frip-button.btn-frip-primary.btn-tab").on("click", function(){
     if($("input[name='locationName']").val()==""){
-        alert("장소명을 입력해주세요.");
+        $(".mx-2.alertMessage").text("장소명을 입력해주세요.");
+
         $("input[name='locationName']").focus();
         return;
     }
 
     if($("input[id='placeAddress']").val()==""){
-        alert("주소를 입력해주세요.");
+        $(".mx-2.alertMessage").text("주소를 입력해주세요.");
         $("input[id='placeAddress']").focus();
         return;
     }
 
     if($("input[id='locationDetail']").val()==""){
-        alert("상세 주소를 입력해주세요.");
+        $(".mx-2.alertMessage").text("상세 주소를 입력해주세요.");
         $("input[id='placeAddress']").focus();
         return;
     }
@@ -416,7 +417,6 @@ function addSchedule() {
 
     $(".table").on("click", ".day-btn", function(){
         if($(this).parent().parent().next().children().text()){
-            // alert($(".mx-3.dateTitle").text() + $(this).parent().next().text() + " " +  $(this).parent().parent().next().children().text().trim() + "에 진행 예정인 모임 일정을 삭제합니다.");
             let scheduleDate = $(this).attr("data-date");
             let groupId = $('input[name=groupId]').val();
             // 삭제
@@ -444,9 +444,6 @@ function addSchedule() {
             presentDate = presentDate.getFullYear() + "-" + (presentDate.getMonth()+1) + "-" + presentDate.getDate() + " 00:00:00";
             let presentDateTypeChange = new Date(presentDate).getTime();
 
-            console.log(presentDateTypeChange);
-            console.log(checkDate.getTime());
-            console.log(presentDateTypeChange - checkDate.getTime());
             if(presentDateTypeChange - checkDate.getTime()+1 >0){
                 $("p.alertMsg").text("오늘 또는 지난 날짜는 선택하실 수 없습니다.");
                 $("p.alertMsg").css("display", "block");
@@ -614,7 +611,7 @@ $(".plusThumb").on("change", function(){
             let imageSrc = "/host/display?fileName=" + Object.values(result[0])[19] + "/" + Object.values(result[0])[21] + "_" + Object.values(result[0])[20];
 
             if($('input[name=groupFileSize]').val()>100000){
-                alert("파일 사이즈는 10MB 이하여야합니다.");
+                $(".thumbMsg").text("파일 사이즈는 10MB 이하여야 합니다.");
                 return;
             }
 
@@ -655,6 +652,58 @@ $('.removeImg').on('click', function(){
 
 //검수 요청 버튼
 $('.fixed-bottom .frip-button').on('click', function(){
+
+    if($('.image-header').css('display') == 'none'){
+        $(".mx-2.alertMessage").text('이미지를 등록해주세요');
+        $('#__BVID__287___BV_modal_outer_').hide();
+        return;
+    }
+
+    if($("input[name='groupPoint']")>10000 || !$("input[name='groupPoint']")){
+        $(".mx-2.alertMessage").text("금액을 10,000원 이하로 기재해주세요.");
+        $("input[name='groupPoint']").focus();
+        return;
+    }
+
+    if($('input[name=groupContent]').val() === ''){
+        $(".mx-2.alertMessage").text('모임 설명을 확인해주세요');
+        $('#__BVID__287___BV_modal_outer_').hide();
+        return;
+    }
+
+    if($('.cancelRecruitment').css('display') == 'none'){
+        $(".mx-2.alertMessage").text('좌측 저장버튼을 먼저 눌러주세요');
+        $('#__BVID__287___BV_modal_outer_').hide();
+        return;
+    }
+
+
+    if($('.number1').val() == '' || $('.number2').val() == '' || $('.recruitment').next().css('display') != 'none'){
+        $(".mx-2.alertMessage").text('모집인원 항목을 확인해주세요');
+        $('#__BVID__287___BV_modal_outer_').hide();
+        return;
+    }
+
+    if(!$('.selectBox.mx-2.selected').attr('data-type')){
+        $(".mx-2.alertMessage").text('모임 유형을 선택해주세요');
+        $('#__BVID__287___BV_modal_outer_').hide();
+        return;
+    }
+
+    //장소등록 안되있으면 return
+    if($('.selectBox.mx-2.selected').attr('data-type') == 'offline'){
+        if($('.my-2.placeTable').css('display')=='none'){
+            $(".mx-2.alertMessage").text("장소를 등록해주세요.");
+            return;
+        }
+    }
+
+    //스케줄 등록이 안되어있으면 return
+    if(data.length == 0){
+        $(".mx-2.alertMessage").text("일정을 하루 이상 등록해주세요.");
+        return;
+    }
+
     $('#__BVID__287___BV_modal_outer_').show();
     $('#__BVID__287___BV_modal_content_').hide();
     $('#__BVID__21___BV_modal_content_').show();
@@ -667,62 +716,6 @@ $('.checkRequest').on('click', function (){
 
     $('#__BVID__287___BV_modal_outer_').hide();
 
-    if($('.image-header').css('display') == 'none'){
-        alert('이미지를 등록해주세요');
-        $('#__BVID__287___BV_modal_outer_').hide();
-        return;
-    }
-
-    if($("input[name='groupPoint']")>10000 || !$("input[name='groupPoint']")){
-        alert("금액을 10,000원 이하로 기재해주세요.");
-        $("input[name='groupPoint']").focus();
-        return;
-    }
-
-    if($('input[name=groupContent]').val() === ''){
-        alert('모임 설명을 확인해주세요');
-        $('#__BVID__287___BV_modal_outer_').hide();
-        return;
-    }
-
-    if($('.cancelRecruitment').css('display') == 'none'){
-        alert('좌측 저장버튼을 먼저 눌러주세요');
-        $('#__BVID__287___BV_modal_outer_').hide();
-        return;
-    }
-
-    // if($('input[type=text].form-control').get(0).value == '' || $('input[type=text].form-control').get(1).value == '' || $('input[type=text].form-control').get(2).value == ''){
-    //     alert('필수입력 항목을 확인해주세요');
-    //     $('#__BVID__287___BV_modal_outer_').hide();
-    //     return;
-    // }
-
-    if($('.number1').val() == '' || $('.number2').val() == '' || $('.recruitment').next().css('display') != 'none'){
-        alert('모집인원 항목을 확인해주세요');
-        $('#__BVID__287___BV_modal_outer_').hide();
-        return;
-    }
-
-    if(!$('.selectBox.mx-2.selected').attr('data-type')){
-        alert('모임 유형을 선택해주세요');
-        $('#__BVID__287___BV_modal_outer_').hide();
-        return;
-    }
-
-    //장소등록 안되있으면 return
-    if($('.selectBox.mx-2.selected').attr('data-type') == 'offline'){
-        if($('.my-2.placeTable').css('display')=='none'){
-            alert("장소를 등록해주세요.");
-            return;
-        }
-    }
-
-    //스케줄 등록이 안되어있으면 return
-    if(data.length == 0){
-        alert("일정을 하루 이상 등록해주세요.");
-        return;
-    }
-
 //  모임 멤버 테이블 생성
     let groupId = $('input[name=groupId]').val();
     $.ajax({
@@ -730,7 +723,7 @@ $('.checkRequest').on('click', function (){
         type: "post",
         async: false,
         success: function(result, status, xhr) {
-            result == true? alert('검수 요청이 완료되었습니다') : alert("잔여 포인트가 부족하여 모임 등록이 불가합니다.");
+            result == true? console.log('검수 요청이 완료되었습니다') : $(".mx-2.alertMessage").text("잔여 포인트가 부족하여 모임 등록이 불가합니다.");
         },
         error: function(xhr, status, err){
             if(error){
@@ -865,6 +858,14 @@ $(".goDelete").on("click", function(e){
 //임시 저장 버튼
 $('.saveRecruitment').on('click', function (){
 
+    // 작성 내용 유효성검사
+    if($(".note-editable").text().length>10000 || $(".note-editable").text().length==0){
+        $(".mx-2.alertMessage").text("글자는 1자 이상, 10,000자 이내로 작성 가능합니다.");
+        return;
+    }
+    //스케줄 등록이 안되어있으면 return
+    $(".mx-2.alertMessage").text("임시 저장 완료되었습니다.");
+
     // 일정 추가 버튼 생성
     $(".btn.frip-button.btn-outline-frip-primary").eq(1).show();
     $('.cancelRecruitment').show();
@@ -873,7 +874,6 @@ $('.saveRecruitment').on('click', function (){
     $('#__BVID__21___BV_modal_content_').hide();
     $('#__BVID__1216___BV_modal_content_').hide();
     $('#__BVID__123___BV_modal_content_').show();
-
 });
 
 /*그룹 아이디값 지정*/
@@ -883,8 +883,6 @@ $('input[name=groupId]').attr('value', $("#__BVID__579 .text-sm").text());
 $('.saveRequest').on('click', function (e){
     e.preventDefault();
     $('#__BVID__287___BV_modal_outer_').hide();
-
-    /*추가 유효성검사 필요하면 여기에 기재*/
 
     //groupLocationType 설정
     if($(".selected .p-3 div")[0].innerText == "오프라인"){
@@ -918,10 +916,7 @@ $('.saveRequest').on('click', function (e){
     let content = $(".note-editable").html();
     $('input[name=groupContent]').attr('value', content);
 
-    if($(".note-editable").text().length>10000){
-        alert("글자는 10,000자 이내로 작성 가능합니다.");
-        return;
-    }
+
 
     if($('input[name=groupId]').val()=="신규등록"){
         // 컨트롤러로 해당 내용 모두 전송
