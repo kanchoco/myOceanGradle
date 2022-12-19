@@ -159,16 +159,17 @@ public class QuestionBoardRestController {
     }
 
     @GetMapping("/myQuestion/{page}/{keyword}")
-    public AskDTO getMyQuestion(@PathVariable int page, @PathVariable(required = false) String keyword){
+    public AskDTO getMyQuestion(@PathVariable int page, @PathVariable(required = false) String keyword,HttpServletRequest request){
         String decodeKeyword = URLDecoder.decode(keyword, StandardCharsets.UTF_8);
 
+        HttpSession session=request.getSession();
         Criteria criteria = new Criteria();
         criteria.setPage(page);
         criteria.setKeyword(decodeKeyword);
         //        0부터 시작,
         Pageable pageable = PageRequest.of(criteria.getPage() == 0 ? 0 : criteria.getPage()-1, 10);
 
-        Page<AskDTO> askDTOPage= askService.showAllQuestion(pageable, criteria);
+        Page<AskDTO> askDTOPage= askService.showAllMyAsk(pageable, criteria,(Long)session.getAttribute("userId"));
 
         log.info(askDTOPage.getTotalPages()+"end");
 
