@@ -37,6 +37,7 @@ public class HostController {
     // 게시글 목록
     @GetMapping("/group-list")
     public String list(Model model){
+        // group에 포함된 모든 게시글들의 정보를 model객체에 담아줌
         model.addAttribute("groupDTOs", groupService.show());
         return "app/bulletin_board/bulletin_board";
     }
@@ -55,33 +56,42 @@ public class HostController {
         HttpSession session= request.getSession();
         Long userId = (Long) session.getAttribute("userId");
 
+        // 해당 게시글의 groupDTO 정보
         model.addAttribute("groupDTO", groupService.find(groupId));
+        // 모임 게시글 중 최신 5개 정보
         model2.addAttribute("groupTop5DTOs", groupService.findTop5BygroupId(groupId));
+        // 모임 스케줄 정보
         model3.addAttribute("groupScheduleDTO", groupService.findAllByGroupId(groupId));
+        // 현재 시간 정보
         model4.addAttribute("localDateTime", LocalDateTime.now());
+        // 해당 게시글의 모임에 속한 회원인지 확인 정보
         if(userId != null){
             model5.addAttribute("groupUserCheck", groupService.findGroupUser(userId, groupId));
         } else{
             model5 = null;
         }
-
+        // 해당 모임에 속한 멤버의 수
         model6.addAttribute("groupJoinMember", groupService.countGroupMember(groupId));
 
-
+        // 모든 정보를 모임 상세 게시글로 가져감
         return "app/bulletin_board/bulletin_board_detail";
     }
 
     // 게시글 수정하기
     @GetMapping("update")
     public String update(Long groupId, Model model){
+        // 그룹 ID를 통해 group 정보를 모델객체에 저장
         model.addAttribute("groupDTO", groupService.find(groupId));
+        // 해당 정보를 게시글 작성(수정) 화면으로 이동
         return "app/host/host";
     }
 
     // 게시글 삭제하기
     @GetMapping("/deleteGroup")
     public RedirectView delete(Long groupId){
+        // 그룹ID를 통해 해당 그룹을 삭제
         groupService.delete(groupId);
+        // 삭제 후 모임 전체 페이지로 이동
         return new RedirectView("/host/group-list");
     }
 }
