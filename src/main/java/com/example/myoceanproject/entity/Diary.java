@@ -23,6 +23,7 @@ public class Diary extends Period{
     @NotNull
     private String diaryTitle;
     @NotNull
+    @Column(length=10000)
     private String diaryContent;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
