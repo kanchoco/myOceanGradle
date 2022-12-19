@@ -78,7 +78,8 @@
       text += `<div class="list_title">`+ group.groupName +`</div>`;
       text += statusText;
       text += `<div class="list_date">`+ group.createDate +`</div>`;
-      text += `</div></li></ul>`;
+      text += `</div><input type="hidden" name="requestAsk" value="`+ group.groupId+`">`;
+      text += `</li></ul>`;
       statusText='';
     });
 
