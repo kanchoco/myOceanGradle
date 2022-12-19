@@ -24,6 +24,11 @@ function checkWidth(){
     }
 }
 
+$(".content").on("click","div.my_list",function(){
+    var askData=$(this).next().val();
+    location.href="/host/read?groupId="+askData;
+});
+
 let groupService = (function(){
     function getList(param, callback, error){
         $.ajax({

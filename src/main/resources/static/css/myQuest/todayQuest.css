@@ -169,7 +169,7 @@ button:disabled {
 }
 
 .jVxRns {
-    transform: rotate(0deg);
+    transform: rotate(180deg);
 }
 
 .iItkLq {
@@ -179,7 +179,7 @@ button:disabled {
     padding: 0px;
     background-color: white;
     text-align: center;
-    cursor: not-allowed;
+    /*cursor: not-allowed;*/
     border-radius: 50%;
     font-size: 18px;
     display: flex;
@@ -191,7 +191,7 @@ button:disabled {
 }
 
 .RPlDq {
-    width: 40px;
+    width: 19.77px;
     height: 40px;
     line-height: normal;
     padding: 0px;
@@ -200,7 +200,7 @@ button:disabled {
     cursor: pointer;
     border-radius: 50%;
     color: rgb(51, 151, 255);
-    /*font-size: 18px;*/
+    /* font-size: 18px; */
     font-weight: bold;
     display: flex;
     -webkit-box-pack: center;
