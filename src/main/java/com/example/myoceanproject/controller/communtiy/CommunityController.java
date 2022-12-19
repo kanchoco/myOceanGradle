@@ -36,23 +36,29 @@ public class CommunityController {
     @GetMapping("/read")
     public String communityDetail(Long communityPostId, Model model, HttpServletRequest request){
         CommunityPostDTO communityPostDTO = new CommunityPostDTO();
+        // communityPostId를 통해 해당하는 정보를 communityPostDTO로 받아옴
         communityPostDTO = communityPostService.find(communityPostId);
+        // 세션에 담긴 아이디값을 받아옴
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute("userId");
+        // 만약 아이디값이 있다면(로그인한 상태라면) 각 커뮤니티 게시글에 로그인한 유저가 좋아요를 눌렀는지 체크
         if(userId != null){
             communityPostDTO.setCheckLike(communityLikeRepositoryImpl.findByCommunityPostAndUser(userId,communityPostDTO.getCommunityPostId()));
         }
+        // 각 게시글에 댓글이 몇 개 달렸는지 체크
         communityPostDTO.setCommunityReplyCount(communityReplyRepositoryImpl.countReplyByCommunityPost(communityPostDTO.getCommunityPostId()));
-
+        // model객체에 communityPostDTO 값을 담는다.
         model.addAttribute("communityPostDTO", communityPostDTO);
-
+        // 게시글 세부페이지에서 사용하기 위해 return
         return "app/community/detail";
     }
 
     // 게시글 수정하기
     @GetMapping("update")
     public String update(Long communityPostId, Model model){
+        // model 객체에 communityPostId를 통해 communityPostDTO에 communityPost값을 받아옴
         model.addAttribute("communityPostDTO", communityPostService.find(communityPostId));
+        // 게시글 등록 페이지로 model객체를 받아옴
         return "app/community/community_register";
     }
 
@@ -68,17 +74,15 @@ public class CommunityController {
     @GetMapping("/deleteBoard")
     @Transactional
     public RedirectView delete(Long communityPostId){
-//        communityPostService.delete(communityPostId);
+        // community 아이디를 통해 작성 게시글 정보를 불러와 삭제
         communityPostService.remove(communityPostId);
+        // 삭제 후 커뮤니티 메인 페이지로 이동
         return new RedirectView("/community/index");
     }
-
-    /* 고민상담 게시판 */
-    @GetMapping("/anonymous")
-    public String anonymous(){ return "app/anonymous/anonymous"; }
-
+    
     /* 모임 목록 */
     @GetMapping("/bulletin")
+    // 모임 메인 페이지로 이동
     public String bulletin(){ return "app/bulletin_board/bulletin_board"; }
 
 }

@@ -25,7 +25,9 @@ public class CommunityReplyController {
 //  댓글 목록 출력
     @GetMapping("/index")
     public String getReply(Long communityPostId, Model model){
+        // communityPostId를 통해 해당 ID에 속한 정보를 communityPostDTO를 받아 model 객체에 담아줌
         model.addAttribute("communityPostDTO", communityPostService.find(communityPostId));
+        // 각 게시글의 댓글 페이지로 communityPostDTO 정보 전달
         return "app/community/community_comment";
     }
 

@@ -32,13 +32,18 @@ $(document).ready(function(){
 
 $textarea.keyup(function (e) {
     let content = $(this).val();
-    if(content.length==0 || content==''){
+    if(content.length==0 || $(".iHQYSd").val()==''){
         $registerBtn.css("cursor","not-allowed");
         $registerBtn.prop("disabled", true);
     }else{
         $registerBtn.css("cursor","pointer");
         $registerBtn.prop("disabled", false);
     }
+})
+
+$registerBtn.on("click", function(){
+    $registerBtn.css("cursor","not-allowed");
+    $registerBtn.prop("disabled", true);
 })
 
 
