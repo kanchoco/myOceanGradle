@@ -33,6 +33,8 @@ public class CommunityReplyDTO {
 
     private CommunityCategory communityCategory;
 
+    private Long writerId;
+
     private Long communityReplyId;
     private String communityReplyContent;
 
@@ -46,7 +48,7 @@ public class CommunityReplyDTO {
 
 
     @QueryProjection
-    public CommunityReplyDTO(Long userId, String userNickName, String userFileName, String userFilePath, Long userFileSize, String userFileUuid, Long communityPostId, String communityPostTitle, Long communityReplyId ,String communityReplyContent, LocalDateTime createDate, LocalDateTime updatedDate) {
+    public CommunityReplyDTO(Long userId, String userNickName, String userFileName, String userFilePath, Long userFileSize, String userFileUuid, Long communityPostId, String communityPostTitle, Long communityReplyId ,String communityReplyContent, LocalDateTime createDate, LocalDateTime updatedDate, Long writerId) {
         this.userId = userId;
         this.userNickName = userNickName;
         this.userFileName = userFileName;
@@ -59,6 +61,7 @@ public class CommunityReplyDTO {
         this.communityReplyContent = communityReplyContent;
         this.createDate = createDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         this.updatedDate = updatedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.writerId = writerId;
     }
     @QueryProjection
     public CommunityReplyDTO(Long userId, String userNickName, String userFileName, String userFilePath, Long userFileSize, String userFileUuid, Long communityPostId, String communityPostTitle, Long communityReplyId ,String communityReplyContent, LocalDateTime createDate, LocalDateTime updatedDate, CommunityCategory communityCategory) {

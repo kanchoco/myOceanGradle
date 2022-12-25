@@ -9,6 +9,7 @@ import com.example.myoceanproject.repository.UserRepository;
 import com.example.myoceanproject.repository.UserRepositoryImpl;
 import com.example.myoceanproject.repository.alarm.AlarmRepository;
 import com.example.myoceanproject.repository.alarm.AlarmRepositoryImpl;
+import com.example.myoceanproject.repository.community.post.CommunityPostRepository;
 import com.example.myoceanproject.type.AlarmCategory;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +46,8 @@ public class AlarmService {
             }
         }
     }
+
+
 
     public Page<AlarmDTO> showAlarm(Pageable pageable, Long userId){
         return alarmRepositoryImpl.findAllByUserId(pageable, userId);

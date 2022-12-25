@@ -110,7 +110,9 @@ $(".TextAreaSection__SubmitButton-h0o51s-5.fWXEgN").on("click", function(){
     replyService.add({
         communityReplyContent: $(".TextAreaSection__Textarea-h0o51s-4.iHQYSd").val(),
         communityPostId: $("input[name='communityPostId']").val(),
-        userId: $("input[name='myId']").val()
+        communityPostTitle : postTitle,
+        userId: $("input[name='myId']").val(),
+        writerId : postUserId
     }, function(){
         $(".TextAreaSection__Textarea-h0o51s-4.iHQYSd").val('');
         show();

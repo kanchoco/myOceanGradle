@@ -1,5 +1,6 @@
 package com.example.myoceanproject.service.community;
 
+import com.example.myoceanproject.aspect.annotation.ReplyAlarm;
 import com.example.myoceanproject.domain.CommunityReplyDTO;
 import com.example.myoceanproject.domain.Criteria;
 import com.example.myoceanproject.entity.CommunityReply;
@@ -50,6 +51,7 @@ public class CommunityReplyService {
     }
 
 //    댓글 등록
+    @ReplyAlarm
     @Transactional(rollbackFor = Exception.class)
     public void add(CommunityReplyDTO communityReplyDTO) {
         CommunityReply communityReply = communityReplyDTO.toEntity();
