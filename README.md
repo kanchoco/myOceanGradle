@@ -27,3 +27,21 @@
 
 <h2>프로젝트 사용 툴</h2>
 <img width="1160" alt="스크린샷 2022-12-27 오전 12 23 33" src="https://user-images.githubusercontent.com/109493547/209563338-9ff5b39c-c0f9-48c3-abc3-a120a49e286f.png">
+
+<h2>담당 업무</h2>
+<table style="width:100%">
+  <th>Front-End</th>
+  <th>Back-End</th>
+  <tr>
+    <td>나만의 공간</td>
+    <td>관리자 페이지</td>
+  </tr>
+  <tr>
+    <td>모임 작성 페이지</td>
+    <td>알림</td>
+  </tr>
+  <tr>
+    <td> - </td>
+    <td>퀘스트</td>
+  </tr>
+</table>
