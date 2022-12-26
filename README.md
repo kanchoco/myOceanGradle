@@ -1,4 +1,4 @@
-<h1>나의 바다</h1>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=random&height=200&section=header&text=나의%20바다&fontSize=90" />
 <h2>우울증 치료 커뮤니티 프로젝트 - '나의 바다'</h2>
 <div>
   나의 바다는 줄어든 소통을 개선하고 만남의 창구를 마련해주는
